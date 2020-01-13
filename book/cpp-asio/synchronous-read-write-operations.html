@@ -149,95 +149,95 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#operações-síncronas-es" id="operações-síncronas-es">Operações síncronas E/S</a></h1>
-<p>Once the connection is established, the client and server can communicate with each other. Like classical <code>UNIX</code> socket programming, <code>boost::asio</code> also provides <code>send</code> and <code>receive</code> functions. Use <code>basic_stream_socket</code> as an example and one pair of the implementations is like this:</p>
-<pre><code>template &lt;typename ConstBufferSequence&gt;
-std::size_t send(const ConstBufferSequence&amp; buffers)
-{
+<p>Depois que a conexão é estabelecida, o cliente e o servidor podem se comunicar. Como na API de soquetes do <code>UNIX</code>, o <code>boost::asio</code> também fornece as funções <code>send</code> e<code> receive</code> Use <code>basic_stream_socket</code> como exemplo e um par de implementações assim:</p>
+<pre><code class="language-cpp">	template &lt;typename ConstBufferSequence&gt;
+  	std::size_t send(const ConstBufferSequence&amp; buffers)
+	{
+		......
+	}
 	......
-}
-......
-template &lt;typename MutableBufferSequence&gt;
-std::size_t receive(const MutableBufferSequence&amp; buffers)
-{
-	......
-}
+	template &lt;typename MutableBufferSequence&gt;
+  	std::size_t receive(const MutableBufferSequence&amp; buffers)
+	{
+		......
+	}
 </code></pre>
-<p>Please notice the buffer types of <code>send/receive</code> are <code>ConstBufferSequence/MutableBufferSequence</code>, and we can use <code>boost::asio::buffer</code> function to construct related types.</p>
-<p>Below is a simple client program which sends &quot;<code>Hello world!</code>&quot; to server after connection is established:</p>
-<pre><code>#include &lt;boost/asio.hpp&gt;
-#include &lt;iostream&gt;
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-
-        boost::asio::ip::tcp::endpoint endpoint{
-                boost::asio::ip::make_address(&quot;10.217.242.61&quot;),
-                3303};
-        boost::asio::ip::tcp::tcp::socket socket{io_context};
-        socket.connect(endpoint);
-
-        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
-
-        socket.send(boost::asio::buffer(&quot;Hello world!&quot;));
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-        return -1;
-    }
-
-    return 0;
-}
+<p>Observe que os tipos de buffer de <code>send/receive</code> são <code>ConstBufferSequence/MutableBufferSequence</code>, e podemos usar a função <code>boost::asio::buffer</code> para construir tipos relacionados.</p>
+<p>Abaixo está um programa cliente que envia &quot;<code>Hello world!</code>&quot; Para o servidor após o estabelecimento da conexão:</p>
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::endpoint endpoint{
+	                boost::asio::ip::make_address(&quot;10.217.242.61&quot;),
+	                3303};
+	        boost::asio::ip::tcp::tcp::socket socket{io_context};
+	        socket.connect(endpoint);
+	
+	        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+	
+	        socket.send(boost::asio::buffer(&quot;Hello world!&quot;));
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
-<p>There is the server program which waits receiving greeting from client:</p>
-<pre><code>#include &lt;boost/asio.hpp&gt;
-#include &lt;iostream&gt;
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-        boost::asio::ip::tcp::acceptor acceptor{
-                io_context,
-                boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v4(), 3303}};
-
-        while (1)
-        {
-            boost::asio::ip::tcp::socket socket{io_context};
-            acceptor.accept(socket);
-
-            std::cout &lt;&lt; socket.remote_endpoint() &lt;&lt; &quot; connects to &quot; &lt;&lt; socket.local_endpoint() &lt;&lt; '\n';
-
-            char recv_str[1024] = {};
-            socket.receive(boost::asio::buffer(recv_str));
-
-            std::cout &lt;&lt; &quot;Receive string: &quot; &lt;&lt; recv_str &lt;&lt; '\n';
-        }
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-        return -1;
-    }
-
-    return 0;
-} 
+<p>O programa servidor que aguarda o recebimento da saudação do cliente:</p>
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	        boost::asio::ip::tcp::acceptor acceptor{
+	                io_context,
+	                boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v4(), 3303}};
+	
+	        while (1)
+	        {
+	            boost::asio::ip::tcp::socket socket{io_context};
+	            acceptor.accept(socket);
+	
+	            std::cout &lt;&lt; socket.remote_endpoint() &lt;&lt; &quot; connects to &quot; &lt;&lt; socket.local_endpoint() &lt;&lt; '\n';
+	
+	            char recv_str[1024] = {};
+	            socket.receive(boost::asio::buffer(recv_str));
+	
+	            std::cout &lt;&lt; &quot;Receive string: &quot; &lt;&lt; recv_str &lt;&lt; '\n';
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
-<p>Build and run programs. Client outputs following:</p>
+<p>Compile e execute os programas. O cliente exibirá o seguinte:</p>
 <pre><code>$ ./client
 Connect to 10.217.242.61:3303 successfully!
 </code></pre>
-<p>Server outputs following:</p>
+<p>Servidor exibirá  seguinte:</p>
 <pre><code>$ ./server
 10.217.242.21:64776 connects to 10.217.242.61:3303
 Receive string: Hello world!
 </code></pre>
-<p>If no error occurs, <code>send</code> can guarantee at least one byte is sent successfully, and you should check the return value to see whether all bytes are sent successfully or not. <code>receive</code> is similar as <code>send</code>. <code>boost::asio::basic_stream_socket</code> also provides <code>read_some</code> and <code>write_some</code> which have the same functions as <code>receive</code> and <code>send</code>.</p>
-<p>If we don't bother to check the middle state (partial bytes are sent successfully), and only care whether all bytes are sent successfully or not, we can use <code>boost::asio::write</code> which actually uses <code>wrtie_some</code> under the hood.  Correspondingly, it is not hard to guess what <code>boost::asio::read</code>does.</p>
+<p>Se nenhum erro ocorrer, o <code>send</code> pode garantir que pelo menos um byte seja enviado com sucesso, e você deve verificar o valor de retorno para ver se todos os bytes foram enviados com sucesso ou não. <code>receive</code> é semelhante a <code>send</code>. O <code>boost::asio::basic_stream_socket</code> também fornece<code> read_some</code> e <code>write_some</code>, que têm as mesmas funções que <code>receive</code> e <code>send</code>.</p>
+<p>Se não nos preocuparmos em verificar o estado do meio (bytes parciais são enviados com sucesso), e apenas nos importarmos se todos os bytes serão enviados com sucesso ou não, podemos usar o <code>boost::asio::write</code> que usa o <code>write_some</code> por baixo. Da mesma forma, não é difícil adivinhar o que <code>boost::asio::read</code> faz.</p>
 
                     </main>
 

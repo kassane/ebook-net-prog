@@ -148,36 +148,37 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#dns-query" id="dns-query">DNS query</a></h1>
-<p>The <code>resolver</code> class is used to do <code>DNS</code> query, i.e., convert a host+service to <code>IP</code>+port. Take <code>boost::asio::ip::tcp::resolver</code> as an example:</p>
-<pre><code>#include &lt;boost/asio.hpp&gt;
-#include &lt;iostream&gt;
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-
-        boost::asio::ip::tcp::resolver resolver{io_context};
-        boost::asio::ip::tcp::resolver::results_type endpoints =
-                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
-
-        for (auto it = endpoints.cbegin(); it != endpoints.cend(); it++)
-        {
-            boost::asio::ip::tcp::endpoint endpoint = *it;
-            std::cout &lt;&lt; endpoint &lt;&lt; '\n';
-        }
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-    }
-
-    return 0;
-}
+                        <h1><a class="header" href="#consultar-dns-dns-query" id="consultar-dns-dns-query">Consultar DNS (DNS Query)</a></h1>
+<p>A classe <code>resolver</code> é usada para fazer consultas <a href="https://pt.wikipedia.org/wiki/Sistema_de_Nomes_de_Dom%C3%ADnio"><code>DNS</code></a>, ou seja, converter um serviço host + em <code>IP</code> + porta. Veja <code>boost::asio::ip::tcp::resolver</code> no exemplo abaixo:</p>
+<pre><code class="language-cpp">
+	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::resolver resolver{io_context};
+	        boost::asio::ip::tcp::resolver::results_type endpoints =
+	                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
+	
+	        for (auto it = endpoints.cbegin(); it != endpoints.cend(); it++)
+	        {
+	            boost::asio::ip::tcp::endpoint endpoint = *it;
+	            std::cout &lt;&lt; endpoint &lt;&lt; '\n';
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	    }
+	
+	    return 0;
+	}
 </code></pre>
-<p>The running result is:</p>
+<p>O resultado da execução será:</p>
 <ol start="74">
 <li>125.24.101:443
 74.125.24.139:443
@@ -186,28 +187,28 @@ int main()
 74.125.24.100:443
 74.125.24.113:443</li>
 </ol>
-<p>The element of <code>boost::asio::ip::tcp::resolver::results_type</code>'s every iteration is <code>basic_resolver_entry</code>:</p>
-<pre><code>template &lt;typename InternetProtocol&gt;
-class basic_resolver_entry
-{
-......
-public:
-  /// The protocol type associated with the endpoint entry.
-  typedef InternetProtocol protocol_type;
-
-  /// The endpoint type associated with the endpoint entry.
-  typedef typename InternetProtocol::endpoint endpoint_type;
-......
-  /// Convert to the endpoint associated with the entry.
-  operator endpoint_type() const
-  {
-    return endpoint_;
-  }
-......
-}
+<p>O elemento <code>boost::asio::ip::tcp::resolver::results_type</code> é o iterador de <code>basic_resolver_entry</code>: </p>
+<pre><code class="language-cpp">	template &lt;typename InternetProtocol&gt;
+	class basic_resolver_entry
+	{
+	......
+	public:
+	  /// The protocol type associated with the endpoint entry.
+	  typedef InternetProtocol protocol_type;
+	
+	  /// The endpoint type associated with the endpoint entry.
+	  typedef typename InternetProtocol::endpoint endpoint_type;
+	......
+	  /// Convert to the endpoint associated with the entry.
+	  operator endpoint_type() const
+	  {
+	    return endpoint_;
+	  }
+	......
+	}
 </code></pre>
-<p>Since it has <code>endpoint_type() </code> operator, it can be converted to endpoint directly:</p>
-<pre><code>boost::asio::ip::tcp::endpoint endpoint = *it;
+<p>Como ele possui o operador <code>endpoint_type()</code>, ele pode ser convertido diretamente no endpoint:</p>
+<pre><code class="language-cpp">	boost::asio::ip::tcp::endpoint endpoint = *it;
 </code></pre>
 
                     </main>

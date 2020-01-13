@@ -334,59 +334,67 @@ Este soquete combina fluxo e datagrama: fornece um serviço de datagramas com co
 	    ......
 	  }
 </code></pre>
-<h1><a class="header" href="#endpoint" id="endpoint">Endpoint</a></h1>
-<p>Endpoint is composed of &quot;<code>IP</code> address + port&quot;:</p>
-<pre><code>basic_endpoint(const boost::asio::ip::address&amp; addr, unsigned short port_num)
-    : impl_(addr, port_num)
-{
-}
+<h1><a class="header" href="#endpoint-ponto-de-extremidade" id="endpoint-ponto-de-extremidade">Endpoint (Ponto de Extremidade)</a></h1>
+<p>Um <code>endpoint</code> é o nome para uma entidade em um terminal de uma conexão da <a href="https://pt.wikipedia.org/wiki/Camada_de_transporte">camada de transporte</a>. E é composto por: &quot;Endereço <a href="https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP"><code>IP</code></a> + porta de conexão&quot;:</p>
+<pre><code class="language-cpp">	basic_endpoint(const boost::asio::ip::address&amp; addr, unsigned short port_num)
+	    : impl_(addr, port_num)
+	{
+		//TODO
+	}
 </code></pre>
-<p>Client uses endpoint to designate server address, and server application uses endpoint to identify which address will be used to listen and accept connections. An example of creating <code>TCP</code> endpoint is like this:</p>
-<pre><code>boost::asio::ip::tcp::endpoint endpoint{
-        boost::asio::ip::make_address(&quot;127.0.0.1&quot;),
-        3303};
+<p>O cliente usa o <code>endpoint</code> para designar o endereço do servidor, e o aplicativo do servidor usa o <code>endpoint</code> para identificar qual endereço será usado para escutar e aceitar conexões. Um exemplo de <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol"><code>TCP</code></a> <code>endpoint</code> abaixo:</p>
+<pre><code class="language-cpp">	boost::asio::ip::tcp::endpoint endpoint{
+		boost::asio::ip::make_address(&quot;127.0.0.1&quot;), 3303};
 </code></pre>
-<p>Usually, the server needs to listen to all the address of current machine, and it can resort to another constructor of <code>basic_endpoint</code>:</p>
-<pre><code>basic_endpoint(const InternetProtocol&amp; internet_protocol,
-      unsigned short port_num)
-    : impl_(internet_protocol.family(), port_num)
-{
-}
+<p>Normalmente, o servidor precisa escutar(listen) todos os endereços da máquina atual e pode recorrer a outro construtor de <code>basic_endpoint</code>:</p>
+<pre><code class="language-cpp">	basic_endpoint(const InternetProtocol&amp; internet_protocol,
+	      unsigned short port_num)
+	    : impl_(internet_protocol.family(), port_num)
+	{
+	}
 </code></pre>
-<p>An example of creating and <code>UDP</code> server who listens to all <code>IPv6</code> addresses:</p>
-<pre><code>boost::asio::ip::udp::endpoint endpoint{
-        boost::asio::ip::udp::v6(),
-        3303};</code></pre>
-<h1><a class="header" href="#dns-query" id="dns-query">DNS query</a></h1>
-<p>The <code>resolver</code> class is used to do <code>DNS</code> query, i.e., convert a host+service to <code>IP</code>+port. Take <code>boost::asio::ip::tcp::resolver</code> as an example:</p>
-<pre><code>#include &lt;boost/asio.hpp&gt;
-#include &lt;iostream&gt;
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-
-        boost::asio::ip::tcp::resolver resolver{io_context};
-        boost::asio::ip::tcp::resolver::results_type endpoints =
-                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
-
-        for (auto it = endpoints.cbegin(); it != endpoints.cend(); it++)
-        {
-            boost::asio::ip::tcp::endpoint endpoint = *it;
-            std::cout &lt;&lt; endpoint &lt;&lt; '\n';
-        }
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-    }
-
-    return 0;
-}
+<p>Um exemplo de servidor <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol"><code>UDP</code></a> que escuta todos os endereços <code>IPv4</code> &amp; <code>IPv6</code>:</p>
+<pre><code class="language-cpp">	//IPv6
+	boost::asio::ip::udp::endpoint endpoint{
+            boost::asio::ip::udp::v6(),
+            3303};
+	...
+	//IPv4
+	boost::asio::ip::udp::endpoint endpoint{
+            boost::asio::ip::udp::v4(),
+            3306};
 </code></pre>
-<p>The running result is:</p>
+<h1><a class="header" href="#consultar-dns-dns-query" id="consultar-dns-dns-query">Consultar DNS (DNS Query)</a></h1>
+<p>A classe <code>resolver</code> é usada para fazer consultas <a href="https://pt.wikipedia.org/wiki/Sistema_de_Nomes_de_Dom%C3%ADnio"><code>DNS</code></a>, ou seja, converter um serviço host + em <code>IP</code> + porta. Veja <code>boost::asio::ip::tcp::resolver</code> no exemplo abaixo:</p>
+<pre><code class="language-cpp">
+	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::resolver resolver{io_context};
+	        boost::asio::ip::tcp::resolver::results_type endpoints =
+	                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
+	
+	        for (auto it = endpoints.cbegin(); it != endpoints.cend(); it++)
+	        {
+	            boost::asio::ip::tcp::endpoint endpoint = *it;
+	            std::cout &lt;&lt; endpoint &lt;&lt; '\n';
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	    }
+	
+	    return 0;
+	}
+</code></pre>
+<p>O resultado da execução será:</p>
 <ol start="74">
 <li>125.24.101:443
 74.125.24.139:443
@@ -395,154 +403,155 @@ int main()
 74.125.24.100:443
 74.125.24.113:443</li>
 </ol>
-<p>The element of <code>boost::asio::ip::tcp::resolver::results_type</code>'s every iteration is <code>basic_resolver_entry</code>:</p>
-<pre><code>template &lt;typename InternetProtocol&gt;
-class basic_resolver_entry
-{
-......
-public:
-  /// The protocol type associated with the endpoint entry.
-  typedef InternetProtocol protocol_type;
-
-  /// The endpoint type associated with the endpoint entry.
-  typedef typename InternetProtocol::endpoint endpoint_type;
-......
-  /// Convert to the endpoint associated with the entry.
-  operator endpoint_type() const
-  {
-    return endpoint_;
-  }
-......
-}
+<p>O elemento <code>boost::asio::ip::tcp::resolver::results_type</code> é o iterador de <code>basic_resolver_entry</code>: </p>
+<pre><code class="language-cpp">	template &lt;typename InternetProtocol&gt;
+	class basic_resolver_entry
+	{
+	......
+	public:
+	  /// The protocol type associated with the endpoint entry.
+	  typedef InternetProtocol protocol_type;
+	
+	  /// The endpoint type associated with the endpoint entry.
+	  typedef typename InternetProtocol::endpoint endpoint_type;
+	......
+	  /// Convert to the endpoint associated with the entry.
+	  operator endpoint_type() const
+	  {
+	    return endpoint_;
+	  }
+	......
+	}
 </code></pre>
-<p>Since it has <code>endpoint_type() </code> operator, it can be converted to endpoint directly:</p>
-<pre><code>boost::asio::ip::tcp::endpoint endpoint = *it;
+<p>Como ele possui o operador <code>endpoint_type()</code>, ele pode ser convertido diretamente no endpoint:</p>
+<pre><code class="language-cpp">	boost::asio::ip::tcp::endpoint endpoint = *it;
 </code></pre>
-<h1><a class="header" href="#throw-exception" id="throw-exception">Throw exception</a></h1>
-<p><code>Boost.Asio</code> functions may throw <code>boost::system::system_error</code> exception. Take <code>resolve</code> as an example:</p>
-<pre><code>results_type resolve(BOOST_ASIO_STRING_VIEW_PARAM host,
-	BOOST_ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags)
-{
-  boost::system::error_code ec;
-  ......
-  boost::asio::detail::throw_error(ec, &quot;resolve&quot;);
-  return r;
-}
+<h1><a class="header" href="#exceção" id="exceção">Exceção</a></h1>
+<p>As funções do <code>Boost.Asio</code> podem gerar a exceção <code>boost::system::system_error</code>. Veja o <a href="cpp-asio/dns-query.html"><code>resolve</code></a> no exemplo abaixo:</p>
+<pre><code class="language-cpp">	results_type resolve(BOOST_ASIO_STRING_VIEW_PARAM host,
+		BOOST_ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags)
+	{
+	  boost::system::error_code ec;
+	  ......
+	  boost::asio::detail::throw_error(ec, &quot;resolve&quot;);
+	  return r;
+	}
 </code></pre>
-<p>There are two overloads of <code>boost::asio::detail::throw_error</code> functions:</p>
-<pre><code>inline void throw_error(const boost::system::error_code&amp; err)
-{
-  if (err)
-    do_throw_error(err);
-}
-
-inline void throw_error(const boost::system::error_code&amp; err,
-    const char* location)
-{
-  if (err)
-    do_throw_error(err, location);
-}
+<p>Há duas sobrecargas de funções <code>boost::asio::detail::throw_error</code>:</p>
+<pre><code class="language-cpp">	inline void throw_error(const boost::system::error_code&amp; err)
+	{
+	  if (err)
+	    do_throw_error(err);
+	}
+	
+	inline void throw_error(const boost::system::error_code&amp; err,
+	    const char* location)
+	{
+	  if (err)
+	    do_throw_error(err, location);
+	}
 </code></pre>
-<p>The differences of these two functions is just including &quot;location&quot; (&quot;<code>resolve</code>&quot; string in our example) or not. Accordingly, <code>do_throw_error</code> also have two overloads, I just take one as an example:</p>
-<pre><code>void do_throw_error(const boost::system::error_code&amp; err, const char* location)
-{
-  boost::system::system_error e(err, location);
-  boost::asio::detail::throw_exception(e);
-}
+<p>As diferenças dessas duas funções é que estão apenas incluindo a string &quot;location&quot; (&quot;<code>resolve</code>&quot; no nosso exemplo) ou não. Assim, o <code>do_throw_error</code> também tem duas sobrecargas, veja uma como exemplo:</p>
+<pre><code class="language-cpp">	void do_throw_error(const boost::system::error_code&amp; err, const char* location)
+	{
+	  boost::system::system_error e(err, location);
+	  boost::asio::detail::throw_exception(e);
+	}
 </code></pre>
-<p><code>boost::system::system_error</code> derives from <code>std::runtime_error</code>:</p>
-<pre><code>class BOOST_SYMBOL_VISIBLE system_error : public std::runtime_error
-{
-......
-public:
-      system_error( error_code ec )
-          : std::runtime_error(&quot;&quot;), m_error_code(ec) {}
-
-      system_error( error_code ec, const std::string &amp; what_arg )
-          : std::runtime_error(what_arg), m_error_code(ec) {}
-......
-      const error_code &amp;  code() const BOOST_NOEXCEPT_OR_NOTHROW { return m_error_code; }
-      const char *        what() const BOOST_NOEXCEPT_OR_NOTHROW;
-......
-}
+<p><code>boost::system::system_error</code> deriva de <code>std::runtime_error</code>:</p>
+<pre><code class="language-cpp">	class BOOST_SYMBOL_VISIBLE system_error : public std::runtime_error
+	{
+	......
+	public:
+	      system_error( error_code ec )
+	          : std::runtime_error(&quot;&quot;), m_error_code(ec) {}
+	
+	      system_error( error_code ec, const std::string &amp; what_arg )
+	          : std::runtime_error(what_arg), m_error_code(ec) {}
+	......
+	      const error_code &amp;  code() const BOOST_NOEXCEPT_OR_NOTHROW { return m_error_code; }
+	      const char *        what() const BOOST_NOEXCEPT_OR_NOTHROW;
+	......
+	}
 </code></pre>
-<p><code>what()</code> member function returns the detailed information of exception.</p>
-<h1><a class="header" href="#connect-server" id="connect-server">Connect server</a></h1>
+<p>A função membro chamado <code>what()</code> retorna as informações detalhadas da exceção.</p>
+<h1><a class="header" href="#conectar-servidor" id="conectar-servidor">Conectar Servidor</a></h1>
 <p>The client can use the endpoints returned by <a href="cpp-asio/dns-query.html">DNS query</a> to connect server application. The following is an example:</p>
-<pre><code>#include &lt;boost/asio.hpp&gt;
-#include &lt;iostream&gt;
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-
-        boost::asio::ip::tcp::resolver resolver{io_context};
-        boost::asio::ip::tcp::resolver::results_type endpoints =
-                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
-
-        boost::asio::ip::tcp::tcp::socket socket{io_context};
-        auto endpoint = boost::asio::connect(socket, endpoints);
-
-        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-        return -1;
-    }
-
-    return 0;
-}
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::resolver resolver{io_context};
+	        boost::asio::ip::tcp::resolver::results_type endpoints =
+	                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
+	
+	        boost::asio::ip::tcp::tcp::socket socket{io_context};
+	        auto endpoint = boost::asio::connect(socket, endpoints);
+	
+	        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
-<p>The running result is like following:</p>
+<p>O resultado da execução será:</p>
 <pre><code>Connect to 172.217.194.101:443 successfully!
 </code></pre>
-<p>Please notice <code>boost::asio::connect</code> requires the iterator of endpoints. If you just want one specified endpoint, you can use <code>connect</code> member function of socket. Check following code:</p>
-<pre><code>#include &lt;boost/asio.hpp&gt;
-#include &lt;iostream&gt;
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-
-        boost::asio::ip::tcp::resolver resolver{io_context};
-        boost::asio::ip::tcp::resolver::results_type endpoints =
-                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
-
-        boost::asio::ip::tcp::tcp::socket socket{io_context};
-        auto eit = endpoints.cbegin();
-        for (; eit != endpoints.cend(); eit++)
-        {
-            boost::system::error_code ec;
-            boost::asio::ip::tcp::endpoint endpoint = *eit;
-            socket.connect(endpoint, ec);
-            if (!ec)
-            {
-                std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
-                break;
-            }
-        }
-
-        if (eit == endpoints.cend())
-        {
-            std::cout &lt;&lt; &quot;Connect failed!\n&quot;;
-            return  -1;
-        }
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-        return -1;
-    }
-
-    return 0;
-}
+<!-- Please notice `boost::asio::connect` requires the iterator of endpoints. If you just want one specified endpoint, you can use `connect` member function of socket. Check following code:    -->
+<p>Observe que o <code>boost::asio::connect</code> requer o iterador de endpoints. Se você quiser apenas um endpoint específico, poderá usar a função membro <code>connect</code> do soquete. Verifique o código abaixo:</p>
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::resolver resolver{io_context};
+	        boost::asio::ip::tcp::resolver::results_type endpoints =
+	                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
+	
+	        boost::asio::ip::tcp::tcp::socket socket{io_context};
+	        auto eit = endpoints.cbegin();
+	        for (; eit != endpoints.cend(); eit++)
+	        {
+	            boost::system::error_code ec;
+	            boost::asio::ip::tcp::endpoint endpoint = *eit;
+	            socket.connect(endpoint, ec);
+	            if (!ec)
+	            {
+	                std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+	                break;
+	            }
+	        }
+	
+	        if (eit == endpoints.cend())
+	        {
+	            std::cout &lt;&lt; &quot;Connect failed!\n&quot;;
+	            return  -1;
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
-<p>The running result is like this:</p>
+<p>O resultado da execução será:</p>
 <pre><code>Connect to 172.217.194.139:443 successfully!
 </code></pre>
 <h1><a class="header" href="#accept-connections" id="accept-connections">Accept connections</a></h1>
@@ -606,97 +615,96 @@ int main()
 ......
 </code></pre>
 <h1><a class="header" href="#operações-síncronas-es" id="operações-síncronas-es">Operações síncronas E/S</a></h1>
-<p>Once the connection is established, the client and server can communicate with each other. Like classical <code>UNIX</code> socket programming, <code>boost::asio</code> also provides <code>send</code> and <code>receive</code> functions. Use <code>basic_stream_socket</code> as an example and one pair of the implementations is like this:</p>
-<pre><code>template &lt;typename ConstBufferSequence&gt;
-std::size_t send(const ConstBufferSequence&amp; buffers)
-{
+<p>Depois que a conexão é estabelecida, o cliente e o servidor podem se comunicar. Como na API de soquetes do <code>UNIX</code>, o <code>boost::asio</code> também fornece as funções <code>send</code> e<code> receive</code> Use <code>basic_stream_socket</code> como exemplo e um par de implementações assim:</p>
+<pre><code class="language-cpp">	template &lt;typename ConstBufferSequence&gt;
+  	std::size_t send(const ConstBufferSequence&amp; buffers)
+	{
+		......
+	}
 	......
-}
-......
-template &lt;typename MutableBufferSequence&gt;
-std::size_t receive(const MutableBufferSequence&amp; buffers)
-{
-	......
-}
+	template &lt;typename MutableBufferSequence&gt;
+  	std::size_t receive(const MutableBufferSequence&amp; buffers)
+	{
+		......
+	}
 </code></pre>
-<p>Please notice the buffer types of <code>send/receive</code> are <code>ConstBufferSequence/MutableBufferSequence</code>, and we can use <code>boost::asio::buffer</code> function to construct related types.</p>
-<p>Below is a simple client program which sends &quot;<code>Hello world!</code>&quot; to server after connection is established:</p>
-<pre><code>#include &lt;boost/asio.hpp&gt;
-#include &lt;iostream&gt;
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-
-        boost::asio::ip::tcp::endpoint endpoint{
-                boost::asio::ip::make_address(&quot;10.217.242.61&quot;),
-                3303};
-        boost::asio::ip::tcp::tcp::socket socket{io_context};
-        socket.connect(endpoint);
-
-        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
-
-        socket.send(boost::asio::buffer(&quot;Hello world!&quot;));
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-        return -1;
-    }
-
-    return 0;
-}
+<p>Observe que os tipos de buffer de <code>send/receive</code> são <code>ConstBufferSequence/MutableBufferSequence</code>, e podemos usar a função <code>boost::asio::buffer</code> para construir tipos relacionados.</p>
+<p>Abaixo está um programa cliente que envia &quot;<code>Hello world!</code>&quot; Para o servidor após o estabelecimento da conexão:</p>
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::endpoint endpoint{
+	                boost::asio::ip::make_address(&quot;10.217.242.61&quot;),
+	                3303};
+	        boost::asio::ip::tcp::tcp::socket socket{io_context};
+	        socket.connect(endpoint);
+	
+	        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+	
+	        socket.send(boost::asio::buffer(&quot;Hello world!&quot;));
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
-<p>There is the server program which waits receiving greeting from client:</p>
-<pre><code>#include &lt;boost/asio.hpp&gt;
-#include &lt;iostream&gt;
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-        boost::asio::ip::tcp::acceptor acceptor{
-                io_context,
-                boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v4(), 3303}};
-
-        while (1)
-        {
-            boost::asio::ip::tcp::socket socket{io_context};
-            acceptor.accept(socket);
-
-            std::cout &lt;&lt; socket.remote_endpoint() &lt;&lt; &quot; connects to &quot; &lt;&lt; socket.local_endpoint() &lt;&lt; '\n';
-
-            char recv_str[1024] = {};
-            socket.receive(boost::asio::buffer(recv_str));
-
-            std::cout &lt;&lt; &quot;Receive string: &quot; &lt;&lt; recv_str &lt;&lt; '\n';
-        }
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-        return -1;
-    }
-
-    return 0;
-} 
+<p>O programa servidor que aguarda o recebimento da saudação do cliente:</p>
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	        boost::asio::ip::tcp::acceptor acceptor{
+	                io_context,
+	                boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v4(), 3303}};
+	
+	        while (1)
+	        {
+	            boost::asio::ip::tcp::socket socket{io_context};
+	            acceptor.accept(socket);
+	
+	            std::cout &lt;&lt; socket.remote_endpoint() &lt;&lt; &quot; connects to &quot; &lt;&lt; socket.local_endpoint() &lt;&lt; '\n';
+	
+	            char recv_str[1024] = {};
+	            socket.receive(boost::asio::buffer(recv_str));
+	
+	            std::cout &lt;&lt; &quot;Receive string: &quot; &lt;&lt; recv_str &lt;&lt; '\n';
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
-<p>Build and run programs. Client outputs following:</p>
+<p>Compile e execute os programas. O cliente exibirá o seguinte:</p>
 <pre><code>$ ./client
 Connect to 10.217.242.61:3303 successfully!
 </code></pre>
-<p>Server outputs following:</p>
+<p>Servidor exibirá  seguinte:</p>
 <pre><code>$ ./server
 10.217.242.21:64776 connects to 10.217.242.61:3303
 Receive string: Hello world!
 </code></pre>
-<p>If no error occurs, <code>send</code> can guarantee at least one byte is sent successfully, and you should check the return value to see whether all bytes are sent successfully or not. <code>receive</code> is similar as <code>send</code>. <code>boost::asio::basic_stream_socket</code> also provides <code>read_some</code> and <code>write_some</code> which have the same functions as <code>receive</code> and <code>send</code>.</p>
-<p>If we don't bother to check the middle state (partial bytes are sent successfully), and only care whether all bytes are sent successfully or not, we can use <code>boost::asio::write</code> which actually uses <code>wrtie_some</code> under the hood.  Correspondingly, it is not hard to guess what <code>boost::asio::read</code>does.</p>
+<p>Se nenhum erro ocorrer, o <code>send</code> pode garantir que pelo menos um byte seja enviado com sucesso, e você deve verificar o valor de retorno para ver se todos os bytes foram enviados com sucesso ou não. <code>receive</code> é semelhante a <code>send</code>. O <code>boost::asio::basic_stream_socket</code> também fornece<code> read_some</code> e <code>write_some</code>, que têm as mesmas funções que <code>receive</code> e <code>send</code>.</p>
+<p>Se não nos preocuparmos em verificar o estado do meio (bytes parciais são enviados com sucesso), e apenas nos importarmos se todos os bytes serão enviados com sucesso ou não, podemos usar o <code>boost::asio::write</code> que usa o <code>write_some</code> por baixo. Da mesma forma, não é difícil adivinhar o que <code>boost::asio::read</code> faz.</p>
 <h1><a class="header" href="#operações-assíncronas-es" id="operações-assíncronas-es">Operações Assíncronas E/S</a></h1>
-<!-- Unlike classical `UNIX` socket programming, `boost.asio` has battery-included asynchronous read/write abilities. Still use `basic_stream_socket` as an example, and one pair of the implementations is like this:    -->
 <p>Diferentemente da API de soquetes do <code>UNIX</code>, o<code> boost.asio</code> possui habilidades de leitura &amp; gravação(read/write) assíncronas inclusas. Ainda pode usar <code>basic_stream_socket</code> como exemplo, e um par de implementações assim:</p>
 <pre><code class="language-cpp">	template &lt;typename ConstBufferSequence, typename WriteHandler&gt;
 	  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
@@ -877,7 +885,7 @@ Message is sent successfully!
 Hello world!
 </code></pre>
 <h1><a class="header" href="#protocolo-udp" id="protocolo-udp">Protocolo UDP</a></h1>
-<p>Nós discutimos como se comunicar através do <code>TCP</code> o suficiente, então é hora de mudar para o<code> UDP</code> agora. O <code>UDP</code> é um protocolo de conexão não confiável e é mais fácil de usar que o <code>TCP</code>.</p>
+<p>Nós discutimos como se comunicar através do <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol"><code>TCP</code></a> o suficiente, então é hora de mudar para o <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol"><code>UDP</code></a> agora. O <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol"><code>UDP</code></a> é um protocolo de conexão não confiável e é mais fácil de usar que o <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol"><code>TCP</code></a>.</p>
 <p>Há um exemplo de Cliente/Servidor. </p>
 <h3><a class="header" href="#cliente" id="cliente"><em>Cliente</em>:</a></h3>
 <pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;

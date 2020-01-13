@@ -148,29 +148,36 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#endpoint" id="endpoint">Endpoint</a></h1>
-<p>Endpoint is composed of &quot;<code>IP</code> address + port&quot;:</p>
-<pre><code>basic_endpoint(const boost::asio::ip::address&amp; addr, unsigned short port_num)
-    : impl_(addr, port_num)
-{
-}
+                        <h1><a class="header" href="#endpoint-ponto-de-extremidade" id="endpoint-ponto-de-extremidade">Endpoint (Ponto de Extremidade)</a></h1>
+<p>Um <code>endpoint</code> é o nome para uma entidade em um terminal de uma conexão da <a href="https://pt.wikipedia.org/wiki/Camada_de_transporte">camada de transporte</a>. E é composto por: &quot;Endereço <a href="https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP"><code>IP</code></a> + porta de conexão&quot;:</p>
+<pre><code class="language-cpp">	basic_endpoint(const boost::asio::ip::address&amp; addr, unsigned short port_num)
+	    : impl_(addr, port_num)
+	{
+		//TODO
+	}
 </code></pre>
-<p>Client uses endpoint to designate server address, and server application uses endpoint to identify which address will be used to listen and accept connections. An example of creating <code>TCP</code> endpoint is like this:</p>
-<pre><code>boost::asio::ip::tcp::endpoint endpoint{
-        boost::asio::ip::make_address(&quot;127.0.0.1&quot;),
-        3303};
+<p>O cliente usa o <code>endpoint</code> para designar o endereço do servidor, e o aplicativo do servidor usa o <code>endpoint</code> para identificar qual endereço será usado para escutar e aceitar conexões. Um exemplo de <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol"><code>TCP</code></a> <code>endpoint</code> abaixo:</p>
+<pre><code class="language-cpp">	boost::asio::ip::tcp::endpoint endpoint{
+		boost::asio::ip::make_address(&quot;127.0.0.1&quot;), 3303};
 </code></pre>
-<p>Usually, the server needs to listen to all the address of current machine, and it can resort to another constructor of <code>basic_endpoint</code>:</p>
-<pre><code>basic_endpoint(const InternetProtocol&amp; internet_protocol,
-      unsigned short port_num)
-    : impl_(internet_protocol.family(), port_num)
-{
-}
+<p>Normalmente, o servidor precisa escutar(listen) todos os endereços da máquina atual e pode recorrer a outro construtor de <code>basic_endpoint</code>:</p>
+<pre><code class="language-cpp">	basic_endpoint(const InternetProtocol&amp; internet_protocol,
+	      unsigned short port_num)
+	    : impl_(internet_protocol.family(), port_num)
+	{
+	}
 </code></pre>
-<p>An example of creating and <code>UDP</code> server who listens to all <code>IPv6</code> addresses:</p>
-<pre><code>boost::asio::ip::udp::endpoint endpoint{
-        boost::asio::ip::udp::v6(),
-        3303};</code></pre>
+<p>Um exemplo de servidor <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol"><code>UDP</code></a> que escuta todos os endereços <code>IPv4</code> &amp; <code>IPv6</code>:</p>
+<pre><code class="language-cpp">	//IPv6
+	boost::asio::ip::udp::endpoint endpoint{
+            boost::asio::ip::udp::v6(),
+            3303};
+	...
+	//IPv4
+	boost::asio::ip::udp::endpoint endpoint{
+            boost::asio::ip::udp::v4(),
+            3306};
+</code></pre>
 
                     </main>
 

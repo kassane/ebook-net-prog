@@ -148,82 +148,83 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#connect-server" id="connect-server">Connect server</a></h1>
+                        <h1><a class="header" href="#conectar-servidor" id="conectar-servidor">Conectar Servidor</a></h1>
 <p>The client can use the endpoints returned by <a href="dns-query.html">DNS query</a> to connect server application. The following is an example:</p>
-<pre><code>#include &lt;boost/asio.hpp&gt;
-#include &lt;iostream&gt;
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-
-        boost::asio::ip::tcp::resolver resolver{io_context};
-        boost::asio::ip::tcp::resolver::results_type endpoints =
-                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
-
-        boost::asio::ip::tcp::tcp::socket socket{io_context};
-        auto endpoint = boost::asio::connect(socket, endpoints);
-
-        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-        return -1;
-    }
-
-    return 0;
-}
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::resolver resolver{io_context};
+	        boost::asio::ip::tcp::resolver::results_type endpoints =
+	                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
+	
+	        boost::asio::ip::tcp::tcp::socket socket{io_context};
+	        auto endpoint = boost::asio::connect(socket, endpoints);
+	
+	        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
-<p>The running result is like following:</p>
+<p>O resultado da execução será:</p>
 <pre><code>Connect to 172.217.194.101:443 successfully!
 </code></pre>
-<p>Please notice <code>boost::asio::connect</code> requires the iterator of endpoints. If you just want one specified endpoint, you can use <code>connect</code> member function of socket. Check following code:</p>
-<pre><code>#include &lt;boost/asio.hpp&gt;
-#include &lt;iostream&gt;
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-
-        boost::asio::ip::tcp::resolver resolver{io_context};
-        boost::asio::ip::tcp::resolver::results_type endpoints =
-                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
-
-        boost::asio::ip::tcp::tcp::socket socket{io_context};
-        auto eit = endpoints.cbegin();
-        for (; eit != endpoints.cend(); eit++)
-        {
-            boost::system::error_code ec;
-            boost::asio::ip::tcp::endpoint endpoint = *eit;
-            socket.connect(endpoint, ec);
-            if (!ec)
-            {
-                std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
-                break;
-            }
-        }
-
-        if (eit == endpoints.cend())
-        {
-            std::cout &lt;&lt; &quot;Connect failed!\n&quot;;
-            return  -1;
-        }
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-        return -1;
-    }
-
-    return 0;
-}
+<!-- Please notice `boost::asio::connect` requires the iterator of endpoints. If you just want one specified endpoint, you can use `connect` member function of socket. Check following code:    -->
+<p>Observe que o <code>boost::asio::connect</code> requer o iterador de endpoints. Se você quiser apenas um endpoint específico, poderá usar a função membro <code>connect</code> do soquete. Verifique o código abaixo:</p>
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::resolver resolver{io_context};
+	        boost::asio::ip::tcp::resolver::results_type endpoints =
+	                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
+	
+	        boost::asio::ip::tcp::tcp::socket socket{io_context};
+	        auto eit = endpoints.cbegin();
+	        for (; eit != endpoints.cend(); eit++)
+	        {
+	            boost::system::error_code ec;
+	            boost::asio::ip::tcp::endpoint endpoint = *eit;
+	            socket.connect(endpoint, ec);
+	            if (!ec)
+	            {
+	                std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+	                break;
+	            }
+	        }
+	
+	        if (eit == endpoints.cend())
+	        {
+	            std::cout &lt;&lt; &quot;Connect failed!\n&quot;;
+	            return  -1;
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
-<p>The running result is like this:</p>
+<p>O resultado da execução será:</p>
 <pre><code>Connect to 172.217.194.139:443 successfully!
 </code></pre>
 
