@@ -37,7 +37,7 @@ Observe a classe `noncopyable`:
 	};
 ```
 
-Isso significa que o objeto `io_context` não pode ser utilizado como _copy constructed/copy assignment/move constructed/move assignment_. Portanto, durante a inicialização do soquete, ou seja, associar o soquete ao` io_context`, o `io_context` deve ser passado como referência.
+Isso significa que o objeto `io_context` não pode ser utilizado como _copy constructed/copy assignment/move constructed/move assignment_. Portanto, durante a inicialização do socket, ou seja, associar o socket ao` io_context`, o `io_context` deve ser passado como referência.
 
 Ex.:
 

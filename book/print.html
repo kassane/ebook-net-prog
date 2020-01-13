@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Asio</a></li><li class="expanded "><a href="cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="cpp-asio/strand.html"><strong aria-hidden="true">9.</strong> Strands</a></li><li class="expanded "><a href="cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações síncronas</a></li><li class="expanded "><a href="cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">11.</strong> Operações assíncronas</a></li><li class="expanded "><a href="cpp-asio/udp-communication.html"><strong aria-hidden="true">12.</strong> Protocolo UDP</a></li><li class="expanded "><a href="cpp-asio/the-end.html"><strong aria-hidden="true">13.</strong> Conclusão</a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Asio</a></li><li class="expanded "><a href="cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> socket</a></li><li class="expanded "><a href="cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="cpp-asio/strand.html"><strong aria-hidden="true">9.</strong> Strands</a></li><li class="expanded "><a href="cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações síncronas</a></li><li class="expanded "><a href="cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">11.</strong> Operações assíncronas</a></li><li class="expanded "><a href="cpp-asio/udp-communication.html"><strong aria-hidden="true">12.</strong> Protocolo UDP</a></li><li class="expanded "><a href="cpp-asio/the-end.html"><strong aria-hidden="true">13.</strong> Conclusão</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -253,7 +253,7 @@
 	  const noncopyable&amp; operator=(const noncopyable&amp;);
 	};
 </code></pre>
-<p>Isso significa que o objeto <code>io_context</code> não pode ser utilizado como <em>copy constructed/copy assignment/move constructed/move assignment</em>. Portanto, durante a inicialização do soquete, ou seja, associar o soquete ao<code> io_context</code>, o <code>io_context</code> deve ser passado como referência.</p>
+<p>Isso significa que o objeto <code>io_context</code> não pode ser utilizado como <em>copy constructed/copy assignment/move constructed/move assignment</em>. Portanto, durante a inicialização do socket, ou seja, associar o socket ao<code> io_context</code>, o <code>io_context</code> deve ser passado como referência.</p>
 <p>Ex.:</p>
 <pre><code class="language-cpp">	template &lt;typename Protocol
 	    BOOST_ASIO_SVC_TPARAM_DEF1(= datagram_socket_service&lt;Protocol&gt;)&gt;
@@ -272,7 +272,7 @@
 <h1><a class="header" href="#sockets-soquetes" id="sockets-soquetes">Sockets (Soquetes)</a></h1>
 <p>Existem <code>4</code> tipos de soquetes:</p>
 <p>(1) <code>basic_stream_socket</code>:<br />
-Este soquete fornece fluxos de bytes baseados em conexão bidirecional, confiável e sequencial. <code>tcp::socket</code> é uma instância deste soquete:</p>
+Este socket fornece fluxos de bytes baseados em conexão bidirecional, confiável e sequencial. <code>tcp::socket</code> é uma instância deste socket:</p>
 <pre><code class="language-cpp">	class tcp
 	{
 	......
@@ -282,7 +282,7 @@ Este soquete fornece fluxos de bytes baseados em conexão bidirecional, confiáv
 	}
 </code></pre>
 <p>(2) <code>basic_datagram_socket</code>:<br />
-Este soquete fornece serviço de datagrama sem garatias de conexão. <code>udp::socket</code> é uma instância deste soquete:</p>
+Este socket fornece serviço de datagrama sem garatias de conexão. <code>udp::socket</code> é uma instância deste socket:</p>
 <pre><code class="language-cpp">	class udp
 	{
 	......
@@ -293,7 +293,7 @@ Este soquete fornece serviço de datagrama sem garatias de conexão. <code>udp::
 </code></pre>
 <p>(3) <code>basic_raw_socket</code>:</p>
 <!-- This socket provides access to internal network protocols and interfaces. `icmp::socket` is an instance of this socket:   -->
-<p>Este soquete fornece acesso a protocolos e interfaces de rede interno. O <code>icmp::socket</code> é uma instância deste soquete:</p>
+<p>Este socket fornece acesso a protocolos e interfaces de rede interno. O <code>icmp::socket</code> é uma instância deste socket:</p>
 <pre><code class="language-cpp">	class icmp
 	{
 	......
@@ -303,7 +303,7 @@ Este soquete fornece serviço de datagrama sem garatias de conexão. <code>udp::
 	}
 </code></pre>
 <p>(4) <code>basic_seq_packet_socket</code>:<br />
-Este soquete combina fluxo(stream) e datagrama: fornece um serviço de datagramas com conexão bidirecional, confiável e bidirecional. <a href="https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol">SCTP</a> é um exemplo deste tipo de serviço.</p>
+Este socket combina fluxo(stream) e datagrama: fornece um serviço de datagramas com conexão bidirecional, confiável e bidirecional. <a href="https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol">SCTP</a> é um exemplo deste tipo de serviço.</p>
 <p>Todos esses <code>4</code> soquetes derivam da classe <code>basic_socket</code> e precisam ser associados a um <code>io_context</code> durante a inicialização. Veja <code>tcp::socket</code> como exemplo:</p>
 <pre><code class="language-cpp">		boost::asio::io_context io_context;
 		boost::asio::ip::tcp::socket socket{io_context};
@@ -506,7 +506,7 @@ Este soquete combina fluxo(stream) e datagrama: fornece um serviço de datagrama
 <p>O resultado da execução será:</p>
 <pre><code>Connect to 172.217.194.101:443 successfully!
 </code></pre>
-<p>Observe que o <code>boost::asio::connect</code> requer o iterador de endpoints. Se você quiser apenas um endpoint específico, poderá usar a função membro <code>connect</code> do soquete. Verifique o código abaixo:</p>
+<p>Observe que o <code>boost::asio::connect</code> requer o iterador de endpoints. Se você quiser apenas um endpoint específico, poderá usar a função membro <code>connect</code> do socket. Verifique o código abaixo:</p>
 <pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
 	#include &lt;iostream&gt;
 	
@@ -570,7 +570,7 @@ Este soquete combina fluxo(stream) e datagrama: fornece um serviço de datagrama
 	......
 	}
 </code></pre>
-<p>O construtor <code>basic_socket_acceptor</code> combinarar criação de soquete, configuração de endereço de reutilização, funções binding &amp; listening:</p>
+<p>O construtor <code>basic_socket_acceptor</code> combinarar criação de socket, configuração de endereço de reutilização, funções binding &amp; listening:</p>
 <pre><code class="language-cpp">	basic_socket_acceptor(boost::asio::io_context&amp; io_context,
 	    const endpoint_type&amp; endpoint, bool reuse_addr = true)
 	  : basic_io_object&lt;BOOST_ASIO_SVC_T&gt;(io_context)

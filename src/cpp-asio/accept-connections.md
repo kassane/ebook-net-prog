@@ -22,7 +22,7 @@ O servidor precisa aceitar as solicitações dos clientes. O servidor cria um `a
 	}
 ```
 
-O construtor `basic_socket_acceptor` combinarar criação de soquete, configuração de endereço de reutilização, funções binding & listening:
+O construtor `basic_socket_acceptor` combinarar criação de socket, configuração de endereço de reutilização, funções binding & listening:
 
 ```cpp
 	basic_socket_acceptor(boost::asio::io_context& io_context,

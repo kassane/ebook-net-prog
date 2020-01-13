@@ -2,7 +2,7 @@
 
 * [Instalação do Asio](cpp-asio/install-asio.md)
 * [io_context](cpp-asio/io_context.md)
-* [Soquete](cpp-asio/socket.md)
+* [socket](cpp-asio/socket.md)
 * [Endpoint](cpp-asio/endpoint.md)
 * [DNS query](cpp-asio/dns-query.md)
 * [Erros e exceções](cpp-asio/throw-exception.md)

@@ -3,7 +3,7 @@
 Existem `4` tipos de soquetes:
 
 (1) `basic_stream_socket`:  
-Este soquete fornece fluxos de bytes baseados em conexão bidirecional, confiável e sequencial. `tcp::socket` é uma instância deste soquete:
+Este socket fornece fluxos de bytes baseados em conexão bidirecional, confiável e sequencial. `tcp::socket` é uma instância deste socket:
 
 ```cpp
 	class tcp
@@ -16,7 +16,7 @@ Este soquete fornece fluxos de bytes baseados em conexão bidirecional, confiáv
 ```
 
 (2) `basic_datagram_socket`:  
-Este soquete fornece serviço de datagrama sem garatias de conexão. `udp::socket` é uma instância deste soquete:
+Este socket fornece serviço de datagrama sem garatias de conexão. `udp::socket` é uma instância deste socket:
 
 ```cpp
 	class udp
@@ -29,7 +29,7 @@ Este soquete fornece serviço de datagrama sem garatias de conexão. `udp::socke
 ```
 (3) `basic_raw_socket`:  
 <!-- This socket provides access to internal network protocols and interfaces. `icmp::socket` is an instance of this socket:   -->
-Este soquete fornece acesso a protocolos e interfaces de rede interno. O `icmp::socket` é uma instância deste soquete:
+Este socket fornece acesso a protocolos e interfaces de rede interno. O `icmp::socket` é uma instância deste socket:
 
 ```cpp
 	class icmp
@@ -41,7 +41,7 @@ Este soquete fornece acesso a protocolos e interfaces de rede interno. O `icmp::
 	}
 ```
 (4) `basic_seq_packet_socket`:  
-Este soquete combina fluxo(stream) e datagrama: fornece um serviço de datagramas com conexão bidirecional, confiável e bidirecional. [SCTP](https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol) é um exemplo deste tipo de serviço.  
+Este socket combina fluxo(stream) e datagrama: fornece um serviço de datagramas com conexão bidirecional, confiável e bidirecional. [SCTP](https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol) é um exemplo deste tipo de serviço.  
 
 Todos esses `4` soquetes derivam da classe `basic_socket` e precisam ser associados a um `io_context` durante a inicialização. Veja `tcp::socket` como exemplo:
 

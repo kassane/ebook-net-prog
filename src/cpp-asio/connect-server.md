@@ -34,7 +34,7 @@ O resultado da execução será:
 
 	Connect to 172.217.194.101:443 successfully!
 
-Observe que o `boost::asio::connect` requer o iterador de endpoints. Se você quiser apenas um endpoint específico, poderá usar a função membro `connect` do soquete. Verifique o código abaixo:
+Observe que o `boost::asio::connect` requer o iterador de endpoints. Se você quiser apenas um endpoint específico, poderá usar a função membro `connect` do socket. Verifique o código abaixo:
 
 ```cpp
 	#include <boost/asio.hpp>
