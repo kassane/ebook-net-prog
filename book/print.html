@@ -614,15 +614,6 @@ Este soquete combina fluxo(stream) e datagrama: fornece um serviço de datagrama
 </code></pre>
 <h1><a class="header" href="#strands-usar-threads-sem-bloqueio-explícito" id="strands-usar-threads-sem-bloqueio-explícito"><code>Strands</code>: Usar threads sem bloqueio explícito</a></h1>
 <p>Uma thread é definida como uma chamada estritamente sequencial de manipuladores de eventos[event handler] (ou seja, nenhuma chamada simultânea). O uso de <code>strand</code> permite a execução de código em um programa multithread sem a necessidade de bloqueio explícito (por exemplo, usando <code>mutex</code>[exclusão mútua]). E pode ser usado para sincronizar mais cenários.</p>
-<p>Strand é mais genérico e pode ser usado para sincronizar mais cenários.</p>
-<ul>
-<li>
-<p>Primeiro, que <code>defer()</code> só consegue enfileirar as tarefas de uma única cadeia de operações. Se você tem um canal duplex (ex.: <code>read()</code> e <code>write()</code> num único socket), então <code>defer()</code> já não oferece garantias o suficiente pra sincronizar o acesso aos dados compartilhados, e ainda tem que usar <code>strands</code>. Por esse motivo não posso fazer uso da otimização de <code>defer()</code> na lib de fibras, porque tem sempre um segundo canal assíncrono de notificações que representa a cadeia de cancelamento da fibra.</p>
-</li>
-<li>
-<p>Segundo, <code>strands</code> podem ser usados no cenário onde há objetos trafegando entre múltiplos io_executors, mas <code>defer()</code> falha se você agenda, a partir de um contexto de execução, uma tarefa em outro contexto esperando que isso vá sincronizar/enfileirar/serializar algum trabalho.</p>
-</li>
-</ul>
 <p><code>Strand</code> agrupa tarefas. Tarefas do mesmo <code>strand</code> não podem rodar em paralelo, mas, quando suspensas porque não estão fazendo nada, podem ser executadas em outra thread quando acordarem da próxima vez.</p>
 <p>As <code>strands</code> podem ser implícitas ou explícitas, conforme ilustrado pelas seguintes abordagens alternativas:</p>
 <ul>
@@ -634,6 +625,15 @@ Este soquete combina fluxo(stream) e datagrama: fornece um serviço de datagrama
 </li>
 <li>
 <p>Um <code>strand</code> explícito é uma instância <code>strand&lt;&gt;</code> ou <code>io_context::strand</code>. Todos os objetos de função do manipulador[handler] de eventos precisam ser vinculados ao strand usando <code>boost::asio::bind_executor()</code> ou de outra forma postados/despachados através do objeto strand.</p>
+</li>
+</ul>
+<p>Strand é genérico e pode ser usado para sincronizar mais cenários.</p>
+<ul>
+<li>
+<p>Primeiro, que <code>defer()</code> só consegue enfileirar as tarefas de uma única cadeia de operações. Se você tem um canal duplex (ex.: <code>read()</code> e <code>write()</code> num único socket), então <code>defer()</code> já não oferece garantias o suficiente pra sincronizar o acesso aos dados compartilhados, e ainda tem que usar <code>strands</code>. Por esse motivo não posso fazer uso da otimização de <code>defer()</code> na lib de fibras, porque tem sempre um segundo canal assíncrono de notificações que representa a cadeia de cancelamento da fibra.</p>
+</li>
+<li>
+<p>Segundo, <code>strands</code> podem ser usados no cenário onde há objetos trafegando entre múltiplos io_executors, mas <code>defer()</code> falha se você agenda, a partir de um contexto de execução, uma tarefa em outro contexto esperando que isso vá sincronizar/enfileirar/serializar algum trabalho.</p>
 </li>
 </ul>
 <p>O executor associado deve atender aos requisitos do executor. Ele será usado pela operação assíncrona para enviar manipuladores intermediários e finais para execução.</p>
