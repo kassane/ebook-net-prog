@@ -1,0 +1,6 @@
+[book]
+authors = ["Matheus Catarino"]
+language = "pt"
+multilingual = true
+src = "src"
+title = "Programação de Redes"

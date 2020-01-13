@@ -1,0 +1,962 @@
+<!DOCTYPE HTML>
+<html lang="pt" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Programação de Redes</title>
+        
+        <meta name="robots" content="noindex" />
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded "><a href="cpp-asio/install-boost.html"><strong aria-hidden="true">1.</strong> Instalação do Boost</a></li><li class="expanded "><a href="cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">9.</strong> Operações síncronas</a></li><li class="expanded "><a href="cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações assíncronas</a></li><li class="expanded "><a href="cpp-asio/udp-communication.html"><strong aria-hidden="true">11.</strong> Protocolo UDP</a></li><li class="expanded "><a href="cpp-asio/the-end.html"><strong aria-hidden="true">12.</strong> Conclusão</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Programação de Redes</h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#instalando-asio" id="instalando-asio">Instalando Asio</a></h1>
+<p>Inicialmente existe duas versões disponíveis download</p>
+<ul>
+<li>Asio Standalone [sem boost]</li>
+<li>Boost Asio (normalmente mais utilizada)</li>
+</ul>
+<p>Installing <a href="https://www.boost.org/">Boost</a> is not hard. On <code>OpenBSD</code>:</p>
+<pre><code>$ pkg_add boost
+</code></pre>
+<p>While on <code>Arch Linux</code>:</p>
+<pre><code>$ sudo pacman -S boost
+</code></pre>
+<p>The thing is when compiling program, please link related <code>Boost</code> libraries. E.g., on <code>OpenBSD</code>:</p>
+<pre><code>$ c++ -L/usr/local/lib client.cpp -o client -lboost_system
+</code></pre>
+<p>On <code>Arch Linux</code>, <code>-pthread</code> option is needed:</p>
+<pre><code>$ c++ -pthread client.cpp -o client -lboost_system</code></pre>
+<h1><a class="header" href="#io_context" id="io_context">io_context</a></h1>
+<p>Like traditional <code>Unix</code> network programming, <code>Boost.Asio</code>also has &quot;socket&quot; concept, but that's  not enough, an <code>io_context</code> object (<code>io_service</code> class is deprecated now) is needed to communicate with Operating System's <code>I/O</code> services. The architecture is like following:<br />
+<img src="https://raw.githubusercontent.com/NanXiao/boost-asio-network-programming-little-book/master/images/architecture.jpg" alt="image" /> </p>
+<p><code>io_context</code> derives from <code>execution_context</code>:</p>
+<pre><code>class io_context
+  : public execution_context
+{
+......
+}
+</code></pre>
+<p>While <code>execution_context</code> derives from <code>noncopyable</code>:</p>
+<pre><code>class execution_context
+  : private noncopyable
+{
+......
+}
+</code></pre>
+<p>Check <code>noncopyable</code> class definition:</p>
+<pre><code>class noncopyable
+{
+protected:
+  noncopyable() {}
+  ~noncopyable() {}
+private:
+  noncopyable(const noncopyable&amp;);
+  const noncopyable&amp; operator=(const noncopyable&amp;);
+};
+</code></pre>
+<p>It means the <code>io_context</code> object can't be copy constructed/copy assignment/move constructed/move assignment, So during initialization of socket, i.e., associate socket with <code>io_context</code>, the <code>io_context</code> should be passed as a reference. E.g.:</p>
+<pre><code>template &lt;typename Protocol
+    BOOST_ASIO_SVC_TPARAM_DEF1(= datagram_socket_service&lt;Protocol&gt;)&gt;
+class basic_datagram_socket
+  : public basic_socket&lt;Protocol BOOST_ASIO_SVC_TARG&gt;
+{
+public:
+......
+  explicit basic_datagram_socket(boost::asio::io_context&amp; io_context)
+    : basic_socket&lt;Protocol BOOST_ASIO_SVC_TARG&gt;(io_context)
+  {
+  }
+......
+}</code></pre>
+<h1><a class="header" href="#socket" id="socket">Socket</a></h1>
+<p>There are <code>4</code> types of socket:</p>
+<p>(1) <code>basic_stream_socket</code>:<br />
+This socket provides sequenced, reliable, two-way connection based byte streams. <code>tcp::socket</code> is an instance of this socket:</p>
+<pre><code>class tcp
+{
+......
+  /// The TCP socket type.
+  typedef basic_stream_socket&lt;tcp&gt; socket;
+......
+}
+</code></pre>
+<p>(2) <code>basic_datagram_socket</code>:<br />
+This socket provides connectionless, datagram service. <code>udp::socket</code> is an instance of this socket:</p>
+<pre><code>class udp
+{
+......
+  /// The UDP socket type.
+  typedef basic_datagram_socket&lt;udp&gt; socket;
+......
+}
+</code></pre>
+<p>(3) <code>basic_raw_socket</code>:<br />
+This socket provides access to internal network protocols and interfaces. <code>icmp::socket</code> is an instance of this socket:</p>
+<pre><code>class icmp
+{
+......
+  /// The ICMP socket type.
+  typedef basic_raw_socket&lt;icmp&gt; socket;
+......
+}
+</code></pre>
+<p>(4) <code>basic_seq_packet_socket</code>:<br />
+This socket combines stream and datagram: it provides a sequenced, reliable, two-way connection based datagrams service. <a href="https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol">SCTP</a> is an example of this type of service.</p>
+<p>All these <code>4</code> sockets derive from <code>basic_socket</code> class, and need to associate with an <code>io_context</code> during initialization. Take <code>tcp::socket</code> as an example:</p>
+<pre><code>boost::asio::io_context io_context;
+boost::asio::ip::tcp::socket socket{io_context};
+</code></pre>
+<p>Please notice the <code>io_context</code> should be a reference in constructor of <code>socket</code> (Please refer <a href="cpp-asio/io_context.html">io_context</a>). Still use  <code>basic_socket</code> an an instance, one of its constructor is like following:</p>
+<pre><code>  explicit basic_socket(boost::asio::io_context&amp; io_context)
+    : basic_io_object&lt;BOOST_ASIO_SVC_T&gt;(io_context)
+  {
+  }
+</code></pre>
+<p>For <code>basic_io_object</code> class, it does not support copy constructed/copy assignment:</p>
+<pre><code>......
+private:
+  basic_io_object(const basic_io_object&amp;);
+  void operator=(const basic_io_object&amp;);
+......
+</code></pre>
+<p>whilst it can be movable:</p>
+<pre><code>......
+protectd:  
+  basic_io_object(basic_io_object&amp;&amp; other)
+  {
+    ......
+  }
+  basic_io_object&amp; operator=(basic_io_object&amp;&amp; other)
+  {
+    ......
+  }</code></pre>
+<h1><a class="header" href="#endpoint" id="endpoint">Endpoint</a></h1>
+<p>Endpoint is composed of &quot;<code>IP</code> address + port&quot;:</p>
+<pre><code>basic_endpoint(const boost::asio::ip::address&amp; addr, unsigned short port_num)
+    : impl_(addr, port_num)
+{
+}
+</code></pre>
+<p>Client uses endpoint to designate server address, and server application uses endpoint to identify which address will be used to listen and accept connections. An example of creating <code>TCP</code> endpoint is like this:</p>
+<pre><code>boost::asio::ip::tcp::endpoint endpoint{
+        boost::asio::ip::make_address(&quot;127.0.0.1&quot;),
+        3303};
+</code></pre>
+<p>Usually, the server needs to listen to all the address of current machine, and it can resort to another constructor of <code>basic_endpoint</code>:</p>
+<pre><code>basic_endpoint(const InternetProtocol&amp; internet_protocol,
+      unsigned short port_num)
+    : impl_(internet_protocol.family(), port_num)
+{
+}
+</code></pre>
+<p>An example of creating and <code>UDP</code> server who listens to all <code>IPv6</code> addresses:</p>
+<pre><code>boost::asio::ip::udp::endpoint endpoint{
+        boost::asio::ip::udp::v6(),
+        3303};</code></pre>
+<h1><a class="header" href="#dns-query" id="dns-query">DNS query</a></h1>
+<p>The <code>resolver</code> class is used to do <code>DNS</code> query, i.e., convert a host+service to <code>IP</code>+port. Take <code>boost::asio::ip::tcp::resolver</code> as an example:</p>
+<pre><code>#include &lt;boost/asio.hpp&gt;
+#include &lt;iostream&gt;
+
+int main()
+{
+    try
+    {
+        boost::asio::io_context io_context;
+
+        boost::asio::ip::tcp::resolver resolver{io_context};
+        boost::asio::ip::tcp::resolver::results_type endpoints =
+                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
+
+        for (auto it = endpoints.cbegin(); it != endpoints.cend(); it++)
+        {
+            boost::asio::ip::tcp::endpoint endpoint = *it;
+            std::cout &lt;&lt; endpoint &lt;&lt; '\n';
+        }
+    }
+    catch (std::exception&amp; e)
+    {
+        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+    }
+
+    return 0;
+}
+</code></pre>
+<p>The running result is:</p>
+<ol start="74">
+<li>125.24.101:443
+74.125.24.139:443
+74.125.24.138:443
+74.125.24.102:443
+74.125.24.100:443
+74.125.24.113:443</li>
+</ol>
+<p>The element of <code>boost::asio::ip::tcp::resolver::results_type</code>'s every iteration is <code>basic_resolver_entry</code>:</p>
+<pre><code>template &lt;typename InternetProtocol&gt;
+class basic_resolver_entry
+{
+......
+public:
+  /// The protocol type associated with the endpoint entry.
+  typedef InternetProtocol protocol_type;
+
+  /// The endpoint type associated with the endpoint entry.
+  typedef typename InternetProtocol::endpoint endpoint_type;
+......
+  /// Convert to the endpoint associated with the entry.
+  operator endpoint_type() const
+  {
+    return endpoint_;
+  }
+......
+}
+</code></pre>
+<p>Since it has <code>endpoint_type() </code> operator, it can be converted to endpoint directly:</p>
+<pre><code>boost::asio::ip::tcp::endpoint endpoint = *it;
+</code></pre>
+<h1><a class="header" href="#throw-exception" id="throw-exception">Throw exception</a></h1>
+<p><code>Boost.Asio</code> functions may throw <code>boost::system::system_error</code> exception. Take <code>resolve</code> as an example:</p>
+<pre><code>results_type resolve(BOOST_ASIO_STRING_VIEW_PARAM host,
+	BOOST_ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags)
+{
+  boost::system::error_code ec;
+  ......
+  boost::asio::detail::throw_error(ec, &quot;resolve&quot;);
+  return r;
+}
+</code></pre>
+<p>There are two overloads of <code>boost::asio::detail::throw_error</code> functions:</p>
+<pre><code>inline void throw_error(const boost::system::error_code&amp; err)
+{
+  if (err)
+    do_throw_error(err);
+}
+
+inline void throw_error(const boost::system::error_code&amp; err,
+    const char* location)
+{
+  if (err)
+    do_throw_error(err, location);
+}
+</code></pre>
+<p>The differences of these two functions is just including &quot;location&quot; (&quot;<code>resolve</code>&quot; string in our example) or not. Accordingly, <code>do_throw_error</code> also have two overloads, I just take one as an example:</p>
+<pre><code>void do_throw_error(const boost::system::error_code&amp; err, const char* location)
+{
+  boost::system::system_error e(err, location);
+  boost::asio::detail::throw_exception(e);
+}
+</code></pre>
+<p><code>boost::system::system_error</code> derives from <code>std::runtime_error</code>:</p>
+<pre><code>class BOOST_SYMBOL_VISIBLE system_error : public std::runtime_error
+{
+......
+public:
+      system_error( error_code ec )
+          : std::runtime_error(&quot;&quot;), m_error_code(ec) {}
+
+      system_error( error_code ec, const std::string &amp; what_arg )
+          : std::runtime_error(what_arg), m_error_code(ec) {}
+......
+      const error_code &amp;  code() const BOOST_NOEXCEPT_OR_NOTHROW { return m_error_code; }
+      const char *        what() const BOOST_NOEXCEPT_OR_NOTHROW;
+......
+}
+</code></pre>
+<p><code>what()</code> member function returns the detailed information of exception.</p>
+<h1><a class="header" href="#connect-server" id="connect-server">Connect server</a></h1>
+<p>The client can use the endpoints returned by <a href="cpp-asio/dns-query.html">DNS query</a> to connect server application. The following is an example:</p>
+<pre><code>#include &lt;boost/asio.hpp&gt;
+#include &lt;iostream&gt;
+
+int main()
+{
+    try
+    {
+        boost::asio::io_context io_context;
+
+        boost::asio::ip::tcp::resolver resolver{io_context};
+        boost::asio::ip::tcp::resolver::results_type endpoints =
+                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
+
+        boost::asio::ip::tcp::tcp::socket socket{io_context};
+        auto endpoint = boost::asio::connect(socket, endpoints);
+
+        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+    }
+    catch (std::exception&amp; e)
+    {
+        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+        return -1;
+    }
+
+    return 0;
+}
+</code></pre>
+<p>The running result is like following:</p>
+<pre><code>Connect to 172.217.194.101:443 successfully!
+</code></pre>
+<p>Please notice <code>boost::asio::connect</code> requires the iterator of endpoints. If you just want one specified endpoint, you can use <code>connect</code> member function of socket. Check following code:</p>
+<pre><code>#include &lt;boost/asio.hpp&gt;
+#include &lt;iostream&gt;
+
+int main()
+{
+    try
+    {
+        boost::asio::io_context io_context;
+
+        boost::asio::ip::tcp::resolver resolver{io_context};
+        boost::asio::ip::tcp::resolver::results_type endpoints =
+                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
+
+        boost::asio::ip::tcp::tcp::socket socket{io_context};
+        auto eit = endpoints.cbegin();
+        for (; eit != endpoints.cend(); eit++)
+        {
+            boost::system::error_code ec;
+            boost::asio::ip::tcp::endpoint endpoint = *eit;
+            socket.connect(endpoint, ec);
+            if (!ec)
+            {
+                std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+                break;
+            }
+        }
+
+        if (eit == endpoints.cend())
+        {
+            std::cout &lt;&lt; &quot;Connect failed!\n&quot;;
+            return  -1;
+        }
+    }
+    catch (std::exception&amp; e)
+    {
+        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+        return -1;
+    }
+
+    return 0;
+}
+</code></pre>
+<p>The running result is like this:</p>
+<pre><code>Connect to 172.217.194.139:443 successfully!
+</code></pre>
+<h1><a class="header" href="#accept-connections" id="accept-connections">Accept connections</a></h1>
+<p>Server needs to accept clients' connections. First server creates an <code>acceptor</code>:</p>
+<pre><code>......
+boost::asio::io_context io_context;
+    boost::asio::ip::tcp::acceptor acceptor{
+        io_context,
+        boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v6(), 3303}};
+......
+</code></pre>
+<p><code>boost::asio::ip::tcp::acceptor</code> is an instance of <code>basic_socket_acceptor</code>:</p>
+<pre><code>class tcp
+{
+......
+  /// The TCP acceptor type.
+  typedef basic_socket_acceptor&lt;tcp&gt; acceptor;
+......
+}
+</code></pre>
+<p>The following constructor of <code>basic_socket_acceptor</code> combines creating socket,  setting reuse address, binding &amp; listening functions:</p>
+<pre><code>basic_socket_acceptor(boost::asio::io_context&amp; io_context,
+    const endpoint_type&amp; endpoint, bool reuse_addr = true)
+  : basic_io_object&lt;BOOST_ASIO_SVC_T&gt;(io_context)
+{
+......
+}
+</code></pre>
+<p>Then <code>acceptor</code> will accept the clients' connections. Following simple example just shows client's address and close the connection:</p>
+<pre><code>#include &lt;boost/asio.hpp&gt;
+#include &lt;iostream&gt;
+
+int main()
+{
+    try
+    {
+        boost::asio::io_context io_context;
+        boost::asio::ip::tcp::acceptor acceptor{
+            io_context,
+            boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v6(), 3303}};
+
+        while (1)
+        {
+            boost::asio::ip::tcp::socket socket{io_context};
+            acceptor.accept(socket);
+
+            std::cout &lt;&lt; socket.remote_endpoint() &lt;&lt; &quot; connects to &quot; &lt;&lt; socket.local_endpoint() &lt;&lt; '\n';
+        }
+    }
+    catch (std::exception&amp; e)
+    {
+        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+        return -1;
+    }
+
+    return 0;
+}
+</code></pre>
+<p>The running result is like this:</p>
+<pre><code>[::ffff:10.217.242.61]:39290 connects to [::ffff:192.168.35.145]:3303
+......
+</code></pre>
+<h1><a class="header" href="#synchronous-readwrite-operations" id="synchronous-readwrite-operations">Synchronous read/write operations</a></h1>
+<p>Once the connection is established, the client and server can communicate with each other. Like classical <code>UNIX</code> socket programming, <code>boost::asio</code> also provides <code>send</code> and <code>receive</code> functions. Use <code>basic_stream_socket</code> as an example and one pair of the implementations is like this:</p>
+<pre><code>template &lt;typename ConstBufferSequence&gt;
+std::size_t send(const ConstBufferSequence&amp; buffers)
+{
+	......
+}
+......
+template &lt;typename MutableBufferSequence&gt;
+std::size_t receive(const MutableBufferSequence&amp; buffers)
+{
+	......
+}
+</code></pre>
+<p>Please notice the buffer types of <code>send/receive</code> are <code>ConstBufferSequence/MutableBufferSequence</code>, and we can use <code>boost::asio::buffer</code> function to construct related types.</p>
+<p>Below is a simple client program which sends &quot;<code>Hello world!</code>&quot; to server after connection is established:</p>
+<pre><code>#include &lt;boost/asio.hpp&gt;
+#include &lt;iostream&gt;
+
+int main()
+{
+    try
+    {
+        boost::asio::io_context io_context;
+
+        boost::asio::ip::tcp::endpoint endpoint{
+                boost::asio::ip::make_address(&quot;10.217.242.61&quot;),
+                3303};
+        boost::asio::ip::tcp::tcp::socket socket{io_context};
+        socket.connect(endpoint);
+
+        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+
+        socket.send(boost::asio::buffer(&quot;Hello world!&quot;));
+    }
+    catch (std::exception&amp; e)
+    {
+        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+        return -1;
+    }
+
+    return 0;
+}
+</code></pre>
+<p>There is the server program which waits receiving greeting from client:</p>
+<pre><code>#include &lt;boost/asio.hpp&gt;
+#include &lt;iostream&gt;
+
+int main()
+{
+    try
+    {
+        boost::asio::io_context io_context;
+        boost::asio::ip::tcp::acceptor acceptor{
+                io_context,
+                boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v4(), 3303}};
+
+        while (1)
+        {
+            boost::asio::ip::tcp::socket socket{io_context};
+            acceptor.accept(socket);
+
+            std::cout &lt;&lt; socket.remote_endpoint() &lt;&lt; &quot; connects to &quot; &lt;&lt; socket.local_endpoint() &lt;&lt; '\n';
+
+            char recv_str[1024] = {};
+            socket.receive(boost::asio::buffer(recv_str));
+
+            std::cout &lt;&lt; &quot;Receive string: &quot; &lt;&lt; recv_str &lt;&lt; '\n';
+        }
+    }
+    catch (std::exception&amp; e)
+    {
+        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+        return -1;
+    }
+
+    return 0;
+} 
+</code></pre>
+<p>Build and run programs. Client outputs following:</p>
+<pre><code>$ ./client
+Connect to 10.217.242.61:3303 successfully!
+</code></pre>
+<p>Server outputs following:</p>
+<pre><code>$ ./server
+10.217.242.21:64776 connects to 10.217.242.61:3303
+Receive string: Hello world!
+</code></pre>
+<p>If no error occurs, <code>send</code> can guarantee at least one byte is sent successfully, and you should check the return value to see whether all bytes are sent successfully or not. <code>receive</code> is similar as <code>send</code>. <code>boost::asio::basic_stream_socket</code> also provides <code>read_some</code> and <code>write_some</code> which have the same functions as <code>receive</code> and <code>send</code>.</p>
+<p>If we don't bother to check the middle state (partial bytes are sent successfully), and only care whether all bytes are sent successfully or not, we can use <code>boost::asio::write</code> which actually uses <code>wrtie_some</code> under the hood.  Correspondingly, it is not hard to guess what <code>boost::asio::read</code>does.</p>
+<h1><a class="header" href="#asynchronous-readwrite-operations" id="asynchronous-readwrite-operations">Asynchronous read/write operations</a></h1>
+<p>Unlike classical <code>UNIX</code> socket programming, <code>boost.asio</code> has battery-included asynchronous read/write abilities. Still use <code>basic_stream_socket</code> as an example, and one pair of the implementations is like this:</p>
+<pre><code>template &lt;typename ConstBufferSequence, typename WriteHandler&gt;
+  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+      void (boost::system::error_code, std::size_t))
+  async_send(const ConstBufferSequence&amp; buffers,
+      BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
+{
+	.......
+}
+template &lt;typename MutableBufferSequence, typename ReadHandler&gt;
+  BOOST_ASIO_INITFN_RESULT_TYPE(ReadHandler,
+      void (boost::system::error_code, std::size_t))
+  async_receive(const MutableBufferSequence&amp; buffers,
+      BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
+{
+	.......
+}
+</code></pre>
+<p>Since <code>async_send</code> and <code>async_receive</code> functions will return immediately, and not block current thread, you should pass a callback function as the parameter which receives the result of read/write operations:</p>
+<pre><code>void handler(
+	const boost::system::error_code&amp; error, // Result of operation.
+	std::size_t bytes_transferred           // Number of bytes processed.
+)
+</code></pre>
+<p>There is a simple client/server example. Below is client code:</p>
+<pre><code>#include &lt;boost/asio.hpp&gt;
+#include &lt;functional&gt;
+#include &lt;iostream&gt;
+#include &lt;memory&gt;
+
+void callback(
+        const boost::system::error_code&amp; error,
+        std::size_t bytes_transferred,
+        std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket,
+        std::string str)
+{
+    if (error)
+    {
+        std::cout &lt;&lt; error.message() &lt;&lt; '\n';
+    }
+    else if (bytes_transferred == str.length())
+    {
+        std::cout &lt;&lt; &quot;Message is sent successfully!&quot; &lt;&lt; '\n';
+    }
+    else
+    {
+        socket-&gt;async_send(
+                boost::asio::buffer(str.c_str() + bytes_transferred, str.length() - bytes_transferred),
+                std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
+    }
+}
+
+
+int main()
+{
+    try
+    {
+        boost::asio::io_context io_context;
+
+        boost::asio::ip::tcp::endpoint endpoint{
+                boost::asio::ip::make_address(&quot;192.168.35.145&quot;),
+                3303};
+
+        std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
+        socket-&gt;connect(endpoint);
+
+        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+
+        std::string str{&quot;Hello world!&quot;};
+        socket-&gt;async_send(
+                boost::asio::buffer(str),
+                std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
+        socket-&gt;get_executor().context().run();
+    }
+    catch (std::exception&amp; e)
+    {
+        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+        return -1;
+    }
+
+    return 0;
+}
+</code></pre>
+<p>Let's go through the code:</p>
+<p>(1) Since socket object is non-copyable (please refer <a href="cpp-asio/socket.html">socket</a>), socket is created as an shared pointer:</p>
+<pre><code>......
+std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
+......
+</code></pre>
+<p>(2) Because the callback only has two parameters, it needs to use <code>std::bind</code> to pass additional parameters:</p>
+<pre><code>......
+std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str)
+......
+</code></pre>
+<p>(3) <code>async_send</code> does not guarantee all the bytes are sent (<code>boost::asio::async_write</code> returns either all bytes are sent successfully or an error occurs), so needs to reissue <code>async_send</code> in callback:</p>
+<pre><code>......
+if (error)
+{
+    ......
+}
+else if (bytes_transferred == str.length())
+{
+    ......
+}
+else
+{
+    socket-&gt;async_send(......);
+}
+</code></pre>
+<p>(4) <code>io_context.run</code> function will block until all work has finished and there are no
+more handlers to be dispatched, or until the <code>io_context</code> has been stopped:</p>
+<pre><code>socket-&gt;get_executor().context().run();
+</code></pre>
+<p>If there is no <code>io_context.run</code> function, the program will exit immediately.</p>
+<p>Check the server code who uses <code>async_receive</code>:</p>
+<pre><code>#include &lt;ctime&gt;
+#include &lt;functional&gt;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;boost/asio.hpp&gt;
+
+void callback(
+        const boost::system::error_code&amp; error,
+        std::size_t,
+        char recv_str[]) {
+    if (error)
+    {
+        std::cout &lt;&lt; error.message() &lt;&lt; '\n';
+    }
+    else
+    {
+        std::cout &lt;&lt; recv_str &lt;&lt; '\n';
+    }
+}
+
+int main()
+{
+    try
+    {
+        boost::asio::io_context io_context;
+
+        boost::asio::ip::tcp::acceptor acceptor(
+                                        io_context,
+                                        boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), 3303));
+
+        for (;;)
+        {
+            boost::asio::ip::tcp::socket socket(io_context);
+            acceptor.accept(socket);
+
+            char recv_str[1024] = {};
+            socket.async_receive(
+                    boost::asio::buffer(recv_str),
+                    std::bind(callback, std::placeholders::_1, std::placeholders::_2, recv_str));
+            socket.get_executor().context().run();
+            socket.get_executor().context().restart();
+        }
+    }
+    catch (std::exception&amp; e)
+    {
+        std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
+    }
+
+    return 0;
+}
+</code></pre>
+<p>There are two caveats you need to pay attention to:</p>
+<p>(1) Just for demo purpose: for every client, the callback is called only once;<br />
+(2) <code>io_context.restart</code> must be called to invoke another <code>io_context.run</code>.</p>
+<p>Correspondingly, you can also check how to use <code>boost::asio::async_read</code>.</p>
+<p>Build and run programs. Client outputs following:</p>
+<pre><code>$ ./client
+Connect to 192.168.35.145:3303 successfully!
+Message is sent successfully!
+</code></pre>
+<p>Server outputs following:</p>
+<pre><code>$ ./server
+Hello world!
+</code></pre>
+<h1><a class="header" href="#udp-communication" id="udp-communication">UDP communication</a></h1>
+<p>We have discussed how to communicate through <code>TCP</code> enough, so it is time to switch to <code>UDP</code> now. <code>UDP</code> is a connectionless protocol, and it is easier to use than <code>TCP</code>. There is a client/server example. Below is client code:</p>
+<pre><code>#include &lt;boost/asio.hpp&gt;
+#include &lt;iostream&gt;
+
+int main()
+{
+    try
+    {
+        boost::asio::io_context io_context;
+
+        boost::asio::ip::udp::socket socket{io_context};
+        socket.open(boost::asio::ip::udp::v4());
+
+        socket.send_to(
+                boost::asio::buffer(&quot;Hello world!&quot;),
+                boost::asio::ip::udp::endpoint{boost::asio::ip::make_address(&quot;192.168.35.145&quot;), 3303});
+    }
+    catch (std::exception&amp; e)
+    {
+        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+        return -1;
+    }
+
+    return 0;
+}
+</code></pre>
+<p>Although there is no need to call <code>socket.connect</code> function, you need call <code>socket.open</code> explicitly. Furthermore, the server's endpoint needs to be specified when invoking <code>socket.send_to</code>.</p>
+<p>Server code is like this:</p>
+<pre><code>#include &lt;ctime&gt;
+#include &lt;functional&gt;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;boost/asio.hpp&gt;
+
+int main()
+{
+    try
+    {
+        boost::asio::io_context io_context;
+
+        for (;;)
+        {
+            boost::asio::ip::udp::socket socket(
+                    io_context,
+                    boost::asio::ip::udp::endpoint{boost::asio::ip::udp::v4(), 3303});
+
+            boost::asio::ip::udp::endpoint client;
+            char recv_str[1024] = {};
+
+            socket.receive_from(
+                    boost::asio::buffer(recv_str),
+                    client);
+            std::cout &lt;&lt; client &lt;&lt; &quot;: &quot; &lt;&lt; recv_str &lt;&lt; '\n';
+        }
+    }
+    catch (std::exception&amp; e)
+    {
+        std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
+    }
+
+    return 0;
+}
+</code></pre>
+<p>Very easy, isn't it? Build and run client and server. The following log will be printed on server side:</p>
+<pre><code>$ ./server
+10.217.242.21:63838: Hello world!
+10.217.242.21:61259: Hello world!
+</code></pre>
+<h1><a class="header" href="#the-end" id="the-end">The end</a></h1>
+<p>It is time to wrap up this crash course. Hope this manual can open the door of using <a href="https://www.boost.org/doc/libs/1_67_0/doc/html/boost_asio.html">Boost.Asio</a> network programming for you. Definitely, this little book just introduces the basic idea. To improve your coding skill, you need to read document more, read source code more, and practice more.</p>
+<p>Enjoy network programming!</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
