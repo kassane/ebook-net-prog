@@ -1,4 +1,4 @@
-# Synchronous read/write operations
+# Operações síncronas E/S
 
 Once the connection is established, the client and server can communicate with each other. Like classical `UNIX` socket programming, `boost::asio` also provides `send` and `receive` functions. Use `basic_stream_socket` as an example and one pair of the implementations is like this:     
 

@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="cpp-asio/install-boost.html"><strong aria-hidden="true">1.</strong> Instalação do Boost</a></li><li class="expanded "><a href="cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">9.</strong> Operações síncronas</a></li><li class="expanded "><a href="cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações assíncronas</a></li><li class="expanded "><a href="cpp-asio/udp-communication.html"><strong aria-hidden="true">11.</strong> Protocolo UDP</a></li><li class="expanded "><a href="cpp-asio/the-end.html"><strong aria-hidden="true">12.</strong> Conclusão</a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Boost</a></li><li class="expanded "><a href="cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">9.</strong> Operações síncronas</a></li><li class="expanded "><a href="cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações assíncronas</a></li><li class="expanded "><a href="cpp-asio/udp-communication.html"><strong aria-hidden="true">11.</strong> Protocolo UDP</a></li><li class="expanded "><a href="cpp-asio/the-end.html"><strong aria-hidden="true">12.</strong> Conclusão</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -149,22 +149,80 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#instalando-asio" id="instalando-asio">Instalando Asio</a></h1>
-<p>Inicialmente existe duas versões disponíveis download</p>
+<p>Inicialmente existe duas versões disponíveis para download:</p>
 <ul>
-<li>Asio Standalone [sem boost]</li>
-<li>Boost Asio (normalmente mais utilizada)</li>
+<li>
+<p><a href="https://think-async.com/Asio">Asio Standalone</a> (sem boost) - <strong>Recomendação:</strong> C++11[<code>std::system_error</code>] ou posterior;</p>
+</li>
+<li>
+<p><a href="https://www.boost.org">Boost Asio</a> (normalmente mais utilizado).</p>
+</li>
 </ul>
-<p>Installing <a href="https://www.boost.org/">Boost</a> is not hard. On <code>OpenBSD</code>:</p>
-<pre><code>$ pkg_add boost
+<p>Instalar Asio não é difícil. Pois ele possui apenas arquivos headers.</p>
+<p>Os exemplos abaixo citarão a instalação do <code>boost::asio</code>.</p>
+<h2><a class="header" href="#linux" id="linux">Linux</a></h2>
+<p><code>Ubuntu</code>:</p>
+<pre><code>$ sudo apt-get install boost
 </code></pre>
-<p>While on <code>Arch Linux</code>:</p>
+<p><code>Arch Linux</code>:</p>
 <pre><code>$ sudo pacman -S boost
 </code></pre>
-<p>The thing is when compiling program, please link related <code>Boost</code> libraries. E.g., on <code>OpenBSD</code>:</p>
+<p>No linux para compilar um programa, o parâmetro <code>-pthread</code> se faz necessário:</p>
+<pre><code>$ g++ client.cpp -o client -pthread -lboost_system
+</code></pre>
+<h2><a class="header" href="#bsd" id="bsd">BSD</a></h2>
+<p><code>OpenBSD</code>:</p>
+<pre><code>$ pkg_add boost
+</code></pre>
+<p>Quando estiver compilando um programa, favor vincular as bibliotecas <code>boost</code>.</p>
+<p>Ex.:</p>
 <pre><code>$ c++ -L/usr/local/lib client.cpp -o client -lboost_system
 </code></pre>
-<p>On <code>Arch Linux</code>, <code>-pthread</code> option is needed:</p>
-<pre><code>$ c++ -pthread client.cpp -o client -lboost_system</code></pre>
+<h2><a class="header" href="#windows" id="windows">Windows</a></h2>
+<p>Se você utiliza MSVC, então poderá optar por diversas opções:</p>
+<ul>
+<li>
+<p>Baixar pré-compiladas: <a href="https://sourceforge.net/projects/boost/files/boost-binaries">Sourceforge</a></p>
+</li>
+<li>
+<p>Usar <a href="https://github.com/microsoft/vcpkg"><code>vcpkg</code></a> com o seguinte parâmetro, ex.:</p>
+<p>x86:</p>
+<pre><code>  vcpkg install boost:x86-windows
+</code></pre>
+<p>ou</p>
+<p>x64:</p>
+<pre><code>  vcpkg install boost:x64-windows
+</code></pre>
+</li>
+<li>
+<p>Usar <a href="https://conan.io"><code>conan</code></a> (<strong>Requer:</strong> python) com o seguinte parâmetro, ex.:</p>
+<p>Versão [1.72]:</p>
+<pre><code>  conan install Boost/1.72.0@bincrafters/stable
+</code></pre>
+<p><strong>Nota:</strong> Para que a instalação com conan funcione neste repositório precisará utilizar este comando antes:</p>
+<pre><code>  conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+</code></pre>
+<p>Para compilar no Windows usando MSVC no prompt de comando use:</p>
+<pre><code>  cl /EHsc /I C:\Program Files\boost\boost_1_72_0 example.cpp /link /LIBPATH:C:\Program Files\boost\boost_1_72_0\lib
+</code></pre>
+</li>
+</ul>
+<p>Caso queira utilizar MinGW(Minimal GNU for Windows) terá duas opções:</p>
+<ul>
+<li>
+<p><a href="http://www.msys2.org">MSYS2</a>:</p>
+<p>x86:</p>
+<pre><code>  $ pacman -S mingw-w64-i386-boost
+</code></pre>
+<p>x86_64:</p>
+<pre><code>  $ pacman -S mingw-w64-x86_64-boost
+</code></pre>
+<p><strong>Nota:</strong> Por mais que parece ser um ambiente linux (minimalista), não requer uso do <code>sudo</code> na instalação</p>
+</li>
+<li>
+<p>Compilar manualmente seguindo a documentação boost: <a href="https://www.boost.org/doc/libs/1_72_0/more/getting_started/windows.html">Windows - Getting Start</a></p>
+</li>
+</ul>
 
                     </main>
 

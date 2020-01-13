@@ -1,7 +1,12 @@
-# UDP communication
+# Protocolo UDP
 
-We have discussed how to communicate through `TCP` enough, so it is time to switch to `UDP` now. `UDP` is a connectionless protocol, and it is easier to use than `TCP`. There is a client/server example. Below is client code:  
+Nós discutimos como se comunicar através do `TCP` o suficiente, então é hora de mudar para o` UDP` agora. O `UDP` é um protocolo de conexão não confiável e é mais fácil de usar que o `TCP`.
 
+Há um exemplo de Cliente/Servidor. 
+
+### *Cliente*:
+
+```cpp
 	#include <boost/asio.hpp>
 	#include <iostream>
 	
@@ -15,7 +20,7 @@ We have discussed how to communicate through `TCP` enough, so it is time to swit
 	        socket.open(boost::asio::ip::udp::v4());
 	
 	        socket.send_to(
-	                boost::asio::buffer("Hello world!"),
+	                boost::asio::buffer("Welcome to C++ Networking."),
 	                boost::asio::ip::udp::endpoint{boost::asio::ip::make_address("192.168.35.145"), 3303});
 	    }
 	    catch (std::exception& e)
@@ -26,11 +31,13 @@ We have discussed how to communicate through `TCP` enough, so it is time to swit
 	
 	    return 0;
 	}
+```
 
-Although there is no need to call `socket.connect` function, you need call `socket.open` explicitly. Furthermore, the server's endpoint needs to be specified when invoking `socket.send_to`.  
+Embora não seja necessário chamar a função `socket.connect`, você precisa chamar explicitamente o `socket.open`. Além disso, o `endpoint` do servidor precisa ser especificado ao chamar `socket.send_to`.
 
-Server code is like this:  
+### *Servidor*:
 
+```cpp
 	#include <ctime>
 	#include <functional>
 	#include <iostream>
@@ -65,9 +72,11 @@ Server code is like this:
 	
 	    return 0;
 	}
+```
 
-Very easy, isn't it? Build and run client and server. The following log will be printed on server side:  
+<!-- Very easy, isn't it? Build and run client and server. The following log will be printed on server side:   -->
+Muito fácil, não é? Crie e execute o cliente e servidor. Então o seguinte log será impresso no lado do servidor:
 
-	$ ./server
-	10.217.242.21:63838: Hello world!
-	10.217.242.21:61259: Hello world!
+	$ ./servidor
+	10.217.242.21:63838: Welcome to C++ Networking.
+	10.217.242.21:61259: Welcome to C++ Networking.

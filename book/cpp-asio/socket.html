@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="../cpp-asio/install-boost.html"><strong aria-hidden="true">1.</strong> Instalação do Boost</a></li><li class="expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="../cpp-asio/socket.html" class="active"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">9.</strong> Operações síncronas</a></li><li class="expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações assíncronas</a></li><li class="expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">11.</strong> Protocolo UDP</a></li><li class="expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">12.</strong> Conclusão</a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Boost</a></li><li class="expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="../cpp-asio/socket.html" class="active"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">9.</strong> Operações síncronas</a></li><li class="expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações assíncronas</a></li><li class="expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">11.</strong> Protocolo UDP</a></li><li class="expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">12.</strong> Conclusão</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -148,68 +148,71 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#socket" id="socket">Socket</a></h1>
-<p>There are <code>4</code> types of socket:</p>
+                        <h1><a class="header" href="#soquetes-sockets" id="soquetes-sockets">Soquetes (Sockets)</a></h1>
+<p>Existem <code>4</code> tipos de soquetes:</p>
 <p>(1) <code>basic_stream_socket</code>:<br />
-This socket provides sequenced, reliable, two-way connection based byte streams. <code>tcp::socket</code> is an instance of this socket:</p>
-<pre><code>class tcp
-{
-......
-  /// The TCP socket type.
-  typedef basic_stream_socket&lt;tcp&gt; socket;
-......
-}
+Este soquete fornece fluxos de bytes baseados em conexão bidirecional, confiável e sequencial. <code>tcp::socket</code> é uma instância deste soquete:</p>
+<pre><code class="language-cpp">	class tcp
+	{
+	......
+	  /// The TCP socket type.
+	  typedef basic_stream_socket&lt;tcp&gt; socket;
+	......
+	}
 </code></pre>
 <p>(2) <code>basic_datagram_socket</code>:<br />
-This socket provides connectionless, datagram service. <code>udp::socket</code> is an instance of this socket:</p>
-<pre><code>class udp
-{
-......
-  /// The UDP socket type.
-  typedef basic_datagram_socket&lt;udp&gt; socket;
-......
-}
+Este soquete fornece serviço de datagrama sem garatias de conexão. <code>udp::socket</code> é uma instância deste soquete:</p>
+<pre><code class="language-cpp">	class udp
+	{
+	......
+	  /// The UDP socket type.
+  	  typedef basic_datagram_socket&lt;udp&gt; socket;
+	......
+	}
 </code></pre>
-<p>(3) <code>basic_raw_socket</code>:<br />
-This socket provides access to internal network protocols and interfaces. <code>icmp::socket</code> is an instance of this socket:</p>
-<pre><code>class icmp
-{
-......
-  /// The ICMP socket type.
-  typedef basic_raw_socket&lt;icmp&gt; socket;
-......
-}
+<p>(3) <code>basic_raw_socket</code>:</p>
+<!-- This socket provides access to internal network protocols and interfaces. `icmp::socket` is an instance of this socket:   -->
+<p>Este soquete fornece acesso a protocolos e interfaces de rede interno. O <code>icmp::socket</code> é uma instância deste soquete:</p>
+<pre><code class="language-cpp">	class icmp
+	{
+	......
+	  /// The ICMP socket type.
+  	  typedef basic_raw_socket&lt;icmp&gt; socket;
+	......
+	}
 </code></pre>
 <p>(4) <code>basic_seq_packet_socket</code>:<br />
-This socket combines stream and datagram: it provides a sequenced, reliable, two-way connection based datagrams service. <a href="https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol">SCTP</a> is an example of this type of service.</p>
-<p>All these <code>4</code> sockets derive from <code>basic_socket</code> class, and need to associate with an <code>io_context</code> during initialization. Take <code>tcp::socket</code> as an example:</p>
-<pre><code>boost::asio::io_context io_context;
-boost::asio::ip::tcp::socket socket{io_context};
+Este soquete combina fluxo e datagrama: fornece um serviço de datagramas com conexão bidirecional, confiável e bidirecional. <a href="https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol">SCTP</a> é um exemplo deste tipo de serviço.</p>
+<!-- All these `4` sockets derive from `basic_socket` class, and need to associate with an `io_context` during initialization. Take `tcp::socket` as an example:   -->
+<p>Todos esses <code>4</code> soquetes derivam da classe <code>basic_socket</code> e precisam ser associados a um <code>io_context</code> durante a inicialização. Veja <code>tcp::socket</code> como exemplo:</p>
+<pre><code class="language-cpp">		boost::asio::io_context io_context;
+		boost::asio::ip::tcp::socket socket{io_context};
 </code></pre>
-<p>Please notice the <code>io_context</code> should be a reference in constructor of <code>socket</code> (Please refer <a href="io_context.html">io_context</a>). Still use  <code>basic_socket</code> an an instance, one of its constructor is like following:</p>
-<pre><code>  explicit basic_socket(boost::asio::io_context&amp; io_context)
-    : basic_io_object&lt;BOOST_ASIO_SVC_T&gt;(io_context)
-  {
-  }
+<p>Observe que o <code>io_context</code> deve ser uma referência no construtor do<code> socket</code> (consulte <a href="io_context.html">io_context</a>). Ainda use <code>basic_socket</code> e uma instância, um de seus construtores é o seguinte:</p>
+<pre><code class="language-cpp">	  explicit basic_socket(boost::asio::io_context&amp; io_context)
+	    : basic_io_object&lt;BOOST_ASIO_SVC_T&gt;(io_context)
+	  {
+	  }
 </code></pre>
-<p>For <code>basic_io_object</code> class, it does not support copy constructed/copy assignment:</p>
-<pre><code>......
-private:
-  basic_io_object(const basic_io_object&amp;);
-  void operator=(const basic_io_object&amp;);
-......
+<p>Para a classe <code>basic_io_object</code>, ele não suporta copy constructed/copy assignment:</p>
+<pre><code class="language-cpp">	......
+	private:
+	  basic_io_object(const basic_io_object&amp;);
+	  void operator=(const basic_io_object&amp;);
+	......
 </code></pre>
-<p>whilst it can be movable:</p>
-<pre><code>......
-protectd:  
-  basic_io_object(basic_io_object&amp;&amp; other)
-  {
-    ......
-  }
-  basic_io_object&amp; operator=(basic_io_object&amp;&amp; other)
-  {
-    ......
-  }</code></pre>
+<p>mas suporta move constructed/move assignment:</p>
+<pre><code class="language-cpp">	......
+	protected:  
+	  basic_io_object(basic_io_object&amp;&amp; other)
+	  {
+	    ......
+	  }
+	  basic_io_object&amp; operator=(basic_io_object&amp;&amp; other)
+	  {
+	    ......
+	  }
+</code></pre>
 
                     </main>
 

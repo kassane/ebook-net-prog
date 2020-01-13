@@ -1,7 +1,9 @@
-# Asynchronous read/write operations
+# Operações Assíncronas E/S
 
-Unlike classical `UNIX` socket programming, `boost.asio` has battery-included asynchronous read/write abilities. Still use `basic_stream_socket` as an example, and one pair of the implementations is like this:   
+<!-- Unlike classical `UNIX` socket programming, `boost.asio` has battery-included asynchronous read/write abilities. Still use `basic_stream_socket` as an example, and one pair of the implementations is like this:    -->
+Diferentemente da API de soquetes do `UNIX`, o` boost.asio` possui habilidades de leitura & gravação(read/write) assíncronas inclusas. Ainda pode usar `basic_stream_socket` como exemplo, e um par de implementações assim:
 
+```cpp
 	template <typename ConstBufferSequence, typename WriteHandler>
 	  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
 	      void (boost::system::error_code, std::size_t))
@@ -18,16 +20,21 @@ Unlike classical `UNIX` socket programming, `boost.asio` has battery-included as
 	{
 		.......
 	}
+```
 
-Since `async_send` and `async_receive` functions will return immediately, and not block current thread, you should pass a callback function as the parameter which receives the result of read/write operations:  
+<!-- Since `async_send` and `async_receive` functions will return immediately, and not block current thread, you should pass a callback function as the parameter which receives the result of read/write operations:   -->
+Como as funções `async_send` e `async_receive` retornam imediatamente, e não bloqueiam a thread atual, você deve passar uma função de retorno de chamada como o parâmetro que recebe o resultado das operações de leitura & gravação:
 
+```cpp
 	void handler(
 		const boost::system::error_code& error, // Result of operation.
 		std::size_t bytes_transferred           // Number of bytes processed.
 	)
+```
 
-There is a simple client/server example. Below is client code:  
+Há um exemplo simples de cliente/servidor. Abaixo está o código do cliente:  
 
+```cpp
 	#include <boost/asio.hpp>
 	#include <functional>
 	#include <iostream>
@@ -53,8 +60,7 @@ There is a simple client/server example. Below is client code:
 	                boost::asio::buffer(str.c_str() + bytes_transferred, str.length() - bytes_transferred),
 	                std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
 	    }
-	}
-	
+	}	
 	
 	int main()
 	{
@@ -85,23 +91,29 @@ There is a simple client/server example. Below is client code:
 	
 	    return 0;
 	}
+```
 
-Let's go through the code:  
+Vamos analisar o código:  
 
-(1) Since socket object is non-copyable (please refer [socket](socket.md)), socket is created as an shared pointer:  
+(1) Como o objeto soquetes é non-copyable (consulte: [soquetes](socket.md)), soquetes é criado como um ponteiro inteligente de memória compartilhada (shared_pointer):  
 
+```cpp
 	......
 	std::shared_ptr<boost::asio::ip::tcp::socket> socket{new boost::asio::ip::tcp::socket{io_context}};
 	......
+```
 
-(2) Because the callback only has two parameters, it needs to use `std::bind` to pass additional parameters:  
+(2) Como o callback possui apenas dois parâmetros, ele precisa usar `std::bind` para passar parâmetros adicionais:
 
+```cpp
 	......
 	std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str)
 	......
+```
 
-(3) `async_send` does not guarantee all the bytes are sent (`boost::asio::async_write` returns either all bytes are sent successfully or an error occurs), so needs to reissue `async_send` in callback:  
+(3) `async_send` não garante que todos os bytes sejam enviados (`boost::asio::async_write` retorna todos os bytes enviados com sucesso ou ocorre um erro), portanto, é necessário reemitir `async_send` no callback:  
 
+```cpp
 	......
 	if (error)
 	{
@@ -115,14 +127,17 @@ Let's go through the code:
 	{
 	    socket->async_send(......);
 	}
-(4) `io_context.run` function will block until all work has finished and there are no
-more handlers to be dispatched, or until the `io_context` has been stopped:  
+```
+(4) A função `io_context.run` será bloqueada até que todo o trabalho termine e não haja mais handlers(manipuladores) a serem despachados, ou até que o` io_context` seja interrompido:
 
+```cpp
 	socket->get_executor().context().run();
-If there is no `io_context.run` function, the program will exit immediately.  
+```
+Se não houver a função `io_context.run`, o programa será encerrado imediatamente.  
 
-Check the server code who uses `async_receive`:  
+Verifique o código do servidor que usa `async_receive`:  
 
+```cpp
 	#include <ctime>
 	#include <functional>
 	#include <iostream>
@@ -173,21 +188,24 @@ Check the server code who uses `async_receive`:
 	
 	    return 0;
 	}
+```
 	
-There are two caveats you need to pay attention to:  
+Há duas advertências às quais você precisa prestar atenção:  
 
-(1) Just for demo purpose: for every client, the callback is called only once;  
-(2) `io_context.restart` must be called to invoke another `io_context.run`.  
+(1) Apenas para fins de demonstração: para cada cliente, o callback é chamado apenas uma vez;  
+(2) O `io_context.restart` deve ser chamado para chamar outro` io_context.run`.  
 
-Correspondingly, you can also check how to use `boost::asio::async_read`.
+Da mesma forma, você também pode verificar como usar o `boost::asio::async_read`.
 
-Build and run programs. Client outputs following:  
+Crie e execute os programas.
+
+O cliente emitirá o seguinte:  
 
 	$ ./client
 	Connect to 192.168.35.145:3303 successfully!
 	Message is sent successfully!
 
-Server outputs following:  
+Servidor emitirar o seguinte:  
 
 	$ ./server
 	Hello world!

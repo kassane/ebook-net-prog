@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="cpp-asio/install-boost.html"><strong aria-hidden="true">1.</strong> Instalação do Boost</a></li><li class="expanded "><a href="cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">9.</strong> Operações síncronas</a></li><li class="expanded "><a href="cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações assíncronas</a></li><li class="expanded "><a href="cpp-asio/udp-communication.html"><strong aria-hidden="true">11.</strong> Protocolo UDP</a></li><li class="expanded "><a href="cpp-asio/the-end.html"><strong aria-hidden="true">12.</strong> Conclusão</a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Boost</a></li><li class="expanded "><a href="cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">9.</strong> Operações síncronas</a></li><li class="expanded "><a href="cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações assíncronas</a></li><li class="expanded "><a href="cpp-asio/udp-communication.html"><strong aria-hidden="true">11.</strong> Protocolo UDP</a></li><li class="expanded "><a href="cpp-asio/the-end.html"><strong aria-hidden="true">12.</strong> Conclusão</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -151,126 +151,189 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#instalando-asio" id="instalando-asio">Instalando Asio</a></h1>
-<p>Inicialmente existe duas versões disponíveis download</p>
+<p>Inicialmente existe duas versões disponíveis para download:</p>
 <ul>
-<li>Asio Standalone [sem boost]</li>
-<li>Boost Asio (normalmente mais utilizada)</li>
+<li>
+<p><a href="https://think-async.com/Asio">Asio Standalone</a> (sem boost) - <strong>Recomendação:</strong> C++11[<code>std::system_error</code>] ou posterior;</p>
+</li>
+<li>
+<p><a href="https://www.boost.org">Boost Asio</a> (normalmente mais utilizado).</p>
+</li>
 </ul>
-<p>Installing <a href="https://www.boost.org/">Boost</a> is not hard. On <code>OpenBSD</code>:</p>
-<pre><code>$ pkg_add boost
+<p>Instalar Asio não é difícil. Pois ele possui apenas arquivos headers.</p>
+<p>Os exemplos abaixo citarão a instalação do <code>boost::asio</code>.</p>
+<h2><a class="header" href="#linux" id="linux">Linux</a></h2>
+<p><code>Ubuntu</code>:</p>
+<pre><code>$ sudo apt-get install boost
 </code></pre>
-<p>While on <code>Arch Linux</code>:</p>
+<p><code>Arch Linux</code>:</p>
 <pre><code>$ sudo pacman -S boost
 </code></pre>
-<p>The thing is when compiling program, please link related <code>Boost</code> libraries. E.g., on <code>OpenBSD</code>:</p>
+<p>No linux para compilar um programa, o parâmetro <code>-pthread</code> se faz necessário:</p>
+<pre><code>$ g++ client.cpp -o client -pthread -lboost_system
+</code></pre>
+<h2><a class="header" href="#bsd" id="bsd">BSD</a></h2>
+<p><code>OpenBSD</code>:</p>
+<pre><code>$ pkg_add boost
+</code></pre>
+<p>Quando estiver compilando um programa, favor vincular as bibliotecas <code>boost</code>.</p>
+<p>Ex.:</p>
 <pre><code>$ c++ -L/usr/local/lib client.cpp -o client -lboost_system
 </code></pre>
-<p>On <code>Arch Linux</code>, <code>-pthread</code> option is needed:</p>
-<pre><code>$ c++ -pthread client.cpp -o client -lboost_system</code></pre>
+<h2><a class="header" href="#windows" id="windows">Windows</a></h2>
+<p>Se você utiliza MSVC, então poderá optar por diversas opções:</p>
+<ul>
+<li>
+<p>Baixar pré-compiladas: <a href="https://sourceforge.net/projects/boost/files/boost-binaries">Sourceforge</a></p>
+</li>
+<li>
+<p>Usar <a href="https://github.com/microsoft/vcpkg"><code>vcpkg</code></a> com o seguinte parâmetro, ex.:</p>
+<p>x86:</p>
+<pre><code>  vcpkg install boost:x86-windows
+</code></pre>
+<p>ou</p>
+<p>x64:</p>
+<pre><code>  vcpkg install boost:x64-windows
+</code></pre>
+</li>
+<li>
+<p>Usar <a href="https://conan.io"><code>conan</code></a> (<strong>Requer:</strong> python) com o seguinte parâmetro, ex.:</p>
+<p>Versão [1.72]:</p>
+<pre><code>  conan install Boost/1.72.0@bincrafters/stable
+</code></pre>
+<p><strong>Nota:</strong> Para que a instalação com conan funcione neste repositório precisará utilizar este comando antes:</p>
+<pre><code>  conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+</code></pre>
+<p>Para compilar no Windows usando MSVC no prompt de comando use:</p>
+<pre><code>  cl /EHsc /I C:\Program Files\boost\boost_1_72_0 example.cpp /link /LIBPATH:C:\Program Files\boost\boost_1_72_0\lib
+</code></pre>
+</li>
+</ul>
+<p>Caso queira utilizar MinGW(Minimal GNU for Windows) terá duas opções:</p>
+<ul>
+<li>
+<p><a href="http://www.msys2.org">MSYS2</a>:</p>
+<p>x86:</p>
+<pre><code>  $ pacman -S mingw-w64-i386-boost
+</code></pre>
+<p>x86_64:</p>
+<pre><code>  $ pacman -S mingw-w64-x86_64-boost
+</code></pre>
+<p><strong>Nota:</strong> Por mais que parece ser um ambiente linux (minimalista), não requer uso do <code>sudo</code> na instalação</p>
+</li>
+<li>
+<p>Compilar manualmente seguindo a documentação boost: <a href="https://www.boost.org/doc/libs/1_72_0/more/getting_started/windows.html">Windows - Getting Start</a></p>
+</li>
+</ul>
 <h1><a class="header" href="#io_context" id="io_context">io_context</a></h1>
-<p>Like traditional <code>Unix</code> network programming, <code>Boost.Asio</code>also has &quot;socket&quot; concept, but that's  not enough, an <code>io_context</code> object (<code>io_service</code> class is deprecated now) is needed to communicate with Operating System's <code>I/O</code> services. The architecture is like following:<br />
-<img src="https://raw.githubusercontent.com/NanXiao/boost-asio-network-programming-little-book/master/images/architecture.jpg" alt="image" /> </p>
-<p><code>io_context</code> derives from <code>execution_context</code>:</p>
-<pre><code>class io_context
-  : public execution_context
-{
-......
-}
+<p>O conceito é baseado na API de rede do <code>Unix</code>, o <code>Boost.Asio</code> também possui o conceito &quot;socket&quot;, mas isso não é suficiente, um objeto <code>io_context</code> (a classe <code>io_service</code> está obsoleta agora) é necessário para se comunicar com os serviços da E/S do sistema operacional. A  imagem abaixo mostrará a estrutura da Arquitetura <code>Asio</code>:</p>
+<p><img src="https://raw.githubusercontent.com/NanXiao/boost-asio-network-programming-little-book/master/images/architecture.jpg" alt="image" /> </p>
+<p><code>io_context</code> deriva de <code>execution_context</code>:</p>
+<pre><code class="language-cpp">	class io_context
+	  : public execution_context
+	{
+	......
+	}
 </code></pre>
-<p>While <code>execution_context</code> derives from <code>noncopyable</code>:</p>
-<pre><code>class execution_context
-  : private noncopyable
-{
-......
-}
+<p>Enquanto <code>execution_context</code> deriva de <code>noncopyable</code>:</p>
+<pre><code class="language-cpp">	class execution_context
+	  : private noncopyable
+	{
+	......
+	}
 </code></pre>
-<p>Check <code>noncopyable</code> class definition:</p>
-<pre><code>class noncopyable
-{
-protected:
-  noncopyable() {}
-  ~noncopyable() {}
-private:
-  noncopyable(const noncopyable&amp;);
-  const noncopyable&amp; operator=(const noncopyable&amp;);
-};
+<p>Observe a classe <code>noncopyable</code>:</p>
+<pre><code class="language-cpp">	class noncopyable
+	{
+	protected:
+	  noncopyable() {}
+	  ~noncopyable() {}
+	private:
+	  noncopyable(const noncopyable&amp;);
+	  const noncopyable&amp; operator=(const noncopyable&amp;);
+	};
 </code></pre>
-<p>It means the <code>io_context</code> object can't be copy constructed/copy assignment/move constructed/move assignment, So during initialization of socket, i.e., associate socket with <code>io_context</code>, the <code>io_context</code> should be passed as a reference. E.g.:</p>
-<pre><code>template &lt;typename Protocol
-    BOOST_ASIO_SVC_TPARAM_DEF1(= datagram_socket_service&lt;Protocol&gt;)&gt;
-class basic_datagram_socket
-  : public basic_socket&lt;Protocol BOOST_ASIO_SVC_TARG&gt;
-{
-public:
-......
-  explicit basic_datagram_socket(boost::asio::io_context&amp; io_context)
-    : basic_socket&lt;Protocol BOOST_ASIO_SVC_TARG&gt;(io_context)
-  {
-  }
-......
-}</code></pre>
-<h1><a class="header" href="#socket" id="socket">Socket</a></h1>
-<p>There are <code>4</code> types of socket:</p>
+<p>Isso significa que o objeto <code>io_context</code> não pode ser utilizado como <em>copy constructed/copy assignment/move constructed/move assignment</em>. Portanto, durante a inicialização do soquete, ou seja, associar o soquete ao<code> io_context</code>, o <code>io_context</code> deve ser passado como referência.</p>
+<p>Ex.:</p>
+<pre><code class="language-cpp">	template &lt;typename Protocol
+	    BOOST_ASIO_SVC_TPARAM_DEF1(= datagram_socket_service&lt;Protocol&gt;)&gt;
+	class basic_datagram_socket
+	  : public basic_socket&lt;Protocol BOOST_ASIO_SVC_TARG&gt;
+	{
+	public:
+	......
+	  explicit basic_datagram_socket(boost::asio::io_context&amp; io_context)
+	    : basic_socket&lt;Protocol BOOST_ASIO_SVC_TARG&gt;(io_context)
+	  {
+	  }
+	......
+	}
+</code></pre>
+<h1><a class="header" href="#soquetes-sockets" id="soquetes-sockets">Soquetes (Sockets)</a></h1>
+<p>Existem <code>4</code> tipos de soquetes:</p>
 <p>(1) <code>basic_stream_socket</code>:<br />
-This socket provides sequenced, reliable, two-way connection based byte streams. <code>tcp::socket</code> is an instance of this socket:</p>
-<pre><code>class tcp
-{
-......
-  /// The TCP socket type.
-  typedef basic_stream_socket&lt;tcp&gt; socket;
-......
-}
+Este soquete fornece fluxos de bytes baseados em conexão bidirecional, confiável e sequencial. <code>tcp::socket</code> é uma instância deste soquete:</p>
+<pre><code class="language-cpp">	class tcp
+	{
+	......
+	  /// The TCP socket type.
+	  typedef basic_stream_socket&lt;tcp&gt; socket;
+	......
+	}
 </code></pre>
 <p>(2) <code>basic_datagram_socket</code>:<br />
-This socket provides connectionless, datagram service. <code>udp::socket</code> is an instance of this socket:</p>
-<pre><code>class udp
-{
-......
-  /// The UDP socket type.
-  typedef basic_datagram_socket&lt;udp&gt; socket;
-......
-}
+Este soquete fornece serviço de datagrama sem garatias de conexão. <code>udp::socket</code> é uma instância deste soquete:</p>
+<pre><code class="language-cpp">	class udp
+	{
+	......
+	  /// The UDP socket type.
+  	  typedef basic_datagram_socket&lt;udp&gt; socket;
+	......
+	}
 </code></pre>
-<p>(3) <code>basic_raw_socket</code>:<br />
-This socket provides access to internal network protocols and interfaces. <code>icmp::socket</code> is an instance of this socket:</p>
-<pre><code>class icmp
-{
-......
-  /// The ICMP socket type.
-  typedef basic_raw_socket&lt;icmp&gt; socket;
-......
-}
+<p>(3) <code>basic_raw_socket</code>:</p>
+<!-- This socket provides access to internal network protocols and interfaces. `icmp::socket` is an instance of this socket:   -->
+<p>Este soquete fornece acesso a protocolos e interfaces de rede interno. O <code>icmp::socket</code> é uma instância deste soquete:</p>
+<pre><code class="language-cpp">	class icmp
+	{
+	......
+	  /// The ICMP socket type.
+  	  typedef basic_raw_socket&lt;icmp&gt; socket;
+	......
+	}
 </code></pre>
 <p>(4) <code>basic_seq_packet_socket</code>:<br />
-This socket combines stream and datagram: it provides a sequenced, reliable, two-way connection based datagrams service. <a href="https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol">SCTP</a> is an example of this type of service.</p>
-<p>All these <code>4</code> sockets derive from <code>basic_socket</code> class, and need to associate with an <code>io_context</code> during initialization. Take <code>tcp::socket</code> as an example:</p>
-<pre><code>boost::asio::io_context io_context;
-boost::asio::ip::tcp::socket socket{io_context};
+Este soquete combina fluxo e datagrama: fornece um serviço de datagramas com conexão bidirecional, confiável e bidirecional. <a href="https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol">SCTP</a> é um exemplo deste tipo de serviço.</p>
+<!-- All these `4` sockets derive from `basic_socket` class, and need to associate with an `io_context` during initialization. Take `tcp::socket` as an example:   -->
+<p>Todos esses <code>4</code> soquetes derivam da classe <code>basic_socket</code> e precisam ser associados a um <code>io_context</code> durante a inicialização. Veja <code>tcp::socket</code> como exemplo:</p>
+<pre><code class="language-cpp">		boost::asio::io_context io_context;
+		boost::asio::ip::tcp::socket socket{io_context};
 </code></pre>
-<p>Please notice the <code>io_context</code> should be a reference in constructor of <code>socket</code> (Please refer <a href="cpp-asio/io_context.html">io_context</a>). Still use  <code>basic_socket</code> an an instance, one of its constructor is like following:</p>
-<pre><code>  explicit basic_socket(boost::asio::io_context&amp; io_context)
-    : basic_io_object&lt;BOOST_ASIO_SVC_T&gt;(io_context)
-  {
-  }
+<p>Observe que o <code>io_context</code> deve ser uma referência no construtor do<code> socket</code> (consulte <a href="cpp-asio/io_context.html">io_context</a>). Ainda use <code>basic_socket</code> e uma instância, um de seus construtores é o seguinte:</p>
+<pre><code class="language-cpp">	  explicit basic_socket(boost::asio::io_context&amp; io_context)
+	    : basic_io_object&lt;BOOST_ASIO_SVC_T&gt;(io_context)
+	  {
+	  }
 </code></pre>
-<p>For <code>basic_io_object</code> class, it does not support copy constructed/copy assignment:</p>
-<pre><code>......
-private:
-  basic_io_object(const basic_io_object&amp;);
-  void operator=(const basic_io_object&amp;);
-......
+<p>Para a classe <code>basic_io_object</code>, ele não suporta copy constructed/copy assignment:</p>
+<pre><code class="language-cpp">	......
+	private:
+	  basic_io_object(const basic_io_object&amp;);
+	  void operator=(const basic_io_object&amp;);
+	......
 </code></pre>
-<p>whilst it can be movable:</p>
-<pre><code>......
-protectd:  
-  basic_io_object(basic_io_object&amp;&amp; other)
-  {
-    ......
-  }
-  basic_io_object&amp; operator=(basic_io_object&amp;&amp; other)
-  {
-    ......
-  }</code></pre>
+<p>mas suporta move constructed/move assignment:</p>
+<pre><code class="language-cpp">	......
+	protected:  
+	  basic_io_object(basic_io_object&amp;&amp; other)
+	  {
+	    ......
+	  }
+	  basic_io_object&amp; operator=(basic_io_object&amp;&amp; other)
+	  {
+	    ......
+	  }
+</code></pre>
 <h1><a class="header" href="#endpoint" id="endpoint">Endpoint</a></h1>
 <p>Endpoint is composed of &quot;<code>IP</code> address + port&quot;:</p>
 <pre><code>basic_endpoint(const boost::asio::ip::address&amp; addr, unsigned short port_num)
@@ -542,7 +605,7 @@ int main()
 <pre><code>[::ffff:10.217.242.61]:39290 connects to [::ffff:192.168.35.145]:3303
 ......
 </code></pre>
-<h1><a class="header" href="#synchronous-readwrite-operations" id="synchronous-readwrite-operations">Synchronous read/write operations</a></h1>
+<h1><a class="header" href="#operações-síncronas-es" id="operações-síncronas-es">Operações síncronas E/S</a></h1>
 <p>Once the connection is established, the client and server can communicate with each other. Like classical <code>UNIX</code> socket programming, <code>boost::asio</code> also provides <code>send</code> and <code>receive</code> functions. Use <code>basic_stream_socket</code> as an example and one pair of the implementations is like this:</p>
 <pre><code>template &lt;typename ConstBufferSequence&gt;
 std::size_t send(const ConstBufferSequence&amp; buffers)
@@ -632,258 +695,262 @@ Receive string: Hello world!
 </code></pre>
 <p>If no error occurs, <code>send</code> can guarantee at least one byte is sent successfully, and you should check the return value to see whether all bytes are sent successfully or not. <code>receive</code> is similar as <code>send</code>. <code>boost::asio::basic_stream_socket</code> also provides <code>read_some</code> and <code>write_some</code> which have the same functions as <code>receive</code> and <code>send</code>.</p>
 <p>If we don't bother to check the middle state (partial bytes are sent successfully), and only care whether all bytes are sent successfully or not, we can use <code>boost::asio::write</code> which actually uses <code>wrtie_some</code> under the hood.  Correspondingly, it is not hard to guess what <code>boost::asio::read</code>does.</p>
-<h1><a class="header" href="#asynchronous-readwrite-operations" id="asynchronous-readwrite-operations">Asynchronous read/write operations</a></h1>
-<p>Unlike classical <code>UNIX</code> socket programming, <code>boost.asio</code> has battery-included asynchronous read/write abilities. Still use <code>basic_stream_socket</code> as an example, and one pair of the implementations is like this:</p>
-<pre><code>template &lt;typename ConstBufferSequence, typename WriteHandler&gt;
-  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
-      void (boost::system::error_code, std::size_t))
-  async_send(const ConstBufferSequence&amp; buffers,
-      BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
-{
-	.......
-}
-template &lt;typename MutableBufferSequence, typename ReadHandler&gt;
-  BOOST_ASIO_INITFN_RESULT_TYPE(ReadHandler,
-      void (boost::system::error_code, std::size_t))
-  async_receive(const MutableBufferSequence&amp; buffers,
-      BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
-{
-	.......
-}
+<h1><a class="header" href="#operações-assíncronas-es" id="operações-assíncronas-es">Operações Assíncronas E/S</a></h1>
+<!-- Unlike classical `UNIX` socket programming, `boost.asio` has battery-included asynchronous read/write abilities. Still use `basic_stream_socket` as an example, and one pair of the implementations is like this:    -->
+<p>Diferentemente da API de soquetes do <code>UNIX</code>, o<code> boost.asio</code> possui habilidades de leitura &amp; gravação(read/write) assíncronas inclusas. Ainda pode usar <code>basic_stream_socket</code> como exemplo, e um par de implementações assim:</p>
+<pre><code class="language-cpp">	template &lt;typename ConstBufferSequence, typename WriteHandler&gt;
+	  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+	      void (boost::system::error_code, std::size_t))
+	  async_send(const ConstBufferSequence&amp; buffers,
+	      BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
+	{
+		.......
+	}
+	template &lt;typename MutableBufferSequence, typename ReadHandler&gt;
+	  BOOST_ASIO_INITFN_RESULT_TYPE(ReadHandler,
+	      void (boost::system::error_code, std::size_t))
+	  async_receive(const MutableBufferSequence&amp; buffers,
+	      BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
+	{
+		.......
+	}
 </code></pre>
-<p>Since <code>async_send</code> and <code>async_receive</code> functions will return immediately, and not block current thread, you should pass a callback function as the parameter which receives the result of read/write operations:</p>
-<pre><code>void handler(
-	const boost::system::error_code&amp; error, // Result of operation.
-	std::size_t bytes_transferred           // Number of bytes processed.
-)
+<!-- Since `async_send` and `async_receive` functions will return immediately, and not block current thread, you should pass a callback function as the parameter which receives the result of read/write operations:   -->
+<p>Como as funções <code>async_send</code> e <code>async_receive</code> retornam imediatamente, e não bloqueiam a thread atual, você deve passar uma função de retorno de chamada como o parâmetro que recebe o resultado das operações de leitura &amp; gravação:</p>
+<pre><code class="language-cpp">	void handler(
+		const boost::system::error_code&amp; error, // Result of operation.
+		std::size_t bytes_transferred           // Number of bytes processed.
+	)
 </code></pre>
-<p>There is a simple client/server example. Below is client code:</p>
-<pre><code>#include &lt;boost/asio.hpp&gt;
-#include &lt;functional&gt;
-#include &lt;iostream&gt;
-#include &lt;memory&gt;
-
-void callback(
-        const boost::system::error_code&amp; error,
-        std::size_t bytes_transferred,
-        std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket,
-        std::string str)
-{
-    if (error)
-    {
-        std::cout &lt;&lt; error.message() &lt;&lt; '\n';
-    }
-    else if (bytes_transferred == str.length())
-    {
-        std::cout &lt;&lt; &quot;Message is sent successfully!&quot; &lt;&lt; '\n';
-    }
-    else
-    {
-        socket-&gt;async_send(
-                boost::asio::buffer(str.c_str() + bytes_transferred, str.length() - bytes_transferred),
-                std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
-    }
-}
-
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-
-        boost::asio::ip::tcp::endpoint endpoint{
-                boost::asio::ip::make_address(&quot;192.168.35.145&quot;),
-                3303};
-
-        std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
-        socket-&gt;connect(endpoint);
-
-        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
-
-        std::string str{&quot;Hello world!&quot;};
-        socket-&gt;async_send(
-                boost::asio::buffer(str),
-                std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
-        socket-&gt;get_executor().context().run();
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-        return -1;
-    }
-
-    return 0;
-}
+<p>Há um exemplo simples de cliente/servidor. Abaixo está o código do cliente:</p>
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;functional&gt;
+	#include &lt;iostream&gt;
+	#include &lt;memory&gt;
+	
+	void callback(
+	        const boost::system::error_code&amp; error,
+	        std::size_t bytes_transferred,
+	        std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket,
+	        std::string str)
+	{
+	    if (error)
+	    {
+	        std::cout &lt;&lt; error.message() &lt;&lt; '\n';
+	    }
+	    else if (bytes_transferred == str.length())
+	    {
+	        std::cout &lt;&lt; &quot;Message is sent successfully!&quot; &lt;&lt; '\n';
+	    }
+	    else
+	    {
+	        socket-&gt;async_send(
+	                boost::asio::buffer(str.c_str() + bytes_transferred, str.length() - bytes_transferred),
+	                std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
+	    }
+	}	
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::endpoint endpoint{
+	                boost::asio::ip::make_address(&quot;192.168.35.145&quot;),
+	                3303};
+	
+	        std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
+	        socket-&gt;connect(endpoint);
+	
+	        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+	
+	        std::string str{&quot;Hello world!&quot;};
+	        socket-&gt;async_send(
+	                boost::asio::buffer(str),
+	                std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
+	        socket-&gt;get_executor().context().run();
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
-<p>Let's go through the code:</p>
-<p>(1) Since socket object is non-copyable (please refer <a href="cpp-asio/socket.html">socket</a>), socket is created as an shared pointer:</p>
-<pre><code>......
-std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
-......
+<p>Vamos analisar o código:</p>
+<p>(1) Como o objeto soquetes é non-copyable (consulte: <a href="cpp-asio/socket.html">soquetes</a>), soquetes é criado como um ponteiro inteligente de memória compartilhada (shared_pointer):</p>
+<pre><code class="language-cpp">	......
+	std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
+	......
 </code></pre>
-<p>(2) Because the callback only has two parameters, it needs to use <code>std::bind</code> to pass additional parameters:</p>
-<pre><code>......
-std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str)
-......
+<p>(2) Como o callback possui apenas dois parâmetros, ele precisa usar <code>std::bind</code> para passar parâmetros adicionais:</p>
+<pre><code class="language-cpp">	......
+	std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str)
+	......
 </code></pre>
-<p>(3) <code>async_send</code> does not guarantee all the bytes are sent (<code>boost::asio::async_write</code> returns either all bytes are sent successfully or an error occurs), so needs to reissue <code>async_send</code> in callback:</p>
-<pre><code>......
-if (error)
-{
-    ......
-}
-else if (bytes_transferred == str.length())
-{
-    ......
-}
-else
-{
-    socket-&gt;async_send(......);
-}
+<p>(3) <code>async_send</code> não garante que todos os bytes sejam enviados (<code>boost::asio::async_write</code> retorna todos os bytes enviados com sucesso ou ocorre um erro), portanto, é necessário reemitir <code>async_send</code> no callback:</p>
+<pre><code class="language-cpp">	......
+	if (error)
+	{
+	    ......
+	}
+	else if (bytes_transferred == str.length())
+	{
+	    ......
+	}
+	else
+	{
+	    socket-&gt;async_send(......);
+	}
 </code></pre>
-<p>(4) <code>io_context.run</code> function will block until all work has finished and there are no
-more handlers to be dispatched, or until the <code>io_context</code> has been stopped:</p>
-<pre><code>socket-&gt;get_executor().context().run();
+<p>(4) A função <code>io_context.run</code> será bloqueada até que todo o trabalho termine e não haja mais handlers(manipuladores) a serem despachados, ou até que o<code> io_context</code> seja interrompido:</p>
+<pre><code class="language-cpp">	socket-&gt;get_executor().context().run();
 </code></pre>
-<p>If there is no <code>io_context.run</code> function, the program will exit immediately.</p>
-<p>Check the server code who uses <code>async_receive</code>:</p>
-<pre><code>#include &lt;ctime&gt;
-#include &lt;functional&gt;
-#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;boost/asio.hpp&gt;
-
-void callback(
-        const boost::system::error_code&amp; error,
-        std::size_t,
-        char recv_str[]) {
-    if (error)
-    {
-        std::cout &lt;&lt; error.message() &lt;&lt; '\n';
-    }
-    else
-    {
-        std::cout &lt;&lt; recv_str &lt;&lt; '\n';
-    }
-}
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-
-        boost::asio::ip::tcp::acceptor acceptor(
-                                        io_context,
-                                        boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), 3303));
-
-        for (;;)
-        {
-            boost::asio::ip::tcp::socket socket(io_context);
-            acceptor.accept(socket);
-
-            char recv_str[1024] = {};
-            socket.async_receive(
-                    boost::asio::buffer(recv_str),
-                    std::bind(callback, std::placeholders::_1, std::placeholders::_2, recv_str));
-            socket.get_executor().context().run();
-            socket.get_executor().context().restart();
-        }
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
-    }
-
-    return 0;
-}
+<p>Se não houver a função <code>io_context.run</code>, o programa será encerrado imediatamente.</p>
+<p>Verifique o código do servidor que usa <code>async_receive</code>:</p>
+<pre><code class="language-cpp">	#include &lt;ctime&gt;
+	#include &lt;functional&gt;
+	#include &lt;iostream&gt;
+	#include &lt;string&gt;
+	#include &lt;boost/asio.hpp&gt;
+	
+	void callback(
+	        const boost::system::error_code&amp; error,
+	        std::size_t,
+	        char recv_str[]) {
+	    if (error)
+	    {
+	        std::cout &lt;&lt; error.message() &lt;&lt; '\n';
+	    }
+	    else
+	    {
+	        std::cout &lt;&lt; recv_str &lt;&lt; '\n';
+	    }
+	}
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::acceptor acceptor(
+	                                        io_context,
+	                                        boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), 3303));
+	
+	        for (;;)
+	        {
+	            boost::asio::ip::tcp::socket socket(io_context);
+	            acceptor.accept(socket);
+	
+	            char recv_str[1024] = {};
+	            socket.async_receive(
+	                    boost::asio::buffer(recv_str),
+	                    std::bind(callback, std::placeholders::_1, std::placeholders::_2, recv_str));
+	            socket.get_executor().context().run();
+	            socket.get_executor().context().restart();
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
-<p>There are two caveats you need to pay attention to:</p>
-<p>(1) Just for demo purpose: for every client, the callback is called only once;<br />
-(2) <code>io_context.restart</code> must be called to invoke another <code>io_context.run</code>.</p>
-<p>Correspondingly, you can also check how to use <code>boost::asio::async_read</code>.</p>
-<p>Build and run programs. Client outputs following:</p>
+<p>Há duas advertências às quais você precisa prestar atenção:</p>
+<p>(1) Apenas para fins de demonstração: para cada cliente, o callback é chamado apenas uma vez;<br />
+(2) O <code>io_context.restart</code> deve ser chamado para chamar outro<code> io_context.run</code>.</p>
+<p>Da mesma forma, você também pode verificar como usar o <code>boost::asio::async_read</code>.</p>
+<p>Crie e execute os programas.</p>
+<p>O cliente emitirá o seguinte:</p>
 <pre><code>$ ./client
 Connect to 192.168.35.145:3303 successfully!
 Message is sent successfully!
 </code></pre>
-<p>Server outputs following:</p>
+<p>Servidor emitirar o seguinte:</p>
 <pre><code>$ ./server
 Hello world!
 </code></pre>
-<h1><a class="header" href="#udp-communication" id="udp-communication">UDP communication</a></h1>
-<p>We have discussed how to communicate through <code>TCP</code> enough, so it is time to switch to <code>UDP</code> now. <code>UDP</code> is a connectionless protocol, and it is easier to use than <code>TCP</code>. There is a client/server example. Below is client code:</p>
-<pre><code>#include &lt;boost/asio.hpp&gt;
-#include &lt;iostream&gt;
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-
-        boost::asio::ip::udp::socket socket{io_context};
-        socket.open(boost::asio::ip::udp::v4());
-
-        socket.send_to(
-                boost::asio::buffer(&quot;Hello world!&quot;),
-                boost::asio::ip::udp::endpoint{boost::asio::ip::make_address(&quot;192.168.35.145&quot;), 3303});
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-        return -1;
-    }
-
-    return 0;
-}
+<h1><a class="header" href="#protocolo-udp" id="protocolo-udp">Protocolo UDP</a></h1>
+<p>Nós discutimos como se comunicar através do <code>TCP</code> o suficiente, então é hora de mudar para o<code> UDP</code> agora. O <code>UDP</code> é um protocolo de conexão não confiável e é mais fácil de usar que o <code>TCP</code>.</p>
+<p>Há um exemplo de Cliente/Servidor. </p>
+<h3><a class="header" href="#cliente" id="cliente"><em>Cliente</em>:</a></h3>
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::udp::socket socket{io_context};
+	        socket.open(boost::asio::ip::udp::v4());
+	
+	        socket.send_to(
+	                boost::asio::buffer(&quot;Welcome to C++ Networking.&quot;),
+	                boost::asio::ip::udp::endpoint{boost::asio::ip::make_address(&quot;192.168.35.145&quot;), 3303});
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
-<p>Although there is no need to call <code>socket.connect</code> function, you need call <code>socket.open</code> explicitly. Furthermore, the server's endpoint needs to be specified when invoking <code>socket.send_to</code>.</p>
-<p>Server code is like this:</p>
-<pre><code>#include &lt;ctime&gt;
-#include &lt;functional&gt;
-#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;boost/asio.hpp&gt;
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-
-        for (;;)
-        {
-            boost::asio::ip::udp::socket socket(
-                    io_context,
-                    boost::asio::ip::udp::endpoint{boost::asio::ip::udp::v4(), 3303});
-
-            boost::asio::ip::udp::endpoint client;
-            char recv_str[1024] = {};
-
-            socket.receive_from(
-                    boost::asio::buffer(recv_str),
-                    client);
-            std::cout &lt;&lt; client &lt;&lt; &quot;: &quot; &lt;&lt; recv_str &lt;&lt; '\n';
-        }
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
-    }
-
-    return 0;
-}
+<p>Embora não seja necessário chamar a função <code>socket.connect</code>, você precisa chamar explicitamente o <code>socket.open</code>. Além disso, o <code>endpoint</code> do servidor precisa ser especificado ao chamar <code>socket.send_to</code>.</p>
+<h3><a class="header" href="#servidor" id="servidor"><em>Servidor</em>:</a></h3>
+<pre><code class="language-cpp">	#include &lt;ctime&gt;
+	#include &lt;functional&gt;
+	#include &lt;iostream&gt;
+	#include &lt;string&gt;
+	#include &lt;boost/asio.hpp&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        for (;;)
+	        {
+	            boost::asio::ip::udp::socket socket(
+	                    io_context,
+	                    boost::asio::ip::udp::endpoint{boost::asio::ip::udp::v4(), 3303});
+	
+	            boost::asio::ip::udp::endpoint client;
+	            char recv_str[1024] = {};
+	
+	            socket.receive_from(
+	                    boost::asio::buffer(recv_str),
+	                    client);
+	            std::cout &lt;&lt; client &lt;&lt; &quot;: &quot; &lt;&lt; recv_str &lt;&lt; '\n';
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
-<p>Very easy, isn't it? Build and run client and server. The following log will be printed on server side:</p>
-<pre><code>$ ./server
-10.217.242.21:63838: Hello world!
-10.217.242.21:61259: Hello world!
+<!-- Very easy, isn't it? Build and run client and server. The following log will be printed on server side:   -->
+<p>Muito fácil, não é? Crie e execute o cliente e servidor. Então o seguinte log será impresso no lado do servidor:</p>
+<pre><code>$ ./servidor
+10.217.242.21:63838: Welcome to C++ Networking.
+10.217.242.21:61259: Welcome to C++ Networking.
 </code></pre>
-<h1><a class="header" href="#the-end" id="the-end">The end</a></h1>
-<p>It is time to wrap up this crash course. Hope this manual can open the door of using <a href="https://www.boost.org/doc/libs/1_67_0/doc/html/boost_asio.html">Boost.Asio</a> network programming for you. Definitely, this little book just introduces the basic idea. To improve your coding skill, you need to read document more, read source code more, and practice more.</p>
-<p>Enjoy network programming!</p>
+<h1><a class="header" href="#conclusão" id="conclusão">Conclusão</a></h1>
+<p>Espero que tenha esclarecido o uso da programação de rede com <a href="https://www.boost.org/doc/libs/1_72_0/doc/html/boost_asio.html">Boost.Asio</a> para você. Definitivamente, este pequeno livro apenas introduz a idéia básica. Para melhorar sua habilidade de codificação, você precisa ler mais o documento, ler mais o código-fonte e praticar mais.</p>
+<p>Divirta-se praticando!</p>
 
                     </main>
 

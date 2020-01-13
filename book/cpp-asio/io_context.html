@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="../cpp-asio/install-boost.html"><strong aria-hidden="true">1.</strong> Instalação do Boost</a></li><li class="expanded "><a href="../cpp-asio/io_context.html" class="active"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">9.</strong> Operações síncronas</a></li><li class="expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações assíncronas</a></li><li class="expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">11.</strong> Protocolo UDP</a></li><li class="expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">12.</strong> Conclusão</a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Boost</a></li><li class="expanded "><a href="../cpp-asio/io_context.html" class="active"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">9.</strong> Operações síncronas</a></li><li class="expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações assíncronas</a></li><li class="expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">11.</strong> Protocolo UDP</a></li><li class="expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">12.</strong> Conclusão</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -149,54 +149,56 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#io_context" id="io_context">io_context</a></h1>
-<p>Like traditional <code>Unix</code> network programming, <code>Boost.Asio</code>also has &quot;socket&quot; concept, but that's  not enough, an <code>io_context</code> object (<code>io_service</code> class is deprecated now) is needed to communicate with Operating System's <code>I/O</code> services. The architecture is like following:<br />
-<img src="https://raw.githubusercontent.com/NanXiao/boost-asio-network-programming-little-book/master/images/architecture.jpg" alt="image" /> </p>
-<p><code>io_context</code> derives from <code>execution_context</code>:</p>
-<pre><code>class io_context
-  : public execution_context
-{
-......
-}
+<p>O conceito é baseado na API de rede do <code>Unix</code>, o <code>Boost.Asio</code> também possui o conceito &quot;socket&quot;, mas isso não é suficiente, um objeto <code>io_context</code> (a classe <code>io_service</code> está obsoleta agora) é necessário para se comunicar com os serviços da E/S do sistema operacional. A  imagem abaixo mostrará a estrutura da Arquitetura <code>Asio</code>:</p>
+<p><img src="https://raw.githubusercontent.com/NanXiao/boost-asio-network-programming-little-book/master/images/architecture.jpg" alt="image" /> </p>
+<p><code>io_context</code> deriva de <code>execution_context</code>:</p>
+<pre><code class="language-cpp">	class io_context
+	  : public execution_context
+	{
+	......
+	}
 </code></pre>
-<p>While <code>execution_context</code> derives from <code>noncopyable</code>:</p>
-<pre><code>class execution_context
-  : private noncopyable
-{
-......
-}
+<p>Enquanto <code>execution_context</code> deriva de <code>noncopyable</code>:</p>
+<pre><code class="language-cpp">	class execution_context
+	  : private noncopyable
+	{
+	......
+	}
 </code></pre>
-<p>Check <code>noncopyable</code> class definition:</p>
-<pre><code>class noncopyable
-{
-protected:
-  noncopyable() {}
-  ~noncopyable() {}
-private:
-  noncopyable(const noncopyable&amp;);
-  const noncopyable&amp; operator=(const noncopyable&amp;);
-};
+<p>Observe a classe <code>noncopyable</code>:</p>
+<pre><code class="language-cpp">	class noncopyable
+	{
+	protected:
+	  noncopyable() {}
+	  ~noncopyable() {}
+	private:
+	  noncopyable(const noncopyable&amp;);
+	  const noncopyable&amp; operator=(const noncopyable&amp;);
+	};
 </code></pre>
-<p>It means the <code>io_context</code> object can't be copy constructed/copy assignment/move constructed/move assignment, So during initialization of socket, i.e., associate socket with <code>io_context</code>, the <code>io_context</code> should be passed as a reference. E.g.:</p>
-<pre><code>template &lt;typename Protocol
-    BOOST_ASIO_SVC_TPARAM_DEF1(= datagram_socket_service&lt;Protocol&gt;)&gt;
-class basic_datagram_socket
-  : public basic_socket&lt;Protocol BOOST_ASIO_SVC_TARG&gt;
-{
-public:
-......
-  explicit basic_datagram_socket(boost::asio::io_context&amp; io_context)
-    : basic_socket&lt;Protocol BOOST_ASIO_SVC_TARG&gt;(io_context)
-  {
-  }
-......
-}</code></pre>
+<p>Isso significa que o objeto <code>io_context</code> não pode ser utilizado como <em>copy constructed/copy assignment/move constructed/move assignment</em>. Portanto, durante a inicialização do soquete, ou seja, associar o soquete ao<code> io_context</code>, o <code>io_context</code> deve ser passado como referência.</p>
+<p>Ex.:</p>
+<pre><code class="language-cpp">	template &lt;typename Protocol
+	    BOOST_ASIO_SVC_TPARAM_DEF1(= datagram_socket_service&lt;Protocol&gt;)&gt;
+	class basic_datagram_socket
+	  : public basic_socket&lt;Protocol BOOST_ASIO_SVC_TARG&gt;
+	{
+	public:
+	......
+	  explicit basic_datagram_socket(boost::asio::io_context&amp; io_context)
+	    : basic_socket&lt;Protocol BOOST_ASIO_SVC_TARG&gt;(io_context)
+	  {
+	  }
+	......
+	}
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../cpp-asio/install-boost.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../cpp-asio/install-asio.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
@@ -214,7 +216,7 @@ public:
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../cpp-asio/install-boost.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="../cpp-asio/install-asio.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 

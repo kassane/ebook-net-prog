@@ -1,5 +1,5 @@
-# The end
+# Conclusão
 
-It is time to wrap up this crash course. Hope this manual can open the door of using [Boost.Asio](https://www.boost.org/doc/libs/1_67_0/doc/html/boost_asio.html) network programming for you. Definitely, this little book just introduces the basic idea. To improve your coding skill, you need to read document more, read source code more, and practice more.
+Espero que tenha esclarecido o uso da programação de rede com [Boost.Asio](https://www.boost.org/doc/libs/1_72_0/doc/html/boost_asio.html) para você. Definitivamente, este pequeno livro apenas introduz a idéia básica. Para melhorar sua habilidade de codificação, você precisa ler mais o documento, ler mais o código-fonte e praticar mais.
 
-Enjoy network programming!
+Divirta-se praticando!

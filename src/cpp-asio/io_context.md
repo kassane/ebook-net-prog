@@ -1,25 +1,31 @@
 # io_context
 
-Like traditional `Unix` network programming, `Boost.Asio`also has "socket" concept, but that's  not enough, an `io_context` object (`io_service` class is deprecated now) is needed to communicate with Operating System's `I/O` services. The architecture is like following:  
+O conceito é baseado na API de rede do `Unix`, o `Boost.Asio` também possui o conceito "socket", mas isso não é suficiente, um objeto `io_context` (a classe `io_service` está obsoleta agora) é necessário para se comunicar com os serviços da E/S do sistema operacional. A  imagem abaixo mostrará a estrutura da Arquitetura `Asio`:
+
 ![image](https://raw.githubusercontent.com/NanXiao/boost-asio-network-programming-little-book/master/images/architecture.jpg) 
 
-`io_context` derives from `execution_context`:  
+`io_context` deriva de `execution_context`:  
 
+```cpp
 	class io_context
 	  : public execution_context
 	{
 	......
 	}
-While `execution_context` derives from `noncopyable`:  
+```
+Enquanto `execution_context` deriva de `noncopyable`:  
 
+```cpp
 	class execution_context
 	  : private noncopyable
 	{
 	......
 	}
+```
 
-Check `noncopyable` class definition:
+Observe a classe `noncopyable`:
 
+```cpp
 	class noncopyable
 	{
 	protected:
@@ -29,9 +35,13 @@ Check `noncopyable` class definition:
 	  noncopyable(const noncopyable&);
 	  const noncopyable& operator=(const noncopyable&);
 	};
+```
 
-It means the `io_context` object can't be copy constructed/copy assignment/move constructed/move assignment, So during initialization of socket, i.e., associate socket with `io_context`, the `io_context` should be passed as a reference. E.g.:  
+Isso significa que o objeto `io_context` não pode ser utilizado como _copy constructed/copy assignment/move constructed/move assignment_. Portanto, durante a inicialização do soquete, ou seja, associar o soquete ao` io_context`, o `io_context` deve ser passado como referência.
 
+Ex.:
+
+```cpp
 	template <typename Protocol
 	    BOOST_ASIO_SVC_TPARAM_DEF1(= datagram_socket_service<Protocol>)>
 	class basic_datagram_socket
@@ -45,3 +55,4 @@ It means the `io_context` object can't be copy constructed/copy assignment/move 
 	  }
 	......
 	}
+```

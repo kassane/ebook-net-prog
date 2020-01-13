@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="../cpp-asio/install-boost.html"><strong aria-hidden="true">1.</strong> Instalação do Boost</a></li><li class="expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">9.</strong> Operações síncronas</a></li><li class="expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html" class="active"><strong aria-hidden="true">10.</strong> Operações assíncronas</a></li><li class="expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">11.</strong> Protocolo UDP</a></li><li class="expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">12.</strong> Conclusão</a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Boost</a></li><li class="expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">9.</strong> Operações síncronas</a></li><li class="expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html" class="active"><strong aria-hidden="true">10.</strong> Operações assíncronas</a></li><li class="expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">11.</strong> Protocolo UDP</a></li><li class="expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">12.</strong> Conclusão</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -148,183 +148,184 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#asynchronous-readwrite-operations" id="asynchronous-readwrite-operations">Asynchronous read/write operations</a></h1>
-<p>Unlike classical <code>UNIX</code> socket programming, <code>boost.asio</code> has battery-included asynchronous read/write abilities. Still use <code>basic_stream_socket</code> as an example, and one pair of the implementations is like this:</p>
-<pre><code>template &lt;typename ConstBufferSequence, typename WriteHandler&gt;
-  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
-      void (boost::system::error_code, std::size_t))
-  async_send(const ConstBufferSequence&amp; buffers,
-      BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
-{
-	.......
-}
-template &lt;typename MutableBufferSequence, typename ReadHandler&gt;
-  BOOST_ASIO_INITFN_RESULT_TYPE(ReadHandler,
-      void (boost::system::error_code, std::size_t))
-  async_receive(const MutableBufferSequence&amp; buffers,
-      BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
-{
-	.......
-}
+                        <h1><a class="header" href="#operações-assíncronas-es" id="operações-assíncronas-es">Operações Assíncronas E/S</a></h1>
+<!-- Unlike classical `UNIX` socket programming, `boost.asio` has battery-included asynchronous read/write abilities. Still use `basic_stream_socket` as an example, and one pair of the implementations is like this:    -->
+<p>Diferentemente da API de soquetes do <code>UNIX</code>, o<code> boost.asio</code> possui habilidades de leitura &amp; gravação(read/write) assíncronas inclusas. Ainda pode usar <code>basic_stream_socket</code> como exemplo, e um par de implementações assim:</p>
+<pre><code class="language-cpp">	template &lt;typename ConstBufferSequence, typename WriteHandler&gt;
+	  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+	      void (boost::system::error_code, std::size_t))
+	  async_send(const ConstBufferSequence&amp; buffers,
+	      BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
+	{
+		.......
+	}
+	template &lt;typename MutableBufferSequence, typename ReadHandler&gt;
+	  BOOST_ASIO_INITFN_RESULT_TYPE(ReadHandler,
+	      void (boost::system::error_code, std::size_t))
+	  async_receive(const MutableBufferSequence&amp; buffers,
+	      BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
+	{
+		.......
+	}
 </code></pre>
-<p>Since <code>async_send</code> and <code>async_receive</code> functions will return immediately, and not block current thread, you should pass a callback function as the parameter which receives the result of read/write operations:</p>
-<pre><code>void handler(
-	const boost::system::error_code&amp; error, // Result of operation.
-	std::size_t bytes_transferred           // Number of bytes processed.
-)
+<!-- Since `async_send` and `async_receive` functions will return immediately, and not block current thread, you should pass a callback function as the parameter which receives the result of read/write operations:   -->
+<p>Como as funções <code>async_send</code> e <code>async_receive</code> retornam imediatamente, e não bloqueiam a thread atual, você deve passar uma função de retorno de chamada como o parâmetro que recebe o resultado das operações de leitura &amp; gravação:</p>
+<pre><code class="language-cpp">	void handler(
+		const boost::system::error_code&amp; error, // Result of operation.
+		std::size_t bytes_transferred           // Number of bytes processed.
+	)
 </code></pre>
-<p>There is a simple client/server example. Below is client code:</p>
-<pre><code>#include &lt;boost/asio.hpp&gt;
-#include &lt;functional&gt;
-#include &lt;iostream&gt;
-#include &lt;memory&gt;
-
-void callback(
-        const boost::system::error_code&amp; error,
-        std::size_t bytes_transferred,
-        std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket,
-        std::string str)
-{
-    if (error)
-    {
-        std::cout &lt;&lt; error.message() &lt;&lt; '\n';
-    }
-    else if (bytes_transferred == str.length())
-    {
-        std::cout &lt;&lt; &quot;Message is sent successfully!&quot; &lt;&lt; '\n';
-    }
-    else
-    {
-        socket-&gt;async_send(
-                boost::asio::buffer(str.c_str() + bytes_transferred, str.length() - bytes_transferred),
-                std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
-    }
-}
-
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-
-        boost::asio::ip::tcp::endpoint endpoint{
-                boost::asio::ip::make_address(&quot;192.168.35.145&quot;),
-                3303};
-
-        std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
-        socket-&gt;connect(endpoint);
-
-        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
-
-        std::string str{&quot;Hello world!&quot;};
-        socket-&gt;async_send(
-                boost::asio::buffer(str),
-                std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
-        socket-&gt;get_executor().context().run();
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-        return -1;
-    }
-
-    return 0;
-}
+<p>Há um exemplo simples de cliente/servidor. Abaixo está o código do cliente:</p>
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;functional&gt;
+	#include &lt;iostream&gt;
+	#include &lt;memory&gt;
+	
+	void callback(
+	        const boost::system::error_code&amp; error,
+	        std::size_t bytes_transferred,
+	        std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket,
+	        std::string str)
+	{
+	    if (error)
+	    {
+	        std::cout &lt;&lt; error.message() &lt;&lt; '\n';
+	    }
+	    else if (bytes_transferred == str.length())
+	    {
+	        std::cout &lt;&lt; &quot;Message is sent successfully!&quot; &lt;&lt; '\n';
+	    }
+	    else
+	    {
+	        socket-&gt;async_send(
+	                boost::asio::buffer(str.c_str() + bytes_transferred, str.length() - bytes_transferred),
+	                std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
+	    }
+	}	
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::endpoint endpoint{
+	                boost::asio::ip::make_address(&quot;192.168.35.145&quot;),
+	                3303};
+	
+	        std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
+	        socket-&gt;connect(endpoint);
+	
+	        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+	
+	        std::string str{&quot;Hello world!&quot;};
+	        socket-&gt;async_send(
+	                boost::asio::buffer(str),
+	                std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
+	        socket-&gt;get_executor().context().run();
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
-<p>Let's go through the code:</p>
-<p>(1) Since socket object is non-copyable (please refer <a href="socket.html">socket</a>), socket is created as an shared pointer:</p>
-<pre><code>......
-std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
-......
+<p>Vamos analisar o código:</p>
+<p>(1) Como o objeto soquetes é non-copyable (consulte: <a href="socket.html">soquetes</a>), soquetes é criado como um ponteiro inteligente de memória compartilhada (shared_pointer):</p>
+<pre><code class="language-cpp">	......
+	std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
+	......
 </code></pre>
-<p>(2) Because the callback only has two parameters, it needs to use <code>std::bind</code> to pass additional parameters:</p>
-<pre><code>......
-std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str)
-......
+<p>(2) Como o callback possui apenas dois parâmetros, ele precisa usar <code>std::bind</code> para passar parâmetros adicionais:</p>
+<pre><code class="language-cpp">	......
+	std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str)
+	......
 </code></pre>
-<p>(3) <code>async_send</code> does not guarantee all the bytes are sent (<code>boost::asio::async_write</code> returns either all bytes are sent successfully or an error occurs), so needs to reissue <code>async_send</code> in callback:</p>
-<pre><code>......
-if (error)
-{
-    ......
-}
-else if (bytes_transferred == str.length())
-{
-    ......
-}
-else
-{
-    socket-&gt;async_send(......);
-}
+<p>(3) <code>async_send</code> não garante que todos os bytes sejam enviados (<code>boost::asio::async_write</code> retorna todos os bytes enviados com sucesso ou ocorre um erro), portanto, é necessário reemitir <code>async_send</code> no callback:</p>
+<pre><code class="language-cpp">	......
+	if (error)
+	{
+	    ......
+	}
+	else if (bytes_transferred == str.length())
+	{
+	    ......
+	}
+	else
+	{
+	    socket-&gt;async_send(......);
+	}
 </code></pre>
-<p>(4) <code>io_context.run</code> function will block until all work has finished and there are no
-more handlers to be dispatched, or until the <code>io_context</code> has been stopped:</p>
-<pre><code>socket-&gt;get_executor().context().run();
+<p>(4) A função <code>io_context.run</code> será bloqueada até que todo o trabalho termine e não haja mais handlers(manipuladores) a serem despachados, ou até que o<code> io_context</code> seja interrompido:</p>
+<pre><code class="language-cpp">	socket-&gt;get_executor().context().run();
 </code></pre>
-<p>If there is no <code>io_context.run</code> function, the program will exit immediately.</p>
-<p>Check the server code who uses <code>async_receive</code>:</p>
-<pre><code>#include &lt;ctime&gt;
-#include &lt;functional&gt;
-#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;boost/asio.hpp&gt;
-
-void callback(
-        const boost::system::error_code&amp; error,
-        std::size_t,
-        char recv_str[]) {
-    if (error)
-    {
-        std::cout &lt;&lt; error.message() &lt;&lt; '\n';
-    }
-    else
-    {
-        std::cout &lt;&lt; recv_str &lt;&lt; '\n';
-    }
-}
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
-
-        boost::asio::ip::tcp::acceptor acceptor(
-                                        io_context,
-                                        boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), 3303));
-
-        for (;;)
-        {
-            boost::asio::ip::tcp::socket socket(io_context);
-            acceptor.accept(socket);
-
-            char recv_str[1024] = {};
-            socket.async_receive(
-                    boost::asio::buffer(recv_str),
-                    std::bind(callback, std::placeholders::_1, std::placeholders::_2, recv_str));
-            socket.get_executor().context().run();
-            socket.get_executor().context().restart();
-        }
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
-    }
-
-    return 0;
-}
+<p>Se não houver a função <code>io_context.run</code>, o programa será encerrado imediatamente.</p>
+<p>Verifique o código do servidor que usa <code>async_receive</code>:</p>
+<pre><code class="language-cpp">	#include &lt;ctime&gt;
+	#include &lt;functional&gt;
+	#include &lt;iostream&gt;
+	#include &lt;string&gt;
+	#include &lt;boost/asio.hpp&gt;
+	
+	void callback(
+	        const boost::system::error_code&amp; error,
+	        std::size_t,
+	        char recv_str[]) {
+	    if (error)
+	    {
+	        std::cout &lt;&lt; error.message() &lt;&lt; '\n';
+	    }
+	    else
+	    {
+	        std::cout &lt;&lt; recv_str &lt;&lt; '\n';
+	    }
+	}
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::acceptor acceptor(
+	                                        io_context,
+	                                        boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), 3303));
+	
+	        for (;;)
+	        {
+	            boost::asio::ip::tcp::socket socket(io_context);
+	            acceptor.accept(socket);
+	
+	            char recv_str[1024] = {};
+	            socket.async_receive(
+	                    boost::asio::buffer(recv_str),
+	                    std::bind(callback, std::placeholders::_1, std::placeholders::_2, recv_str));
+	            socket.get_executor().context().run();
+	            socket.get_executor().context().restart();
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
-<p>There are two caveats you need to pay attention to:</p>
-<p>(1) Just for demo purpose: for every client, the callback is called only once;<br />
-(2) <code>io_context.restart</code> must be called to invoke another <code>io_context.run</code>.</p>
-<p>Correspondingly, you can also check how to use <code>boost::asio::async_read</code>.</p>
-<p>Build and run programs. Client outputs following:</p>
+<p>Há duas advertências às quais você precisa prestar atenção:</p>
+<p>(1) Apenas para fins de demonstração: para cada cliente, o callback é chamado apenas uma vez;<br />
+(2) O <code>io_context.restart</code> deve ser chamado para chamar outro<code> io_context.run</code>.</p>
+<p>Da mesma forma, você também pode verificar como usar o <code>boost::asio::async_read</code>.</p>
+<p>Crie e execute os programas.</p>
+<p>O cliente emitirá o seguinte:</p>
 <pre><code>$ ./client
 Connect to 192.168.35.145:3303 successfully!
 Message is sent successfully!
 </code></pre>
-<p>Server outputs following:</p>
+<p>Servidor emitirar o seguinte:</p>
 <pre><code>$ ./server
 Hello world!
 </code></pre>
