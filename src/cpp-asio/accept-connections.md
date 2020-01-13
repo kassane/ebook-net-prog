@@ -1,15 +1,18 @@
 # Accept connections
 
-Server needs to accept clients' connections. First server creates an `acceptor`:  
+O servidor precisa aceitar as solicitações dos clientes. O servidor cria um `acceptor`:  
 
+```cpp
 	......
 	boost::asio::io_context io_context;
         boost::asio::ip::tcp::acceptor acceptor{
             io_context,
             boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v6(), 3303}};
 	......
-`boost::asio::ip::tcp::acceptor` is an instance of `basic_socket_acceptor`:  
+```
+`boost::asio::ip::tcp::acceptor` é uma instância de `basic_socket_acceptor`:  
 
+```cpp
 	class tcp
 	{
 	......
@@ -17,18 +20,22 @@ Server needs to accept clients' connections. First server creates an `acceptor`:
 	  typedef basic_socket_acceptor<tcp> acceptor;
 	......
 	}
+```
 
-The following constructor of `basic_socket_acceptor` combines creating socket,  setting reuse address, binding & listening functions:  
+O construtor `basic_socket_acceptor` combinarar criação de soquete, configuração de endereço de reutilização, funções binding & listening:
 
+```cpp
 	basic_socket_acceptor(boost::asio::io_context& io_context,
 	    const endpoint_type& endpoint, bool reuse_addr = true)
 	  : basic_io_object<BOOST_ASIO_SVC_T>(io_context)
 	{
 	......
 	}
+```
 
-Then `acceptor` will accept the clients' connections. Following simple example just shows client's address and close the connection:  
+Então o `acceptor` aceitará as conexões dos clientes. O código abaixo mostra o endereço do cliente e fecha a conexão:
 
+```cpp
 	#include <boost/asio.hpp>
 	#include <iostream>
 	
@@ -57,8 +64,9 @@ Then `acceptor` will accept the clients' connections. Following simple example j
 	
 	    return 0;
 	}
+```
 
-The running result is like this:  
+O resultado da execução será:  
 
 	[::ffff:10.217.242.61]:39290 connects to [::ffff:192.168.35.145]:3303
 	......

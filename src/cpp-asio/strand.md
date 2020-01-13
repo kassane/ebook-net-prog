@@ -1,0 +1,34 @@
+# `Strands`: Usar threads sem bloqueio explícito
+
+Uma thread é definida como uma chamada estritamente sequencial de manipuladores de eventos[event handler] (ou seja, nenhuma chamada simultânea). O uso de `strands` permite a execução de código em um programa multithread sem a necessidade de bloqueio explícito (por exemplo, usando `mutex`[exclusão mútua]).
+
+As `strands` podem ser implícitas ou explícitas, conforme ilustrado pelas seguintes abordagens alternativas:
+
+* Utilizando `io_context::run()` em apenas uma thread significa que todos os manipuladores de eventos são executados em uma thread implícita, devido à garantia do `io_context` de que os manipuladores[handlers] são invocados somente de dentro da função `run()`.
+
+* Onde existe uma única cadeia de operações assíncronas associadas a uma conexão (por exemplo, em uma implementação de protocolo half-duplex como HTTP), não há possibilidade de execução simultânea dos manipuladores. Neste caso seria um `strand` implícito.
+
+* Um `strand` explícito é uma instância `strand<>` ou `io_context::strand`. Todos os objetos de função do manipulador[handler] de eventos precisam ser vinculados ao strand usando `boost::asio::bind_executor()` ou de outra forma postados/despachados através do objeto strand.
+
+O executor associado deve atender aos requisitos do executor. Ele será usado pela operação assíncrona para enviar manipuladores intermediários e finais para execução.
+
+O executor pode ser customizado para um tipo de manipulador específico, especificando um tipo aninhado `executor_type` e a função de membro`get_executor()`.
+
+Veja o exemplo abaixo:
+
+```cpp
+    class my_handler
+    {
+    public:
+    // Custom implementation of Executor type requirements.
+    typedef my_executor executor_type;
+
+    // Return a custom executor implementation.
+    executor_type get_executor() const noexcept
+    {
+        return my_executor();
+    }
+
+    void operator()() { ... }
+    };
+```

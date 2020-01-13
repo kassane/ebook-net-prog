@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Asio</a></li><li class="expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="../cpp-asio/accept-connections.html" class="active"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">9.</strong> Operações síncronas</a></li><li class="expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações assíncronas</a></li><li class="expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">11.</strong> Protocolo UDP</a></li><li class="expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">12.</strong> Conclusão</a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Asio</a></li><li class="expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="../cpp-asio/accept-connections.html" class="active"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="../cpp-asio/strand.html"><strong aria-hidden="true">9.</strong> Strands</a></li><li class="expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações síncronas</a></li><li class="expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">11.</strong> Operações assíncronas</a></li><li class="expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">12.</strong> Protocolo UDP</a></li><li class="expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">13.</strong> Conclusão</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -149,62 +149,62 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#accept-connections" id="accept-connections">Accept connections</a></h1>
-<p>Server needs to accept clients' connections. First server creates an <code>acceptor</code>:</p>
-<pre><code>......
-boost::asio::io_context io_context;
-    boost::asio::ip::tcp::acceptor acceptor{
-        io_context,
-        boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v6(), 3303}};
-......
-</code></pre>
-<p><code>boost::asio::ip::tcp::acceptor</code> is an instance of <code>basic_socket_acceptor</code>:</p>
-<pre><code>class tcp
-{
-......
-  /// The TCP acceptor type.
-  typedef basic_socket_acceptor&lt;tcp&gt; acceptor;
-......
-}
-</code></pre>
-<p>The following constructor of <code>basic_socket_acceptor</code> combines creating socket,  setting reuse address, binding &amp; listening functions:</p>
-<pre><code>basic_socket_acceptor(boost::asio::io_context&amp; io_context,
-    const endpoint_type&amp; endpoint, bool reuse_addr = true)
-  : basic_io_object&lt;BOOST_ASIO_SVC_T&gt;(io_context)
-{
-......
-}
-</code></pre>
-<p>Then <code>acceptor</code> will accept the clients' connections. Following simple example just shows client's address and close the connection:</p>
-<pre><code>#include &lt;boost/asio.hpp&gt;
-#include &lt;iostream&gt;
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
+<p>O servidor precisa aceitar as solicitações dos clientes. O servidor cria um <code>acceptor</code>:</p>
+<pre><code class="language-cpp">	......
+	boost::asio::io_context io_context;
         boost::asio::ip::tcp::acceptor acceptor{
             io_context,
             boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v6(), 3303}};
-
-        while (1)
-        {
-            boost::asio::ip::tcp::socket socket{io_context};
-            acceptor.accept(socket);
-
-            std::cout &lt;&lt; socket.remote_endpoint() &lt;&lt; &quot; connects to &quot; &lt;&lt; socket.local_endpoint() &lt;&lt; '\n';
-        }
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-        return -1;
-    }
-
-    return 0;
-}
+	......
 </code></pre>
-<p>The running result is like this:</p>
+<p><code>boost::asio::ip::tcp::acceptor</code> é uma instância de <code>basic_socket_acceptor</code>:</p>
+<pre><code class="language-cpp">	class tcp
+	{
+	......
+	  /// The TCP acceptor type.
+	  typedef basic_socket_acceptor&lt;tcp&gt; acceptor;
+	......
+	}
+</code></pre>
+<p>O construtor <code>basic_socket_acceptor</code> combinarar criação de soquete, configuração de endereço de reutilização, funções binding &amp; listening:</p>
+<pre><code class="language-cpp">	basic_socket_acceptor(boost::asio::io_context&amp; io_context,
+	    const endpoint_type&amp; endpoint, bool reuse_addr = true)
+	  : basic_io_object&lt;BOOST_ASIO_SVC_T&gt;(io_context)
+	{
+	......
+	}
+</code></pre>
+<p>Então o <code>acceptor</code> aceitará as conexões dos clientes. O código abaixo mostra o endereço do cliente e fecha a conexão:</p>
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	        boost::asio::ip::tcp::acceptor acceptor{
+	            io_context,
+	            boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v6(), 3303}};
+	
+	        while (1)
+	        {
+	            boost::asio::ip::tcp::socket socket{io_context};
+	            acceptor.accept(socket);
+	
+	            std::cout &lt;&lt; socket.remote_endpoint() &lt;&lt; &quot; connects to &quot; &lt;&lt; socket.local_endpoint() &lt;&lt; '\n';
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
+</code></pre>
+<p>O resultado da execução será:</p>
 <pre><code>[::ffff:10.217.242.61]:39290 connects to [::ffff:192.168.35.145]:3303
 ......
 </code></pre>
@@ -220,7 +220,7 @@ int main()
                         
 
                         
-                            <a rel="next" href="../cpp-asio/synchronous-read-write-operations.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../cpp-asio/strand.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -238,7 +238,7 @@ int main()
                 
 
                 
-                    <a href="../cpp-asio/synchronous-read-write-operations.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="../cpp-asio/strand.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Connect server - Programação de Redes</title>
+        <title>Strands - Programação de Redes</title>
         
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Asio</a></li><li class="expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="../cpp-asio/connect-server.html" class="active"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="../cpp-asio/strand.html"><strong aria-hidden="true">9.</strong> Strands</a></li><li class="expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações síncronas</a></li><li class="expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">11.</strong> Operações assíncronas</a></li><li class="expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">12.</strong> Protocolo UDP</a></li><li class="expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">13.</strong> Conclusão</a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Asio</a></li><li class="expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="../cpp-asio/strand.html" class="active"><strong aria-hidden="true">9.</strong> Strands</a></li><li class="expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações síncronas</a></li><li class="expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">11.</strong> Operações assíncronas</a></li><li class="expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">12.</strong> Protocolo UDP</a></li><li class="expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">13.</strong> Conclusão</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -148,83 +148,37 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#conectar-servidor" id="conectar-servidor">Conectar Servidor</a></h1>
-<p>O cliente pode usar os endpoints retornados por <a href="dns-query.html">DNS</a> para conectar o aplicativo servidor. Veja o código abaixo:</p>
-<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
-	#include &lt;iostream&gt;
-	
-	int main()
-	{
-	    try
-	    {
-	        boost::asio::io_context io_context;
-	
-	        boost::asio::ip::tcp::resolver resolver{io_context};
-	        boost::asio::ip::tcp::resolver::results_type endpoints =
-	                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
-	
-	        boost::asio::ip::tcp::tcp::socket socket{io_context};
-	        auto endpoint = boost::asio::connect(socket, endpoints);
-	
-	        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
-	    }
-	    catch (std::exception&amp; e)
-	    {
-	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-	        return -1;
-	    }
-	
-	    return 0;
-	}
-</code></pre>
-<p>O resultado da execução será:</p>
-<pre><code>Connect to 172.217.194.101:443 successfully!
-</code></pre>
-<p>Observe que o <code>boost::asio::connect</code> requer o iterador de endpoints. Se você quiser apenas um endpoint específico, poderá usar a função membro <code>connect</code> do soquete. Verifique o código abaixo:</p>
-<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
-	#include &lt;iostream&gt;
-	
-	int main()
-	{
-	    try
-	    {
-	        boost::asio::io_context io_context;
-	
-	        boost::asio::ip::tcp::resolver resolver{io_context};
-	        boost::asio::ip::tcp::resolver::results_type endpoints =
-	                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
-	
-	        boost::asio::ip::tcp::tcp::socket socket{io_context};
-	        auto eit = endpoints.cbegin();
-	        for (; eit != endpoints.cend(); eit++)
-	        {
-	            boost::system::error_code ec;
-	            boost::asio::ip::tcp::endpoint endpoint = *eit;
-	            socket.connect(endpoint, ec);
-	            if (!ec)
-	            {
-	                std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
-	                break;
-	            }
-	        }
-	
-	        if (eit == endpoints.cend())
-	        {
-	            std::cout &lt;&lt; &quot;Connect failed!\n&quot;;
-	            return  -1;
-	        }
-	    }
-	    catch (std::exception&amp; e)
-	    {
-	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-	        return -1;
-	    }
-	
-	    return 0;
-	}
-</code></pre>
-<p>O resultado da execução será:</p>
-<pre><code>Connect to 172.217.194.139:443 successfully!
+                        <h1><a class="header" href="#strands-usar-threads-sem-bloqueio-explícito" id="strands-usar-threads-sem-bloqueio-explícito"><code>Strands</code>: Usar threads sem bloqueio explícito</a></h1>
+<p>Uma thread é definida como uma chamada estritamente sequencial de manipuladores de eventos[event handler] (ou seja, nenhuma chamada simultânea). O uso de <code>strands</code> permite a execução de código em um programa multithread sem a necessidade de bloqueio explícito (por exemplo, usando <code>mutex</code>[exclusão mútua]).</p>
+<p>As <code>strands</code> podem ser implícitas ou explícitas, conforme ilustrado pelas seguintes abordagens alternativas:</p>
+<ul>
+<li>
+<p>Utilizando <code>io_context::run()</code> em apenas uma thread significa que todos os manipuladores de eventos são executados em uma thread implícita, devido à garantia do <code>io_context</code> de que os manipuladores[handlers] são invocados somente de dentro da função <code>run()</code>.</p>
+</li>
+<li>
+<p>Onde existe uma única cadeia de operações assíncronas associadas a uma conexão (por exemplo, em uma implementação de protocolo half-duplex como HTTP), não há possibilidade de execução simultânea dos manipuladores. Neste caso seria um <code>strand</code> implícito.</p>
+</li>
+<li>
+<p>Um <code>strand</code> explícito é uma instância <code>strand&lt;&gt;</code> ou <code>io_context::strand</code>. Todos os objetos de função do manipulador[handler] de eventos precisam ser vinculados ao strand usando <code>boost::asio::bind_executor()</code> ou de outra forma postados/despachados através do objeto strand.</p>
+</li>
+</ul>
+<p>O executor associado deve atender aos requisitos do executor. Ele será usado pela operação assíncrona para enviar manipuladores intermediários e finais para execução.</p>
+<p>O executor pode ser customizado para um tipo de manipulador específico, especificando um tipo aninhado <code>executor_type</code> e a função de membro<code>get_executor()</code>.</p>
+<p>Veja o exemplo abaixo:</p>
+<pre><code class="language-cpp">    class my_handler
+    {
+    public:
+    // Custom implementation of Executor type requirements.
+    typedef my_executor executor_type;
+
+    // Return a custom executor implementation.
+    executor_type get_executor() const noexcept
+    {
+        return my_executor();
+    }
+
+    void operator()() { ... }
+    };
 </code></pre>
 
                     </main>
@@ -232,13 +186,13 @@
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../cpp-asio/throw-exception.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../cpp-asio/accept-connections.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../cpp-asio/accept-connections.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../cpp-asio/synchronous-read-write-operations.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -250,13 +204,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="../cpp-asio/throw-exception.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="../cpp-asio/accept-connections.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="../cpp-asio/accept-connections.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="../cpp-asio/synchronous-read-write-operations.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

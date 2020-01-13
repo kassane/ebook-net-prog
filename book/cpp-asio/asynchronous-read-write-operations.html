@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Asio</a></li><li class="expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">9.</strong> Operações síncronas</a></li><li class="expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html" class="active"><strong aria-hidden="true">10.</strong> Operações assíncronas</a></li><li class="expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">11.</strong> Protocolo UDP</a></li><li class="expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">12.</strong> Conclusão</a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Asio</a></li><li class="expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="../cpp-asio/strand.html"><strong aria-hidden="true">9.</strong> Strands</a></li><li class="expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações síncronas</a></li><li class="expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html" class="active"><strong aria-hidden="true">11.</strong> Operações assíncronas</a></li><li class="expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">12.</strong> Protocolo UDP</a></li><li class="expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">13.</strong> Conclusão</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -167,7 +167,6 @@
 		.......
 	}
 </code></pre>
-<!-- Since `async_send` and `async_receive` functions will return immediately, and not block current thread, you should pass a callback function as the parameter which receives the result of read/write operations:   -->
 <p>Como as funções <code>async_send</code> e <code>async_receive</code> retornam imediatamente, e não bloqueiam a thread atual, você deve passar uma função de retorno de chamada como o parâmetro que recebe o resultado das operações de leitura &amp; gravação:</p>
 <pre><code class="language-cpp">	void handler(
 		const boost::system::error_code&amp; error, // Result of operation.
@@ -233,17 +232,17 @@
 	}
 </code></pre>
 <p>Vamos analisar o código:</p>
-<p>(1) Como o objeto soquetes é non-copyable (consulte: <a href="socket.html">soquetes</a>), soquetes é criado como um ponteiro inteligente de memória compartilhada (shared_pointer):</p>
+<p>(1) Como o objeto soquetes é non-copyable (<a href="socket.html">sockets</a>), soquetes é criado como um ponteiro inteligente de memória compartilhada (shared_pointer):</p>
 <pre><code class="language-cpp">	......
 	std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
 	......
 </code></pre>
-<p>(2) Como o callback possui apenas dois parâmetros, ele precisa usar <code>std::bind</code> para passar parâmetros adicionais:</p>
+<p>(2) Como o <code>callback</code> possui apenas dois parâmetros, ele precisa usar <code>std::bind</code> para passar parâmetros adicionais:</p>
 <pre><code class="language-cpp">	......
 	std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str)
 	......
 </code></pre>
-<p>(3) <code>async_send</code> não garante que todos os bytes sejam enviados (<code>boost::asio::async_write</code> retorna todos os bytes enviados com sucesso ou ocorre um erro), portanto, é necessário reemitir <code>async_send</code> no callback:</p>
+<p>(3) <code>async_send</code> não garante que todos os bytes sejam enviados (<code>boost::asio::async_write</code> retorna todos os bytes enviados com sucesso ou ocorre um erro), portanto, é necessário reemitir <code>async_send</code> no <code>callback</code>:</p>
 <pre><code class="language-cpp">	......
 	if (error)
 	{
@@ -315,7 +314,7 @@
 	}
 </code></pre>
 <p>Há duas advertências às quais você precisa prestar atenção:</p>
-<p>(1) Apenas para fins de demonstração: para cada cliente, o callback é chamado apenas uma vez;<br />
+<p>(1) Apenas para fins de demonstração: para cada cliente, o <code>callback</code> é chamado apenas uma vez;<br />
 (2) O <code>io_context.restart</code> deve ser chamado para chamar outro<code> io_context.run</code>.</p>
 <p>Da mesma forma, você também pode verificar como usar o <code>boost::asio::async_read</code>.</p>
 <p>Compile e execute os programas.</p>

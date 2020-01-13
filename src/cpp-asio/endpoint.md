@@ -10,7 +10,7 @@ Um `endpoint` é o nome para uma entidade em um terminal de uma conexão da [cam
 	}
 ```
 
-O cliente usa o `endpoint` para designar o endereço do servidor, e o aplicativo do servidor usa o `endpoint` para identificar qual endereço será usado para escutar e aceitar conexões. Um exemplo de [`TCP`](https://pt.wikipedia.org/wiki/Transmission_Control_Protocol) `endpoint` abaixo:
+O cliente usa o `endpoint` para designar o endereço do servidor, e o aplicativo do servidor usa o `endpoint` para identificar qual endereço será usado para escutar e aceitar conexões. Um exemplo de [TCP](https://pt.wikipedia.org/wiki/Transmission_Control_Protocol) `endpoint` abaixo:
 
 ```cpp
 	boost::asio::ip::tcp::endpoint endpoint{
@@ -27,7 +27,7 @@ Normalmente, o servidor precisa escutar(listen) todos os endereços da máquina 
 	}
 ```
 
-Um exemplo de servidor [`UDP`](https://pt.wikipedia.org/wiki/User_Datagram_Protocol) que escuta todos os endereços `IPv4` & `IPv6`:
+Um exemplo de servidor [UDP](https://pt.wikipedia.org/wiki/User_Datagram_Protocol) que escuta todos os endereços `IPv4` & `IPv6`:
 
 ```cpp
 	//IPv6

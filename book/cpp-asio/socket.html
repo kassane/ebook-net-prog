@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Asio</a></li><li class="expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="../cpp-asio/socket.html" class="active"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">9.</strong> Operações síncronas</a></li><li class="expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações assíncronas</a></li><li class="expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">11.</strong> Protocolo UDP</a></li><li class="expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">12.</strong> Conclusão</a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Asio</a></li><li class="expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="../cpp-asio/socket.html" class="active"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="../cpp-asio/strand.html"><strong aria-hidden="true">9.</strong> Strands</a></li><li class="expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações síncronas</a></li><li class="expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">11.</strong> Operações assíncronas</a></li><li class="expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">12.</strong> Protocolo UDP</a></li><li class="expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">13.</strong> Conclusão</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -148,7 +148,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#soquetes-sockets" id="soquetes-sockets">Soquetes (Sockets)</a></h1>
+                        <h1><a class="header" href="#sockets-soquetes" id="sockets-soquetes">Sockets (Soquetes)</a></h1>
 <p>Existem <code>4</code> tipos de soquetes:</p>
 <p>(1) <code>basic_stream_socket</code>:<br />
 Este soquete fornece fluxos de bytes baseados em conexão bidirecional, confiável e sequencial. <code>tcp::socket</code> é uma instância deste soquete:</p>
@@ -182,8 +182,7 @@ Este soquete fornece serviço de datagrama sem garatias de conexão. <code>udp::
 	}
 </code></pre>
 <p>(4) <code>basic_seq_packet_socket</code>:<br />
-Este soquete combina fluxo e datagrama: fornece um serviço de datagramas com conexão bidirecional, confiável e bidirecional. <a href="https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol">SCTP</a> é um exemplo deste tipo de serviço.</p>
-<!-- All these `4` sockets derive from `basic_socket` class, and need to associate with an `io_context` during initialization. Take `tcp::socket` as an example:   -->
+Este soquete combina fluxo(stream) e datagrama: fornece um serviço de datagramas com conexão bidirecional, confiável e bidirecional. <a href="https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol">SCTP</a> é um exemplo deste tipo de serviço.</p>
 <p>Todos esses <code>4</code> soquetes derivam da classe <code>basic_socket</code> e precisam ser associados a um <code>io_context</code> durante a inicialização. Veja <code>tcp::socket</code> como exemplo:</p>
 <pre><code class="language-cpp">		boost::asio::io_context io_context;
 		boost::asio::ip::tcp::socket socket{io_context};

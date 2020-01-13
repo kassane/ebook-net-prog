@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Asio</a></li><li class="expanded "><a href="cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">9.</strong> Operações síncronas</a></li><li class="expanded "><a href="cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações assíncronas</a></li><li class="expanded "><a href="cpp-asio/udp-communication.html"><strong aria-hidden="true">11.</strong> Protocolo UDP</a></li><li class="expanded "><a href="cpp-asio/the-end.html"><strong aria-hidden="true">12.</strong> Conclusão</a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="cpp-asio/install-asio.html"><strong aria-hidden="true">1.</strong> Instalação do Asio</a></li><li class="expanded "><a href="cpp-asio/io_context.html"><strong aria-hidden="true">2.</strong> io_context</a></li><li class="expanded "><a href="cpp-asio/socket.html"><strong aria-hidden="true">3.</strong> Soquete</a></li><li class="expanded "><a href="cpp-asio/endpoint.html"><strong aria-hidden="true">4.</strong> Endpoint</a></li><li class="expanded "><a href="cpp-asio/dns-query.html"><strong aria-hidden="true">5.</strong> DNS query</a></li><li class="expanded "><a href="cpp-asio/throw-exception.html"><strong aria-hidden="true">6.</strong> Erros e exceções</a></li><li class="expanded "><a href="cpp-asio/connect-server.html"><strong aria-hidden="true">7.</strong> Connect server</a></li><li class="expanded "><a href="cpp-asio/accept-connections.html"><strong aria-hidden="true">8.</strong> Accept connections</a></li><li class="expanded "><a href="cpp-asio/strand.html"><strong aria-hidden="true">9.</strong> Strands</a></li><li class="expanded "><a href="cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">10.</strong> Operações síncronas</a></li><li class="expanded "><a href="cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">11.</strong> Operações assíncronas</a></li><li class="expanded "><a href="cpp-asio/udp-communication.html"><strong aria-hidden="true">12.</strong> Protocolo UDP</a></li><li class="expanded "><a href="cpp-asio/the-end.html"><strong aria-hidden="true">13.</strong> Conclusão</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -269,7 +269,7 @@
 	......
 	}
 </code></pre>
-<h1><a class="header" href="#soquetes-sockets" id="soquetes-sockets">Soquetes (Sockets)</a></h1>
+<h1><a class="header" href="#sockets-soquetes" id="sockets-soquetes">Sockets (Soquetes)</a></h1>
 <p>Existem <code>4</code> tipos de soquetes:</p>
 <p>(1) <code>basic_stream_socket</code>:<br />
 Este soquete fornece fluxos de bytes baseados em conexão bidirecional, confiável e sequencial. <code>tcp::socket</code> é uma instância deste soquete:</p>
@@ -303,8 +303,7 @@ Este soquete fornece serviço de datagrama sem garatias de conexão. <code>udp::
 	}
 </code></pre>
 <p>(4) <code>basic_seq_packet_socket</code>:<br />
-Este soquete combina fluxo e datagrama: fornece um serviço de datagramas com conexão bidirecional, confiável e bidirecional. <a href="https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol">SCTP</a> é um exemplo deste tipo de serviço.</p>
-<!-- All these `4` sockets derive from `basic_socket` class, and need to associate with an `io_context` during initialization. Take `tcp::socket` as an example:   -->
+Este soquete combina fluxo(stream) e datagrama: fornece um serviço de datagramas com conexão bidirecional, confiável e bidirecional. <a href="https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol">SCTP</a> é um exemplo deste tipo de serviço.</p>
 <p>Todos esses <code>4</code> soquetes derivam da classe <code>basic_socket</code> e precisam ser associados a um <code>io_context</code> durante a inicialização. Veja <code>tcp::socket</code> como exemplo:</p>
 <pre><code class="language-cpp">		boost::asio::io_context io_context;
 		boost::asio::ip::tcp::socket socket{io_context};
@@ -342,7 +341,7 @@ Este soquete combina fluxo e datagrama: fornece um serviço de datagramas com co
 		//TODO
 	}
 </code></pre>
-<p>O cliente usa o <code>endpoint</code> para designar o endereço do servidor, e o aplicativo do servidor usa o <code>endpoint</code> para identificar qual endereço será usado para escutar e aceitar conexões. Um exemplo de <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol"><code>TCP</code></a> <code>endpoint</code> abaixo:</p>
+<p>O cliente usa o <code>endpoint</code> para designar o endereço do servidor, e o aplicativo do servidor usa o <code>endpoint</code> para identificar qual endereço será usado para escutar e aceitar conexões. Um exemplo de <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a> <code>endpoint</code> abaixo:</p>
 <pre><code class="language-cpp">	boost::asio::ip::tcp::endpoint endpoint{
 		boost::asio::ip::make_address(&quot;127.0.0.1&quot;), 3303};
 </code></pre>
@@ -353,7 +352,7 @@ Este soquete combina fluxo e datagrama: fornece um serviço de datagramas com co
 	{
 	}
 </code></pre>
-<p>Um exemplo de servidor <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol"><code>UDP</code></a> que escuta todos os endereços <code>IPv4</code> &amp; <code>IPv6</code>:</p>
+<p>Um exemplo de servidor <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol">UDP</a> que escuta todos os endereços <code>IPv4</code> &amp; <code>IPv6</code>:</p>
 <pre><code class="language-cpp">	//IPv6
 	boost::asio::ip::udp::endpoint endpoint{
             boost::asio::ip::udp::v6(),
@@ -554,64 +553,96 @@ Este soquete combina fluxo e datagrama: fornece um serviço de datagramas com co
 <pre><code>Connect to 172.217.194.139:443 successfully!
 </code></pre>
 <h1><a class="header" href="#accept-connections" id="accept-connections">Accept connections</a></h1>
-<p>Server needs to accept clients' connections. First server creates an <code>acceptor</code>:</p>
-<pre><code>......
-boost::asio::io_context io_context;
-    boost::asio::ip::tcp::acceptor acceptor{
-        io_context,
-        boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v6(), 3303}};
-......
-</code></pre>
-<p><code>boost::asio::ip::tcp::acceptor</code> is an instance of <code>basic_socket_acceptor</code>:</p>
-<pre><code>class tcp
-{
-......
-  /// The TCP acceptor type.
-  typedef basic_socket_acceptor&lt;tcp&gt; acceptor;
-......
-}
-</code></pre>
-<p>The following constructor of <code>basic_socket_acceptor</code> combines creating socket,  setting reuse address, binding &amp; listening functions:</p>
-<pre><code>basic_socket_acceptor(boost::asio::io_context&amp; io_context,
-    const endpoint_type&amp; endpoint, bool reuse_addr = true)
-  : basic_io_object&lt;BOOST_ASIO_SVC_T&gt;(io_context)
-{
-......
-}
-</code></pre>
-<p>Then <code>acceptor</code> will accept the clients' connections. Following simple example just shows client's address and close the connection:</p>
-<pre><code>#include &lt;boost/asio.hpp&gt;
-#include &lt;iostream&gt;
-
-int main()
-{
-    try
-    {
-        boost::asio::io_context io_context;
+<p>O servidor precisa aceitar as solicitações dos clientes. O servidor cria um <code>acceptor</code>:</p>
+<pre><code class="language-cpp">	......
+	boost::asio::io_context io_context;
         boost::asio::ip::tcp::acceptor acceptor{
             io_context,
             boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v6(), 3303}};
-
-        while (1)
-        {
-            boost::asio::ip::tcp::socket socket{io_context};
-            acceptor.accept(socket);
-
-            std::cout &lt;&lt; socket.remote_endpoint() &lt;&lt; &quot; connects to &quot; &lt;&lt; socket.local_endpoint() &lt;&lt; '\n';
-        }
-    }
-    catch (std::exception&amp; e)
-    {
-        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-        return -1;
-    }
-
-    return 0;
-}
+	......
 </code></pre>
-<p>The running result is like this:</p>
+<p><code>boost::asio::ip::tcp::acceptor</code> é uma instância de <code>basic_socket_acceptor</code>:</p>
+<pre><code class="language-cpp">	class tcp
+	{
+	......
+	  /// The TCP acceptor type.
+	  typedef basic_socket_acceptor&lt;tcp&gt; acceptor;
+	......
+	}
+</code></pre>
+<p>O construtor <code>basic_socket_acceptor</code> combinarar criação de soquete, configuração de endereço de reutilização, funções binding &amp; listening:</p>
+<pre><code class="language-cpp">	basic_socket_acceptor(boost::asio::io_context&amp; io_context,
+	    const endpoint_type&amp; endpoint, bool reuse_addr = true)
+	  : basic_io_object&lt;BOOST_ASIO_SVC_T&gt;(io_context)
+	{
+	......
+	}
+</code></pre>
+<p>Então o <code>acceptor</code> aceitará as conexões dos clientes. O código abaixo mostra o endereço do cliente e fecha a conexão:</p>
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	        boost::asio::ip::tcp::acceptor acceptor{
+	            io_context,
+	            boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v6(), 3303}};
+	
+	        while (1)
+	        {
+	            boost::asio::ip::tcp::socket socket{io_context};
+	            acceptor.accept(socket);
+	
+	            std::cout &lt;&lt; socket.remote_endpoint() &lt;&lt; &quot; connects to &quot; &lt;&lt; socket.local_endpoint() &lt;&lt; '\n';
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
+</code></pre>
+<p>O resultado da execução será:</p>
 <pre><code>[::ffff:10.217.242.61]:39290 connects to [::ffff:192.168.35.145]:3303
 ......
+</code></pre>
+<h1><a class="header" href="#strands-usar-threads-sem-bloqueio-explícito" id="strands-usar-threads-sem-bloqueio-explícito"><code>Strands</code>: Usar threads sem bloqueio explícito</a></h1>
+<p>Uma thread é definida como uma chamada estritamente sequencial de manipuladores de eventos[event handler] (ou seja, nenhuma chamada simultânea). O uso de <code>strands</code> permite a execução de código em um programa multithread sem a necessidade de bloqueio explícito (por exemplo, usando <code>mutex</code>[exclusão mútua]).</p>
+<p>As <code>strands</code> podem ser implícitas ou explícitas, conforme ilustrado pelas seguintes abordagens alternativas:</p>
+<ul>
+<li>
+<p>Utilizando <code>io_context::run()</code> em apenas uma thread significa que todos os manipuladores de eventos são executados em uma thread implícita, devido à garantia do <code>io_context</code> de que os manipuladores[handlers] são invocados somente de dentro da função <code>run()</code>.</p>
+</li>
+<li>
+<p>Onde existe uma única cadeia de operações assíncronas associadas a uma conexão (por exemplo, em uma implementação de protocolo half-duplex como HTTP), não há possibilidade de execução simultânea dos manipuladores. Neste caso seria um <code>strand</code> implícito.</p>
+</li>
+<li>
+<p>Um <code>strand</code> explícito é uma instância <code>strand&lt;&gt;</code> ou <code>io_context::strand</code>. Todos os objetos de função do manipulador[handler] de eventos precisam ser vinculados ao strand usando <code>boost::asio::bind_executor()</code> ou de outra forma postados/despachados através do objeto strand.</p>
+</li>
+</ul>
+<p>O executor associado deve atender aos requisitos do executor. Ele será usado pela operação assíncrona para enviar manipuladores intermediários e finais para execução.</p>
+<p>O executor pode ser customizado para um tipo de manipulador específico, especificando um tipo aninhado <code>executor_type</code> e a função de membro<code>get_executor()</code>.</p>
+<p>Veja o exemplo abaixo:</p>
+<pre><code class="language-cpp">    class my_handler
+    {
+    public:
+    // Custom implementation of Executor type requirements.
+    typedef my_executor executor_type;
+
+    // Return a custom executor implementation.
+    executor_type get_executor() const noexcept
+    {
+        return my_executor();
+    }
+
+    void operator()() { ... }
+    };
 </code></pre>
 <h1><a class="header" href="#operações-síncronas-es" id="operações-síncronas-es">Operações síncronas E/S</a></h1>
 <p>Depois que a conexão é estabelecida, o cliente e o servidor podem se comunicar. Como na API de soquetes do <code>UNIX</code>, o <code>boost::asio</code> também fornece as funções <code>send</code> e<code> receive</code> Use <code>basic_stream_socket</code> como exemplo e um par de implementações assim:</p>
@@ -722,7 +753,6 @@ Receive string: Hello world!
 		.......
 	}
 </code></pre>
-<!-- Since `async_send` and `async_receive` functions will return immediately, and not block current thread, you should pass a callback function as the parameter which receives the result of read/write operations:   -->
 <p>Como as funções <code>async_send</code> e <code>async_receive</code> retornam imediatamente, e não bloqueiam a thread atual, você deve passar uma função de retorno de chamada como o parâmetro que recebe o resultado das operações de leitura &amp; gravação:</p>
 <pre><code class="language-cpp">	void handler(
 		const boost::system::error_code&amp; error, // Result of operation.
@@ -788,17 +818,17 @@ Receive string: Hello world!
 	}
 </code></pre>
 <p>Vamos analisar o código:</p>
-<p>(1) Como o objeto soquetes é non-copyable (consulte: <a href="cpp-asio/socket.html">soquetes</a>), soquetes é criado como um ponteiro inteligente de memória compartilhada (shared_pointer):</p>
+<p>(1) Como o objeto soquetes é non-copyable (<a href="cpp-asio/socket.html">sockets</a>), soquetes é criado como um ponteiro inteligente de memória compartilhada (shared_pointer):</p>
 <pre><code class="language-cpp">	......
 	std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
 	......
 </code></pre>
-<p>(2) Como o callback possui apenas dois parâmetros, ele precisa usar <code>std::bind</code> para passar parâmetros adicionais:</p>
+<p>(2) Como o <code>callback</code> possui apenas dois parâmetros, ele precisa usar <code>std::bind</code> para passar parâmetros adicionais:</p>
 <pre><code class="language-cpp">	......
 	std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str)
 	......
 </code></pre>
-<p>(3) <code>async_send</code> não garante que todos os bytes sejam enviados (<code>boost::asio::async_write</code> retorna todos os bytes enviados com sucesso ou ocorre um erro), portanto, é necessário reemitir <code>async_send</code> no callback:</p>
+<p>(3) <code>async_send</code> não garante que todos os bytes sejam enviados (<code>boost::asio::async_write</code> retorna todos os bytes enviados com sucesso ou ocorre um erro), portanto, é necessário reemitir <code>async_send</code> no <code>callback</code>:</p>
 <pre><code class="language-cpp">	......
 	if (error)
 	{
@@ -870,7 +900,7 @@ Receive string: Hello world!
 	}
 </code></pre>
 <p>Há duas advertências às quais você precisa prestar atenção:</p>
-<p>(1) Apenas para fins de demonstração: para cada cliente, o callback é chamado apenas uma vez;<br />
+<p>(1) Apenas para fins de demonstração: para cada cliente, o <code>callback</code> é chamado apenas uma vez;<br />
 (2) O <code>io_context.restart</code> deve ser chamado para chamar outro<code> io_context.run</code>.</p>
 <p>Da mesma forma, você também pode verificar como usar o <code>boost::asio::async_read</code>.</p>
 <p>Compile e execute os programas.</p>
@@ -884,7 +914,7 @@ Message is sent successfully!
 Hello world!
 </code></pre>
 <h1><a class="header" href="#protocolo-udp" id="protocolo-udp">Protocolo UDP</a></h1>
-<p>Nós discutimos como se comunicar através do <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol"><code>TCP</code></a> o suficiente, então é hora de mudar para o <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol"><code>UDP</code></a> agora. O <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol"><code>UDP</code></a> é um protocolo de conexão não confiável e é mais fácil de usar que o <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol"><code>TCP</code></a>.</p>
+<p>Nós discutimos como se comunicar através do <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a> o suficiente, então é hora de mudar para o <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol">UDP</a> agora. O <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol">UDP</a> é um protocolo de conexão não confiável e é mais fácil de usar que o <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a>.</p>
 <p>Há um exemplo de Cliente/Servidor. </p>
 <h3><a class="header" href="#cliente" id="cliente"><em>Cliente</em>:</a></h3>
 <pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;

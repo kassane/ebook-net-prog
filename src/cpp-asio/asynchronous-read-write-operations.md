@@ -20,8 +20,6 @@ Diferentemente da API de soquetes do `UNIX`, o` boost.asio` possui habilidades d
 		.......
 	}
 ```
-
-<!-- Since `async_send` and `async_receive` functions will return immediately, and not block current thread, you should pass a callback function as the parameter which receives the result of read/write operations:   -->
 Como as funções `async_send` e `async_receive` retornam imediatamente, e não bloqueiam a thread atual, você deve passar uma função de retorno de chamada como o parâmetro que recebe o resultado das operações de leitura & gravação:
 
 ```cpp
@@ -94,7 +92,7 @@ Há um exemplo simples de cliente/servidor. Abaixo está o código do cliente:
 
 Vamos analisar o código:  
 
-(1) Como o objeto soquetes é non-copyable (consulte: [soquetes](socket.md)), soquetes é criado como um ponteiro inteligente de memória compartilhada (shared_pointer):  
+(1) Como o objeto soquetes é non-copyable ([sockets](socket.md)), soquetes é criado como um ponteiro inteligente de memória compartilhada (shared_pointer):  
 
 ```cpp
 	......
@@ -102,7 +100,7 @@ Vamos analisar o código:
 	......
 ```
 
-(2) Como o callback possui apenas dois parâmetros, ele precisa usar `std::bind` para passar parâmetros adicionais:
+(2) Como o `callback` possui apenas dois parâmetros, ele precisa usar `std::bind` para passar parâmetros adicionais:
 
 ```cpp
 	......
@@ -110,7 +108,7 @@ Vamos analisar o código:
 	......
 ```
 
-(3) `async_send` não garante que todos os bytes sejam enviados (`boost::asio::async_write` retorna todos os bytes enviados com sucesso ou ocorre um erro), portanto, é necessário reemitir `async_send` no callback:  
+(3) `async_send` não garante que todos os bytes sejam enviados (`boost::asio::async_write` retorna todos os bytes enviados com sucesso ou ocorre um erro), portanto, é necessário reemitir `async_send` no `callback`:  
 
 ```cpp
 	......
@@ -191,7 +189,7 @@ Verifique o código do servidor que usa `async_receive`:
 	
 Há duas advertências às quais você precisa prestar atenção:  
 
-(1) Apenas para fins de demonstração: para cada cliente, o callback é chamado apenas uma vez;  
+(1) Apenas para fins de demonstração: para cada cliente, o `callback` é chamado apenas uma vez;  
 (2) O `io_context.restart` deve ser chamado para chamar outro` io_context.run`.  
 
 Da mesma forma, você também pode verificar como usar o `boost::asio::async_read`.

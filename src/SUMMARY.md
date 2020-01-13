@@ -8,6 +8,7 @@
 * [Erros e exceções](cpp-asio/throw-exception.md)
 * [Connect server](cpp-asio/connect-server.md)
 * [Accept connections](cpp-asio/accept-connections.md)
+* [Strands](cpp-asio/strand.md)
 * [Operações síncronas](cpp-asio/synchronous-read-write-operations.md)
 * [Operações assíncronas](cpp-asio/asynchronous-read-write-operations.md)
 * [Protocolo UDP](cpp-asio/udp-communication.md)
