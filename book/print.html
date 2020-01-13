@@ -334,7 +334,7 @@ Este socket combina fluxo(stream) e datagrama: fornece um serviço de datagramas
 	  }
 </code></pre>
 <h1><a class="header" href="#endpoint-ponto-de-extremidade" id="endpoint-ponto-de-extremidade">Endpoint (Ponto de Extremidade)</a></h1>
-<p>Um <code>endpoint</code> é o nome para uma entidade em um terminal de uma conexão da <a href="https://pt.wikipedia.org/wiki/Camada_de_transporte">camada de transporte</a>. E é composto por: &quot;Endereço <a href="https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP"><code>IP</code></a> + porta de conexão&quot;:</p>
+<p>Um <code>endpoint</code> é o nome para uma entidade em um terminal de uma conexão da <a href="https://pt.wikipedia.org/wiki/Camada_de_transporte">camada de transporte</a>. E é composto por: &quot;Endereço <a href="https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP">IP</a> + porta de conexão&quot;:</p>
 <pre><code class="language-cpp">	basic_endpoint(const boost::asio::ip::address&amp; addr, unsigned short port_num)
 	    : impl_(addr, port_num)
 	{
@@ -364,7 +364,8 @@ Este socket combina fluxo(stream) e datagrama: fornece um serviço de datagramas
             3306};
 </code></pre>
 <h1><a class="header" href="#dns-query" id="dns-query">DNS Query</a></h1>
-<p>A classe <code>resolver</code> é usada para fazer consultas <a href="https://pt.wikipedia.org/wiki/Sistema_de_Nomes_de_Dom%C3%ADnio"><code>DNS</code></a>, ou seja, converter um serviço host + em <code>IP</code> + porta. Veja <code>boost::asio::ip::tcp::resolver</code> no exemplo abaixo:</p>
+<p>A classe <code>resolver</code> é usada para fazer consultas <a href="https://pt.wikipedia.org/wiki/Sistema_de_Nomes_de_Dom%C3%ADnio">DNS</a>, ou seja, converter um serviço host + endereço <a href="https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP">IP</a> + porta.</p>
+<p>Veja <code>boost::asio::ip::tcp::resolver</code> no exemplo abaixo:</p>
 <pre><code class="language-cpp">
 	#include &lt;boost/asio.hpp&gt;
 	#include &lt;iostream&gt;
