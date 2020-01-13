@@ -1,7 +1,8 @@
 # Operações síncronas E/S
 
-Once the connection is established, the client and server can communicate with each other. Like classical `UNIX` socket programming, `boost::asio` also provides `send` and `receive` functions. Use `basic_stream_socket` as an example and one pair of the implementations is like this:     
+Depois que a conexão é estabelecida, o cliente e o servidor podem se comunicar. Como na API de soquetes do `UNIX`, o `boost::asio` também fornece as funções `send` e` receive` Use `basic_stream_socket` como exemplo e um par de implementações assim:
 
+```cpp
 	template <typename ConstBufferSequence>
   	std::size_t send(const ConstBufferSequence& buffers)
 	{
@@ -13,11 +14,13 @@ Once the connection is established, the client and server can communicate with e
 	{
 		......
 	}
+```
 
-Please notice the buffer types of `send/receive` are `ConstBufferSequence/MutableBufferSequence`, and we can use `boost::asio::buffer` function to construct related types.  
+Observe que os tipos de buffer de `send/receive` são `ConstBufferSequence/MutableBufferSequence`, e podemos usar a função `boost::asio::buffer` para construir tipos relacionados.
 
-Below is a simple client program which sends "`Hello world!`" to server after connection is established:  
+Abaixo está um programa cliente que envia "`Hello world!`" Para o servidor após o estabelecimento da conexão:
 
+```cpp
 	#include <boost/asio.hpp>
 	#include <iostream>
 	
@@ -45,9 +48,11 @@ Below is a simple client program which sends "`Hello world!`" to server after co
 	
 	    return 0;
 	}
+```
 
-There is the server program which waits receiving greeting from client:  
+O programa servidor que aguarda o recebimento da saudação do cliente:  
 
+```cpp
 	#include <boost/asio.hpp>
 	#include <iostream>
 	
@@ -80,19 +85,20 @@ There is the server program which waits receiving greeting from client:
 	    }
 	
 	    return 0;
-	} 
+	}
+``` 
 
-Build and run programs. Client outputs following:  
+Compile e execute os programas. O cliente exibirá o seguinte:  
 
 	$ ./client
 	Connect to 10.217.242.61:3303 successfully!
 
-Server outputs following:  
+Servidor exibirá  seguinte:  
 
 	$ ./server
 	10.217.242.21:64776 connects to 10.217.242.61:3303
 	Receive string: Hello world!
 
-If no error occurs, `send` can guarantee at least one byte is sent successfully, and you should check the return value to see whether all bytes are sent successfully or not. `receive` is similar as `send`. `boost::asio::basic_stream_socket` also provides `read_some` and `write_some` which have the same functions as `receive` and `send`.  
+Se nenhum erro ocorrer, o `send` pode garantir que pelo menos um byte seja enviado com sucesso, e você deve verificar o valor de retorno para ver se todos os bytes foram enviados com sucesso ou não. `receive` é semelhante a `send`. O `boost::asio::basic_stream_socket` também fornece` read_some` e `write_some`, que têm as mesmas funções que `receive` e `send`.
 
-If we don't bother to check the middle state (partial bytes are sent successfully), and only care whether all bytes are sent successfully or not, we can use `boost::asio::write` which actually uses `wrtie_some` under the hood.  Correspondingly, it is not hard to guess what `boost::asio::read`does.
+Se não nos preocuparmos em verificar o estado do meio (bytes parciais são enviados com sucesso), e apenas nos importarmos se todos os bytes serão enviados com sucesso ou não, podemos usar o `boost::asio::write` que usa o `write_some` por baixo. Da mesma forma, não é difícil adivinhar o que `boost::asio::read` faz.

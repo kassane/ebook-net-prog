@@ -1,6 +1,8 @@
-# DNS query
+# Consultar DNS (DNS Query)
 
-The `resolver` class is used to do `DNS` query, i.e., convert a host+service to `IP`+port. Take `boost::asio::ip::tcp::resolver` as an example:  
+A classe `resolver` é usada para fazer consultas [`DNS`](https://pt.wikipedia.org/wiki/Sistema_de_Nomes_de_Dom%C3%ADnio), ou seja, converter um serviço host + em `IP` + porta. Veja `boost::asio::ip::tcp::resolver` no exemplo abaixo:
+
+```cpp
 
 	#include <boost/asio.hpp>
 	#include <iostream>
@@ -28,8 +30,9 @@ The `resolver` class is used to do `DNS` query, i.e., convert a host+service to 
 	
 	    return 0;
 	}
+```
 
-The running result is:   
+O resultado da execução será:   
 
 	74.125.24.101:443
 	74.125.24.139:443
@@ -38,8 +41,9 @@ The running result is:
 	74.125.24.100:443
 	74.125.24.113:443
 
-The element of `boost::asio::ip::tcp::resolver::results_type`'s every iteration is `basic_resolver_entry`:  
+O elemento `boost::asio::ip::tcp::resolver::results_type` é o iterador de `basic_resolver_entry`: 
 
+```cpp
 	template <typename InternetProtocol>
 	class basic_resolver_entry
 	{
@@ -58,6 +62,9 @@ The element of `boost::asio::ip::tcp::resolver::results_type`'s every iteration 
 	  }
 	......
 	}
-Since it has `endpoint_type() ` operator, it can be converted to endpoint directly:  
+```
+Como ele possui o operador `endpoint_type()`, ele pode ser convertido diretamente no endpoint:
 
+```cpp
 	boost::asio::ip::tcp::endpoint endpoint = *it;
+```

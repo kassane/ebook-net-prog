@@ -1,6 +1,6 @@
 # Protocolo UDP
 
-Nós discutimos como se comunicar através do `TCP` o suficiente, então é hora de mudar para o` UDP` agora. O `UDP` é um protocolo de conexão não confiável e é mais fácil de usar que o `TCP`.
+Nós discutimos como se comunicar através do [`TCP`](https://pt.wikipedia.org/wiki/Transmission_Control_Protocol) o suficiente, então é hora de mudar para o [`UDP`](https://pt.wikipedia.org/wiki/User_Datagram_Protocol) agora. O [`UDP`](https://pt.wikipedia.org/wiki/User_Datagram_Protocol) é um protocolo de conexão não confiável e é mais fácil de usar que o [`TCP`](https://pt.wikipedia.org/wiki/Transmission_Control_Protocol).
 
 Há um exemplo de Cliente/Servidor. 
 

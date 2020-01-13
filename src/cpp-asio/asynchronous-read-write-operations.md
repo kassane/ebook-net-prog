@@ -1,6 +1,5 @@
 # Operações Assíncronas E/S
 
-<!-- Unlike classical `UNIX` socket programming, `boost.asio` has battery-included asynchronous read/write abilities. Still use `basic_stream_socket` as an example, and one pair of the implementations is like this:    -->
 Diferentemente da API de soquetes do `UNIX`, o` boost.asio` possui habilidades de leitura & gravação(read/write) assíncronas inclusas. Ainda pode usar `basic_stream_socket` como exemplo, e um par de implementações assim:
 
 ```cpp
@@ -197,9 +196,9 @@ Há duas advertências às quais você precisa prestar atenção:
 
 Da mesma forma, você também pode verificar como usar o `boost::asio::async_read`.
 
-Crie e execute os programas.
+Compile e execute os programas.
 
-O cliente emitirá o seguinte:  
+O cliente exibirá o seguinte:  
 
 	$ ./client
 	Connect to 192.168.35.145:3303 successfully!

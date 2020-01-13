@@ -1,7 +1,8 @@
-# Throw exception
+# Exceção
 
-`Boost.Asio` functions may throw `boost::system::system_error` exception. Take `resolve` as an example:  
+As funções do `Boost.Asio` podem gerar a exceção `boost::system::system_error`. Veja o [`resolve`](dns-query.md) no exemplo abaixo:  
 
+```cpp
 	results_type resolve(BOOST_ASIO_STRING_VIEW_PARAM host,
 		BOOST_ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags)
 	{
@@ -10,9 +11,11 @@
 	  boost::asio::detail::throw_error(ec, "resolve");
 	  return r;
 	}
+```
 
-There are two overloads of `boost::asio::detail::throw_error` functions:  
+Há duas sobrecargas de funções `boost::asio::detail::throw_error`:  
 
+```cpp
 	inline void throw_error(const boost::system::error_code& err)
 	{
 	  if (err)
@@ -25,16 +28,19 @@ There are two overloads of `boost::asio::detail::throw_error` functions:
 	  if (err)
 	    do_throw_error(err, location);
 	}
-The differences of these two functions is just including "location" ("`resolve`" string in our example) or not. Accordingly, `do_throw_error` also have two overloads, I just take one as an example:  
+```
+As diferenças dessas duas funções é que estão apenas incluindo a string "location" ("`resolve`" no nosso exemplo) ou não. Assim, o `do_throw_error` também tem duas sobrecargas, veja uma como exemplo:
 
+```cpp
 	void do_throw_error(const boost::system::error_code& err, const char* location)
 	{
 	  boost::system::system_error e(err, location);
 	  boost::asio::detail::throw_exception(e);
 	}
+```
+`boost::system::system_error` deriva de `std::runtime_error`:  
 
-`boost::system::system_error` derives from `std::runtime_error`:  
-
+```cpp
 	class BOOST_SYMBOL_VISIBLE system_error : public std::runtime_error
 	{
 	......
@@ -49,5 +55,6 @@ The differences of these two functions is just including "location" ("`resolve`"
 	      const char *        what() const BOOST_NOEXCEPT_OR_NOTHROW;
 	......
 	}
+```
 
-`what()` member function returns the detailed information of exception.
+A função membro chamado `what()` retorna as informações detalhadas da exceção.
