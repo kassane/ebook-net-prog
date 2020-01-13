@@ -1,6 +1,6 @@
 # Conectar Servidor
 
-The client can use the endpoints returned by [DNS query](dns-query.md) to connect server application. The following is an example:  
+O cliente pode usar os endpoints retornados por [DNS](dns-query.md) para conectar o aplicativo servidor. Veja o código abaixo:
 
 ```cpp
 	#include <boost/asio.hpp>
@@ -30,12 +30,10 @@ The client can use the endpoints returned by [DNS query](dns-query.md) to connec
 	    return 0;
 	}
 ```
-
 O resultado da execução será:  
 
 	Connect to 172.217.194.101:443 successfully!
 
-<!-- Please notice `boost::asio::connect` requires the iterator of endpoints. If you just want one specified endpoint, you can use `connect` member function of socket. Check following code:    -->
 Observe que o `boost::asio::connect` requer o iterador de endpoints. Se você quiser apenas um endpoint específico, poderá usar a função membro `connect` do soquete. Verifique o código abaixo:
 
 ```cpp

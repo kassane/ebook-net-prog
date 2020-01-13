@@ -476,7 +476,7 @@ Este soquete combina fluxo e datagrama: fornece um serviço de datagramas com co
 </code></pre>
 <p>A função membro chamado <code>what()</code> retorna as informações detalhadas da exceção.</p>
 <h1><a class="header" href="#conectar-servidor" id="conectar-servidor">Conectar Servidor</a></h1>
-<p>The client can use the endpoints returned by <a href="cpp-asio/dns-query.html">DNS query</a> to connect server application. The following is an example:</p>
+<p>O cliente pode usar os endpoints retornados por <a href="cpp-asio/dns-query.html">DNS</a> para conectar o aplicativo servidor. Veja o código abaixo:</p>
 <pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
 	#include &lt;iostream&gt;
 	
@@ -507,7 +507,6 @@ Este soquete combina fluxo e datagrama: fornece um serviço de datagramas com co
 <p>O resultado da execução será:</p>
 <pre><code>Connect to 172.217.194.101:443 successfully!
 </code></pre>
-<!-- Please notice `boost::asio::connect` requires the iterator of endpoints. If you just want one specified endpoint, you can use `connect` member function of socket. Check following code:    -->
 <p>Observe que o <code>boost::asio::connect</code> requer o iterador de endpoints. Se você quiser apenas um endpoint específico, poderá usar a função membro <code>connect</code> do soquete. Verifique o código abaixo:</p>
 <pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
 	#include &lt;iostream&gt;
