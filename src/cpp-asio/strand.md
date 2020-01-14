@@ -21,7 +21,7 @@ Strand é genérico e pode ser usado para sincronizar mais cenários.
 
 O executor associado deve atender aos requisitos do executor. Ele será usado pela operação assíncrona para enviar manipuladores intermediários e finais para execução.
 
-O executor pode ser customizado para um tipo de manipulador específico, especificando um tipo aninhado `executor_type` e a função de membro `get_executor()`.
+O executor pode ser customizado para um tipo de manipulador específico, especificando um tipo aninhado `executor_type` e a função membro `get_executor()`.
 
 Veja o exemplo abaixo:
 
