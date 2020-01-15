@@ -16,7 +16,7 @@ Este socket fornece fluxos de bytes baseados em conexão bidirecional, confiáve
 ```
 
 (2) `basic_datagram_socket`:  
-Este socket fornece serviço de datagrama sem garatias de conexão. `udp::socket` é uma instância deste socket:
+Este socket fornece serviço de datagrama sem garantias de conexão e não confiável. `udp::socket` é uma instância deste socket:
 
 ```cpp
 	class udp

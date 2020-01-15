@@ -1,6 +1,6 @@
 # Operações Assíncronas E/S
 
-Diferentemente da API de sockets do `UNIX`, o` boost.asio` possui habilidades de leitura & gravação(read/write) assíncronas inclusas. Ainda pode usar `basic_stream_socket` como exemplo, e um par de implementações assim:
+Diferentemente da API sockets do `UNIX`, o` Asio` possui habilidades de leitura & gravação(read/write) assíncronas inclusas. Ainda pode usar `basic_stream_socket` como exemplo, e um par de implementações assim:
 
 ```cpp
 	template <typename ConstBufferSequence, typename WriteHandler>

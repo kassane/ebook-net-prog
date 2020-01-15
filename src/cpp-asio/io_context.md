@@ -1,6 +1,6 @@
 # io_context
 
-O conceito é baseado na API de rede do `Unix`, o `Boost.Asio` também possui o conceito "socket", mas isso não é suficiente, um objeto `io_context` (a classe `io_service` está obsoleta agora) é necessário para se comunicar com os serviços da E/S do sistema operacional. A  imagem abaixo mostrará a estrutura da Arquitetura `Asio`:
+O conceito é baseado na API de rede do `Unix`, o `Asio` também possui o conceito "socket", mas isso não é suficiente, um objeto `io_context` (a classe `io_service` está obsoleta agora) é necessário para se comunicar com os serviços da E/S do sistema operacional. A  imagem abaixo mostrará a estrutura da Arquitetura `Asio`:
 
 ![image](https://raw.githubusercontent.com/kassane/Livro-Programacao-de-Redes/gh-pages/images/architecture.jpg) 
 

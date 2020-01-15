@@ -1,6 +1,6 @@
 # Accept connections
 
-O servidor precisa aceitar as solicitações dos clientes. O servidor cria um `acceptor`:  
+Para que o servidor aceite a conexão dos clientes. O servidor precisará criar um `acceptor`:  
 
 ```cpp
 	......
@@ -22,7 +22,7 @@ O servidor precisa aceitar as solicitações dos clientes. O servidor cria um `a
 	}
 ```
 
-O construtor `basic_socket_acceptor` combinarar criação de socket, configuração de endereço de reutilização, funções binding & listening:
+O construtor `basic_socket_acceptor` combinará criação de socket, configuração de endereço de reutilização, funções binding & listening:
 
 ```cpp
 	basic_socket_acceptor(boost::asio::io_context& io_context,

@@ -1,6 +1,6 @@
 # Exceção
 
-As funções do `Boost.Asio` podem gerar a exceção `boost::system::system_error`. Veja o [`resolve`](dns-query.md) no exemplo abaixo:  
+As funções do `Asio` podem gerar a exceção `boost::system::system_error`. Veja o [`resolve`](dns-query.md) no exemplo abaixo:  
 
 ```cpp
 	results_type resolve(BOOST_ASIO_STRING_VIEW_PARAM host,

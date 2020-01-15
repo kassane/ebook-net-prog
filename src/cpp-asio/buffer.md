@@ -1,13 +1,13 @@
 # Buffers
 
-Fundamentalmente, E/S envolve a transferência de dados para e de regiões contíguas da memória, chamadas buffers. Esses buffers podem ser simplesmente expressos como uma tupla que consiste em um ponteiro e um tamanho em bytes. No entanto, para permitir o desenvolvimento de aplicativos de rede eficientes, o `Boost.Asio` inclui suporte para operações de coleta de dispersão. Essas operações envolvem um ou mais buffers:
+Fundamentalmente, E/S envolve a transferência de dados para e de regiões contíguas da memória, chamadas buffers. Esses buffers podem ser simplesmente expressos como uma tupla que consiste em um ponteiro e um tamanho em bytes. No entanto, para permitir o desenvolvimento de aplicativos de rede eficientes, o `Asio` inclui suporte para operações de coleta de dispersão. Essas operações envolvem um ou mais buffers:
 
 * Uma scatter-read recebe dados em vários buffers.
 * Uma gather-write transmite vários buffers.
 
-Portanto, exigimos uma abstração para representar uma coleção de buffers. A abordagem usada no `Boost.Asio` é definir um tipo (na verdade, dois tipos) para representar um único buffer. Eles podem ser armazenados em um contêiner, que pode ser passado para as operações de coleta de dispersão.
+Portanto, exigimos uma abstração para representar uma coleção de buffers. A abordagem usada no `Asio` é definir um tipo (na verdade, dois tipos) para representar um único buffer. Eles podem ser armazenados em um contêiner, que pode ser passado para as operações de coleta de dispersão.
 
-Além de especificar buffers como ponteiro e medir o tamanho em bytes, o `Boost.Asio` faz uma distinção entre memória modificável (mutável) e memória não modificável (onde a última é criada a partir do armazenamento para uma variável qualificada de const). Esses dois tipos podem, portanto, ser definidos da seguinte maneira:
+Além de especificar buffers como ponteiro e medir o tamanho em bytes, o `Asio` faz uma distinção entre memória modificável (mutável) e memória não modificável (onde a última é criada a partir do armazenamento para uma variável qualificada de const). Esses dois tipos podem, portanto, ser definidos da seguinte maneira:
 
 ```cpp
     typedef std::pair<void*, std::size_t> mutable_buffer;
@@ -16,7 +16,7 @@ Além de especificar buffers como ponteiro e medir o tamanho em bytes, o `Boost.
 
 Um `mutable_buffer` seria conversível em um `const_buffer`, mas a conversão na direção oposta não é válida.
 
-No entanto, o `Boost.Asio` não usa as definições acima como estão, mas define duas classes: `mutable_buffer` e `const_buffer`. O objetivo deles é fornecer uma representação opaca da memória contígua, onde:
+No entanto, o `Asio` não usa as definições acima como estão, mas define duas classes: `mutable_buffer` e `const_buffer`. O objetivo deles é fornecer uma representação opaca da memória contígua, onde:
 
 * Os tipos se comportam como `std::pair` nas conversões. Ou seja, um `mutable_buffer` é conversível em um `const_buffer`, mas a conversão oposta é desabilitada.
 

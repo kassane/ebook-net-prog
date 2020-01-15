@@ -3,9 +3,9 @@
 Uma thread é definida como uma chamada estritamente sequencial de manipuladores de eventos[event handler] (ou seja, nenhuma chamada simultânea). O uso de `strand` permite a execução de código em um programa multithread sem a necessidade de bloqueio explícito (por exemplo, usando `mutex`[exclusão mútua]). E pode ser usado para sincronizar mais cenários.
 
 
-`Strand` agrupa tarefas. Tarefas do mesmo `strand` não podem rodar em paralelo, mas, quando suspensas porque não estão fazendo nada, podem ser executadas em outra thread quando acordarem da próxima vez.
+`Strand` agrupa tarefas. Tarefas do mesmo `strand` não podem rodar em paralelo, mas quando suspensas, podem ser executadas em outra thread quando acordarem da próxima vez.
 
-As ``strands`` podem ser implícitas ou explícitas, conforme ilustrado pelas seguintes abordagens alternativas:
+As `strands` podem ser implícitas ou explícitas, conforme ilustrado pelas seguintes abordagens alternativas:
 
 * Utilizando `io_context::run()` em apenas uma thread significa que todos os manipuladores de eventos são executados em uma thread implícita, devido à garantia do `io_context` de que os manipuladores[handlers] são invocados somente de dentro da função `run()`.
 

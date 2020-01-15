@@ -12,11 +12,11 @@ Analisando o esquema acima percebemos que tudo acima da interface do socket, na 
 
 Temos dois tipos de serviços de transporte via socket: o confiável orientado a cadeia de bytes (byte steam) e os datagramas não confiáveis. O protocolo na qual é implementado o primeiro é o TCP, já o segundo é implementado no protocolo UDP. 
 
-## Padrão de arquitetura Reactor e Proactor
+## Padrão de arquitetura Reactor e Proactor (Reativo e Proativo)
 
 ### **Reactor**:
 
->Um padrão comportamental de objeto para desmultiplexação e distribuição de identificadores para eventos síncronos. - Douglas C. Schmidt
+>"Um padrão comportamental de objeto para desmultiplexação e distribuição de identificadores para eventos síncronos." - Douglas C. Schmidt
 
 O padrão de arquitetura do Reactor permite que aplicativos controlados por eventos desmultiplexem e despachem solicitações de serviço que são entregues a um aplicativo por um ou mais clientes. A estrutura introduzida pelo padrão do Reactor inverte o fluxo de controle dentro de um aplicativo.
 
@@ -29,7 +29,7 @@ O servidor de log lida com registros de log e solicitações de conexão enviada
 
 ![image](https://raw.githubusercontent.com/kassane/Livro-Programacao-de-Redes/gh-pages/images/reactor.jpg) 
 
-**Serviço de Log Distribuído**
+**Figura 1: Serviço de Log Distribuído**
 
 O servidor de log se comunica com os clientes usando um protocolo orientado a conexão, como o TCP. Os clientes que desejam registrar dados devem primeiro enviar uma solicitação de conexão ao servidor. O servidor aguarda essas solicitações de conexão usando um identificador de fábrica que escuta em um endereço conhecido pelos clientes. Quando uma solicitação de conexão chega, a fábrica de identificadores estabelece uma conexão entre o cliente e o servidor, criando um novo identificador que representa um ponto de extremidade da conexão. Esse identificador é retornado ao servidor, que aguarda as solicitações de serviço ao cliente chegarem no identificador. Depois que os clientes estão conectados, eles podem enviar registros simultaneamente ao servidor. O servidor recebe esses registros através dos identificadores de soquete conectados.
 
@@ -37,7 +37,7 @@ Talvez a maneira mais intuitiva de desenvolver um servidor de log simultâneo se
 
 ![image](https://raw.githubusercontent.com/kassane/Livro-Programacao-de-Redes/gh-pages/images/reactor2.jpg)
 
-**Servidor de log multithread**
+**Figura 2: Servidor de log multithread**
 
 No entanto, o uso de multithread para implementar o processamento de registros de log no servidor falha ao resolver as seguintes forças:
 
@@ -47,7 +47,7 @@ No entanto, o uso de multithread para implementar o processamento de registros d
     
 ### **Proactor**:
 
->Um Padrão Comportamental de Objetos para Desmultiplexar e Despachar Manipuladores para Eventos Assíncronos. - Douglas C. Schmidt
+>"Um Padrão Comportamental de Objetos para desmultiplexar e despachar manipuladores para eventos assíncronos." - Douglas C. Schmidt
 
 O padrão de arquitetura Proactor permite que os aplicativos controlados por eventos desmultiplexem e despachem solicitações de serviços com eficiência, acionadas pela conclusão de operações assíncronas. Oferece os benefícios de desempenho da simultaneidade sem incorrer em alguns de seus passivos.
 
@@ -59,7 +59,7 @@ O padrão Proactor deve ser aplicado quando os aplicativos exigirem os benefíci
 
 ![image](https://raw.githubusercontent.com/kassane/Livro-Programacao-de-Redes/gh-pages/images/proactor.jpg)
 
-**Arquitetura típica de software de comunicação para servidor Web**
+**Figura 3: Arquitetura típica de software de comunicação para servidor Web**
 
 O desenvolvimento de servidores Web de alto desempenho requer a resolução das seguintes forças:
 

@@ -1,6 +1,6 @@
 # DNS Query
 
-A classe `resolver` é usada para fazer consultas [DNS](https://pt.wikipedia.org/wiki/Sistema_de_Nomes_de_Dom%C3%ADnio), ou seja, converter um serviço host + endereço [IP](https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP) + porta.
+A classe `resolver` é usada para fazer consultas [DNS](https://pt.wikipedia.org/wiki/Sistema_de_Nomes_de_Dom%C3%ADnio), ou seja, converter um serviço host + [endereço IP](https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP) + porta.
 
 Veja `boost::asio::ip::tcp::resolver` no exemplo abaixo:
 

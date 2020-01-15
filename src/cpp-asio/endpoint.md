@@ -1,6 +1,6 @@
 # Endpoint (Ponto de Extremidade)
 
-Um `endpoint` é o nome para uma entidade em um terminal de uma conexão da [camada de transporte](https://pt.wikipedia.org/wiki/Camada_de_transporte). E é composto por: "Endereço [IP](https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP) + porta de conexão":  
+Um `endpoint` é o nome para uma entidade em um terminal de uma conexão da [camada de transporte](https://pt.wikipedia.org/wiki/Camada_de_transporte). Ele é composto por: "Endereço [IP](https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP) + porta de conexão":  
 
 ```cpp
 	basic_endpoint(const boost::asio::ip::address& addr, unsigned short port_num)

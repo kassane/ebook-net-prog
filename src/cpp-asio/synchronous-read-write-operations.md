@@ -1,6 +1,6 @@
 # Operações síncronas E/S
 
-Depois que a conexão é estabelecida, o cliente e o servidor podem se comunicar. Como na API de sockets do `UNIX`, o `boost::asio` também fornece as funções `send` e` receive` Use `basic_stream_socket` como exemplo e um par de implementações assim:
+Depois que a conexão é estabelecida, o cliente e o servidor podem se comunicar. Como na API sockets do `UNIX`, o `boost::asio` também fornece as funções `send` e` receive` Use `basic_stream_socket` como exemplo e um par de implementações assim:
 
 ```cpp
 	template <typename ConstBufferSequence>

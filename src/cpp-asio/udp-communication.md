@@ -73,8 +73,6 @@ Embora não seja necessário chamar a função `socket.connect`, você precisa c
 	    return 0;
 	}
 ```
-
-<!-- Very easy, isn't it? Build and run client and server. The following log will be printed on server side:   -->
 Muito fácil, não é? Crie e execute o cliente e servidor. Então o seguinte log será impresso no lado do servidor:
 
 	$ ./servidor
