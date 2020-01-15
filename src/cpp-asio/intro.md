@@ -4,7 +4,7 @@
 
 Inicialmente precisa conceituar o que é socket. A comunicação entre processos de software tornou-se indispensável nos sistemas atuais.
 
-O elo entre os processos do servidor e do cliente é o socket. Ele é a “porta” na qual os processos enviam e recebem mensagens. De acordo com JAMES F KUROSE: “socket é a interface entre a camada de aplicação e a de transporte dentro de uma máquina”.
+O elo entre os processos do servidor e do cliente é o socket. Ele é a “porta” na qual os processos enviam e recebem mensagens. De acordo com JAMES F KUROSE: “socket é a interface entre a [camada de aplicação](https://pt.wikiversity.org/wiki/Introdu%C3%A7%C3%A3o_%C3%A0s_Redes_de_Computadores/Protocolos_de_aplica%C3%A7%C3%A3o_%E2%80%93_princ%C3%ADpios_gerais) e a [camada de transporte](https://pt.wikiversity.org/wiki/Introdu%C3%A7%C3%A3o_%C3%A0s_Redes_de_Computadores/Introdu%C3%A7%C3%A3o_%C3%A0_camada_de_transporte) dentro de uma máquina”.
 
 Então foram desenvolvidas diversas aplicações cliente/servidor onde cliente(s) e servidor poderiam estar em máquinas diferentes, distantes umas das outras. Os aplicativos do cliente e do servidor utilizam protocolos de transporte para se comunicarem. Quando um aplicativo interage com o software de protocolo, ele deve especificar detalhes, como por exemplo se é um servidor ou um cliente. Além disso, os aplicativos que se comunicam devem especificar detalhes adicionais (por exemplo, o remetente deve especificar os dados a serem enviados, e o receptor deve especificar onde os dados recebidos devem ser colocados).
 
