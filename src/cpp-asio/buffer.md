@@ -22,9 +22,9 @@ No entanto, o `Boost.Asio` não usa as definições acima como estão, mas defin
 
 * There is protection against buffer overruns. Given a buffer instance, a user can only create another buffer representing the same range of memory or a sub-range of it. To provide further safety, the library also includes mechanisms for automatically determining the size of a buffer from an array, boost::array or std::vector of POD elements, or from a std::string.
 
-* The underlying memory is explicitly accessed using the data() member function. In general an application should never need to do this, but it is required by the library implementation to pass the raw memory to the underlying operating system functions.
+* A memória subjacente é acessada explicitamente usando a função membro `data()`. Em geral, um aplicativo nunca deve precisar fazer isso, mas é necessário que a implementação da biblioteca passe a memória não processada para as funções subjacentes do sistema operacional.
 
-Finally, multiple buffers can be passed to scatter-gather operations (such as read() or write()) by putting the buffer objects into a container. The MutableBufferSequence and ConstBufferSequence concepts have been defined so that containers such as std::vector, std::list, std::array or boost::array can be used.
+Finalmente, vários buffers podem ser passados para operações (como `read()` ou `write()`) colocando os objetos do buffer em um contêiner. Os conceitos `MutableBufferSequence` e `ConstBufferSequence` foram definidos para que contêineres como `std::vector`, `std::list`, `std::array` ou `boost::array` possam ser usados.
 
 ## Streambuf para integração com Iostreams
 

@@ -1,6 +1,7 @@
 # Sumário
 
 * [Introdução](cpp-asio/intro.md)
+* [Concorrência  e Paralelismo](cpp-asio/concurrency.md)
 * [Instalação do Asio](cpp-asio/install-asio.md)
 * [io_context](cpp-asio/io_context.md)
 * [Sockets](cpp-asio/socket.md)
@@ -9,7 +10,7 @@
 * [DNS](cpp-asio/dns-query.md)
 * [Erros e exceções](cpp-asio/throw-exception.md)
 * [Conectar ao Servidor](cpp-asio/connect-server.md)
-* [Aceitar Conexão](cpp-asio/accept-connections.md)
+* [Accept-Connections](cpp-asio/accept-connections.md)
 * [Strands](cpp-asio/strand.md)
 * [Operações síncronas](cpp-asio/synchronous-read-write-operations.md)
 * [Operações assíncronas](cpp-asio/asynchronous-read-write-operations.md)

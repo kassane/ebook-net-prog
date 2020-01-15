@@ -1,6 +1,6 @@
 # Operações Assíncronas E/S
 
-Diferentemente da API de soquetes do `UNIX`, o` boost.asio` possui habilidades de leitura & gravação(read/write) assíncronas inclusas. Ainda pode usar `basic_stream_socket` como exemplo, e um par de implementações assim:
+Diferentemente da API de sockets do `UNIX`, o` boost.asio` possui habilidades de leitura & gravação(read/write) assíncronas inclusas. Ainda pode usar `basic_stream_socket` como exemplo, e um par de implementações assim:
 
 ```cpp
 	template <typename ConstBufferSequence, typename WriteHandler>
@@ -92,7 +92,7 @@ Há um exemplo simples de cliente/servidor. Abaixo está o código do cliente:
 
 Vamos analisar o código:  
 
-(1) Como o objeto soquetes é non-copyable ([sockets](socket.md)), soquetes é criado como um ponteiro inteligente de memória compartilhada (shared_pointer):  
+(1) Como o objeto sockets é non-copyable ([sockets](socket.md)), sockets é criado como um ponteiro inteligente de memória compartilhada (shared_pointer):  
 
 ```cpp
 	......

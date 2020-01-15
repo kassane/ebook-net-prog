@@ -1,6 +1,6 @@
 # Sockets (Soquetes)
 
-Existem `4` tipos de soquetes:
+Existem `4` tipos de sockets:
 
 (1) `basic_stream_socket`:  
 Este socket fornece fluxos de bytes baseados em conexão bidirecional, confiável e sequencial. `tcp::socket` é uma instância deste socket:
@@ -43,7 +43,7 @@ Este socket fornece acesso a protocolos e interfaces de rede interno. O `icmp::s
 (4) `basic_seq_packet_socket`:  
 Este socket combina fluxo(stream) e datagrama: fornece um serviço de datagramas com conexão bidirecional, confiável e bidirecional. [SCTP](https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol) é um exemplo deste tipo de serviço.  
 
-Todos esses `4` soquetes derivam da classe `basic_socket` e precisam ser associados a um `io_context` durante a inicialização. Veja `tcp::socket` como exemplo:
+Todos esses `4` sockets derivam da classe `basic_socket` e precisam ser associados a um `io_context` durante a inicialização. Veja `tcp::socket` como exemplo:
 
 ```cpp
 		boost::asio::io_context io_context;
