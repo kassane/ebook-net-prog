@@ -28,6 +28,7 @@ Para ilustrar o padrão do Reactor, considere o servidor acionado por eventos pa
 O servidor de log lida com registros de log e solicitações de conexão enviadas pelos clientes. Registros de log e solicitações de conexão podem chegar simultaneamente em vários identificadores. Um identificador identifica os recursos de comunicação de rede gerenciados em um SO.
 
 ![image](https://raw.githubusercontent.com/kassane/Livro-Programacao-de-Redes/gh-pages/images/reactor.jpg) 
+
 **Serviço de Log Distribuído**
 
 O servidor de log se comunica com os clientes usando um protocolo orientado a conexão, como o TCP. Os clientes que desejam registrar dados devem primeiro enviar uma solicitação de conexão ao servidor. O servidor aguarda essas solicitações de conexão usando um identificador de fábrica que escuta em um endereço conhecido pelos clientes. Quando uma solicitação de conexão chega, a fábrica de identificadores estabelece uma conexão entre o cliente e o servidor, criando um novo identificador que representa um ponto de extremidade da conexão. Esse identificador é retornado ao servidor, que aguarda as solicitações de serviço ao cliente chegarem no identificador. Depois que os clientes estão conectados, eles podem enviar registros simultaneamente ao servidor. O servidor recebe esses registros através dos identificadores de soquete conectados.
@@ -35,6 +36,7 @@ O servidor de log se comunica com os clientes usando um protocolo orientado a co
 Talvez a maneira mais intuitiva de desenvolver um servidor de log simultâneo seja usar vários threads que possam processar vários clientes simultaneamente, como mostra abaixo. Essa abordagem aceita sincronicamente conexões de rede e gera um thread por conexão para manipular os registros de log do cliente.
 
 ![image](https://raw.githubusercontent.com/kassane/Livro-Programacao-de-Redes/gh-pages/images/reactor2.jpg)
+
 **Servidor de log multithread**
 
 No entanto, o uso de multithread para implementar o processamento de registros de log no servidor falha ao resolver as seguintes forças:
@@ -56,6 +58,7 @@ Quando essas operações assíncronas são concluídas, o processador de operaç
 O padrão Proactor deve ser aplicado quando os aplicativos exigirem os benefícios de desempenho da execução simultânea de operações, sem as restrições síncrona ou reativa ou multithread. Para ilustrar esses benefícios, considere um aplicativo de rede que precise executar várias operações simultaneamente. Por exemplo, um servidor Web de alto desempenho deve processar simultaneamente solicitações HTTP enviadas de vários clientes. A Figura abaixo mostra uma interação típica entre navegadores Web e um servidor Web. Quando um usuário instrui um navegador a abrir uma URL, ele envia uma solicitação HTTP `GET` ao servidor da Web. Após o recebimento, o servidor analisa e valida a solicitação e envia os arquivos especificados de volta ao navegador.
 
 ![image](https://raw.githubusercontent.com/kassane/Livro-Programacao-de-Redes/gh-pages/images/proactor.jpg)
+
 **Arquitetura típica de software de comunicação para servidor Web**
 
 O desenvolvimento de servidores Web de alto desempenho requer a resolução das seguintes forças:
