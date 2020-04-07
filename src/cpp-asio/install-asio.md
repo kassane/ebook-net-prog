@@ -6,7 +6,7 @@ Inicialmente existe duas versões disponíveis para download:
 
 - [Boost Asio](https://www.boost.org) (normalmente mais utilizado).
 
-- [Networking-TS](https://cplusplus.github.io/networking-ts/draft.pdf) - Baseado no asio/boost::asio, proposto pela ISO para standard library `std::net`.
+- [Networking-TS](https://timsong-cpp.github.io/cppwp/networking-ts/) - Baseado no asio/boost::asio, proposto pela ISO para standard library `std::net`.
 
 Instalar Asio não é difícil. Pois ele possui apenas arquivos headers.
 
