@@ -28,7 +28,6 @@ Este socket fornece serviço de datagrama sem garantias de conexão e não confi
 	}
 ```
 (3) `basic_raw_socket`:  
-<!-- This socket provides access to internal network protocols and interfaces. `icmp::socket` is an instance of this socket:   -->
 Este socket fornece acesso a protocolos e interfaces de rede interno. O `icmp::socket` é uma instância deste socket:
 
 ```cpp
