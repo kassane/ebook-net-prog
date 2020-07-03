@@ -1,5 +1,5 @@
-# Conclusão
+# Conclusão 🎉
 
-Espero que tenha esclarecido o uso da programação de rede com [Asio](https://www.boost.org/doc/libs/1_72_0/doc/html/boost_asio.html) para você. Definitivamente, este pequeno livro apenas introduz a idéia básica. Para melhorar sua habilidade de codificação, você precisa ler mais o documento, ler mais o código-fonte e praticar mais.
+Espero que tenha esclarecido o uso da programação de rede com [Asio](https://think-async.com/Asio/boost_asio_1_16_1/doc/html/boost_asio.html) para você. Definitivamente, este pequeno livro apenas introduz a idéia básica. Para melhorar sua habilidade de codificação, você precisa ler mais a [documentação](https://think-async.com/Asio/boost_asio_1_16_1/doc/html/boost_asio.html) junto com o código-fonte e praticar mais. 👀
 
-Divirta-se praticando!
+Bons estudos e divirta-se praticando! 😉
