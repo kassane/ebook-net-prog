@@ -2,13 +2,29 @@
 
 ## Threads:
 
-É um fluxo seqüencial de controle dentro de um programa. Basicamente, consiste em uma unidade básica de utilização da CPU, compreendendo um ID, um contador de programa, um conjunto de registradores e uma pilha. Um processo tradicional tem uma única thread de controle. Se o processo possui múltiplas threads de controle, ele pode realizar mais do que uma tarefa a cada momento. Essa possibilidade abre portas para um novo modelo de programação. 
+É um fluxo seqüencial de controle dentro de um programa. Basicamente, consiste em uma unidade básica de utilização da CPU, compreendendo um ID, um contador de programa, um conjunto de registradores e uma pilha. Um processo tradicional tem uma única thread de controle. Se o processo possui múltiplas threads de controle, ele pode realizar mais do que uma tarefa a cada momento. Essa possibilidade abre portas para um novo modelo de programação.
+
+### Green Threads:
+
+Green threads resolvem um problema comum na programação. Você não deseja que seu código bloqueie a CPU, impedindo que ela faça um trabalho significativo. Resolvemos isso usando multitarefa, o que nos permite suspender a execução de um pedaço de código enquanto retomamos outro e alternamos entre 'contextos'.
+Isso não deve ser confundido com paralelismo, embora fácil confundir, são duas coisas diferentes. Pense dessa maneira: green threads nos permite trabalhar de maneira mais inteligente e eficiente e, assim, usar nossos recursos com mais eficiência, e o paralelismo é como jogar mais recursos no problema.
+
+Geralmente, existem duas maneiras de fazer isso:
+
+* Multitarefa preventiva;
+* Multitarefa não preventiva (ou multitarefa cooperativa).
+
+## MultiTasking (MultiTarefa):
+
+- **Preempitivo:** Ocorre quando uma tarefa é interrompida por algum agendador externo e executa outra antes de voltar. A tarefa não tem nada a haver sobre esse assunto, a decisão é tomada pelo agendador. O kernel usa isso em sistemas operacionais, ou seja, para permitir que você use a interface do usuário enquanto executa a CPU para fazer cálculos em sistemas de thread único.
+
+- **Não-Preempitivo:** Uma tarefa decide por si mesma quando é melhor a CPU fazer outra coisa do que esperar que algo aconteça na tarefa atual. Geralmente isso ocorre quando `yield` repassa o controle ao agendador. Um caso de uso normal para isso é gerar controle quando algo que irá bloquear a execução ocorre. Um exemplo disso são as operações de E/S. Quando o controle é gerado, um agendador central direciona a CPU para retomar o trabalho em outra tarefa que está pronta para realmente fazer outra coisa além de apenas bloquear.
 
 ## Síncrono (sync) e assíncrono (async):
 
 Síncrono e assíncrono refere-se à interação entre o aplicativo e o kernel.
 - **Síncrono**: refere-se ao processo do usuário acionando operações de E/S e aguarda ou verifica se as operações de E/S estão prontas.
-- **Assíncrono**: refere-se ao processo do usuário que aciona operações de E/S. Após a operação de O, ele começa a fazer suas próprias coisas e, quando a operação de E/S for concluída, ela será notificada da conclusão de E/S.
+- **Assíncrono**: refere-se ao processo do usuário que aciona operações de E/S. Após a operação de saída, ele começa a fazer suas próprias coisas e, quando a operação de E/S for concluída, ela será notificada da conclusão de E/S.
 
 ## Bloqueante e não-bloqueante:
 
