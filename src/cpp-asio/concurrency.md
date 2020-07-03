@@ -7,6 +7,7 @@
 ### Green Threads:
 
 Green threads resolvem um problema comum na programação. Você não deseja que seu código bloqueie a CPU, impedindo que ela faça um trabalho significativo. Resolvemos isso usando multitarefa, o que nos permite suspender a execução de um pedaço de código enquanto retomamos outro e alternamos entre 'contextos'.
+
 Isso não deve ser confundido com paralelismo, embora fácil confundir, são duas coisas diferentes. Pense dessa maneira: green threads nos permite trabalhar de maneira mais inteligente e eficiente e, assim, usar nossos recursos com mais eficiência, e o paralelismo é como jogar mais recursos no problema.
 
 Geralmente, existem duas maneiras de fazer isso:
@@ -24,11 +25,18 @@ Geralmente, existem duas maneiras de fazer isso:
 
 Síncrono e assíncrono refere-se à interação entre o aplicativo e o kernel.
 - **Síncrono**: refere-se ao processo do usuário acionando operações de E/S e aguarda ou verifica se as operações de E/S estão prontas.
+
 - **Assíncrono**: refere-se ao processo do usuário que aciona operações de E/S. Após a operação de saída, ele começa a fazer suas próprias coisas e, quando a operação de E/S for concluída, ela será notificada da conclusão de E/S.
 
 ## Bloqueante e não-bloqueante:
 
 Bloqueante e não-bloqueante são maneiras diferentes que os processos seguem de acordo com a prontidão das operações de E/S ao acessar dados. Para colocar claramente, é uma implementação de funções de operação de leitura ou gravação. A função de gravação aguardará para sempre. No modo sem bloqueio, a função de leitura ou gravação retornará imediatamente um valor de status. 
+
+## Epoll/Kqueue/IOCP/IO_uring:
+
+Esses métodos nos permitem conectar-se ao sistema operacional de uma maneira em que podemos esperar por muitos eventos, em vez de ficarmos limitados a esperar um evento por thread, podemos esperar por muitos eventos em uma única thread. Isso nos permite evitar uma das maiores desvantagens do uso de um thread por evento, que é toda a memória ocupada e a sobrecarga de gerar novos threads continuamente. Agora, temos apenas um segmento aguardando muitas tarefas.
+
+Esses métodos têm em comum que eles são uma espécie de bloqueio da E/S. Se registrarmos apenas um evento na fila de eventos `epoll/kqueue/iocp/io_uring` e aguardarmos, não será diferente do uso de bloqueio da E/S. A vantagem é que podemos ter uma fila que aguarda centenas de milhares de eventos com pouquíssimos recursos desperdiçados.
 
 ## Coroutine (Corrotina):
 
