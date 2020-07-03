@@ -11,8 +11,8 @@ Isso não deve ser confundido com paralelismo, embora fácil confundir, são dua
 
 Geralmente, existem duas maneiras de fazer isso:
 
-* Multitarefa preventiva;
-* Multitarefa não preventiva (ou multitarefa cooperativa).
+* Multitarefa preemptivo;
+* Multitarefa não preemptivo (ou multitarefa cooperativa).
 
 ## MultiTasking (MultiTarefa):
 
