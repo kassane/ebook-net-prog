@@ -49,7 +49,7 @@ Todos esses `4` sockets derivam da classe `basic_socket` e precisam ser associad
 		boost::asio::ip::tcp::socket socket{io_context};
 ```
 
-Observe que o `io_context` deve ser uma referência no construtor do` socket` (consulte [io_context](io_context.md)). Ainda use `basic_socket` e uma instância, um de seus construtores é o seguinte:
+Observe que o `io_context` deve ser uma referência no construtor do` socket` (consulte [io_context](cpp-asio/io_context.md)). Ainda use `basic_socket` e uma instância, um de seus construtores é o seguinte:
 
 ```cpp
 	  explicit basic_socket(boost::asio::io_context& io_context)
