@@ -97,4 +97,4 @@ Por comparação, aqui está uma operação de leitura no Proactor (true async):
 * O desmultiplexador de eventos chama o manipulador apropriado;
 * O manipulador de eventos manipula os dados do buffer definido pelo usuário, inicia uma nova operação assíncrona e retorna o controle ao desmultiplexador de eventos.
 
-*Fonte:* [POSA2](https://www.amazon.com/Pattern-Oriented-Software-Architecture-Concurrent-Networked/dp/0471606952)
+*Fonte:* [POSA2](http://www.dre.vanderbilt.edu/~schmidt/POSA/POSA2/)
