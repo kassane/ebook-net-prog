@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Erros e exceções - Programação de Redes</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <base href="../">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+    </head>
+    <body class="light">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme;
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            document.querySelector('html').classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li><a href="cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li><a href="cpp-asio/install-asio.html"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li><a href="cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li><a href="cpp-asio/socket.html"><strong aria-hidden="true">5.</strong> Sockets</a></li><li><a href="cpp-asio/buffer.html"><strong aria-hidden="true">6.</strong> Buffers</a></li><li><a href="cpp-asio/endpoint.html"><strong aria-hidden="true">7.</strong> Endpoint</a></li><li><a href="cpp-asio/dns-query.html"><strong aria-hidden="true">8.</strong> DNS</a></li><li><a href="cpp-asio/throw-exception.html" class="active"><strong aria-hidden="true">9.</strong> Erros e exceções</a></li><li><a href="cpp-asio/connect-server.html"><strong aria-hidden="true">10.</strong> Conectar ao Servidor</a></li><li><a href="cpp-asio/accept-connections.html"><strong aria-hidden="true">11.</strong> Accept-Connections</a></li><li><a href="cpp-asio/strand.html"><strong aria-hidden="true">12.</strong> Strands</a></li><li><a href="cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">13.</strong> Operações síncronas</a></li><li><a href="cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">14.</strong> Operações assíncronas</a></li><li><a href="cpp-asio/udp-communication.html"><strong aria-hidden="true">15.</strong> Protocolo UDP</a></li><li><a href="cpp-asio/the-end.html"><strong aria-hidden="true">16.</strong> Conclusão</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="submenu">
+                                <li><button class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li><button class="theme" id="rust">Rust</button></li>
+                                <li><button class="theme" id="coal">Coal</button></li>
+                                <li><button class="theme" id="navy">Navy</button></li>
+                                <li><button class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                        </div>
+
+                        <h1 class="menu-title">Programação de Redes</h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="cpp-asio/throw-exception.html#exceção" id="exceção"><h1>Exceção</h1></a>
+<p>As funções do <code>Asio</code> podem gerar a exceção <code>boost::system::system_error</code>. Veja o <a href="dns-query.md"><code>resolve</code></a> no exemplo abaixo:</p>
+<pre><code class="language-cpp">    results_type resolve(BOOST_ASIO_STRING_VIEW_PARAM host,
+        BOOST_ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags)
+    {
+      boost::system::error_code ec;
+      ......
+      boost::asio::detail::throw_error(ec, &quot;resolve&quot;);
+      return r;
+    }
+</code></pre>
+<p>Há duas sobrecargas de funções <code>boost::asio::detail::throw_error</code>:</p>
+<pre><code class="language-cpp">    inline void throw_error(const boost::system::error_code&amp; err)
+    {
+      if (err)
+        do_throw_error(err);
+    }
+    
+    inline void throw_error(const boost::system::error_code&amp; err,
+        const char* location)
+    {
+      if (err)
+        do_throw_error(err, location);
+    }
+</code></pre>
+<p>As diferenças dessas duas funções é que estão apenas incluindo a string &quot;location&quot; (&quot;<code>resolve</code>&quot; no nosso exemplo) ou não. Assim, o <code>do_throw_error</code> também tem duas sobrecargas, veja uma como exemplo:</p>
+<pre><code class="language-cpp">    void do_throw_error(const boost::system::error_code&amp; err, const char* location)
+    {
+      boost::system::system_error e(err, location);
+      boost::asio::detail::throw_exception(e);
+    }
+</code></pre>
+<p><code>boost::system::system_error</code> deriva de <code>std::runtime_error</code>:</p>
+<pre><code class="language-cpp">    class BOOST_SYMBOL_VISIBLE system_error : public std::runtime_error
+    {
+    ......
+    public:
+          system_error( error_code ec )
+              : std::runtime_error(&quot;&quot;), m_error_code(ec) {}
+    
+          system_error( error_code ec, const std::string &amp; what_arg )
+              : std::runtime_error(what_arg), m_error_code(ec) {}
+    ......
+          const error_code &amp;  code() const BOOST_NOEXCEPT_OR_NOTHROW { return m_error_code; }
+          const char *        what() const BOOST_NOEXCEPT_OR_NOTHROW;
+    ......
+    }
+</code></pre>
+<p>A função membro chamado <code>what()</code> retorna as informações detalhadas da exceção.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="cpp-asio/dns-query.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="cpp-asio/connect-server.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="cpp-asio/dns-query.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="cpp-asio/connect-server.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = '_FontAwesome/css/font-awesome.css';
+                document.head.insertBefore(link, document.head.firstChild)
+            }
+        </script>
+
+        
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </body>
+</html>
