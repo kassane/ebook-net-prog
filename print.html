@@ -1,45 +1,46 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="pt" class="sidebar-visible no-js light">
     <head>
+        <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Programação de Redes</title>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        <base href="">
-
-        <link rel="stylesheet" href="book.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
-
+        <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
 
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
 
+        <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
 
-        <!-- Custom theme -->
-        
-
-        
-
-        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
-        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
-        <script>
-            if (typeof Clipboard == 'undefined') {
-                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
-            }
-        </script>
+        <!-- Custom theme stylesheets -->
 
     </head>
-    <body class="light">
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -55,62 +56,83 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
-            if (theme === null || theme === undefined) { theme = 'light'; }
-            document.body.className = theme;
-            document.querySelector('html').className = theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
+            var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             }
-            document.querySelector('html').classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li><a href="cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li><a href="cpp-asio/install-asio.html"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li><a href="cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li><a href="cpp-asio/socket.html"><strong aria-hidden="true">5.</strong> Sockets</a></li><li><a href="cpp-asio/buffer.html"><strong aria-hidden="true">6.</strong> Buffers</a></li><li><a href="cpp-asio/endpoint.html"><strong aria-hidden="true">7.</strong> Endpoint</a></li><li><a href="cpp-asio/dns-query.html"><strong aria-hidden="true">8.</strong> DNS</a></li><li><a href="cpp-asio/throw-exception.html"><strong aria-hidden="true">9.</strong> Erros e exceções</a></li><li><a href="cpp-asio/connect-server.html"><strong aria-hidden="true">10.</strong> Conectar ao Servidor</a></li><li><a href="cpp-asio/accept-connections.html"><strong aria-hidden="true">11.</strong> Accept-Connections</a></li><li><a href="cpp-asio/strand.html"><strong aria-hidden="true">12.</strong> Strands</a></li><li><a href="cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">13.</strong> Operações síncronas</a></li><li><a href="cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">14.</strong> Operações assíncronas</a></li><li><a href="cpp-asio/udp-communication.html"><strong aria-hidden="true">15.</strong> Protocolo UDP</a></li><li><a href="cpp-asio/the-end.html"><strong aria-hidden="true">16.</strong> Conclusão</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li class="chapter-item expanded "><a href="cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li class="chapter-item expanded "><a href="cpp-asio/install-asio.html"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li class="chapter-item expanded "><a href="cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li class="chapter-item expanded "><a href="cpp-asio/buffer.html"><strong aria-hidden="true">5.</strong> Buffers</a></li><li class="chapter-item expanded "><a href="cpp-asio/executors.html"><strong aria-hidden="true">6.</strong> Executores</a></li><li class="chapter-item expanded "><a href="cpp-asio/socket.html"><strong aria-hidden="true">7.</strong> Sockets</a></li><li class="chapter-item expanded "><a href="cpp-asio/strand.html"><strong aria-hidden="true">8.</strong> Strands</a></li><li class="chapter-item expanded "><a href="cpp-asio/coroutine.html"><strong aria-hidden="true">9.</strong> Corrotinas</a></li><li class="chapter-item expanded "><a href="cpp-asio/endpoint.html"><strong aria-hidden="true">10.</strong> Endpoint</a></li><li class="chapter-item expanded "><a href="cpp-asio/dns-query.html"><strong aria-hidden="true">11.</strong> DNS</a></li><li class="chapter-item expanded "><a href="cpp-asio/throw-exception.html"><strong aria-hidden="true">12.</strong> Erros e exceções</a></li><li class="chapter-item expanded "><a href="cpp-asio/connect-server.html"><strong aria-hidden="true">13.</strong> Conectar ao Servidor</a></li><li class="chapter-item expanded "><a href="cpp-asio/accept-connections.html"><strong aria-hidden="true">14.</strong> Accept-Connections</a></li><li class="chapter-item expanded "><a href="cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">15.</strong> Operações síncronas</a></li><li class="chapter-item expanded "><a href="cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">16.</strong> Operações assíncronas</a></li><li class="chapter-item expanded "><a href="cpp-asio/udp-communication.html"><strong aria-hidden="true">17.</strong> Protocolo UDP</a></li><li class="chapter-item expanded "><a href="cpp-asio/the-end.html"><strong aria-hidden="true">18.</strong> Conclusão</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="submenu">
-                                <li><button class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li><button class="theme" id="rust">Rust</button></li>
-                                <li><button class="theme" id="coal">Coal</button></li>
-                                <li><button class="theme" id="navy">Navy</button></li>
-                                <li><button class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                        </div>
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
 
-                        <h1 class="menu-title">Programação de Redes</h1>
+                    <h1 class="menu-title">Programação de Redes</h1>
 
-                        <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                        </div>
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
                     </div>
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -120,15 +142,15 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="print.html#programação-de-redes" id="programação-de-redes"><h1>Programação de Redes</h1></a>
-<a class="header" href="print.html#introdução" id="introdução"><h2>Introdução:</h2></a>
+                        <h1 id="programação-de-redes"><a class="header" href="#programação-de-redes">Programação de Redes</a></h1>
+<h2 id="introdução"><a class="header" href="#introdução">Introdução:</a></h2>
 <p>Inicialmente precisa conceituar o que é socket. A comunicação entre processos de software tornou-se indispensável nos sistemas atuais.</p>
 <p>O elo entre os processos do servidor e do cliente é o socket. Ele é a “porta” na qual os processos enviam e recebem mensagens. De acordo com JAMES F KUROSE: “socket é a interface entre a <a href="https://pt.wikiversity.org/wiki/Introdu%C3%A7%C3%A3o_%C3%A0s_Redes_de_Computadores/Protocolos_de_aplica%C3%A7%C3%A3o_%E2%80%93_princ%C3%ADpios_gerais">camada de aplicação</a> e a <a href="https://pt.wikiversity.org/wiki/Introdu%C3%A7%C3%A3o_%C3%A0s_Redes_de_Computadores/Introdu%C3%A7%C3%A3o_%C3%A0_camada_de_transporte">camada de transporte</a> dentro de uma máquina”.</p>
 <p>Então foram desenvolvidas diversas aplicações cliente/servidor onde cliente(s) e servidor poderiam estar em máquinas diferentes, distantes umas das outras. Os aplicativos do cliente e do servidor utilizam protocolos de transporte para se comunicarem. Quando um aplicativo interage com o software de protocolo, ele deve especificar detalhes, como por exemplo se é um servidor ou um cliente. Além disso, os aplicativos que se comunicam devem especificar detalhes adicionais (por exemplo, o remetente deve especificar os dados a serem enviados, e o receptor deve especificar onde os dados recebidos devem ser colocados).</p>
 <p>Analisando o esquema acima percebemos que tudo acima da interface do socket, na camada de aplicação, é controlado pelo criador da aplicação. O controle da camada de transporte é feito pelo Sistema Operacional.</p>
-<p>Temos dois tipos de serviços de transporte via socket: o confiável orientado a cadeia de bytes (byte steam) e os datagramas não confiáveis. O protocolo na qual é implementado o primeiro é o TCP, já o segundo é implementado no protocolo UDP.</p>
-<a class="header" href="print.html#padrão-de-arquitetura-reactor-e-proactor-reativo-e-proativo" id="padrão-de-arquitetura-reactor-e-proactor-reativo-e-proativo"><h2>Padrão de arquitetura Reactor e Proactor (Reativo e Proativo)</h2></a>
-<a class="header" href="print.html#reactor" id="reactor"><h3><strong>Reactor</strong>:</h3></a>
+<p>Temos dois tipos de serviços de transporte via socket: o confiável orientado a cadeia de bytes (byte steam) e os datagramas não confiáveis. O protocolo na qual é implementado o primeiro é o TCP, já o segundo é implementado no protocolo UDP. </p>
+<h2 id="padrão-de-arquitetura-reactor-e-proactor-reativo-e-proativo"><a class="header" href="#padrão-de-arquitetura-reactor-e-proactor-reativo-e-proativo">Padrão de arquitetura Reactor e Proactor (Reativo e Proativo)</a></h2>
+<h3 id="reactor"><a class="header" href="#reactor"><strong>Reactor</strong>:</a></h3>
 <blockquote>
 <p>&quot;Um padrão comportamental de objeto para desmultiplexação e distribuição de identificadores para eventos síncronos.&quot; - Douglas C. Schmidt</p>
 </blockquote>
@@ -137,7 +159,7 @@
 Embora o padrão do Reactor seja relativamente simples de programar e usar, ele possui várias restrições que podem limitar sua aplicabilidade. Em particular, ele não é dimensionado para suportar um grande número de clientes simultâneos e/ou solicitações de clientes de longa duração, pois serializa todo o processamento do manipulador de eventos na camada de desmultiplexação de eventos.</p>
 <p>Para ilustrar o padrão do Reactor, considere o servidor acionado por eventos para um serviço de log distribuído mostrado na Figura abaixo. Os aplicativos clientes usam o serviço de log para registrar informações sobre seu status em um ambiente distribuído. Essas informações de status geralmente incluem notificações de erro, rastreamentos de depuração e relatórios de desempenho. Os registros de log são enviados para um servidor de log central, que pode gravar os registros em vários dispositivos de saída, como um console, uma impressora, um arquivo ou um banco de dados de gerenciamento de rede.</p>
 <p>O servidor de log lida com registros de log e solicitações de conexão enviadas pelos clientes. Registros de log e solicitações de conexão podem chegar simultaneamente em vários identificadores. Um identificador identifica os recursos de comunicação de rede gerenciados em um SO.</p>
-<p><img src="https://raw.githubusercontent.com/kassane/Livro-Programacao-de-Redes/gh-pages/images/reactor.jpg" alt="image" /></p>
+<p><img src="https://raw.githubusercontent.com/kassane/Livro-Programacao-de-Redes/gh-pages/images/reactor.jpg" alt="image" /> </p>
 <p><strong>Figura 1: Serviço de Log Distribuído</strong></p>
 <p>O servidor de log se comunica com os clientes usando um protocolo orientado a conexão, como o TCP. Os clientes que desejam registrar dados devem primeiro enviar uma solicitação de conexão ao servidor. O servidor aguarda essas solicitações de conexão usando um identificador de fábrica que escuta em um endereço conhecido pelos clientes. Quando uma solicitação de conexão chega, a fábrica de identificadores estabelece uma conexão entre o cliente e o servidor, criando um novo identificador que representa um ponto de extremidade da conexão. Esse identificador é retornado ao servidor, que aguarda as solicitações de serviço ao cliente chegarem no identificador. Depois que os clientes estão conectados, eles podem enviar registros simultaneamente ao servidor. O servidor recebe esses registros através dos identificadores de soquete conectados.</p>
 <p>Talvez a maneira mais intuitiva de desenvolver um servidor de log simultâneo seja usar vários threads que possam processar vários clientes simultaneamente, como mostra abaixo. Essa abordagem aceita sincronicamente conexões de rede e gera um thread por conexão para manipular os registros de log do cliente.</p>
@@ -149,7 +171,7 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 <li>Simplicidade de programação: a thread pode exigir esquemas complexos de controle de simultaneidade;</li>
 <li>Portabilidade: a thread não está disponível em todas as plataformas de SO.</li>
 </ul>
-<a class="header" href="print.html#proactor" id="proactor"><h3><strong>Proactor</strong>:</h3></a>
+<h3 id="proactor"><a class="header" href="#proactor"><strong>Proactor</strong>:</a></h3>
 <blockquote>
 <p>&quot;Um Padrão Comportamental de Objetos para desmultiplexar e despachar manipuladores para eventos assíncronos.&quot; - Douglas C. Schmidt</p>
 </blockquote>
@@ -167,9 +189,9 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 <li>Adaptabilidade: A integração de protocolos de transporte novos ou aprimorados (como <em>HTTP 1.1</em>) deve resultar em custos mínimos de manutenção.</li>
 </ul>
 <p>Um servidor Web pode ser implementado usando várias estratégias de simultaneidade, incluindo várias threads síncronos, envio de evento síncrono reativo e envio de evento assíncrono proativo. Abaixo, examinamos as desvantagens das abordagens convencionais e explicamos como o padrão Proactor fornece uma técnica poderosa que suporta uma estratégia eficiente e flexível de despacho de eventos assíncronos para aplicativos simultâneos de alto desempenho.</p>
-<a class="header" href="print.html#acceptor-connector" id="acceptor-connector"><h3><strong>Acceptor-Connector</strong>:</h3></a>
+<h3 id="acceptor-connector"><a class="header" href="#acceptor-connector"><strong>Acceptor-Connector</strong>:</a></h3>
 <p>O padrão de projeto Acceptor-Connector desacopla a conexão e a inicialização dos serviços de ponto de cooperação em um sistema em rede do processamento que eles executam depois de conectados e inicializados. O Acceptor-Connector permite que os aplicativos configurem suas topologias de conexão de uma maneira amplamente independente dos serviços que eles fornecem. O padrão pode ser colocado em camadas na parte superior do Reactor para manipular eventos associados ao estabelecimento da conectividade entre serviços.</p>
-<a class="header" href="print.html#reactor-vs-proactor" id="reactor-vs-proactor"><h3><strong>Reactor vs Proactor</strong>:</h3></a>
+<h3 id="reactor-vs-proactor"><a class="header" href="#reactor-vs-proactor"><strong>Reactor vs Proactor</strong>:</a></h3>
 <p>Em geral, os mecanismos de multiplexação de E/S dependem de um desmultiplexador de eventos, um objeto que despacha eventos de E/S de um número limitado de fontes para os manipuladores de eventos de leitura e gravação apropriados. O desenvolvedor registra interesse em eventos específicos e fornece manipuladores de eventos ou retornos de chamada. O desmultiplexador de eventos entrega os eventos solicitados aos manipuladores de eventos.</p>
 <p>Dois padrões que envolvem desmultiplexadores de eventos são chamados Reactor e Proactor. Os padrões do reactor envolvem E/S síncrona, enquanto o padrão Proactor envolve E/S assíncrona. No Reactor, o desmultiplexador de eventos aguarda os eventos que indicam quando um descritor ou socket de arquivo está pronto para uma operação de leitura ou gravação. O desmultiplexador passa esse evento para o manipulador apropriado, responsável por executar a leitura ou gravação real.</p>
 <p>No padrão Proactor, por outro lado, o manipulador ou o desmultiplexador de eventos em nome do manipulador e inicia operações de leitura e gravação assíncronas. A própria operação de E/S é executada pelo sistema operacional (SO). Os parâmetros passados ​​para o sistema operacional incluem os endereços dos buffers de dados definidos pelo usuário, dos quais o sistema operacional obtém dados para gravação ou nos quais o sistema operacional coloca dados lidos. O desmultiplexador de eventos aguarda eventos que indicam a conclusão da operação de E/S e encaminha esses eventos para os manipuladores apropriados. Por exemplo, no Windows, um manipulador pode iniciar operações de E/S assíncronas (sobrepostas na terminologia da Microsoft), e o desmultiplexador de eventos pode esperar pelos eventos de IOCompletion. A implementação desse padrão assíncrono  é baseada em uma API assíncrona no nível do SO, e chamaremos essa implementação de assíncrona &quot;no nível do sistema&quot; ou &quot;true&quot;, porque o aplicativo depende totalmente do SO para executar a E/S real.</p>
@@ -188,11 +210,11 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 <li>O desmultiplexador de eventos chama o manipulador apropriado;</li>
 <li>O manipulador de eventos manipula os dados do buffer definido pelo usuário, inicia uma nova operação assíncrona e retorna o controle ao desmultiplexador de eventos.</li>
 </ul>
-<p><em>Fonte:</em> <a href="http://www.dre.vanderbilt.edu/%7Eschmidt/POSA/POSA2/">POSA2</a></p>
-<a class="header" href="print.html#concorrência--paralelismo" id="concorrência--paralelismo"><h1>Concorrência &amp; Paralelismo</h1></a>
-<a class="header" href="print.html#threads" id="threads"><h2>Threads:</h2></a>
+<p><em>Fonte:</em> <a href="http://www.dre.vanderbilt.edu/~schmidt/POSA/POSA2/">POSA2</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="concorrência--paralelismo"><a class="header" href="#concorrência--paralelismo">Concorrência &amp; Paralelismo</a></h1>
+<h2 id="threads"><a class="header" href="#threads">Threads:</a></h2>
 <p>É um fluxo seqüencial de controle dentro de um programa. Basicamente, consiste em uma unidade básica de utilização da CPU, compreendendo um ID, um contador de programa, um conjunto de registradores e uma pilha. Um processo tradicional tem uma única thread de controle. Se o processo possui múltiplas threads de controle, ele pode realizar mais do que uma tarefa a cada momento. Essa possibilidade abre portas para um novo modelo de programação.</p>
-<a class="header" href="print.html#green-threads" id="green-threads"><h3>Green Threads:</h3></a>
+<h3 id="green-threads"><a class="header" href="#green-threads">Green Threads:</a></h3>
 <p>Green threads resolvem um problema comum na programação. Você não deseja que seu código bloqueie a CPU, impedindo que ela faça um trabalho significativo. Resolvemos isso usando multitarefa, o que nos permite suspender a execução de um pedaço de código enquanto retomamos outro e alternamos entre 'contextos'.</p>
 <p>Isso não deve ser confundido com paralelismo, embora fácil confundir, são duas coisas diferentes. Pense dessa maneira: green threads nos permite trabalhar de maneira mais inteligente e eficiente e, assim, usar nossos recursos com mais eficiência, e o paralelismo é como jogar mais recursos no problema.</p>
 <p>Geralmente, existem duas maneiras de fazer isso:</p>
@@ -200,7 +222,7 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 <li>Multitarefa preemptivo;</li>
 <li>Multitarefa não preemptivo (ou multitarefa cooperativa).</li>
 </ul>
-<a class="header" href="print.html#multitasking-multitarefa" id="multitasking-multitarefa"><h2>MultiTasking (MultiTarefa):</h2></a>
+<h2 id="multitasking-multitarefa"><a class="header" href="#multitasking-multitarefa">MultiTasking (MultiTarefa):</a></h2>
 <ul>
 <li>
 <p><strong>Preemptivo:</strong> Ocorre quando uma tarefa é interrompida por algum agendador externo e executa outra antes de voltar. A tarefa não tem nada a haver sobre esse assunto, a decisão é tomada pelo agendador. O kernel usa isso em sistemas operacionais, ou seja, para permitir que você use a interface do usuário enquanto executa a CPU para fazer cálculos em sistemas de thread único.</p>
@@ -209,7 +231,7 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 <p><strong>Não-Preemptivo:</strong> Uma tarefa decide por si mesma quando é melhor a CPU fazer outra coisa do que esperar que algo aconteça na tarefa atual. Geralmente isso ocorre quando <code>yield</code> repassa o controle ao agendador. Um caso de uso normal para isso é gerar controle quando algo que irá bloquear a execução ocorre. Um exemplo disso são as operações de E/S. Quando o controle é gerado, um agendador central direciona a CPU para retomar o trabalho em outra tarefa que está pronta para realmente fazer outra coisa além de apenas bloquear.</p>
 </li>
 </ul>
-<a class="header" href="print.html#síncrono-sync-e-assíncrono-async" id="síncrono-sync-e-assíncrono-async"><h2>Síncrono (sync) e assíncrono (async):</h2></a>
+<h2 id="síncrono-sync-e-assíncrono-async"><a class="header" href="#síncrono-sync-e-assíncrono-async">Síncrono (sync) e assíncrono (async):</a></h2>
 <p>Síncrono e assíncrono refere-se à interação entre o aplicativo e o kernel.</p>
 <ul>
 <li>
@@ -219,12 +241,12 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 <p><strong>Assíncrono</strong>: refere-se ao processo do usuário que aciona operações de E/S. Após a operação de saída, ele começa a fazer suas próprias coisas e, quando a operação de E/S for concluída, ela será notificada da conclusão de E/S.</p>
 </li>
 </ul>
-<a class="header" href="print.html#bloqueante-e-não-bloqueante" id="bloqueante-e-não-bloqueante"><h2>Bloqueante e não-bloqueante:</h2></a>
-<p>Bloqueante e não-bloqueante são maneiras diferentes que os processos seguem de acordo com a prontidão das operações de E/S ao acessar dados. Para colocar claramente, é uma implementação de funções de operação de leitura ou gravação. A função de gravação aguardará para sempre. No modo sem bloqueio, a função de leitura ou gravação retornará imediatamente um valor de status.</p>
-<a class="header" href="print.html#epollkqueueiocpio_uring" id="epollkqueueiocpio_uring"><h2>Epoll/Kqueue/IOCP/IO_uring:</h2></a>
+<h2 id="bloqueante-e-não-bloqueante"><a class="header" href="#bloqueante-e-não-bloqueante">Bloqueante e não-bloqueante:</a></h2>
+<p>Bloqueante e não-bloqueante são maneiras diferentes que os processos seguem de acordo com a prontidão das operações de E/S ao acessar dados. Para colocar claramente, é uma implementação de funções de operação de leitura ou gravação. A função de gravação aguardará para sempre. No modo sem bloqueio, a função de leitura ou gravação retornará imediatamente um valor de status. </p>
+<h2 id="epollkqueueiocpio_uring"><a class="header" href="#epollkqueueiocpio_uring">Epoll/Kqueue/IOCP/IO_uring:</a></h2>
 <p>Esses métodos nos permitem conectar-se ao sistema operacional de uma maneira em que podemos esperar por muitos eventos, em vez de ficarmos limitados a esperar um evento por thread, podemos esperar por muitos eventos em uma única thread. Isso nos permite evitar uma das maiores desvantagens do uso de um thread por evento, que é toda a memória ocupada e a sobrecarga de gerar novos threads continuamente. Agora, temos apenas um segmento aguardando muitas tarefas.</p>
 <p>Esses métodos têm em comum que eles são uma espécie de bloqueio da E/S. Se registrarmos apenas um evento na fila de eventos <code>epoll/kqueue/iocp/io_uring</code> e aguardarmos, não será diferente do uso de bloqueio da E/S. A vantagem é que podemos ter uma fila que aguarda centenas de milhares de eventos com pouquíssimos recursos desperdiçados.</p>
-<a class="header" href="print.html#coroutine-corrotina" id="coroutine-corrotina"><h2>Coroutine (Corrotina):</h2></a>
+<h2 id="coroutine-corrotina"><a class="header" href="#coroutine-corrotina">Coroutine (Corrotina):</a></h2>
 <p>Na ciência da computação, as rotinas são definidas como uma sequência de operações. A execução de rotinas forma um relacionamento pai-filho e o filho termina sempre antes do pai. Corrotinas (o termo foi introduzido por <a href="https://en.wikipedia.org/wiki/Melvin_Conway">Melvin Conway</a>) são uma generalização de rotinas (<a href="https://en.wikipedia.org/wiki/Donald_Knuth">Donald Knuth</a>). A principal diferença entre corrotinas e rotinas é que uma corrotina permite suspender e retomar explicitamente seu progresso por meio de operações adicionais, preservando o estado de execução e, portanto, fornecendo um fluxo de controle aprimorado (mantendo o contexto de execução).</p>
 <p>As características de uma corrotina são:</p>
 <ul>
@@ -235,7 +257,7 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 <li>Objeto de primeira classe (pode ser passado como argumento, retornado por procedimentos, armazenado em uma estrutura de dados para ser usado posteriormente ou livremente manipulado pelo desenvolvedor);</li>
 <li>Stackful (com pilha) ou Stackless (sem pilha).</li>
 </ul>
-<a class="header" href="print.html#stackfulness-com-pilha-ou-sem-pilha" id="stackfulness-com-pilha-ou-sem-pilha"><h3><strong>Stackfulness (com pilha ou sem pilha)</strong></h3></a>
+<h3 id="stackfulness-com-pilha-ou-sem-pilha"><a class="header" href="#stackfulness-com-pilha-ou-sem-pilha"><strong>Stackfulness (com pilha ou sem pilha)</strong></a></h3>
 <ul>
 <li>
 <p>Stackful (com pilha): pode ser suspensa de dentro de um stackframe (quadro de pilha) aninhado. A execução continua exatamente no mesmo ponto no código em que foi suspensa antes.</p>
@@ -244,13 +266,13 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 <p>Stackless (sem pilha): apenas a rotina de nível superior pode ser suspensa. Qualquer rotina chamada por essa rotina de nível superior pode não ser suspensa. Isso proíbe o fornecimento de operações de suspensão ou retomada de rotinas dentro de uma biblioteca de uso geral.</p>
 </li>
 </ul>
-<a class="header" href="print.html#fiber-fibra" id="fiber-fibra"><h2>Fiber (Fibra):</h2></a>
+<h2 id="fiber-fibra"><a class="header" href="#fiber-fibra">Fiber (Fibra):</a></h2>
 <p>Uma fibra pode salvar o estado de execução atual, incluindo todos os registradores e sinalizadores da CPU, o ponteiro de instruções e o ponteiro de pilha e, posteriormente, restaurar esse estado. A idéia é ter vários caminhos de execução em execução em uma única thread usando o planejamento cooperativo (ao contrario das threads, que são agendados preventivamente). A fibra em execução decide explicitamente quando deve permitir que outra fibra seja executada (alternância de contexto).</p>
 <p>O controle é passado cooperativamente entre as fibras lançadas em um determinado segmento. Em um determinado momento, em um determinada thread, no máximo uma fibra está em execução.</p>
 <p>A geração de fibras adicionais em um determinada thread não distribui seu programa por mais núcleos de hardware, embora possa fazer um uso mais eficaz do núcleo no qual está sendo executado.</p>
 <p>Por outro lado, uma fibra pode acessar com segurança qualquer recurso pertencente exclusivamente a seu thread pai, sem precisar explicitamente defender esse recurso contra o acesso simultâneo de outras fibras na mesma thread. Você já está garantido que nenhuma outra fibra nessa thread está acessando simultaneamente neste mesmo recurso. Isso pode ser particularmente importante ao introduzir a concorrência no código legado. Você pode gerar fibras com segurança executando código antigo, usando E/S assíncrona para intercalar a execução.</p>
 <p>Com efeito, as fibras fornecem uma maneira natural de organizar o código simultâneo com base em E/S assíncronas. Em vez de encadear manipuladores de conclusão, o código executado em uma fibra pode fazer o que parece ser uma chamada de função de bloqueio normal. Essa chamada pode suspender de forma barata a fibra de chamada, permitindo que outras fibras no mesma thread sejam executadas. Quando a operação é concluída, a fibra suspensa é retomada, sem a necessidade de salvar ou restaurar explicitamente seu estado. Suas variáveis ​​de pilha local persistem na chamada.</p>
-<a class="header" href="print.html#instalando-asio" id="instalando-asio"><h1>Instalando Asio</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="instalando-asio"><a class="header" href="#instalando-asio">Instalando Asio</a></h1>
 <p>Inicialmente existe duas versões disponíveis para download:</p>
 <ul>
 <li>
@@ -265,7 +287,7 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 </ul>
 <p>Instalar Asio não é difícil. Pois ele possui apenas arquivos headers.</p>
 <p>Os exemplos abaixo citarão a instalação do <code>boost::asio</code>.</p>
-<a class="header" href="print.html#linux" id="linux"><h2>Linux</h2></a>
+<h2 id="linux"><a class="header" href="#linux">Linux</a></h2>
 <p><code>Ubuntu</code>:</p>
 <pre><code>$ sudo apt-get install boost
 </code></pre>
@@ -275,7 +297,7 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 <p>No linux para compilar um programa, o parâmetro <code>-pthread</code> se faz necessário:</p>
 <pre><code>$ g++ client.cpp -o client -pthread -lboost_system
 </code></pre>
-<a class="header" href="print.html#bsd" id="bsd"><h2>BSD</h2></a>
+<h2 id="bsd"><a class="header" href="#bsd">BSD</a></h2>
 <p><code>OpenBSD</code>:</p>
 <pre><code>$ pkg_add boost
 </code></pre>
@@ -283,7 +305,7 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 <p>Ex.:</p>
 <pre><code>$ c++ -L/usr/local/lib client.cpp -o client -lboost_system
 </code></pre>
-<a class="header" href="print.html#windows" id="windows"><h2>Windows</h2></a>
+<h2 id="windows"><a class="header" href="#windows">Windows</a></h2>
 <p>Se você utiliza MSVC, então poderá optar por diversas opções:</p>
 <ul>
 <li>
@@ -328,114 +350,51 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 <p>Compilar manualmente seguindo a documentação boost: <a href="https://www.boost.org/doc/libs/1_72_0/more/getting_started/windows.html">Windows - Getting Start</a></p>
 </li>
 </ul>
-<a class="header" href="print.html#io_context" id="io_context"><h1>io_context</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="io_context"><a class="header" href="#io_context">io_context</a></h1>
 <p>O conceito é baseado na API de rede do <code>Unix</code>, o <code>Asio</code> também possui o conceito &quot;socket&quot;, mas isso não é suficiente, um objeto <code>io_context</code> (a classe <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0112r0.html"><code>io_service</code></a> está obsoleta agora) é necessário para se comunicar com os serviços da E/S do sistema operacional. A  imagem abaixo mostrará a estrutura da Arquitetura <code>Asio</code>:</p>
-<p><img src="https://raw.githubusercontent.com/kassane/Livro-Programacao-de-Redes/gh-pages/images/architecture.jpg" alt="image" /></p>
+<p><img src="https://raw.githubusercontent.com/kassane/Livro-Programacao-de-Redes/gh-pages/images/architecture.jpg" alt="image" /> </p>
 <p><code>io_context</code> deriva de <code>execution_context</code>:</p>
-<pre><code class="language-cpp">    class io_context
-      : public execution_context
-    {
-    ......
-    }
+<pre><code class="language-cpp">	class io_context
+	  : public execution_context
+	{
+	......
+	}
 </code></pre>
 <p>Enquanto <code>execution_context</code> deriva de <code>noncopyable</code>:</p>
-<pre><code class="language-cpp">    class execution_context
-      : private noncopyable
-    {
-    ......
-    }
+<pre><code class="language-cpp">	class execution_context
+	  : private noncopyable
+	{
+	......
+	}
 </code></pre>
 <p>Observe a classe <code>noncopyable</code>:</p>
-<pre><code class="language-cpp">    class noncopyable
-    {
-    protected:
-      noncopyable() {}
-      ~noncopyable() {}
-    private:
-      noncopyable(const noncopyable&amp;);
-      const noncopyable&amp; operator=(const noncopyable&amp;);
-    };
+<pre><code class="language-cpp">	class noncopyable
+	{
+	protected:
+	  noncopyable() {}
+	  ~noncopyable() {}
+	private:
+	  noncopyable(const noncopyable&amp;);
+	  const noncopyable&amp; operator=(const noncopyable&amp;);
+	};
 </code></pre>
-<p>Isso significa que o objeto <code>io_context</code> não pode ser utilizado como <em>copy constructed/copy assignment/move constructed/move assignment</em>. Portanto, durante a inicialização do socket, ou seja, associar o socket ao<code>io_context</code>, o <code>io_context</code> deve ser passado como referência.</p>
+<p>Isso significa que o objeto <code>io_context</code> não pode ser utilizado como <em>copy constructed/copy assignment/move constructed/move assignment</em>. Portanto, durante a inicialização do socket, ou seja, associar o socket ao<code> io_context</code>, o <code>io_context</code> deve ser passado como referência.</p>
 <p>Ex.:</p>
-<pre><code class="language-cpp">    template &lt;typename Protocol
-        BOOST_ASIO_SVC_TPARAM_DEF1(= datagram_socket_service&lt;Protocol&gt;)&gt;
-    class basic_datagram_socket
-      : public basic_socket&lt;Protocol BOOST_ASIO_SVC_TARG&gt;
-    {
-    public:
-    ......
-      explicit basic_datagram_socket(boost::asio::io_context&amp; io_context)
-        : basic_socket&lt;Protocol BOOST_ASIO_SVC_TARG&gt;(io_context)
-      {
-      }
-    ......
-    }
+<pre><code class="language-cpp">	template &lt;typename Protocol
+	    BOOST_ASIO_SVC_TPARAM_DEF1(= datagram_socket_service&lt;Protocol&gt;)&gt;
+	class basic_datagram_socket
+	  : public basic_socket&lt;Protocol BOOST_ASIO_SVC_TARG&gt;
+	{
+	public:
+	......
+	  explicit basic_datagram_socket(boost::asio::io_context&amp; io_context)
+	    : basic_socket&lt;Protocol BOOST_ASIO_SVC_TARG&gt;(io_context)
+	  {
+	  }
+	......
+	}
 </code></pre>
-<a class="header" href="print.html#sockets-soquetes" id="sockets-soquetes"><h1>Sockets (Soquetes)</h1></a>
-<p>Existem <code>4</code> tipos de sockets:</p>
-<p>(1) <code>basic_stream_socket</code>:<br />
-Este socket fornece fluxos de bytes baseados em conexão bidirecional, confiável e sequencial. <code>tcp::socket</code> é uma instância deste socket:</p>
-<pre><code class="language-cpp">    class tcp
-    {
-    ......
-      /// The TCP socket type.
-      typedef basic_stream_socket&lt;tcp&gt; socket;
-    ......
-    }
-</code></pre>
-<p>(2) <code>basic_datagram_socket</code>:<br />
-Este socket fornece serviço de datagrama sem garantias de conexão e não confiável. <code>udp::socket</code> é uma instância deste socket:</p>
-<pre><code class="language-cpp">    class udp
-    {
-    ......
-      /// The UDP socket type.
-      typedef basic_datagram_socket&lt;udp&gt; socket;
-    ......
-    }
-</code></pre>
-<p>(3) <code>basic_raw_socket</code>:<br />
-Este socket fornece acesso a protocolos e interfaces de rede interno. O <code>icmp::socket</code> é uma instância deste socket:</p>
-<pre><code class="language-cpp">    class icmp
-    {
-    ......
-      /// The ICMP socket type.
-      typedef basic_raw_socket&lt;icmp&gt; socket;
-    ......
-    }
-</code></pre>
-<p>(4) <code>basic_seq_packet_socket</code>:<br />
-Este socket combina fluxo(stream) e datagrama: fornece um serviço de datagramas com conexão bidirecional, confiável e bidirecional. <a href="https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol">SCTP</a> é um exemplo deste tipo de serviço.</p>
-<p>Todos esses <code>4</code> sockets derivam da classe <code>basic_socket</code> e precisam ser associados a um <code>io_context</code> durante a inicialização. Veja <code>tcp::socket</code> como exemplo:</p>
-<pre><code class="language-cpp">        boost::asio::io_context io_context;
-        boost::asio::ip::tcp::socket socket{io_context};
-</code></pre>
-<p>Observe que o <code>io_context</code> deve ser uma referência no construtor do<code>socket</code> (consulte <a href="cpp-asio/io_context.md">io_context</a>). Ainda use <code>basic_socket</code> e uma instância, um de seus construtores é o seguinte:</p>
-<pre><code class="language-cpp">      explicit basic_socket(boost::asio::io_context&amp; io_context)
-        : basic_io_object&lt;BOOST_ASIO_SVC_T&gt;(io_context)
-      {
-      }
-</code></pre>
-<p>Para a classe <code>basic_io_object</code>, ele não suporta copy constructed/copy assignment:</p>
-<pre><code class="language-cpp">    ......
-    private:
-      basic_io_object(const basic_io_object&amp;);
-      void operator=(const basic_io_object&amp;);
-    ......
-</code></pre>
-<p>mas suporta move constructed/move assignment:</p>
-<pre><code class="language-cpp">    ......
-    protected:  
-      basic_io_object(basic_io_object&amp;&amp; other)
-      {
-        ......
-      }
-      basic_io_object&amp; operator=(basic_io_object&amp;&amp; other)
-      {
-        ......
-      }
-</code></pre>
-<a class="header" href="print.html#buffers" id="buffers"><h1>Buffers</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="buffers"><a class="header" href="#buffers">Buffers</a></h1>
 <p>Fundamentalmente, E/S envolve a transferência de dados para e de regiões contíguas da memória, chamadas buffers. Esses buffers podem ser simplesmente expressos como uma tupla que consiste em um ponteiro e um tamanho em bytes. No entanto, para permitir o desenvolvimento de aplicativos de rede eficientes, o <code>Asio</code> inclui suporte para operações de coleta de dispersão. Essas operações envolvem um ou mais buffers:</p>
 <ul>
 <li>Uma scatter-read recebe dados em vários buffers.</li>
@@ -460,7 +419,7 @@ Este socket combina fluxo(stream) e datagrama: fornece um serviço de datagramas
 </li>
 </ul>
 <p>Finalmente, vários buffers podem ser passados para operações (como <code>read()</code> ou <code>write()</code>) colocando os objetos do buffer em um contêiner. Os conceitos <code>MutableBufferSequence</code> e <code>ConstBufferSequence</code> foram definidos para que contêineres como <code>std::vector</code>, <code>std::list</code>, <code>std::array</code> ou <code>boost::array</code> possam ser usados.</p>
-<a class="header" href="print.html#streambuf-para-integração-com-iostreams" id="streambuf-para-integração-com-iostreams"><h2>Streambuf para integração com Iostreams</h2></a>
+<h2 id="streambuf-para-integração-com-iostreams"><a class="header" href="#streambuf-para-integração-com-iostreams">Streambuf para integração com Iostreams</a></h2>
 <p>A classe <code>boost::asio::basic_streambuf</code> é derivada de <code>std::basic_streambuf</code> para associar a sequência de entrada e a saída a um ou mais objetos de algum tipo de matriz de caracteres, cujos elementos armazenam valores arbitrários. Esses objetos da matriz de caracteres são internos ao objeto streambuf, mas é fornecido acesso direto aos elementos da matriz para permitir que sejam utilizados com operações de E/S, como as operações de envio ou recebimento de um socket:</p>
 <ul>
 <li>
@@ -477,286 +436,161 @@ Este socket combina fluxo(stream) e datagrama: fornece um serviço de datagramas
 </li>
 </ul>
 <p>O construtor <code>streambuf</code> aceita um argumento <code>size_t</code> especificando a soma máximo dos tamanhos da sequência de entrada e de saída. Qualquer operação que, se for bem-sucedida, aumentará os dados internos além desse limite, lançará uma exceção <code>std::length_error</code>.</p>
-<a class="header" href="print.html#endpoint-ponto-de-extremidade" id="endpoint-ponto-de-extremidade"><h1>Endpoint (Ponto de Extremidade)</h1></a>
-<p>Um <code>endpoint</code> é o nome para uma entidade em um terminal de uma conexão da <a href="https://pt.wikipedia.org/wiki/Camada_de_transporte">camada de transporte</a>. Ele é composto por: &quot;Endereço <a href="https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP">IP</a> + porta de conexão&quot;:</p>
-<pre><code class="language-cpp">    basic_endpoint(const boost::asio::ip::address&amp; addr, unsigned short port_num)
-        : impl_(addr, port_num)
-    {
-        //TODO
-    }
+<div style="break-before: page; page-break-before: always;"></div><h2 id="o-que-é-um-executor"><a class="header" href="#o-que-é-um-executor">O que é um <code>Executor</code></a></h2>
+<p>O executor é um objeto que pode executar unidades de trabalho encapsuladas. A partir do C++11,
+podemos implementar um executor que gerencie o agendamento de operações relacionadas a espera de alguma duração de tempo.
+Há o recurso global RTC e, em vez de criar várias e várias threads para a execução de operações bloqueantes como a operação <code>sleep_for</code>, vamos usar um executor, que irá agendar e tratar todos os eventos de tempo que se façam necessário.</p>
+<h3 id="surgimento-do-assunto-em-torno-do-c-stl"><a class="header" href="#surgimento-do-assunto-em-torno-do-c-stl">Surgimento do assunto em torno do C++ STL</a></h3>
+<p>Em 6 de julho de 2021, a proposta dos Executores foi atualizada com mais um bilhão de pontos. O novo documento,
+<a href="http://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2300r1.html">P2300R1</a>,
+oficialmente denominado <code>std::execution</code>, em comparação com The Unified Executor for C++, <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0443r14">P0443R14</a>,
+expõe mais sistematicamente as ideias de design dos Executors; dá mais instruções sobre implementação; exclui o Executor Concept,
+mantém e estabelece o modelo <code>Sender/Receiver/Scheduler</code> é introduzido;
+o conjunto inicial de algoritmos que deveria estar na biblioteca é fornecido e não há pequenas alterações no design do algoritmo anterior;
+há semântica mais clara, como tarefa multi-shot (multi-shot) e Single-shot, lazy e entrega ansiosa de tarefas, etc.
+A biblioteca Executors praticada pelo autor em seu tempo livre acaba de concluir o conteúdo do P1879R3.</p>
+<h3 id="1-por-quê-executores"><a class="header" href="#1-por-quê-executores">1. Por quê Executores?</a></h3>
+<p>C++ sempre careceu de infraestrutura de programação simultânea disponível, e a infraestrutura recém-introduzida desde C++11, bem como a melhoria de bibliotecas de terceiros, como boost e folly, têm mais ou menos problemas e certas limitações.</p>
+<h3 id="11-stdasync-não-é-assíncrono"><a class="header" href="#11-stdasync-não-é-assíncrono">1.1 <code>std::async</code> não é assíncrono</a></h3>
+<p><code>std::async</code> é uma função do C++ Standard Library que é usada para iniciar uma tarefa assíncrona em um ponto específico no tempo. Ela é usada para criar uma tarefa assíncrona que será executada em uma thread separada e retorna um objeto <code>std::future</code> que pode ser usado para obter o resultado da tarefa quando ela for concluída.</p>
+<p>Apesar de seu nome, <code>std::async</code> não é uma função assíncrona no sentido tradicional da palavra. Ela não é capaz de retornar imediatamente para o chamador enquanto a tarefa assíncrona é executada, mas simplesmente inicia a tarefa em uma thread separada e retorna um objeto <code>std::future</code>. Isso significa que o código que chama std::async não pode ser escrito de forma assíncrona usando a sintaxe de await do C++20.</p>
+<p>Apesar disso, <code>std::async</code> pode ser útil em situações em que é necessário iniciar uma tarefa assíncrona de forma fácil e rápida. Ele é especialmente útil quando é necessário obter o resultado da tarefa assíncrona de forma síncrona, usando a sintaxe de await do C++20 ou esperando pelo objeto <code>std::future</code> retornado por <code>std::async</code>.</p>
+<p>A seguir, um exemplo de uso da função std::async para iniciar uma tarefa assíncrona e obter o resultado da tarefa de forma síncrona:</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;future&gt;
+
+  // Função que será executada assincronamente
+  int long_running_task(int x, int y) {
+  // Simulando um processamento demorado
+  std::this_thread::sleep_for(std::chrono::seconds(2));
+  return x + y;
+}
+
+int main() {
+  // Iniciando a tarefa assíncrona com std::async
+  std::future&lt;int&gt; result = std::async(long_running_task, 10, 20);
+
+  // Obtendo o resultado da tarefa síncronamente com std::future::get
+  int sum = result.get();
+
+  std::cout &lt;&lt; &quot;Resultado da tarefa assíncrona: &quot; &lt;&lt; sum &lt;&lt; std::endl;
+
+  return 0;
+}
 </code></pre>
-<p>O cliente usa o <code>endpoint</code> para designar o endereço do servidor, e o aplicativo do servidor usa o <code>endpoint</code> para identificar qual endereço será usado para escutar e aceitar conexões. Um exemplo de <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a> <code>endpoint</code> abaixo:</p>
-<pre><code class="language-cpp">    boost::asio::ip::tcp::endpoint endpoint{
-        boost::asio::ip::make_address(&quot;127.0.0.1&quot;), 3303};
+<p>Neste exemplo, a função long_running_task é iniciada de forma assíncrona com <code>std::async</code> e o resultado da tarefa é obtido síncronamente com <code>std::future::get</code>. Isso significa que o código que chama <code>std::async</code> será bloqueado até que a tarefa seja concluída e o resultado esteja disponível.</p>
+<p>Observe que, apesar de usarmos <code>std::async</code> para iniciar a tarefa assíncrona, o código que chama std::async não pode ser escrito de forma assíncrona usando a sintaxe de await do C++20. Para escrever código assíncrono de forma mais simples e clara, é recomendável usar outras bibliotecas de tempo de execução, como C++ ASIO ou Libunifex.</p>
+<p>Em resumo, <code>std::async</code> é uma função do C++ Standard Library que é usada para iniciar uma tarefa assíncrona em uma thread separada. Ela não é uma função assíncrona no sentido tradicional da palavra e não pode ser usada com a sintaxe de await do C++20, mas pode ser útil em situações em que é necessário iniciar uma tarefa assíncrona de forma fácil e rápida.</p>
+<h3 id="12-modelo-de-evolução-do-futuropromessa"><a class="header" href="#12-modelo-de-evolução-do-futuropromessa">1.2 Modelo de Evolução do Futuro/Promessa</a></h3>
+<p>O modelo Futuro/Promessa é um modelo clássico de programação concorrente, que fornece aos programadores um mecanismo completo para controlar
+a sincronização e a assincronia do programa. O mecanismo Future/Promise também foi introduzido no C++11.
+Future é essencialmente uma operação simultânea que iniciamos e Promise é essencialmente um retorno de chamada para operações simultâneas.
+Podemos aguardar a operação e obter o resultado da operação através do objeto Future, e o objeto Promise é responsável por escrever o valor
+de retorno e nos notificar.</p>
+<p>A implementação de um Future/Promise típico em C++ é mostrada na figura abaixo:
+<img src="https://user-images.githubusercontent.com/6756180/208737071-abe8d31c-fe0d-4023-8a1a-64083099c4f6.jpg" alt="img" /></p>
+<h3 id="13-executores-em-asio"><a class="header" href="#13-executores-em-asio">1.3 Executores em Asio</a></h3>
+<p>Os executores são componentes do asio que definem o contexto de execução de uma função ou um bloco de código. Eles podem ser usados para controlar como e quando uma função ou um bloco de código é executado, e permitem que você aproveite os recursos de concorrência fornecidos pelo asio para executar tarefas de forma assíncrona e concorrente.</p>
+<p>O asio fornece várias formas de se trabalhar com executores, incluindo a possibilidade de especificar o contexto de execução de uma função ou um bloco de código usando o template <code>asio::execution</code>, ou usando funções como <code>asio::post</code>, que permitem agendar a execução de uma função ou um bloco de código em um determinado contexto de execução.</p>
+<p><code>asio::execution</code> é um modelo C++ que representa um contexto de execução, ou um objeto que define como uma função ou um bloco de código deve ser executado. É usado como um parâmetro de tipo em vários componentes asio, como <code>asio::strand</code> e <code>asio::spawn</code>, para especificar o contexto de execução no qual uma função ou um bloco de código deve ser executado.</p>
+<p>Existem vários tipos de executores que podem ser usados com <code>asio::execution</code>. Estes incluem:</p>
+<ul>
+<li>
+<p><code>asio::io_context::executor_type</code>: Este é o tipo de executor padrão para <code>asio::io_context</code> e representa o contexto de execução fornecido por um objeto <code>asio::io_context</code>. As funções ou blocos de código executados usando este executor serão executados no contexto do loop de eventos do io_context.</p>
+</li>
+<li>
+<p><code>asio::strand&lt;Executor&gt;</code>: Este é um executor decorador que envolve outro executor, Executor, e garante que as funções ou blocos de código executados com ele sejam executados de forma serializada, ou seja, apenas um de cada vez. Isso pode ser útil para sincronizar o acesso a recursos compartilhados.</p>
+</li>
+<li>
+<p><code>asio::system_executor</code>: Este é um tipo de executor especial que representa o contexto de execução fornecido pelo sistema operacional. As funções ou blocos de código executados usando este executor serão executados no contexto da thread pool do sistema operacional.</p>
+</li>
+<li>
+<p><code>asio::thread_pool</code>: Este é um tipo de executor que representa um pool (grupo) de threads que podem serem usados para executar funções ou blocos de código, ou também para executar tarefas de forma concorrente em múltiplas threads.</p>
+</li>
+<li>
+<p><code>asio::post</code>: Esta é uma função que leva uma função ou um bloco de código e um executor e agenda a função ou o bloco de código para ser executado no contexto do executor especificado.</p>
+</li>
+</ul>
+<p>Em geral, <code>asio::execution</code> é um conceito poderoso que permite especificar o contexto de execução no qual uma função ou um bloco de código deve ser executado e aproveitar os vários tipos de executores fornecidos por asio para controlar a execução do seu código.</p>
+<h3 id="131-asio-executores-em-comparação-com-outras-alternativas"><a class="header" href="#131-asio-executores-em-comparação-com-outras-alternativas">1.3.1 Asio executores em comparação com outras alternativas</a></h3>
+<h4 id="1311-stdexecution"><a class="header" href="#1311-stdexecution">1.3.1.1 <code>std::execution</code></a></h4>
+<p><code>std::execution</code> é um namespace do C++ Standard Library que fornece tipos e funções relacionados à execução de tarefas assíncronas. Ele foi introduzido no C++17 e ampliado no C++20 para fornecer uma interface padronizada para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução.</p>
+<p>O conceito de Executor é uma parte importante do namespace <code>std::execution</code>. Ele é um tipo de modelo de classe que define uma interface para a execução de tarefas assíncronas. Um Executor é responsável por agendar tarefas para serem executadas em um determinado ponto no tempo, permitindo que o código assíncrono seja escrito de forma mais simples e clara.</p>
+<p>O conceito de Executor é importante porque ele permite que você escreva código assíncrono de forma mais genérica, pois você pode usar a mesma interface para trabalhar com diferentes bibliotecas de tempo de execução sem precisar se preocupar com as diferenças entre elas. Isso torna o código mais portável e facilita a manutenção e a expansão do código no futuro.</p>
+<p>O namespace <code>std::execution</code> fornece vários tipos de Executor, como <code>std::execution::sequenced_policy</code> e <code>std::execution::parallel_policy</code>, que podem ser usados ​​para controlar como as tarefas são agendadas e executadas. Além disso, ele fornece funções como <code>std::execution::execute</code> e <code>std::execution::bulk_execute</code>, que podem ser usadas para executar tarefas de forma assíncrona de acordo com o Executor especificado.</p>
+<p>Em resumo, std::execution é um namespace do C++ Standard Library que fornece uma interface padronizada para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, enquanto que C++ ASIO é uma biblioteca de tempo de execução que oferece recursos para criar aplicações de rede de forma assíncrona. C++ ASIO pode ser usado com o namespace <code>std::execution</code>, mas também pode ser usado de forma independente. A escolha da biblioteca a ser usada depende das necessidades específicas de sua aplicação e de suas preferências de programação.</p>
+<h4 id="1312-libunifex"><a class="header" href="#1312-libunifex">1.3.1.2 Libunifex</a></h4>
+<p>Libunifex e C++ ASIO são duas bibliotecas diferentes que são utilizadas para criar aplicações de redes de forma assíncrona em C++.</p>
+<p>C++ ASIO é uma biblioteca de tempo de execução que oferece suporte para a comunicação assíncrona entre sistemas de computador. Ela é amplamente utilizada para a criação de aplicações de redes, como servidores de rede e clientes de rede. C++ ASIO fornece uma série de recursos, como sockets de rede, temporizadores e sinais de interrupção, que podem ser usados ​​para criar aplicações de rede de forma assíncrona.</p>
+<p>Por outro lado, Libunifex é uma biblioteca de executores para C++ que oferece uma interface uniforme para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, como C++ ASIO e Boost.ASIO. Ela permite que você escreva código assíncrono de forma mais portável, pois você pode usar a mesma interface para trabalhar com diferentes bibliotecas de tempo de execução sem precisar se preocupar com as diferenças entre elas.</p>
+<h4 id="1313-cppcoro"><a class="header" href="#1313-cppcoro">1.3.1.3 Cppcoro</a></h4>
+<p>Cppcoro é uma alternativa a outras bibliotecas de tempo de execução para C++, como C++ ASIO e Libunifex, que também oferecem suporte para a programação assíncrona baseada em coroutinas e não executores. Ela permite que você escreva código assíncrono de forma mais simples e clara, usando a sintaxe de coroutinas do C++.</p>
+<p>Cppcoro usa a funcionalidade de coroutinas introduzida no C++20 para permitir que você escreva código assíncrono de forma mais fácil e natural. Ele fornece uma série de funções e tipos de dados que permitem que você crie, gerencie e execute coroutinas de forma mais eficiente. Além disso, ele fornece suporte para a execução de coroutinas em paralelo, o que pode ser útil em aplicações de alta performance.</p>
+<p>Em resumo, C++ ASIO é uma biblioteca de tempo de execução que fornece recursos para criar aplicações de rede de forma assíncrona, enquanto que Libunifex é uma biblioteca de executores que oferece uma interface uniforme para trabalhar com diferentes bibliotecas de tempo de execução de forma mais portável.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="sockets-soquetes"><a class="header" href="#sockets-soquetes">Sockets (Soquetes)</a></h1>
+<p>Existem <code>4</code> tipos de sockets:</p>
+<p>(1) <code>basic_stream_socket</code>:<br />
+Este socket fornece fluxos de bytes baseados em conexão bidirecional, confiável e sequencial. <code>tcp::socket</code> é uma instância deste socket:</p>
+<pre><code class="language-cpp">	class tcp
+	{
+	......
+	  /// The TCP socket type.
+	  typedef basic_stream_socket&lt;tcp&gt; socket;
+	......
+	}
 </code></pre>
-<p>Normalmente, o servidor precisa escutar(listen) todos os endereços da máquina atual e pode recorrer a outro construtor de <code>basic_endpoint</code>:</p>
-<pre><code class="language-cpp">    basic_endpoint(const InternetProtocol&amp; internet_protocol,
-          unsigned short port_num)
-        : impl_(internet_protocol.family(), port_num)
-    {
-    }
+<p>(2) <code>basic_datagram_socket</code>:<br />
+Este socket fornece serviço de datagrama sem garantias de conexão e não confiável. <code>udp::socket</code> é uma instância deste socket:</p>
+<pre><code class="language-cpp">	class udp
+	{
+	......
+	  /// The UDP socket type.
+  	  typedef basic_datagram_socket&lt;udp&gt; socket;
+	......
+	}
 </code></pre>
-<p>Um exemplo de servidor <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol">UDP</a> que escuta todos os endereços <code>IPv4</code> &amp; <code>IPv6</code>:</p>
-<pre><code class="language-cpp">    //IPv6
-    boost::asio::ip::udp::endpoint endpoint{
-            boost::asio::ip::udp::v6(),
-            3303};
-    ...
-    //IPv4
-    boost::asio::ip::udp::endpoint endpoint{
-            boost::asio::ip::udp::v4(),
-            3306};
+<p>(3) <code>basic_raw_socket</code>:<br />
+Este socket fornece acesso a protocolos e interfaces de rede interno. O <code>icmp::socket</code> é uma instância deste socket:</p>
+<pre><code class="language-cpp">	class icmp
+	{
+	......
+	  /// The ICMP socket type.
+  	  typedef basic_raw_socket&lt;icmp&gt; socket;
+	......
+	}
 </code></pre>
-<a class="header" href="print.html#dns-query" id="dns-query"><h1>DNS Query</h1></a>
-<p>A classe <code>resolver</code> é usada para fazer consultas <a href="https://pt.wikipedia.org/wiki/Sistema_de_Nomes_de_Dom%C3%ADnio">DNS</a>, ou seja, converter um serviço host + <a href="https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP">endereço IP</a> + porta.</p>
-<p>Veja <code>boost::asio::ip::tcp::resolver</code> no exemplo abaixo:</p>
-<pre><code class="language-cpp">
-    #include &lt;boost/asio.hpp&gt;
-    #include &lt;iostream&gt;
-    
-    int main()
-    {
-        try
-        {
-            boost::asio::io_context io_context;
-    
-            boost::asio::ip::tcp::resolver resolver{io_context};
-            boost::asio::ip::tcp::resolver::results_type endpoints =
-                    resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
-    
-            for (auto it = endpoints.cbegin(); it != endpoints.cend(); it++)
-            {
-                boost::asio::ip::tcp::endpoint endpoint = *it;
-                std::cout &lt;&lt; endpoint &lt;&lt; '\n';
-            }
-        }
-        catch (std::exception&amp; e)
-        {
-            std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-        }
-    
-        return 0;
-    }
+<p>(4) <code>basic_seq_packet_socket</code>:<br />
+Este socket combina fluxo(stream) e datagrama: fornece um serviço de datagramas com conexão bidirecional, confiável e bidirecional. <a href="https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol">SCTP</a> é um exemplo deste tipo de serviço.</p>
+<p>Todos esses <code>4</code> sockets derivam da classe <code>basic_socket</code> e precisam ser associados a um <code>io_context</code> durante a inicialização. Veja <code>tcp::socket</code> como exemplo:</p>
+<pre><code class="language-cpp">		boost::asio::io_context io_context;
+		boost::asio::ip::tcp::socket socket{io_context};
 </code></pre>
-<p>O resultado da execução será:</p>
-<pre><code>74.125.24.101:443
-74.125.24.139:443
-74.125.24.138:443
-74.125.24.102:443
-74.125.24.100:443
-74.125.24.113:443
+<p>Observe que o <code>io_context</code> deve ser uma referência no construtor do<code> socket</code> (consulte <a href="cpp-asio/cpp-asio/io_context.html">io_context</a>). Ainda use <code>basic_socket</code> e uma instância, um de seus construtores é o seguinte:</p>
+<pre><code class="language-cpp">	  explicit basic_socket(boost::asio::io_context&amp; io_context)
+	    : basic_io_object&lt;BOOST_ASIO_SVC_T&gt;(io_context)
+	  {
+	  }
 </code></pre>
-<p>O elemento <code>boost::asio::ip::tcp::resolver::results_type</code> é o iterador de <code>basic_resolver_entry</code>:</p>
-<pre><code class="language-cpp">    template &lt;typename InternetProtocol&gt;
-    class basic_resolver_entry
-    {
-    ......
-    public:
-      /// The protocol type associated with the endpoint entry.
-      typedef InternetProtocol protocol_type;
-    
-      /// The endpoint type associated with the endpoint entry.
-      typedef typename InternetProtocol::endpoint endpoint_type;
-    ......
-      /// Convert to the endpoint associated with the entry.
-      operator endpoint_type() const
-      {
-        return endpoint_;
-      }
-    ......
-    }
+<p>Para a classe <code>basic_io_object</code>, ele não suporta copy constructed/copy assignment:</p>
+<pre><code class="language-cpp">	......
+	private:
+	  basic_io_object(const basic_io_object&amp;);
+	  void operator=(const basic_io_object&amp;);
+	......
 </code></pre>
-<p>Como ele possui o operador <code>endpoint_type()</code>, ele pode ser convertido diretamente no endpoint:</p>
-<pre><code class="language-cpp">    boost::asio::ip::tcp::endpoint endpoint = *it;
+<p>mas suporta move constructed/move assignment:</p>
+<pre><code class="language-cpp">	......
+	protected:  
+	  basic_io_object(basic_io_object&amp;&amp; other)
+	  {
+	    ......
+	  }
+	  basic_io_object&amp; operator=(basic_io_object&amp;&amp; other)
+	  {
+	    ......
+	  }
 </code></pre>
-<a class="header" href="print.html#exceção" id="exceção"><h1>Exceção</h1></a>
-<p>As funções do <code>Asio</code> podem gerar a exceção <code>boost::system::system_error</code>. Veja o <a href="dns-query.md"><code>resolve</code></a> no exemplo abaixo:</p>
-<pre><code class="language-cpp">    results_type resolve(BOOST_ASIO_STRING_VIEW_PARAM host,
-        BOOST_ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags)
-    {
-      boost::system::error_code ec;
-      ......
-      boost::asio::detail::throw_error(ec, &quot;resolve&quot;);
-      return r;
-    }
-</code></pre>
-<p>Há duas sobrecargas de funções <code>boost::asio::detail::throw_error</code>:</p>
-<pre><code class="language-cpp">    inline void throw_error(const boost::system::error_code&amp; err)
-    {
-      if (err)
-        do_throw_error(err);
-    }
-    
-    inline void throw_error(const boost::system::error_code&amp; err,
-        const char* location)
-    {
-      if (err)
-        do_throw_error(err, location);
-    }
-</code></pre>
-<p>As diferenças dessas duas funções é que estão apenas incluindo a string &quot;location&quot; (&quot;<code>resolve</code>&quot; no nosso exemplo) ou não. Assim, o <code>do_throw_error</code> também tem duas sobrecargas, veja uma como exemplo:</p>
-<pre><code class="language-cpp">    void do_throw_error(const boost::system::error_code&amp; err, const char* location)
-    {
-      boost::system::system_error e(err, location);
-      boost::asio::detail::throw_exception(e);
-    }
-</code></pre>
-<p><code>boost::system::system_error</code> deriva de <code>std::runtime_error</code>:</p>
-<pre><code class="language-cpp">    class BOOST_SYMBOL_VISIBLE system_error : public std::runtime_error
-    {
-    ......
-    public:
-          system_error( error_code ec )
-              : std::runtime_error(&quot;&quot;), m_error_code(ec) {}
-    
-          system_error( error_code ec, const std::string &amp; what_arg )
-              : std::runtime_error(what_arg), m_error_code(ec) {}
-    ......
-          const error_code &amp;  code() const BOOST_NOEXCEPT_OR_NOTHROW { return m_error_code; }
-          const char *        what() const BOOST_NOEXCEPT_OR_NOTHROW;
-    ......
-    }
-</code></pre>
-<p>A função membro chamado <code>what()</code> retorna as informações detalhadas da exceção.</p>
-<a class="header" href="print.html#conectar-servidor" id="conectar-servidor"><h1>Conectar Servidor</h1></a>
-<p>O cliente pode usar os endpoints retornados por <a href="dns-query.md">DNS</a> para conectar o aplicativo servidor. Veja o código abaixo:</p>
-<pre><code class="language-cpp">    #include &lt;boost/asio.hpp&gt;
-    #include &lt;iostream&gt;
-    
-    int main()
-    {
-        try
-        {
-            boost::asio::io_context io_context;
-    
-            boost::asio::ip::tcp::resolver resolver{io_context};
-            boost::asio::ip::tcp::resolver::results_type endpoints =
-                    resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
-    
-            boost::asio::ip::tcp::tcp::socket socket{io_context};
-            auto endpoint = boost::asio::connect(socket, endpoints);
-    
-            std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
-        }
-        catch (std::exception&amp; e)
-        {
-            std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-            return -1;
-        }
-    
-        return 0;
-    }
-</code></pre>
-<p>O resultado da execução será:</p>
-<pre><code>Connect to 172.217.194.101:443 successfully!
-</code></pre>
-<p>Observe que o <code>boost::asio::connect</code> requer o iterador de endpoints. Se você quiser apenas um endpoint específico, poderá usar a função membro <code>connect</code> do socket. Verifique o código abaixo:</p>
-<pre><code class="language-cpp">    #include &lt;boost/asio.hpp&gt;
-    #include &lt;iostream&gt;
-    
-    int main()
-    {
-        try
-        {
-            boost::asio::io_context io_context;
-    
-            boost::asio::ip::tcp::resolver resolver{io_context};
-            boost::asio::ip::tcp::resolver::results_type endpoints =
-                    resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
-    
-            boost::asio::ip::tcp::tcp::socket socket{io_context};
-            auto eit = endpoints.cbegin();
-            for (; eit != endpoints.cend(); eit++)
-            {
-                boost::system::error_code ec;
-                boost::asio::ip::tcp::endpoint endpoint = *eit;
-                socket.connect(endpoint, ec);
-                if (!ec)
-                {
-                    std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
-                    break;
-                }
-            }
-    
-            if (eit == endpoints.cend())
-            {
-                std::cout &lt;&lt; &quot;Connect failed!\n&quot;;
-                return  -1;
-            }
-        }
-        catch (std::exception&amp; e)
-        {
-            std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-            return -1;
-        }
-    
-        return 0;
-    }
-</code></pre>
-<p>O resultado da execução será:</p>
-<pre><code>Connect to 172.217.194.139:443 successfully!
-</code></pre>
-<a class="header" href="print.html#accept-connections" id="accept-connections"><h1>Accept connections</h1></a>
-<p>Para que o servidor aceite a conexão dos clientes. O servidor precisará criar um <code>acceptor</code>:</p>
-<pre><code class="language-cpp">    ......
-    boost::asio::io_context io_context;
-        boost::asio::ip::tcp::acceptor acceptor{
-            io_context,
-            boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v6(), 3303}};
-    ......
-</code></pre>
-<p><code>boost::asio::ip::tcp::acceptor</code> é uma instância de <code>basic_socket_acceptor</code>:</p>
-<pre><code class="language-cpp">    class tcp
-    {
-    ......
-      /// The TCP acceptor type.
-      typedef basic_socket_acceptor&lt;tcp&gt; acceptor;
-    ......
-    }
-</code></pre>
-<p>O construtor <code>basic_socket_acceptor</code> combinará criação de socket, configuração de endereço de reutilização, funções binding &amp; listening:</p>
-<pre><code class="language-cpp">    basic_socket_acceptor(boost::asio::io_context&amp; io_context,
-        const endpoint_type&amp; endpoint, bool reuse_addr = true)
-      : basic_io_object&lt;BOOST_ASIO_SVC_T&gt;(io_context)
-    {
-    ......
-    }
-</code></pre>
-<p>Então o <code>acceptor</code> aceitará as conexões dos clientes. O código abaixo mostra o endereço do cliente e fecha a conexão:</p>
-<pre><code class="language-cpp">    #include &lt;boost/asio.hpp&gt;
-    #include &lt;iostream&gt;
-    
-    int main()
-    {
-        try
-        {
-            boost::asio::io_context io_context;
-            boost::asio::ip::tcp::acceptor acceptor{
-                io_context,
-                boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v6(), 3303}};
-    
-            while (1)
-            {
-                boost::asio::ip::tcp::socket socket{io_context};
-                acceptor.accept(socket);
-    
-                std::cout &lt;&lt; socket.remote_endpoint() &lt;&lt; &quot; connects to &quot; &lt;&lt; socket.local_endpoint() &lt;&lt; '\n';
-            }
-        }
-        catch (std::exception&amp; e)
-        {
-            std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-            return -1;
-        }
-    
-        return 0;
-    }
-</code></pre>
-<p>O resultado da execução será:</p>
-<pre><code>[::ffff:10.217.242.61]:39290 connects to [::ffff:192.168.35.145]:3303
-......
-</code></pre>
-<a class="header" href="print.html#strands-usar-threads-sem-bloqueio-explícito" id="strands-usar-threads-sem-bloqueio-explícito"><h1><code>Strands</code>: Usar threads sem bloqueio explícito</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="strands-usar-threads-sem-bloqueio-explícito"><a class="header" href="#strands-usar-threads-sem-bloqueio-explícito"><code>Strands</code>: Usar threads sem bloqueio explícito</a></h1>
 <p>Uma thread é definida como uma chamada estritamente sequencial de manipuladores de eventos[event handler] (ou seja, nenhuma chamada simultânea). O uso de <code>strand</code> permite a execução de código em um programa multithread sem a necessidade de bloqueio explícito (por exemplo, usando <code>mutex</code>[exclusão mútua]). E pode ser usado para sincronizar mais cenários.</p>
 <p><code>Strand</code> agrupa tarefas. Tarefas do mesmo <code>strand</code> não podem rodar em paralelo, mas quando suspensas, podem ser executadas em outra thread quando acordarem da próxima vez.</p>
 <p>As <code>strands</code> podem ser implícitas ou explícitas, conforme ilustrado pelas seguintes abordagens alternativas:</p>
@@ -798,84 +632,461 @@ Este socket combina fluxo(stream) e datagrama: fornece um serviço de datagramas
     void operator()() { ... }
     };
 </code></pre>
-<a class="header" href="print.html#operações-síncronas-es" id="operações-síncronas-es"><h1>Operações síncronas E/S</h1></a>
-<p>Depois que a conexão é estabelecida, o cliente e o servidor podem se comunicar. Como na API sockets do <code>UNIX</code>, o <code>boost::asio</code> também fornece as funções <code>send</code> e<code>receive</code> Use <code>basic_stream_socket</code> como exemplo e um par de implementações assim:</p>
-<pre><code class="language-cpp">    template &lt;typename ConstBufferSequence&gt;
-    std::size_t send(const ConstBufferSequence&amp; buffers)
-    {
-        ......
-    }
-    ......
-    template &lt;typename MutableBufferSequence&gt;
-    std::size_t receive(const MutableBufferSequence&amp; buffers)
-    {
-        ......
-    }
+<div style="break-before: page; page-break-before: always;"></div><h1 id="corrotina"><a class="header" href="#corrotina">Corrotina</a></h1>
+<p>Corrotinas são uma técnica de programação que permite que uma função seja dividida em várias partes, cada uma delas sendo executada de forma separada. Elas são usadas para criar funções assíncronas, ou seja, funções que podem ser &quot;pausadas&quot; e retomadas posteriormente, permitindo que o programa execute outras tarefas enquanto aguarda a conclusão de uma operação.</p>
+<p>Por exemplo, suponha que você tenha uma função que faz uma chamada de rede para obter os dados de um determinado recurso. Usando corrotinas, você pode escrever essa função de forma síncrona, como se a chamada de rede fosse imediatamente concluída, e depois usar as corrotinas para &quot;pausar&quot; a execução da função enquanto aguarda a resposta da chamada de rede. Isso permite que o programa execute outras tarefas enquanto aguarda a resposta, em vez de ficar &quot;bloqueado&quot; aguardando a conclusão da chamada de rede.</p>
+<h2 id="como-usar-corrotinas-no-c"><a class="header" href="#como-usar-corrotinas-no-c">Como usar corrotinas no C++</a></h2>
+<p>No C++, existem duas maneiras de criar corrotinas: a primeira é usando a biblioteca Asio, e a segunda é usando o recurso <code>std::coroutine</code>, que foi adicionado ao C++20. As corrotinas <code>&lt;coroutine&gt;</code> são baseadas em uma nova sintaxe de linguagem do C++ e são mais fáceis de usar do que as corrotinas Asio, mas elas ainda são um recurso relativamente novo e podem não estar disponíveis em todas as implementações do C++.</p>
+<p>Em resumo, as corrotinas Asio são uma maneira de criar e executar corrotinas no C++ usando a biblioteca Asio, enquanto as corrotinas <code>&lt;coroutine&gt;</code> são uma maneira de criar corrotinas usando uma nova sintaxe de linguagem adicionada ao C++20. Ambas as opções permitem que você crie funções assíncronas de forma fácil e eficiente.</p>
+<p>Uma vantagem das corrotinas Asio é que elas podem ser usadas com qualquer biblioteca ou sistema que suporte a biblioteca Asio, o que significa que elas são compatíveis com uma ampla variedade de plataformas de rede. Além disso, as corrotinas Asio fornecem uma maneira de escrever código assíncrono de forma mais clara e legível, pois permitem que você escreva código síncrono que é &quot;convertido&quot; em código assíncrono pelo próprio Asio.</p>
+<p>Por outro lado, as corrotinas são baseadas em uma nova sintaxe de linguagem e, por esse motivo, podem ser mais fáceis de usar do que as corrotinas Asio. Além disso, elas podem ser mais eficientes em termos de desempenho, pois elas são implementadas diretamente na linguagem C++ e não dependem de uma biblioteca externa. No entanto, elas ainda são um recurso relativamente novo e podem não estar disponíveis em todas as implementações do C++.</p>
+<p>Em resumo, as corrotinas Asio e <code>std::coroutine</code> são duas maneiras diferentes de criar e executar corrotinas no C++. As corrotinas Asio são compatíveis com uma ampla variedade de plataformas e fornecem uma maneira de escrever código assíncrono de forma mais clara, enquanto as corrotinas <code>std::coroutine</code> são baseadas em uma nova sintaxe de linguagem e podem ser mais eficientes em termos de desempenho. Qual das duas opções é a melhor para você depende das suas necessidades e da plataforma em que está trabalhando.</p>
+<p>A seguir, um exemplo de como usar corrotinas Asio para fazer uma chamada HTTP GET assíncrona usando a biblioteca Asio:</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;boost/asio/co_spawn.hpp&gt;
+#include &lt;boost/asio/detached.hpp&gt;
+#include &lt;boost/asio/io_context.hpp&gt;
+#include &lt;boost/asio/ip/tcp.hpp&gt;
+
+#include &lt;boost/beast/core.hpp&gt;
+#include &lt;boost/beast/http.hpp&gt;
+#include &lt;boost/beast/version.hpp&gt;
+#include &lt;boost/asio/connect.hpp&gt;
+#include &lt;boost/asio/ip/tcp.hpp&gt;
+#include &lt;cstdlib&gt;
+
+namespace beast = boost::beast;         // from &lt;boost/beast.hpp&gt;
+namespace http = beast::http;           // from &lt;boost/beast/http.hpp&gt;
+namespace net = boost::asio;            // from &lt;boost/asio.hpp&gt;
+using tcp = net::ip::tcp;               // from &lt;boost/asio/ip/tcp.hpp&gt;
+
+// Realiza uma chamada HTTP GET assíncrona e imprime o corpo da resposta
+void async_http_get(net::io_context&amp; ioc, const std::string&amp; host, const std::string&amp; target)
+{
+    // Cria um socket TCP
+    tcp::resolver resolver{ioc};
+    beast::tcp_stream stream{ioc};
+
+    // Realiza a resolução do nome do host e conecta ao servidor
+    co_await resolver.async_resolve(host, &quot;http&quot;, net::use_awaitable);
+    co_await stream.async_connect(resolver.results(), net::use_awaitable);
+
+    // Cria uma solicitação HTTP e envia-a para o servidor
+    http::request&lt;http::string_body&gt; req{http::verb::get, target, 11};
+    req.set(http::field::host, host);
+    req.set(http::field::user_agent, BOOST_BEAST_VERSION_STRING);
+    co_await http::async_write(stream, req, net::use_awaitable);
+
+    // Recebe a resposta do servidor
+    beast::flat_buffer buffer;
+    http::response&lt;http::string_body&gt; res;
+    co_await http::async_read(stream, buffer, res, net::use_awaitable);
+
+    // Imprime o corpo da resposta
+    std::cout &lt;&lt; res &lt;&lt; std::endl;
+}
+
+int main()
+{
+    net::io_context ioc;
+
+    // Inicia a chamada HTTP GET assíncrona em uma corrotina
+    asio::co_spawn(ioc, [&amp;] {
+        co_return async_http_get(ioc, &quot;www.example.com&quot;, &quot;/&quot;);
+    }, asio::detached);
+
+    // Executa o event loop
+    ioc.run();
+
+    return EXIT_SUCCESS;
+}
+</code></pre>
+<p>Ao ter o primeiro contato com corrotinas em C++ (com asio) suponho que conhecerá novas palavras-chave que necessitará compreender, que são:</p>
+<ul>
+<li>
+<p><code>co_spawn</code>: é uma função da biblioteca Asio que permite criar e iniciar uma corrotina de forma assíncrona. Ela é usada para &quot;lançar&quot; uma corrotina em uma determinada contexto de I/O, permitindo que a corrotina execute tarefas assíncronas como fazer chamadas de rede ou ler e escrever em arquivos.</p>
+</li>
+<li>
+<p><code>co_yield</code>: é uma palavra-chave do C++ que permite que uma corrotina seja &quot;pausada&quot; e permita que outras corrotinas sejam executadas. Quando uma corrotina é &quot;pausada&quot; com <code>co_yield</code>, ela é suspensa temporariamente e permite que outras corrotinas sejam executadas. Quando outra corrotina termina sua execução, a corrotina &quot;pausada&quot; é retomada a partir do ponto onde foi interrompida.</p>
+</li>
+<li>
+<p><code>co_await</code>: é uma palavra-chave do C++ que permite que uma corrotina aguarde a conclusão de uma operação assíncrona. Quando uma corrotina encontra um co_await, ela é &quot;pausada&quot; até que a operação assíncrona seja concluída, permitindo que outras corrotinas sejam executadas enquanto aguarda.</p>
+</li>
+<li>
+<p><code>co_return</code>: é uma palavra-chave do C++ que permite que uma corrotina retorne um valor quando ela é concluída. É usado para encerrar a execução de uma corrotina e retornar o valor especificado para quem a chamou.</p>
+</li>
+<li>
+<p><code>detached</code>: é um parâmetro opcional que pode ser usado com a função co_spawn da biblioteca Asio. Ele indica que a corrotina deve ser executada de forma assíncrona e não precisa ser aguardada para concluir sua execução. Isso é útil quando você deseja que a corrotina execute uma tarefa de forma independente e não precisa saber quando ela termina.</p>
+</li>
+</ul>
+<p>As corrotinas Asio são uma extensão da biblioteca Asio que fornece suporte nativo para a criação e execução de corrotinas no C++. Elas permitem que você escreva código síncrono que é &quot;convertido&quot; em código assíncrono pelo próprio Asio, o que torna mais fácil criar funções assíncronas de forma clara e legível.</p>
+<p>Para usar corrotinas Asio, você precisa incluir o cabeçalho <code>&lt;asio/co_spawn.hpp&gt;</code> e usar a palavra-chave co_await para &quot;pausar&quot; a execução da corrotina enquanto aguarda a conclusão de uma operação assíncrona. Você também pode usar a palavra-chave <code>co_yield</code> para &quot;pausar&quot; a execução da corrotina e permitir que outras corrotinas sejam executadas.</p>
+<p>Além disso, as corrotinas Asio podem ser &quot;lançadas&quot; em um contexto de I/O usando a função <code>co_spawn</code>, que permite que a corrotina execute tarefas assíncronas como fazer chamadas de rede ou ler e escrever em arquivos. Você também pode usar a função <code>async_write</code> e <code>async_read</code> da biblioteca Asio para escrever e ler dados de forma assíncrona, respectivamente.</p>
+<p>Uma vantagem das corrotinas Asio é que elas podem ser usadas com qualquer biblioteca ou sistema que suporte a biblioteca Asio, o que significa que elas são compatíveis com uma ampla variedade de plataformas de rede. Além disso, as corrotinas Asio fornecem uma maneira de escrever código assíncrono de forma mais clara e legível, pois permitem que você escreva código síncrono que é &quot;convertido&quot; em código assíncrono pelo próprio Asio.</p>
+<p>No entanto, é importante lembrar que as corrotinas Asio dependem da biblioteca Asio para funcionar, o que pode afetar o desempenho em comparação com outras opções, como as corrotinas <code>std::coroutine</code>, que são implementadas diretamente na linguagem C++. Qual das duas opções é a melhor para você depende das suas necessidades e da plataforma em que está trabalhando.</p>
+<h4 id="completion-tokens"><a class="header" href="#completion-tokens">Completion Tokens</a></h4>
+<p>Em C++ ASIO, um <a href="https://think-async.com/Asio/asio-1.24.0/doc/asio/overview/model/completion_tokens.html">completion token</a> é um tipo de dado usado para especificar como uma operação assíncrona deve ser completada. Ele é passado como um parâmetro para uma função assíncrona e é usado para determinar como a função deve notificar o chamador quando a operação for concluída.</p>
+<p>Existem vários tipos de completion token disponíveis no C++ ASIO, como <code>asio::use_future</code> e <code>asio::use_awaitable</code>. Cada um desses tipos de completion token especifica uma forma diferente de completar a operação assíncrona.</p>
+<p>Por exemplo, o completion token <code>asio::use_future</code> é usado para completar a operação assíncrona retornando um objeto <code>std::future</code> que pode ser usado para obter o resultado da operação. Isso permite que o chamador da função assíncrona aguarde o término da operação de forma síncrona, usando a sintaxe de await do C++20.</p>
+<p>O completion token <code>asio::use_awaitable</code>, por outro lado, é usado para completar a operação assíncrona retornando um objeto awaitable que pode ser usado para aguardar o término da operação de forma assíncrona. Isso permite que o chamador da função assíncrona aguarde o término da operação de forma assíncrona, usando a sintaxe de await do C++20.</p>
+<p>Em resumo, os completion tokens são usados ​​no C++ ASIO para especificar como uma operação assíncrona deve ser completada. Eles são passados como parâmetros para funções assíncronas e são usados ​​para determinar como a função deve notificar o chamador quando a operação for concluída. Existem vários tipos de completion token disponíveis, cada um com suas próprias características e usos específicos.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="endpoint-ponto-de-extremidade"><a class="header" href="#endpoint-ponto-de-extremidade">Endpoint (Ponto de Extremidade)</a></h1>
+<p>Um <code>endpoint</code> é o nome para uma entidade em um terminal de uma conexão da <a href="https://pt.wikipedia.org/wiki/Camada_de_transporte">camada de transporte</a>. Ele é composto por: &quot;Endereço <a href="https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP">IP</a> + porta de conexão&quot;:</p>
+<pre><code class="language-cpp">	basic_endpoint(const boost::asio::ip::address&amp; addr, unsigned short port_num)
+	    : impl_(addr, port_num)
+	{
+		//TODO
+	}
+</code></pre>
+<p>O cliente usa o <code>endpoint</code> para designar o endereço do servidor, e o aplicativo do servidor usa o <code>endpoint</code> para identificar qual endereço será usado para escutar e aceitar conexões. Um exemplo de <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a> <code>endpoint</code> abaixo:</p>
+<pre><code class="language-cpp">	boost::asio::ip::tcp::endpoint endpoint{
+		boost::asio::ip::make_address(&quot;127.0.0.1&quot;), 3303};
+</code></pre>
+<p>Normalmente, o servidor precisa escutar(listen) todos os endereços da máquina atual e pode recorrer a outro construtor de <code>basic_endpoint</code>:</p>
+<pre><code class="language-cpp">	basic_endpoint(const InternetProtocol&amp; internet_protocol,
+	      unsigned short port_num)
+	    : impl_(internet_protocol.family(), port_num)
+	{
+	}
+</code></pre>
+<p>Um exemplo de servidor <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol">UDP</a> que escuta todos os endereços <code>IPv4</code> &amp; <code>IPv6</code>:</p>
+<pre><code class="language-cpp">	//IPv6
+	boost::asio::ip::udp::endpoint endpoint{
+            boost::asio::ip::udp::v6(),
+            3303};
+	...
+	//IPv4
+	boost::asio::ip::udp::endpoint endpoint{
+            boost::asio::ip::udp::v4(),
+            3306};
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="dns-query"><a class="header" href="#dns-query">DNS Query</a></h1>
+<p>A classe <code>resolver</code> é usada para fazer consultas <a href="https://pt.wikipedia.org/wiki/Sistema_de_Nomes_de_Dom%C3%ADnio">DNS</a>, ou seja, converter um serviço host + <a href="https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP">endereço IP</a> + porta.</p>
+<p>Veja <code>boost::asio::ip::tcp::resolver</code> no exemplo abaixo:</p>
+<pre><code class="language-cpp">
+	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::resolver resolver{io_context};
+	        boost::asio::ip::tcp::resolver::results_type endpoints =
+	                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
+	
+	        for (auto it = endpoints.cbegin(); it != endpoints.cend(); it++)
+	        {
+	            boost::asio::ip::tcp::endpoint endpoint = *it;
+	            std::cout &lt;&lt; endpoint &lt;&lt; '\n';
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	    }
+	
+	    return 0;
+	}
+</code></pre>
+<p>O resultado da execução será:</p>
+<pre><code>74.125.24.101:443
+74.125.24.139:443
+74.125.24.138:443
+74.125.24.102:443
+74.125.24.100:443
+74.125.24.113:443
+</code></pre>
+<p>O elemento <code>boost::asio::ip::tcp::resolver::results_type</code> é o iterador de <code>basic_resolver_entry</code>: </p>
+<pre><code class="language-cpp">	template &lt;typename InternetProtocol&gt;
+	class basic_resolver_entry
+	{
+	......
+	public:
+	  /// The protocol type associated with the endpoint entry.
+	  typedef InternetProtocol protocol_type;
+	
+	  /// The endpoint type associated with the endpoint entry.
+	  typedef typename InternetProtocol::endpoint endpoint_type;
+	......
+	  /// Convert to the endpoint associated with the entry.
+	  operator endpoint_type() const
+	  {
+	    return endpoint_;
+	  }
+	......
+	}
+</code></pre>
+<p>Como ele possui o operador <code>endpoint_type()</code>, ele pode ser convertido diretamente no endpoint:</p>
+<pre><code class="language-cpp">	boost::asio::ip::tcp::endpoint endpoint = *it;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exceção"><a class="header" href="#exceção">Exceção</a></h1>
+<p>As funções do <code>Asio</code> podem gerar a exceção <code>boost::system::system_error</code>. Veja o <a href="cpp-asio/dns-query.html"><code>resolve</code></a> no exemplo abaixo:</p>
+<pre><code class="language-cpp">	results_type resolve(BOOST_ASIO_STRING_VIEW_PARAM host,
+		BOOST_ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags)
+	{
+	  boost::system::error_code ec;
+	  ......
+	  boost::asio::detail::throw_error(ec, &quot;resolve&quot;);
+	  return r;
+	}
+</code></pre>
+<p>Há duas sobrecargas de funções <code>boost::asio::detail::throw_error</code>:</p>
+<pre><code class="language-cpp">	inline void throw_error(const boost::system::error_code&amp; err)
+	{
+	  if (err)
+	    do_throw_error(err);
+	}
+	
+	inline void throw_error(const boost::system::error_code&amp; err,
+	    const char* location)
+	{
+	  if (err)
+	    do_throw_error(err, location);
+	}
+</code></pre>
+<p>As diferenças dessas duas funções é que estão apenas incluindo a string &quot;location&quot; (&quot;<code>resolve</code>&quot; no nosso exemplo) ou não. Assim, o <code>do_throw_error</code> também tem duas sobrecargas, veja uma como exemplo:</p>
+<pre><code class="language-cpp">	void do_throw_error(const boost::system::error_code&amp; err, const char* location)
+	{
+	  boost::system::system_error e(err, location);
+	  boost::asio::detail::throw_exception(e);
+	}
+</code></pre>
+<p><code>boost::system::system_error</code> deriva de <code>std::runtime_error</code>:</p>
+<pre><code class="language-cpp">	class BOOST_SYMBOL_VISIBLE system_error : public std::runtime_error
+	{
+	......
+	public:
+	      system_error( error_code ec )
+	          : std::runtime_error(&quot;&quot;), m_error_code(ec) {}
+	
+	      system_error( error_code ec, const std::string &amp; what_arg )
+	          : std::runtime_error(what_arg), m_error_code(ec) {}
+	......
+	      const error_code &amp;  code() const BOOST_NOEXCEPT_OR_NOTHROW { return m_error_code; }
+	      const char *        what() const BOOST_NOEXCEPT_OR_NOTHROW;
+	......
+	}
+</code></pre>
+<p>A função membro chamado <code>what()</code> retorna as informações detalhadas da exceção.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="conectar-servidor"><a class="header" href="#conectar-servidor">Conectar Servidor</a></h1>
+<p>O cliente pode usar os endpoints retornados por <a href="cpp-asio/dns-query.html">DNS</a> para conectar o aplicativo servidor. Veja o código abaixo:</p>
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::resolver resolver{io_context};
+	        boost::asio::ip::tcp::resolver::results_type endpoints =
+	                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
+	
+	        boost::asio::ip::tcp::tcp::socket socket{io_context};
+	        auto endpoint = boost::asio::connect(socket, endpoints);
+	
+	        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
+</code></pre>
+<p>O resultado da execução será:</p>
+<pre><code>Connect to 172.217.194.101:443 successfully!
+</code></pre>
+<p>Observe que o <code>boost::asio::connect</code> requer o iterador de endpoints. Se você quiser apenas um endpoint específico, poderá usar a função membro <code>connect</code> do socket. Verifique o código abaixo:</p>
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::resolver resolver{io_context};
+	        boost::asio::ip::tcp::resolver::results_type endpoints =
+	                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
+	
+	        boost::asio::ip::tcp::tcp::socket socket{io_context};
+	        auto eit = endpoints.cbegin();
+	        for (; eit != endpoints.cend(); eit++)
+	        {
+	            boost::system::error_code ec;
+	            boost::asio::ip::tcp::endpoint endpoint = *eit;
+	            socket.connect(endpoint, ec);
+	            if (!ec)
+	            {
+	                std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+	                break;
+	            }
+	        }
+	
+	        if (eit == endpoints.cend())
+	        {
+	            std::cout &lt;&lt; &quot;Connect failed!\n&quot;;
+	            return  -1;
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
+</code></pre>
+<p>O resultado da execução será:</p>
+<pre><code>Connect to 172.217.194.139:443 successfully!
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="accept-connections"><a class="header" href="#accept-connections">Accept connections</a></h1>
+<p>Para que o servidor aceite a conexão dos clientes. O servidor precisará criar um <code>acceptor</code>:</p>
+<pre><code class="language-cpp">	......
+	boost::asio::io_context io_context;
+        boost::asio::ip::tcp::acceptor acceptor{
+            io_context,
+            boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v6(), 3303}};
+	......
+</code></pre>
+<p><code>boost::asio::ip::tcp::acceptor</code> é uma instância de <code>basic_socket_acceptor</code>:</p>
+<pre><code class="language-cpp">	class tcp
+	{
+	......
+	  /// The TCP acceptor type.
+	  typedef basic_socket_acceptor&lt;tcp&gt; acceptor;
+	......
+	}
+</code></pre>
+<p>O construtor <code>basic_socket_acceptor</code> combinará criação de socket, configuração de endereço de reutilização, funções binding &amp; listening:</p>
+<pre><code class="language-cpp">	basic_socket_acceptor(boost::asio::io_context&amp; io_context,
+	    const endpoint_type&amp; endpoint, bool reuse_addr = true)
+	  : basic_io_object&lt;BOOST_ASIO_SVC_T&gt;(io_context)
+	{
+	......
+	}
+</code></pre>
+<p>Então o <code>acceptor</code> aceitará as conexões dos clientes. O código abaixo mostra o endereço do cliente e fecha a conexão:</p>
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	        boost::asio::ip::tcp::acceptor acceptor{
+	            io_context,
+	            boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v6(), 3303}};
+	
+	        while (1)
+	        {
+	            boost::asio::ip::tcp::socket socket{io_context};
+	            acceptor.accept(socket);
+	
+	            std::cout &lt;&lt; socket.remote_endpoint() &lt;&lt; &quot; connects to &quot; &lt;&lt; socket.local_endpoint() &lt;&lt; '\n';
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
+</code></pre>
+<p>O resultado da execução será:</p>
+<pre><code>[::ffff:10.217.242.61]:39290 connects to [::ffff:192.168.35.145]:3303
+......
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="operações-síncronas-es"><a class="header" href="#operações-síncronas-es">Operações síncronas E/S</a></h1>
+<p>Depois que a conexão é estabelecida, o cliente e o servidor podem se comunicar. Como na API sockets do <code>UNIX</code>, o <code>boost::asio</code> também fornece as funções <code>send</code> e<code> receive</code> Use <code>basic_stream_socket</code> como exemplo e um par de implementações assim:</p>
+<pre><code class="language-cpp">	template &lt;typename ConstBufferSequence&gt;
+  	std::size_t send(const ConstBufferSequence&amp; buffers)
+	{
+		......
+	}
+	......
+	template &lt;typename MutableBufferSequence&gt;
+  	std::size_t receive(const MutableBufferSequence&amp; buffers)
+	{
+		......
+	}
 </code></pre>
 <p>Observe que os tipos de buffer de <code>send/receive</code> são <code>ConstBufferSequence/MutableBufferSequence</code>, e podemos usar a função <code>boost::asio::buffer</code> para construir tipos relacionados.</p>
 <p>Abaixo está um programa cliente que envia &quot;<code>Hello world!</code>&quot; Para o servidor após o estabelecimento da conexão:</p>
-<pre><code class="language-cpp">    #include &lt;boost/asio.hpp&gt;
-    #include &lt;iostream&gt;
-    
-    int main()
-    {
-        try
-        {
-            boost::asio::io_context io_context;
-    
-            boost::asio::ip::tcp::endpoint endpoint{
-                    boost::asio::ip::make_address(&quot;10.217.242.61&quot;),
-                    3303};
-            boost::asio::ip::tcp::tcp::socket socket{io_context};
-            socket.connect(endpoint);
-    
-            std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
-    
-            socket.send(boost::asio::buffer(&quot;Hello world!&quot;));
-        }
-        catch (std::exception&amp; e)
-        {
-            std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-            return -1;
-        }
-    
-        return 0;
-    }
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::endpoint endpoint{
+	                boost::asio::ip::make_address(&quot;10.217.242.61&quot;),
+	                3303};
+	        boost::asio::ip::tcp::tcp::socket socket{io_context};
+	        socket.connect(endpoint);
+	
+	        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+	
+	        socket.send(boost::asio::buffer(&quot;Hello world!&quot;));
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
 <p>O programa servidor que aguarda o recebimento da saudação do cliente:</p>
-<pre><code class="language-cpp">    #include &lt;boost/asio.hpp&gt;
-    #include &lt;iostream&gt;
-    
-    int main()
-    {
-        try
-        {
-            boost::asio::io_context io_context;
-            boost::asio::ip::tcp::acceptor acceptor{
-                    io_context,
-                    boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v4(), 3303}};
-    
-            while (1)
-            {
-                boost::asio::ip::tcp::socket socket{io_context};
-                acceptor.accept(socket);
-    
-                std::cout &lt;&lt; socket.remote_endpoint() &lt;&lt; &quot; connects to &quot; &lt;&lt; socket.local_endpoint() &lt;&lt; '\n';
-    
-                char recv_str[1024] = {};
-                socket.receive(boost::asio::buffer(recv_str));
-    
-                std::cout &lt;&lt; &quot;Receive string: &quot; &lt;&lt; recv_str &lt;&lt; '\n';
-            }
-        }
-        catch (std::exception&amp; e)
-        {
-            std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-            return -1;
-        }
-    
-        return 0;
-    }
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	        boost::asio::ip::tcp::acceptor acceptor{
+	                io_context,
+	                boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v4(), 3303}};
+	
+	        while (1)
+	        {
+	            boost::asio::ip::tcp::socket socket{io_context};
+	            acceptor.accept(socket);
+	
+	            std::cout &lt;&lt; socket.remote_endpoint() &lt;&lt; &quot; connects to &quot; &lt;&lt; socket.local_endpoint() &lt;&lt; '\n';
+	
+	            char recv_str[1024] = {};
+	            socket.receive(boost::asio::buffer(recv_str));
+	
+	            std::cout &lt;&lt; &quot;Receive string: &quot; &lt;&lt; recv_str &lt;&lt; '\n';
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
 <p>Compile e execute os programas. O cliente exibirá o seguinte:</p>
 <pre><code>$ ./client
@@ -886,176 +1097,176 @@ Connect to 10.217.242.61:3303 successfully!
 10.217.242.21:64776 connects to 10.217.242.61:3303
 Receive string: Hello world!
 </code></pre>
-<p>Se nenhum erro ocorrer, o <code>send</code> pode garantir que pelo menos um byte seja enviado com sucesso, e você deve verificar o valor de retorno para ver se todos os bytes foram enviados com sucesso ou não. <code>receive</code> é semelhante a <code>send</code>. O <code>boost::asio::basic_stream_socket</code> também fornece<code>read_some</code> e <code>write_some</code>, que têm as mesmas funções que <code>receive</code> e <code>send</code>.</p>
+<p>Se nenhum erro ocorrer, o <code>send</code> pode garantir que pelo menos um byte seja enviado com sucesso, e você deve verificar o valor de retorno para ver se todos os bytes foram enviados com sucesso ou não. <code>receive</code> é semelhante a <code>send</code>. O <code>boost::asio::basic_stream_socket</code> também fornece<code> read_some</code> e <code>write_some</code>, que têm as mesmas funções que <code>receive</code> e <code>send</code>.</p>
 <p>Se não nos preocuparmos em verificar o estado do meio (bytes parciais são enviados com sucesso), e apenas nos importarmos se todos os bytes serão enviados com sucesso ou não, podemos usar o <code>boost::asio::write</code> que usa o <code>write_some</code> por baixo. Da mesma forma, não é difícil adivinhar o que <code>boost::asio::read</code> faz.</p>
-<a class="header" href="print.html#operações-assíncronas-es" id="operações-assíncronas-es"><h1>Operações Assíncronas E/S</h1></a>
-<p>Diferentemente da API sockets do <code>UNIX</code>, o<code>Asio</code> possui habilidades de leitura &amp; gravação(read/write) assíncronas inclusas. Ainda pode usar <code>basic_stream_socket</code> como exemplo, e um par de implementações assim:</p>
-<pre><code class="language-cpp">    template &lt;typename ConstBufferSequence, typename WriteHandler&gt;
-      BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
-          void (boost::system::error_code, std::size_t))
-      async_send(const ConstBufferSequence&amp; buffers,
-          BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
-    {
-        .......
-    }
-    template &lt;typename MutableBufferSequence, typename ReadHandler&gt;
-      BOOST_ASIO_INITFN_RESULT_TYPE(ReadHandler,
-          void (boost::system::error_code, std::size_t))
-      async_receive(const MutableBufferSequence&amp; buffers,
-          BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
-    {
-        .......
-    }
+<div style="break-before: page; page-break-before: always;"></div><h1 id="operações-assíncronas-es"><a class="header" href="#operações-assíncronas-es">Operações Assíncronas E/S</a></h1>
+<p>Diferentemente da API sockets do <code>UNIX</code>, o<code> Asio</code> possui habilidades de leitura &amp; gravação(read/write) assíncronas inclusas. Ainda pode usar <code>basic_stream_socket</code> como exemplo, e um par de implementações assim:</p>
+<pre><code class="language-cpp">	template &lt;typename ConstBufferSequence, typename WriteHandler&gt;
+	  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
+	      void (boost::system::error_code, std::size_t))
+	  async_send(const ConstBufferSequence&amp; buffers,
+	      BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
+	{
+		.......
+	}
+	template &lt;typename MutableBufferSequence, typename ReadHandler&gt;
+	  BOOST_ASIO_INITFN_RESULT_TYPE(ReadHandler,
+	      void (boost::system::error_code, std::size_t))
+	  async_receive(const MutableBufferSequence&amp; buffers,
+	      BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
+	{
+		.......
+	}
 </code></pre>
 <p>Como as funções <code>async_send</code> e <code>async_receive</code> retornam imediatamente, e não bloqueiam a thread atual, você deve passar uma função de retorno de chamada como o parâmetro que recebe o resultado das operações de leitura &amp; gravação:</p>
-<pre><code class="language-cpp">    void handler(
-        const boost::system::error_code&amp; error, // Result of operation.
-        std::size_t bytes_transferred           // Number of bytes processed.
-    )
+<pre><code class="language-cpp">	void handler(
+		const boost::system::error_code&amp; error, // Result of operation.
+		std::size_t bytes_transferred           // Number of bytes processed.
+	)
 </code></pre>
 <p>Há um exemplo simples de cliente/servidor. Abaixo está o código do cliente:</p>
-<pre><code class="language-cpp">    #include &lt;boost/asio.hpp&gt;
-    #include &lt;functional&gt;
-    #include &lt;iostream&gt;
-    #include &lt;memory&gt;
-    
-    void callback(
-            const boost::system::error_code&amp; error,
-            std::size_t bytes_transferred,
-            std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket,
-            std::string str)
-    {
-        if (error)
-        {
-            std::cout &lt;&lt; error.message() &lt;&lt; '\n';
-        }
-        else if (bytes_transferred == str.length())
-        {
-            std::cout &lt;&lt; &quot;Message is sent successfully!&quot; &lt;&lt; '\n';
-        }
-        else
-        {
-            socket-&gt;async_send(
-                    boost::asio::buffer(str.c_str() + bytes_transferred, str.length() - bytes_transferred),
-                    std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
-        }
-    }	
-    
-    int main()
-    {
-        try
-        {
-            boost::asio::io_context io_context;
-    
-            boost::asio::ip::tcp::endpoint endpoint{
-                    boost::asio::ip::make_address(&quot;192.168.35.145&quot;),
-                    3303};
-    
-            std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
-            socket-&gt;connect(endpoint);
-    
-            std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
-    
-            std::string str{&quot;Hello world!&quot;};
-            socket-&gt;async_send(
-                    boost::asio::buffer(str),
-                    std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
-            socket-&gt;get_executor().context().run();
-        }
-        catch (std::exception&amp; e)
-        {
-            std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-            return -1;
-        }
-    
-        return 0;
-    }
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;functional&gt;
+	#include &lt;iostream&gt;
+	#include &lt;memory&gt;
+	
+	void callback(
+	        const boost::system::error_code&amp; error,
+	        std::size_t bytes_transferred,
+	        std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket,
+	        std::string str)
+	{
+	    if (error)
+	    {
+	        std::cout &lt;&lt; error.message() &lt;&lt; '\n';
+	    }
+	    else if (bytes_transferred == str.length())
+	    {
+	        std::cout &lt;&lt; &quot;Message is sent successfully!&quot; &lt;&lt; '\n';
+	    }
+	    else
+	    {
+	        socket-&gt;async_send(
+	                boost::asio::buffer(str.c_str() + bytes_transferred, str.length() - bytes_transferred),
+	                std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
+	    }
+	}	
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::endpoint endpoint{
+	                boost::asio::ip::make_address(&quot;192.168.35.145&quot;),
+	                3303};
+	
+	        std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
+	        socket-&gt;connect(endpoint);
+	
+	        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
+	
+	        std::string str{&quot;Hello world!&quot;};
+	        socket-&gt;async_send(
+	                boost::asio::buffer(str),
+	                std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
+	        socket-&gt;get_executor().context().run();
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
 <p>Vamos analisar o código:</p>
-<p>(1) Como o objeto sockets é non-copyable (<a href="socket.md">sockets</a>), sockets é criado como um ponteiro inteligente de memória compartilhada (shared_pointer):</p>
-<pre><code class="language-cpp">    ......
-    std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
-    ......
+<p>(1) Como o objeto sockets é non-copyable (<a href="cpp-asio/socket.html">sockets</a>), sockets é criado como um ponteiro inteligente de memória compartilhada (shared_pointer):</p>
+<pre><code class="language-cpp">	......
+	std::shared_ptr&lt;boost::asio::ip::tcp::socket&gt; socket{new boost::asio::ip::tcp::socket{io_context}};
+	......
 </code></pre>
 <p>(2) Como o <code>callback</code> possui apenas dois parâmetros, ele precisa usar <code>std::bind</code> para passar parâmetros adicionais:</p>
-<pre><code class="language-cpp">    ......
-    std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str)
-    ......
+<pre><code class="language-cpp">	......
+	std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str)
+	......
 </code></pre>
 <p>(3) <code>async_send</code> não garante que todos os bytes sejam enviados (<code>boost::asio::async_write</code> retorna todos os bytes enviados com sucesso ou ocorre um erro), portanto, é necessário reemitir <code>async_send</code> no <code>callback</code>:</p>
-<pre><code class="language-cpp">    ......
-    if (error)
-    {
-        ......
-    }
-    else if (bytes_transferred == str.length())
-    {
-        ......
-    }
-    else
-    {
-        socket-&gt;async_send(......);
-    }
+<pre><code class="language-cpp">	......
+	if (error)
+	{
+	    ......
+	}
+	else if (bytes_transferred == str.length())
+	{
+	    ......
+	}
+	else
+	{
+	    socket-&gt;async_send(......);
+	}
 </code></pre>
-<p>(4) A função <code>io_context.run</code> será bloqueada até que todo o trabalho termine e não haja mais handlers(manipuladores) a serem despachados, ou até que o<code>io_context</code> seja interrompido:</p>
-<pre><code class="language-cpp">    socket-&gt;get_executor().context().run();
+<p>(4) A função <code>io_context.run</code> será bloqueada até que todo o trabalho termine e não haja mais handlers(manipuladores) a serem despachados, ou até que o<code> io_context</code> seja interrompido:</p>
+<pre><code class="language-cpp">	socket-&gt;get_executor().context().run();
 </code></pre>
 <p>Se não houver a função <code>io_context.run</code>, o programa será encerrado imediatamente.</p>
 <p>Verifique o código do servidor que usa <code>async_receive</code>:</p>
-<pre><code class="language-cpp">    #include &lt;ctime&gt;
-    #include &lt;functional&gt;
-    #include &lt;iostream&gt;
-    #include &lt;string&gt;
-    #include &lt;boost/asio.hpp&gt;
-    
-    void callback(
-            const boost::system::error_code&amp; error,
-            std::size_t,
-            char recv_str[]) {
-        if (error)
-        {
-            std::cout &lt;&lt; error.message() &lt;&lt; '\n';
-        }
-        else
-        {
-            std::cout &lt;&lt; recv_str &lt;&lt; '\n';
-        }
-    }
-    
-    int main()
-    {
-        try
-        {
-            boost::asio::io_context io_context;
-    
-            boost::asio::ip::tcp::acceptor acceptor(
-                                            io_context,
-                                            boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), 3303));
-    
-            for (;;)
-            {
-                boost::asio::ip::tcp::socket socket(io_context);
-                acceptor.accept(socket);
-    
-                char recv_str[1024] = {};
-                socket.async_receive(
-                        boost::asio::buffer(recv_str),
-                        std::bind(callback, std::placeholders::_1, std::placeholders::_2, recv_str));
-                socket.get_executor().context().run();
-                socket.get_executor().context().restart();
-            }
-        }
-        catch (std::exception&amp; e)
-        {
-            std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
-        }
-    
-        return 0;
-    }
+<pre><code class="language-cpp">	#include &lt;ctime&gt;
+	#include &lt;functional&gt;
+	#include &lt;iostream&gt;
+	#include &lt;string&gt;
+	#include &lt;boost/asio.hpp&gt;
+	
+	void callback(
+	        const boost::system::error_code&amp; error,
+	        std::size_t,
+	        char recv_str[]) {
+	    if (error)
+	    {
+	        std::cout &lt;&lt; error.message() &lt;&lt; '\n';
+	    }
+	    else
+	    {
+	        std::cout &lt;&lt; recv_str &lt;&lt; '\n';
+	    }
+	}
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::tcp::acceptor acceptor(
+	                                        io_context,
+	                                        boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), 3303));
+	
+	        for (;;)
+	        {
+	            boost::asio::ip::tcp::socket socket(io_context);
+	            acceptor.accept(socket);
+	
+	            char recv_str[1024] = {};
+	            socket.async_receive(
+	                    boost::asio::buffer(recv_str),
+	                    std::bind(callback, std::placeholders::_1, std::placeholders::_2, recv_str));
+	            socket.get_executor().context().run();
+	            socket.get_executor().context().restart();
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
 <p>Há duas advertências às quais você precisa prestar atenção:</p>
 <p>(1) Apenas para fins de demonstração: para cada cliente, o <code>callback</code> é chamado apenas uma vez;<br />
-(2) O <code>io_context.restart</code> deve ser chamado para chamar outro<code>io_context.run</code>.</p>
+(2) O <code>io_context.restart</code> deve ser chamado para chamar outro<code> io_context.run</code>.</p>
 <p>Da mesma forma, você também pode verificar como usar o <code>boost::asio::async_read</code>.</p>
 <p>Compile e execute os programas.</p>
 <p>O cliente exibirá o seguinte:</p>
@@ -1067,78 +1278,78 @@ Message is sent successfully!
 <pre><code>$ ./server
 Hello world!
 </code></pre>
-<a class="header" href="print.html#protocolo-udp" id="protocolo-udp"><h1>Protocolo UDP</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="protocolo-udp"><a class="header" href="#protocolo-udp">Protocolo UDP</a></h1>
 <p>Nós discutimos como se comunicar através do <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a> o suficiente, então é hora de mudar para o <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol">UDP</a> agora. O <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol">UDP</a> é um protocolo sem conexão e não confiável, mas é mais fácil de usar que o <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a>.</p>
-<p>Há um exemplo de Cliente/Servidor.</p>
-<a class="header" href="print.html#cliente" id="cliente"><h3><em>Cliente</em>:</h3></a>
-<pre><code class="language-cpp">    #include &lt;boost/asio.hpp&gt;
-    #include &lt;iostream&gt;
-    
-    int main()
-    {
-        try
-        {
-            boost::asio::io_context io_context;
-    
-            boost::asio::ip::udp::socket socket{io_context};
-            socket.open(boost::asio::ip::udp::v4());
-    
-            socket.send_to(
-                    boost::asio::buffer(&quot;Welcome to C++ Networking.&quot;),
-                    boost::asio::ip::udp::endpoint{boost::asio::ip::make_address(&quot;192.168.35.145&quot;), 3303});
-        }
-        catch (std::exception&amp; e)
-        {
-            std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-            return -1;
-        }
-    
-        return 0;
-    }
+<p>Há um exemplo de Cliente/Servidor. </p>
+<h3 id="cliente"><a class="header" href="#cliente"><em>Cliente</em>:</a></h3>
+<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
+	#include &lt;iostream&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        boost::asio::ip::udp::socket socket{io_context};
+	        socket.open(boost::asio::ip::udp::v4());
+	
+	        socket.send_to(
+	                boost::asio::buffer(&quot;Welcome to C++ Networking.&quot;),
+	                boost::asio::ip::udp::endpoint{boost::asio::ip::make_address(&quot;192.168.35.145&quot;), 3303});
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+	        return -1;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
 <p>Embora não seja necessário chamar a função <code>socket.connect</code>, você precisa chamar explicitamente o <code>socket.open</code>. Além disso, o <code>endpoint</code> do servidor precisa ser especificado ao chamar <code>socket.send_to</code>.</p>
-<a class="header" href="print.html#servidor" id="servidor"><h3><em>Servidor</em>:</h3></a>
-<pre><code class="language-cpp">    #include &lt;ctime&gt;
-    #include &lt;functional&gt;
-    #include &lt;iostream&gt;
-    #include &lt;string&gt;
-    #include &lt;boost/asio.hpp&gt;
-    
-    int main()
-    {
-        try
-        {
-            boost::asio::io_context io_context;
-    
-            for (;;)
-            {
-                boost::asio::ip::udp::socket socket(
-                        io_context,
-                        boost::asio::ip::udp::endpoint{boost::asio::ip::udp::v4(), 3303});
-    
-                boost::asio::ip::udp::endpoint client;
-                char recv_str[1024] = {};
-    
-                socket.receive_from(
-                        boost::asio::buffer(recv_str),
-                        client);
-                std::cout &lt;&lt; client &lt;&lt; &quot;: &quot; &lt;&lt; recv_str &lt;&lt; '\n';
-            }
-        }
-        catch (std::exception&amp; e)
-        {
-            std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
-        }
-    
-        return 0;
-    }
+<h3 id="servidor"><a class="header" href="#servidor"><em>Servidor</em>:</a></h3>
+<pre><code class="language-cpp">	#include &lt;ctime&gt;
+	#include &lt;functional&gt;
+	#include &lt;iostream&gt;
+	#include &lt;string&gt;
+	#include &lt;boost/asio.hpp&gt;
+	
+	int main()
+	{
+	    try
+	    {
+	        boost::asio::io_context io_context;
+	
+	        for (;;)
+	        {
+	            boost::asio::ip::udp::socket socket(
+	                    io_context,
+	                    boost::asio::ip::udp::endpoint{boost::asio::ip::udp::v4(), 3303});
+	
+	            boost::asio::ip::udp::endpoint client;
+	            char recv_str[1024] = {};
+	
+	            socket.receive_from(
+	                    boost::asio::buffer(recv_str),
+	                    client);
+	            std::cout &lt;&lt; client &lt;&lt; &quot;: &quot; &lt;&lt; recv_str &lt;&lt; '\n';
+	        }
+	    }
+	    catch (std::exception&amp; e)
+	    {
+	        std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
+	    }
+	
+	    return 0;
+	}
 </code></pre>
 <p>Muito fácil, não é? Crie e execute o cliente e servidor. Então o seguinte log será impresso no lado do servidor:</p>
 <pre><code>$ ./servidor
 10.217.242.21:63838: Welcome to C++ Networking.
 10.217.242.21:61259: Welcome to C++ Networking.
 </code></pre>
-<a class="header" href="print.html#conclusão-" id="conclusão-"><h1>Conclusão 🎉</h1></a>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="conclusão-"><a class="header" href="#conclusão-">Conclusão 🎉</a></h1>
 <p>Espero que tenha esclarecido o uso da programação de rede com <a href="https://think-async.com/Asio/boost_asio_1_16_1/doc/html/boost_asio.html">Asio</a> para você. Definitivamente, este pequeno livro apenas introduz a idéia básica. Para melhorar sua habilidade de codificação, você precisa ler mais a <a href="https://think-async.com/Asio/boost_asio_1_16_1/doc/html/boost_asio.html">documentação</a> junto com o código-fonte e praticar mais. 👀</p>
 <p>Bons estudos e divirta-se praticando! 😉</p>
 
@@ -1146,9 +1357,7 @@ Hello world!
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
 
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -1156,44 +1365,34 @@ Hello world!
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
 
-                
             </nav>
 
         </div>
 
 
-        <!-- Local fallback for Font Awesome -->
+
+
         <script>
-            if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = '_FontAwesome/css/font-awesome.css';
-                document.head.insertBefore(link, document.head.firstChild)
-            }
+            window.playground_copyable = true;
         </script>
 
-        
 
-        
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        
-
-        
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                window.print();
-            })
-        </script>
-        
-
+        <script src="clipboard.min.js"></script>
         <script src="highlight.js"></script>
         <script src="book.js"></script>
 
-        <!-- Custom JS script -->
-        
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
 
     </body>
 </html>
