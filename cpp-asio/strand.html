@@ -142,18 +142,22 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="strands-usar-threads-sem-bloqueio-explícito"><a class="header" href="#strands-usar-threads-sem-bloqueio-explícito"><code>Strands</code>: Usar threads sem bloqueio explícito</a></h1>
-<p>Uma thread é definida como uma chamada estritamente sequencial de manipuladores de eventos[event handler] (ou seja, nenhuma chamada simultânea). O uso de <code>strand</code> permite a execução de código em um programa multithread sem a necessidade de bloqueio explícito (por exemplo, usando <code>mutex</code>[exclusão mútua]). E pode ser usado para sincronizar mais cenários.</p>
-<p><code>Strand</code> agrupa tarefas. Tarefas do mesmo <code>strand</code> não podem rodar em paralelo, mas quando suspensas, podem ser executadas em outra thread quando acordarem da próxima vez.</p>
+<p>A classe <code>asio::strand</code> é usada para garantir que operações de entrada e saída sejam executadas de forma serial em um objeto de io_context. Isso é útil em situações em que é importante que as operações de entrada e saída sejam realizadas em uma determinada ordem ou em que é importante evitar conflitos entre operações simultâneas.</p>
+<p>Para usar a <code>asio::strand</code>, é preciso criar um objeto da classe e passar um objeto de io_context para o construtor. Em seguida, é possível chamar as funções de leitura e escrita assíncronas fornecidas pela <code>asio::strand</code> e passar um objeto de completion token para elas. Quando uma operação de entrada e saída é agendada através de uma <code>asio::strand</code>, ela é adicionada a uma fila de operações e é garantido que as operações na fila sejam executadas de forma serial.</p>
+<p>Além de garantir que as operações de entrada e saída sejam executadas de forma serial, a <code>asio::strand</code> também fornece uma série de outras funcionalidades úteis. Por exemplo, ela permite que o programa cancele operações que estão em andamento e permite que o programa obtenha informações sobre o número de operações pendentes na fila.</p>
+<p>Em resumo, <code>asio::strand</code> é usada para garantir que operações de entrada e saída sejam executadas de forma serial em um objeto de io_context. Ela oferece uma série de funcionalidades úteis, como cancelamento de operações em andamento e obtenção de informações sobre o número de operações pendentes na fila.</p>
+<p>Uma thread é definida como uma chamada estritamente sequencial de manipuladores de eventos[event handler] (ou seja, nenhuma chamada simultânea). O uso de <code>asio::strand</code> permite a execução de código em um programa multithread sem a necessidade de bloqueio explícito (por exemplo, usando <code>mutex</code>[exclusão mútua]). E pode ser usado para sincronizar mais cenários.</p>
+<p><code>Strand</code> agrupa tarefas. Tarefas do mesmo <code>asio::strand</code> não podem rodar em paralelo, mas quando suspensas, podem ser executadas em outra thread quando acordarem da próxima vez.</p>
 <p>As <code>strands</code> podem ser implícitas ou explícitas, conforme ilustrado pelas seguintes abordagens alternativas:</p>
 <ul>
 <li>
-<p>Utilizando <code>io_context::run()</code> em apenas uma thread significa que todos os manipuladores de eventos são executados em uma thread implícita, devido à garantia do <code>io_context</code> de que os manipuladores[handlers] são invocados somente de dentro da função <code>run()</code>.</p>
+<p>Utilizando <code>asio::io_context::run()</code> em apenas uma thread significa que todos os manipuladores de eventos são executados em uma thread implícita, devido à garantia do <code>asio::io_context</code> de que os manipuladores[handlers] são invocados somente de dentro da função <code>run()</code>.</p>
 </li>
 <li>
 <p>Onde existe uma única cadeia de operações assíncronas associadas a uma conexão (por exemplo, em uma implementação de protocolo half-duplex como HTTP), não há possibilidade de execução simultânea dos manipuladores. Neste caso seria um <code>strand</code> implícito.</p>
 </li>
 <li>
-<p>Um <code>strand</code> explícito é uma instância <code>strand&lt;&gt;</code> ou <code>io_context::strand</code>. Todos os objetos de função do manipulador[handler] de eventos precisam ser vinculados ao strand usando <code>boost::asio::bind_executor()</code> ou de outra forma postados/despachados através do objeto strand.</p>
+<p>Um <code>strand</code> explícito é uma instância <code>strand&lt;&gt;</code> ou <code>asio::io_context::strand</code>. Todos os objetos de função do manipulador[handler] de eventos precisam ser vinculados ao strand usando <code>asio::bind_executor()</code> ou de outra forma postados/despachados através do objeto strand.</p>
 </li>
 </ul>
 <p>Strand é genérico e pode ser usado para sincronizar mais cenários.</p>

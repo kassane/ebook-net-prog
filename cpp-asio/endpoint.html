@@ -142,7 +142,11 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="endpoint-ponto-de-extremidade"><a class="header" href="#endpoint-ponto-de-extremidade">Endpoint (Ponto de Extremidade)</a></h1>
-<p>Um <code>endpoint</code> é o nome para uma entidade em um terminal de uma conexão da <a href="https://pt.wikipedia.org/wiki/Camada_de_transporte">camada de transporte</a>. Ele é composto por: &quot;Endereço <a href="https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP">IP</a> + porta de conexão&quot;:</p>
+<p>O C++ ASIO fornece outros tipos de objetos endpoint para representar pontos finais de conexões de rede de outros protocolos, além do TCP. Por exemplo, o objeto <code>asio::ip::udp::endpoint</code> é usado para representar um ponto final de uma conexão de rede UDP. Ele é composto por um endereço IP e uma porta, e funciona de maneira similar ao objeto <code>asio::ip::tcp::endpoint</code>, mas é usado para protocolos UDP em vez de TCP.</p>
+<p>O objeto <code>asio::ip::tcp::endpoint</code> é usado para representar um ponto final de uma conexão de rede TCP. Ele é composto por um endereço IP e uma porta, que são usados para identificar o host remoto ou o servidor que o programa deseja se conectar ou se comunicar.</p>
+<p>Para usar o objeto <code>asio::ip::tcp::endpoint</code>, é preciso incluir o cabeçalho <code>&lt;boost/asio/ip/tcp.hpp&gt;</code> no seu código e criar um objeto da classe passando um endereço IP e uma porta para o construtor. Em seguida, é possível usar o objeto <code>asio::ip::tcp::endpoint</code> para identificar o host remoto ou o servidor que o programa deseja se conectar ou se comunicar.</p>
+<p>O objeto <code>asio::ip::tcp::endpoint</code> também fornece uma série de outras funcionalidades úteis. Por exemplo, é possível usar as funções address e port para obter o endereço IP e a porta do objeto, respectivamente. Além disso, é possível usar a função <code>to_string</code> para obter uma string que representa o objeto <code>asio::ip::tcp::endpoint</code>.</p>
+<p>Além disso, o C++ ASIO fornece outros tipos de objetos endpoint para representar pontos finais de conexões de outros protocolos, como o objeto <code>asio::ip::icmp::endpoint</code> para o protocolo ICMP e o objeto <code>asio::local::stream_protocol::endpoint</code> para o protocolo Unix local. Cada um desses objetos endpoint é composto por um endereço e uma porta, e fornece uma série de funcionalidades úteis para trabalhar com os respectivos protocolos de rede.</p>
 <pre><code class="language-cpp">	basic_endpoint(const boost::asio::ip::address&amp; addr, unsigned short port_num)
 	    : impl_(addr, port_num)
 	{
@@ -171,6 +175,7 @@
             boost::asio::ip::udp::v4(),
             3306};
 </code></pre>
+<p>Em resumo, o C++ ASIO fornece uma série de objetos endpoint para representar pontos finais de conexões de rede de diferentes protocolos. Cada um desses objetos endpoint é composto por um endereço e uma porta, e fornece uma série de funcionalidades úteis para trabalhar com os respectivos protocolos de rede.</p>
 
                     </main>
 

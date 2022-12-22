@@ -146,14 +146,14 @@
 podemos implementar um executor que gerencie o agendamento de operações relacionadas a espera de alguma duração de tempo.
 Há o recurso global RTC e, em vez de criar várias e várias threads para a execução de operações bloqueantes como a operação <code>sleep_for</code>, vamos usar um executor, que irá agendar e tratar todos os eventos de tempo que se façam necessário.</p>
 <h3 id="surgimento-do-assunto-em-torno-do-c-stl"><a class="header" href="#surgimento-do-assunto-em-torno-do-c-stl">Surgimento do assunto em torno do C++ STL</a></h3>
-<p>Em 6 de julho de 2021, a proposta dos Executores foi atualizada com mais um bilhão de pontos. O novo documento,
-<a href="http://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2300r1.html">P2300R1</a>,
+<p>Em 6 de julho de 2021, a proposta dos Executores foi atualizada com mais um bilhão de pontos. O novo documento, <a href="http://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2300r1.html">P2300R1</a>,
 oficialmente denominado <code>std::execution</code>, em comparação com The Unified Executor for C++, <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0443r14">P0443R14</a>,
-expõe mais sistematicamente as ideias de design dos Executors; dá mais instruções sobre implementação; exclui o Executor Concept,
-mantém e estabelece o modelo <code>Sender/Receiver/Scheduler</code> é introduzido;
-o conjunto inicial de algoritmos que deveria estar na biblioteca é fornecido e não há pequenas alterações no design do algoritmo anterior;
-há semântica mais clara, como tarefa multi-shot (multi-shot) e Single-shot, lazy e entrega ansiosa de tarefas, etc.
+expõe mais sistematicamente as ideias de design dos Executors; dá mais instruções sobre implementação.
 A biblioteca Executors praticada pelo autor em seu tempo livre acaba de concluir o conteúdo do P1879R3.</p>
+<p><code>Unified Executors</code> propõe que o namespace <code>std::execution</code> do C++ Standard Library que visa fornecer uma forma mais flexível e genérica de trabalhar com Executors. A proposta foi apresentada no Grupo de Trabalho 21 (WG21) do Comitê de Padrões do C++ como a Proposta de Padrão P1907R0.</p>
+<p>Atualmente, o namespace std::execution fornece vários tipos de Executors, como <code>std::execution::sequenced_policy</code> e <code>std::execution::parallel_policy</code>, que podem ser usados ​​para controlar como as tarefas são agendadas e executadas. No entanto, esses Executors são bastante rígidos e não permitem muita flexibilidade na customização da forma como as tarefas são agendadas e executadas.</p>
+<p>A proposta de universal executors visa fornecer uma forma mais flexível de trabalhar com Executors, permitindo que os programadores criem seus próprios Executors personalizados de acordo com suas necessidades específicas. Isso seria feito através da introdução de novos tipos e funções no namespace <code>std::execution</code>, como <code>std::execution::uniform_invocable</code> e <code>std::execution::execute</code>, que permitiriam a criação de Executors personalizados de forma mais fácil e rápida.</p>
+<p>A proposta de universal executors ainda está em fase de discussão no Grupo de Trabalho 21 (WG21) e ainda não foi adotada como parte do C++ Standard. No entanto, se aprovada, ela pode ser uma adição importante ao C++ Standard</p>
 <h3 id="1-por-quê-executores"><a class="header" href="#1-por-quê-executores">1. Por quê Executores?</a></h3>
 <p>C++ sempre careceu de infraestrutura de programação simultânea disponível, e a infraestrutura recém-introduzida desde C++11, bem como a melhoria de bibliotecas de terceiros, como boost e folly, têm mais ou menos problemas e certas limitações.</p>
 <h3 id="11-stdasync-não-é-assíncrono"><a class="header" href="#11-stdasync-não-é-assíncrono">1.1 <code>std::async</code> não é assíncrono</a></h3>
@@ -194,7 +194,7 @@ Podemos aguardar a operação e obter o resultado da operação através do obje
 de retorno e nos notificar.</p>
 <p>A implementação de um Future/Promise típico em C++ é mostrada na figura abaixo:
 <img src="https://user-images.githubusercontent.com/6756180/208737071-abe8d31c-fe0d-4023-8a1a-64083099c4f6.jpg" alt="img" /></p>
-<h3 id="13-executores-em-asio"><a class="header" href="#13-executores-em-asio">1.3 Executores em Asio</a></h3>
+<h3 id="13-executores-em-asio"><a class="header" href="#13-executores-em-asio">1.3 Executores em ASIO</a></h3>
 <p>Os executores são componentes do asio que definem o contexto de execução de uma função ou um bloco de código. Eles podem ser usados para controlar como e quando uma função ou um bloco de código é executado, e permitem que você aproveite os recursos de concorrência fornecidos pelo asio para executar tarefas de forma assíncrona e concorrente.</p>
 <p>O asio fornece várias formas de se trabalhar com executores, incluindo a possibilidade de especificar o contexto de execução de uma função ou um bloco de código usando o template <code>asio::execution</code>, ou usando funções como <code>asio::post</code>, que permitem agendar a execução de uma função ou um bloco de código em um determinado contexto de execução.</p>
 <p><code>asio::execution</code> é um modelo C++ que representa um contexto de execução, ou um objeto que define como uma função ou um bloco de código deve ser executado. É usado como um parâmetro de tipo em vários componentes asio, como <code>asio::strand</code> e <code>asio::spawn</code>, para especificar o contexto de execução no qual uma função ou um bloco de código deve ser executado.</p>

@@ -223,6 +223,8 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 <li>Multitarefa não preemptivo (ou multitarefa cooperativa).</li>
 </ul>
 <h2 id="multitasking-multitarefa"><a class="header" href="#multitasking-multitarefa">MultiTasking (MultiTarefa):</a></h2>
+<p>É o processo de executar várias tarefas ao mesmo tempo em um único processador. Ele é usado para permitir que várias tarefas sejam executadas de forma simultânea e para aumentar a eficiência do processador. Existem várias técnicas de multitasking, como multitasking baseado em tempo, multitasking baseado em eventos e multitasking baseado em processos.</p>
+<h3 id="tipos-de-tarefas"><a class="header" href="#tipos-de-tarefas">Tipos de tarefas:</a></h3>
 <ul>
 <li>
 <p><strong>Preemptivo:</strong> Ocorre quando uma tarefa é interrompida por algum agendador externo e executa outra antes de voltar. A tarefa não tem nada a haver sobre esse assunto, a decisão é tomada pelo agendador. O kernel usa isso em sistemas operacionais, ou seja, para permitir que você use a interface do usuário enquanto executa a CPU para fazer cálculos em sistemas de thread único.</p>
@@ -232,20 +234,23 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 </li>
 </ul>
 <h2 id="síncrono-sync-e-assíncrono-async"><a class="header" href="#síncrono-sync-e-assíncrono-async">Síncrono (sync) e assíncrono (async):</a></h2>
-<p>Síncrono e assíncrono refere-se à interação entre o aplicativo e o kernel.</p>
-<ul>
-<li>
-<p><strong>Síncrono</strong>: refere-se ao processo do usuário acionando operações de E/S e aguarda ou verifica se as operações de E/S estão prontas.</p>
-</li>
-<li>
-<p><strong>Assíncrono</strong>: refere-se ao processo do usuário que aciona operações de E/S. Após a operação de saída, ele começa a fazer suas próprias coisas e, quando a operação de E/S for concluída, ela será notificada da conclusão de E/S.</p>
-</li>
-</ul>
+<p>São dois termos que se referem ao modo como as operações são executadas em um programa de computador.</p>
+<p><code>Sync</code>: são aquelas que são executadas de forma sequencial, ou seja, uma operação é executada após a conclusão da operação anterior. Isso significa que o programa é bloqueado enquanto a operação está sendo executada e não pode continuar até que a operação seja concluída.</p>
+<p><code>Async</code>: são aquelas que são executadas de forma independente, ou seja, uma operação é iniciada e o programa continua a executar outras operações enquanto a operação assíncrona está sendo executada. Isso significa que o programa não é bloqueado enquanto a operação assíncrona está sendo executada e pode continuar a executar outras operações enquanto aguarda o término da operação assíncrona.</p>
+<p>Operações síncronas são geralmente mais fáceis de programar e entender, mas podem ser menos eficientes em situações em que é necessário aguardar o término de uma operação para continuar a execução. Operações assíncronas, por outro lado, são geralmente mais eficientes, mas podem ser mais complexas de programar e entender.</p>
 <h2 id="bloqueante-e-não-bloqueante"><a class="header" href="#bloqueante-e-não-bloqueante">Bloqueante e não-bloqueante:</a></h2>
-<p>Bloqueante e não-bloqueante são maneiras diferentes que os processos seguem de acordo com a prontidão das operações de E/S ao acessar dados. Para colocar claramente, é uma implementação de funções de operação de leitura ou gravação. A função de gravação aguardará para sempre. No modo sem bloqueio, a função de leitura ou gravação retornará imediatamente um valor de status. </p>
+<p>Blocking e non-blocking são termos que se referem ao modo como as operações são executadas em um programa de computador.</p>
+<p>Operações blocking são aquelas que bloqueiam o programa enquanto aguardam o término de uma operação. Isso significa que o programa não pode continuar a executar outras operações enquanto aguarda o término da operação blocking.</p>
+<p>Operações non-blocking, por outro lado, são aquelas que não bloqueiam o programa enquanto aguardam o término de uma operação. Isso significa que o programa pode continuar a executar outras operações enquanto aguarda o término da operação non-blocking.</p>
+<p>Operações blocking são geralmente mais fáceis de programar e entender, mas podem ser menos eficientes em situações em que é necessário aguardar o término de uma operação para continuar a execução. Operações non-blocking, por outro lado, são geralmente mais eficientes, mas podem ser mais complexas de programar e entender.</p>
+<h2 id="exclusão-mútua-mutex"><a class="header" href="#exclusão-mútua-mutex">Exclusão Mútua (Mutex)</a></h2>
+<p><code>Mutex</code> (mutual exclusion, exclusão mútua em inglês): é um mecanismo de sincronização que é usado para garantir que apenas uma thread (rotina) de um programa de computador tenha acesso a uma região crítica de código por vez. Ele é usado para evitar conflitos de acesso entre threads que podem ocorrer quando várias threads tentam acessar e modificar o mesmo dado ao mesmo tempo. O mutex bloqueia a região crítica de código enquanto uma thread está acessando-a, garantindo que outras threads aguardem o término da operação antes de tentarem acessar a região crítica de código. </p>
 <h2 id="epollkqueueiocpio_uring"><a class="header" href="#epollkqueueiocpio_uring">Epoll/Kqueue/IOCP/IO_uring:</a></h2>
-<p>Esses métodos nos permitem conectar-se ao sistema operacional de uma maneira em que podemos esperar por muitos eventos, em vez de ficarmos limitados a esperar um evento por thread, podemos esperar por muitos eventos em uma única thread. Isso nos permite evitar uma das maiores desvantagens do uso de um thread por evento, que é toda a memória ocupada e a sobrecarga de gerar novos threads continuamente. Agora, temos apenas um segmento aguardando muitas tarefas.</p>
-<p>Esses métodos têm em comum que eles são uma espécie de bloqueio da E/S. Se registrarmos apenas um evento na fila de eventos <code>epoll/kqueue/iocp/io_uring</code> e aguardarmos, não será diferente do uso de bloqueio da E/S. A vantagem é que podemos ter uma fila que aguarda centenas de milhares de eventos com pouquíssimos recursos desperdiçados.</p>
+<p>Epoll, Kqueue, IOCP e IO_uring são todos mecanismos de I/O event-driven (I/O com base em eventos) que são usados ​​para monitorar e gerenciar operações de entrada e saída assíncronas em sistemas operacionais diferentes. Eles são usados ​​para permitir que as aplicações sejam notificadas quando os dados estão disponíveis para leitura ou quando os dados podem ser escritos sem bloquear o processador.</p>
+<p><code>Epoll</code>: é um mecanismo de I/O com base em eventos disponível no Linux. Ele permite que as aplicações monitorem vários descritores de arquivo para verificar se eles estão prontos para leitura ou escrita.</p>
+<p><code>Kqueue</code>: é um mecanismo de I/O com base em eventos disponível no FreeBSD, NetBSD e OpenBSD. Ele funciona de maneira semelhante ao Epoll, permitindo que as aplicações monitorem descritores de arquivo para verificar se eles estão prontos para leitura ou escrita.</p>
+<p><code>IOCP</code>: é um mecanismo de I/O com base em eventos disponível no Windows. Ele permite que as aplicações monitorem vários handles de arquivo e sockets para verificar se eles estão prontos para leitura ou escrita.</p>
+<p><code>IO_uring</code>: é um mecanismo de I/O com base em eventos disponível no Linux. Ele foi projetado para ser mais rápido e eficiente do que o Epoll e oferece uma interface mais simples para as aplicações.</p>
 <h2 id="coroutine-corrotina"><a class="header" href="#coroutine-corrotina">Coroutine (Corrotina):</a></h2>
 <p>Na ciência da computação, as rotinas são definidas como uma sequência de operações. A execução de rotinas forma um relacionamento pai-filho e o filho termina sempre antes do pai. Corrotinas (o termo foi introduzido por <a href="https://en.wikipedia.org/wiki/Melvin_Conway">Melvin Conway</a>) são uma generalização de rotinas (<a href="https://en.wikipedia.org/wiki/Donald_Knuth">Donald Knuth</a>). A principal diferença entre corrotinas e rotinas é que uma corrotina permite suspender e retomar explicitamente seu progresso por meio de operações adicionais, preservando o estado de execução e, portanto, fornecendo um fluxo de controle aprimorado (mantendo o contexto de execução).</p>
 <p>As características de uma corrotina são:</p>
@@ -266,6 +271,7 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 <p>Stackless (sem pilha): apenas a rotina de nível superior pode ser suspensa. Qualquer rotina chamada por essa rotina de nível superior pode não ser suspensa. Isso proíbe o fornecimento de operações de suspensão ou retomada de rotinas dentro de uma biblioteca de uso geral.</p>
 </li>
 </ul>
+<p>As coroutines stackless são implementadas sem usar uma pilha de chamadas de função, enquanto as coroutines stackful são implementadas com uma pilha de chamadas de função. As coroutines stackless são geralmente mais eficientes em termos de uso de memória, mas são mais difíceis de implementar e menos flexíveis do que as coroutines stackful.</p>
 <h2 id="fiber-fibra"><a class="header" href="#fiber-fibra">Fiber (Fibra):</a></h2>
 <p>Uma fibra pode salvar o estado de execução atual, incluindo todos os registradores e sinalizadores da CPU, o ponteiro de instruções e o ponteiro de pilha e, posteriormente, restaurar esse estado. A idéia é ter vários caminhos de execução em execução em uma única thread usando o planejamento cooperativo (ao contrario das threads, que são agendados preventivamente). A fibra em execução decide explicitamente quando deve permitir que outra fibra seja executada (alternância de contexto).</p>
 <p>O controle é passado cooperativamente entre as fibras lançadas em um determinado segmento. Em um determinado momento, em um determinada thread, no máximo uma fibra está em execução.</p>
@@ -350,7 +356,9 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 <p>Compilar manualmente seguindo a documentação boost: <a href="https://www.boost.org/doc/libs/1_72_0/more/getting_started/windows.html">Windows - Getting Start</a></p>
 </li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="io_context"><a class="header" href="#io_context">io_context</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="asioio_context"><a class="header" href="#asioio_context"><code>asio::io_context</code></a></h1>
+<p>O C++ ASIO possui uma classe chamada <code>asio::io_context</code> que é usada para gerenciar operações de entrada e saída assíncronas em um programa de computador. Ela é usada para monitorar e gerenciar operações de entrada e saída em vários descritores de arquivo e sockets, permitindo que o programa seja notificado quando os dados estão disponíveis para leitura ou quando os dados podem ser escritos sem bloquear o processador.</p>
+<p>A <code>asio::io_context</code> é geralmente usada em conjunto com um objeto de work, que é responsável por manter o loop de eventos da <code>asio::io_context</code> rodando. O loop de eventos monitora os descritores de arquivo e sockets gerenciados pela <code>asio::io_context</code> e notifica o programa quando os dados estão disponíveis para leitura ou quando os dados podem ser escritos.</p>
 <p>O conceito é baseado na API de rede do <code>Unix</code>, o <code>Asio</code> também possui o conceito &quot;socket&quot;, mas isso não é suficiente, um objeto <code>io_context</code> (a classe <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0112r0.html"><code>io_service</code></a> está obsoleta agora) é necessário para se comunicar com os serviços da E/S do sistema operacional. A  imagem abaixo mostrará a estrutura da Arquitetura <code>Asio</code>:</p>
 <p><img src="https://raw.githubusercontent.com/kassane/Livro-Programacao-de-Redes/gh-pages/images/architecture.jpg" alt="image" /> </p>
 <p><code>io_context</code> deriva de <code>execution_context</code>:</p>
@@ -394,6 +402,53 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 	......
 	}
 </code></pre>
+<p>Além de gerenciar operações de entrada e saída assíncronas, a <code>asio::io_context</code> também fornece uma série de outras funcionalidades úteis. Por exemplo, ela permite que o programa agende operações para serem executadas em um momento futuro, permitindo que o programa execute tarefas de forma assíncrona de acordo com um cronograma. Ela também permite que o programa cancele operações que estão em andamento, permitindo que o programa interrompa tarefas que não são mais necessárias.</p>
+<p>Outra funcionalidade útil da <code>asio::io_context</code> é a capacidade de escalonar operações em vários threads. Isso é útil em situações em que é necessário realizar várias operações de entrada e saída ao mesmo tempo e é importante aproveitar ao máximo o poder de processamento do computador. A <code>asio::io_context</code> pode ser configurada para escalonar operações em vários threads, permitindo que elas sejam executadas em paralelo e aproveitando ao máximo o poder de processamento do computador.</p>
+<p>Em resumo, a <code>asio::io_context</code> é uma classe fundamental do C++ ASIO que é usada para gerenciar operações de entrada e saída assíncronas em um programa de computador. Ela monitora e gerencia descritores de arquivo e sockets, permitindo que o programa seja notificado quando os dados estão disponíveis para leitura ou quando os dados podem ser escritos sem bloquear o processador. Além disso, a <code>asio::io_context</code> fornece uma série de outras funcionalidades úteis, como agendamento de operações para serem executadas em um momento futuro, cancelamento de operações em andamento e escalonamento de operações em vários threads.</p>
+<p>A seguir, estão descritas todas as funções comuns do <code>asio::io_context</code>:</p>
+<ul>
+<li>
+<p><code>run</code>: A função run é usada para iniciar o loop de eventos do <code>asio::io_context</code>. Ela bloqueia o thread atual até que todas as operações agendadas tenham sido concluídas ou o <code>asio::io_context</code> seja interrompido.</p>
+</li>
+<li>
+<p><code>poll</code>: A função poll é similar à função run, mas não bloqueia o thread atual. Em vez disso, ela processa todas as operações pendentes no <code>asio::io_context</code> e retorna imediatamente.</p>
+</li>
+<li>
+<p><code>run_one</code>: A função run_one é similar à função run, mas processa apenas uma operação pendente no <code>asio::io_context</code> antes de retornar.</p>
+</li>
+<li>
+<p><code>stop</code>: A função stop é usada para interromper o loop de eventos do <code>asio::io_context</code>. Isso é útil em situações em que o programa precisa sair do loop de eventos antes que todas as operações pendentes tenham sido concluídas.</p>
+</li>
+<li>
+<p><code>reset</code>: A função reset é usada para reiniciar o <code>asio::io_context</code>. Isso é útil em situações em que o programa precisa começar a processar operações pendentes novamente após ter sido interrompido.</p>
+</li>
+<li>
+<p><code>poll_one</code>: A função poll_one é similar à função poll, mas processa apenas uma operação pendente no asio::io_context antes de retornar.</p>
+</li>
+<li>
+<p><code>poll_one_at</code>: A função poll_one_at é similar à função poll_one, mas retorna após o tempo especificado, mesmo se não houver operações pendentes para processar.</p>
+</li>
+<li>
+<p><code>stopped</code>: A função stopped retorna true se o <code>asio::io_context</code> foi interrompido e false caso contrário.</p>
+</li>
+<li>
+<p><code>get_executor</code>: A função get_executor retorna um objeto executor que pode ser usado para agendar operações para serem executadas no <code>asio::io_context</code>.</p>
+</li>
+<li>
+<p><code>dispatch</code>: A função dispatch é usada para agendar uma operação para ser executada de forma síncrona no <code>asio::io_context</code>. Isso garante que a operação seja executada imediatamente, sem esperar por outras operações pendentes.</p>
+</li>
+<li>
+<p><code>post</code>: A função post é usada para agendar uma operação para ser executada de forma assíncrona no <code>asio::io_context</code>. Isso permite que o programa continue rodando enquanto a operação é executada em segundo plano.</p>
+</li>
+<li>
+<p><code>work</code>: Isso informa ao <code>asio::io_context</code> que há operações pendentes e garante que o loop de eventos continue rodando, mesmo quando não há operações pendentes.</p>
+</li>
+<li>
+<p><code>work_guard</code>: A classe <code>asio::work_guard</code> é usada para gerenciar um objeto <code>asio::work</code> adicionado ao <code>asio::io_context</code>. Ela garante que o objeto <code>asio::work</code> não seja removido do <code>asio::io_context</code> enquanto o objeto asio::work_guard estiver em uso. Quando o objeto <code>asio::work_guard</code> é destruído, o objeto <code>asio::work</code> é removido do <code>asio::io_context</code> e o loop de eventos pode parar, se não houver mais operações pendentes para processar.
+Além de gerenciar o objeto <code>asio::work</code>, <code>asio::work_guard</code> também fornece uma série de outras funcionalidades úteis. Por exemplo, é possível usar a função reset para adicionar um novo objeto <code>asio::work</code> ao <code>asio::io_context</code>, mesmo se o objeto asio::work_guard já estiver gerenciando um objeto <code>asio::work</code>. Além disso, é possível usar a função get_executor para obter um objeto executor que pode ser usado para agendar operações para serem executadas no <code>asio::io_context</code>.</p>
+</li>
+</ul>
+<p>Em resumo, <code>asio::work_guard</code> é uma classe do C++ ASIO que é usada para gerenciar um objeto <code>asio::work</code> adicionado ao <code>asio::io_context</code>. Ela garante que o objeto <code>asio::work</code> não seja removido do <code>asio::io_context</code> enquanto o objeto <code>asio::work_guard</code> estiver em uso, garantindo assim que o loop de eventos continue rodando, mesmo quando não há operações pendentes para processar. Além disso, a <code>asio::work_guard</code> fornece uma série de outras funcionalidades úteis, como a possibilidade de adicionar um novo objeto <code>asio::work</code> ao <code>asio::io_context</code> e de obter um objeto executor para agendar operações para serem executadas no <code>asio::io_context</code>. <code>asio::work_guard</code> é especialmente útil em situações em que o programa precisa garantir que o asio::io_context continue rodando por um período prolongado de tempo, mesmo quando não há operações pendentes para processar. Isso é comum em programas que usam o C++ ASIO para implementar serviços de rede, como servidores web ou servidores de banco de dados.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="buffers"><a class="header" href="#buffers">Buffers</a></h1>
 <p>Fundamentalmente, E/S envolve a transferência de dados para e de regiões contíguas da memória, chamadas buffers. Esses buffers podem ser simplesmente expressos como uma tupla que consiste em um ponteiro e um tamanho em bytes. No entanto, para permitir o desenvolvimento de aplicativos de rede eficientes, o <code>Asio</code> inclui suporte para operações de coleta de dispersão. Essas operações envolvem um ou mais buffers:</p>
 <ul>
@@ -436,19 +491,39 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 </li>
 </ul>
 <p>O construtor <code>streambuf</code> aceita um argumento <code>size_t</code> especificando a soma máximo dos tamanhos da sequência de entrada e de saída. Qualquer operação que, se for bem-sucedida, aumentará os dados internos além desse limite, lançará uma exceção <code>std::length_error</code>.</p>
+<h2 id="tipos-de-buffers"><a class="header" href="#tipos-de-buffers">Tipos de Buffers</a></h2>
+<p>O C++ ASIO fornece vários tipos de buffers que podem ser usados ​​para representar conjuntos de dados que podem ser lidos ou escritos de forma assíncrona. A seguir, uma lista de alguns dos tipos de buffers disponíveis no C++ ASIO:</p>
+<ul>
+<li>
+<p><code>asio::const_buffer</code>: Representa um conjunto de dados que serão lidos, mas não alterados. Ele é útil quando você deseja ler os dados de uma fonte externa, como uma conexão de rede, sem alterá-los.</p>
+</li>
+<li>
+<p><code>asio::mutable_buffer</code>: Representa um conjunto de dados que serão lidos e alterados. Ele é útil quando você deseja ler os dados de uma fonte externa e alterá-los antes de enviá-los para outro lugar.</p>
+</li>
+<li>
+<p><code>asio::buffer</code>: É uma função que cria um buffer a partir de um objeto de tipo T. Ele pode ser usado para criar buffers a partir de qualquer tipo de dado, como strings, arrays ou estruturas de dados.</p>
+</li>
+<li>
+<p><code>asio::buffer_cast</code>: É uma função que retorna um ponteiro para os dados subjacentes de um buffer. Ele é útil para acessar os dados de um buffer de forma mais conveniente.</p>
+</li>
+<li>
+<p><code>asio::buffer_size</code>: É uma função que retorna o tamanho de um buffer em bytes. Ela é útil para determinar quantos dados podem ser lidos ou escritos em um buffer.</p>
+</li>
+</ul>
+<p>Esses são apenas alguns dos tipos de buffers disponíveis no C++ ASIO. Existem outros tipos de buffers disponíveis para uso em situações específicas.</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="o-que-é-um-executor"><a class="header" href="#o-que-é-um-executor">O que é um <code>Executor</code></a></h2>
 <p>O executor é um objeto que pode executar unidades de trabalho encapsuladas. A partir do C++11,
 podemos implementar um executor que gerencie o agendamento de operações relacionadas a espera de alguma duração de tempo.
 Há o recurso global RTC e, em vez de criar várias e várias threads para a execução de operações bloqueantes como a operação <code>sleep_for</code>, vamos usar um executor, que irá agendar e tratar todos os eventos de tempo que se façam necessário.</p>
 <h3 id="surgimento-do-assunto-em-torno-do-c-stl"><a class="header" href="#surgimento-do-assunto-em-torno-do-c-stl">Surgimento do assunto em torno do C++ STL</a></h3>
-<p>Em 6 de julho de 2021, a proposta dos Executores foi atualizada com mais um bilhão de pontos. O novo documento,
-<a href="http://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2300r1.html">P2300R1</a>,
+<p>Em 6 de julho de 2021, a proposta dos Executores foi atualizada com mais um bilhão de pontos. O novo documento, <a href="http://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2300r1.html">P2300R1</a>,
 oficialmente denominado <code>std::execution</code>, em comparação com The Unified Executor for C++, <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0443r14">P0443R14</a>,
-expõe mais sistematicamente as ideias de design dos Executors; dá mais instruções sobre implementação; exclui o Executor Concept,
-mantém e estabelece o modelo <code>Sender/Receiver/Scheduler</code> é introduzido;
-o conjunto inicial de algoritmos que deveria estar na biblioteca é fornecido e não há pequenas alterações no design do algoritmo anterior;
-há semântica mais clara, como tarefa multi-shot (multi-shot) e Single-shot, lazy e entrega ansiosa de tarefas, etc.
+expõe mais sistematicamente as ideias de design dos Executors; dá mais instruções sobre implementação.
 A biblioteca Executors praticada pelo autor em seu tempo livre acaba de concluir o conteúdo do P1879R3.</p>
+<p><code>Unified Executors</code> propõe que o namespace <code>std::execution</code> do C++ Standard Library que visa fornecer uma forma mais flexível e genérica de trabalhar com Executors. A proposta foi apresentada no Grupo de Trabalho 21 (WG21) do Comitê de Padrões do C++ como a Proposta de Padrão P1907R0.</p>
+<p>Atualmente, o namespace std::execution fornece vários tipos de Executors, como <code>std::execution::sequenced_policy</code> e <code>std::execution::parallel_policy</code>, que podem ser usados ​​para controlar como as tarefas são agendadas e executadas. No entanto, esses Executors são bastante rígidos e não permitem muita flexibilidade na customização da forma como as tarefas são agendadas e executadas.</p>
+<p>A proposta de universal executors visa fornecer uma forma mais flexível de trabalhar com Executors, permitindo que os programadores criem seus próprios Executors personalizados de acordo com suas necessidades específicas. Isso seria feito através da introdução de novos tipos e funções no namespace <code>std::execution</code>, como <code>std::execution::uniform_invocable</code> e <code>std::execution::execute</code>, que permitiriam a criação de Executors personalizados de forma mais fácil e rápida.</p>
+<p>A proposta de universal executors ainda está em fase de discussão no Grupo de Trabalho 21 (WG21) e ainda não foi adotada como parte do C++ Standard. No entanto, se aprovada, ela pode ser uma adição importante ao C++ Standard</p>
 <h3 id="1-por-quê-executores"><a class="header" href="#1-por-quê-executores">1. Por quê Executores?</a></h3>
 <p>C++ sempre careceu de infraestrutura de programação simultânea disponível, e a infraestrutura recém-introduzida desde C++11, bem como a melhoria de bibliotecas de terceiros, como boost e folly, têm mais ou menos problemas e certas limitações.</p>
 <h3 id="11-stdasync-não-é-assíncrono"><a class="header" href="#11-stdasync-não-é-assíncrono">1.1 <code>std::async</code> não é assíncrono</a></h3>
@@ -489,7 +564,7 @@ Podemos aguardar a operação e obter o resultado da operação através do obje
 de retorno e nos notificar.</p>
 <p>A implementação de um Future/Promise típico em C++ é mostrada na figura abaixo:
 <img src="https://user-images.githubusercontent.com/6756180/208737071-abe8d31c-fe0d-4023-8a1a-64083099c4f6.jpg" alt="img" /></p>
-<h3 id="13-executores-em-asio"><a class="header" href="#13-executores-em-asio">1.3 Executores em Asio</a></h3>
+<h3 id="13-executores-em-asio"><a class="header" href="#13-executores-em-asio">1.3 Executores em ASIO</a></h3>
 <p>Os executores são componentes do asio que definem o contexto de execução de uma função ou um bloco de código. Eles podem ser usados para controlar como e quando uma função ou um bloco de código é executado, e permitem que você aproveite os recursos de concorrência fornecidos pelo asio para executar tarefas de forma assíncrona e concorrente.</p>
 <p>O asio fornece várias formas de se trabalhar com executores, incluindo a possibilidade de especificar o contexto de execução de uma função ou um bloco de código usando o template <code>asio::execution</code>, ou usando funções como <code>asio::post</code>, que permitem agendar a execução de uma função ou um bloco de código em um determinado contexto de execução.</p>
 <p><code>asio::execution</code> é um modelo C++ que representa um contexto de execução, ou um objeto que define como uma função ou um bloco de código deve ser executado. É usado como um parâmetro de tipo em vários componentes asio, como <code>asio::strand</code> e <code>asio::spawn</code>, para especificar o contexto de execução no qual uma função ou um bloco de código deve ser executado.</p>
@@ -528,6 +603,9 @@ de retorno e nos notificar.</p>
 <p>Cppcoro usa a funcionalidade de coroutinas introduzida no C++20 para permitir que você escreva código assíncrono de forma mais fácil e natural. Ele fornece uma série de funções e tipos de dados que permitem que você crie, gerencie e execute coroutinas de forma mais eficiente. Além disso, ele fornece suporte para a execução de coroutinas em paralelo, o que pode ser útil em aplicações de alta performance.</p>
 <p>Em resumo, C++ ASIO é uma biblioteca de tempo de execução que fornece recursos para criar aplicações de rede de forma assíncrona, enquanto que Libunifex é uma biblioteca de executores que oferece uma interface uniforme para trabalhar com diferentes bibliotecas de tempo de execução de forma mais portável.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="sockets-soquetes"><a class="header" href="#sockets-soquetes">Sockets (Soquetes)</a></h1>
+<p>A classe <code>asio::basic_stream_socket</code> do C++ ASIO é uma classe genérica que é usada como base para a criação de classes de socket específicas para diferentes protocolos de rede. Ela fornece uma interface comum para realizar operações de entrada e saída em sockets e é a classe base para a criação de classes de socket para protocolos como TCP, UDP, ICMP e SCTP.</p>
+<p>A <code>asio::basic_stream_socket</code> fornece uma série de funções de leitura e escrita assíncronas que podem ser usadas para enviar e receber dados através de um socket de forma assíncrona. Ela também oferece funções para estabelecer conexões com outros hosts na rede e para fechar conexões existentes.</p>
+<p>Para usar a <code>asio::basic_stream_socket</code>, é preciso criar uma classe derivada que especifique o tipo de socket que deseja criar, como um socket TCP, UDP, ICMP ou SCTP. Em seguida, é possível criar um objeto da classe derivada e passar um objeto de resolução de endereço e um objeto de io_context para o construtor. Em seguida, é possível chamar as funções de leitura e escrita fornecidas pela <code>asio::basic_stream_socket</code> para enviar e receber dados através do socket.</p>
 <p>Existem <code>4</code> tipos de sockets:</p>
 <p>(1) <code>basic_stream_socket</code>:<br />
 Este socket fornece fluxos de bytes baseados em conexão bidirecional, confiável e sequencial. <code>tcp::socket</code> é uma instância deste socket:</p>
@@ -590,19 +668,25 @@ Este socket combina fluxo(stream) e datagrama: fornece um serviço de datagramas
 	    ......
 	  }
 </code></pre>
+<p>Além das funções de leitura e escrita assíncronas, a <code>asio::basic_stream_socket</code> também oferece uma série de outras funcionalidades úteis. Por exemplo, ela permite que o programa configure opções de socket, como o timeout de leitura e escrita, o tamanho do buffer de leitura e escrita e o uso de Keepalives. Ela também permite que o programa obtenha informações sobre o socket, como o endereço local e remoto, o estado da conexão e o número de bytes enviados e recebidos.</p>
+<p>Em resumo, a asio::<code>basic_stream_socket</code> é uma classe genérica do C++ ASIO que é usada como base para a criação de classes de socket específicas para diferentes protocolos de rede. Ela fornece uma interface comum para realizar operações de entrada e saída em sockets e oferece uma série de funcionalidades úteis, como configuração de opções de socket e obtenção de informações sobre o socket.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="strands-usar-threads-sem-bloqueio-explícito"><a class="header" href="#strands-usar-threads-sem-bloqueio-explícito"><code>Strands</code>: Usar threads sem bloqueio explícito</a></h1>
-<p>Uma thread é definida como uma chamada estritamente sequencial de manipuladores de eventos[event handler] (ou seja, nenhuma chamada simultânea). O uso de <code>strand</code> permite a execução de código em um programa multithread sem a necessidade de bloqueio explícito (por exemplo, usando <code>mutex</code>[exclusão mútua]). E pode ser usado para sincronizar mais cenários.</p>
-<p><code>Strand</code> agrupa tarefas. Tarefas do mesmo <code>strand</code> não podem rodar em paralelo, mas quando suspensas, podem ser executadas em outra thread quando acordarem da próxima vez.</p>
+<p>A classe <code>asio::strand</code> é usada para garantir que operações de entrada e saída sejam executadas de forma serial em um objeto de io_context. Isso é útil em situações em que é importante que as operações de entrada e saída sejam realizadas em uma determinada ordem ou em que é importante evitar conflitos entre operações simultâneas.</p>
+<p>Para usar a <code>asio::strand</code>, é preciso criar um objeto da classe e passar um objeto de io_context para o construtor. Em seguida, é possível chamar as funções de leitura e escrita assíncronas fornecidas pela <code>asio::strand</code> e passar um objeto de completion token para elas. Quando uma operação de entrada e saída é agendada através de uma <code>asio::strand</code>, ela é adicionada a uma fila de operações e é garantido que as operações na fila sejam executadas de forma serial.</p>
+<p>Além de garantir que as operações de entrada e saída sejam executadas de forma serial, a <code>asio::strand</code> também fornece uma série de outras funcionalidades úteis. Por exemplo, ela permite que o programa cancele operações que estão em andamento e permite que o programa obtenha informações sobre o número de operações pendentes na fila.</p>
+<p>Em resumo, <code>asio::strand</code> é usada para garantir que operações de entrada e saída sejam executadas de forma serial em um objeto de io_context. Ela oferece uma série de funcionalidades úteis, como cancelamento de operações em andamento e obtenção de informações sobre o número de operações pendentes na fila.</p>
+<p>Uma thread é definida como uma chamada estritamente sequencial de manipuladores de eventos[event handler] (ou seja, nenhuma chamada simultânea). O uso de <code>asio::strand</code> permite a execução de código em um programa multithread sem a necessidade de bloqueio explícito (por exemplo, usando <code>mutex</code>[exclusão mútua]). E pode ser usado para sincronizar mais cenários.</p>
+<p><code>Strand</code> agrupa tarefas. Tarefas do mesmo <code>asio::strand</code> não podem rodar em paralelo, mas quando suspensas, podem ser executadas em outra thread quando acordarem da próxima vez.</p>
 <p>As <code>strands</code> podem ser implícitas ou explícitas, conforme ilustrado pelas seguintes abordagens alternativas:</p>
 <ul>
 <li>
-<p>Utilizando <code>io_context::run()</code> em apenas uma thread significa que todos os manipuladores de eventos são executados em uma thread implícita, devido à garantia do <code>io_context</code> de que os manipuladores[handlers] são invocados somente de dentro da função <code>run()</code>.</p>
+<p>Utilizando <code>asio::io_context::run()</code> em apenas uma thread significa que todos os manipuladores de eventos são executados em uma thread implícita, devido à garantia do <code>asio::io_context</code> de que os manipuladores[handlers] são invocados somente de dentro da função <code>run()</code>.</p>
 </li>
 <li>
 <p>Onde existe uma única cadeia de operações assíncronas associadas a uma conexão (por exemplo, em uma implementação de protocolo half-duplex como HTTP), não há possibilidade de execução simultânea dos manipuladores. Neste caso seria um <code>strand</code> implícito.</p>
 </li>
 <li>
-<p>Um <code>strand</code> explícito é uma instância <code>strand&lt;&gt;</code> ou <code>io_context::strand</code>. Todos os objetos de função do manipulador[handler] de eventos precisam ser vinculados ao strand usando <code>boost::asio::bind_executor()</code> ou de outra forma postados/despachados através do objeto strand.</p>
+<p>Um <code>strand</code> explícito é uma instância <code>strand&lt;&gt;</code> ou <code>asio::io_context::strand</code>. Todos os objetos de função do manipulador[handler] de eventos precisam ser vinculados ao strand usando <code>asio::bind_executor()</code> ou de outra forma postados/despachados através do objeto strand.</p>
 </li>
 </ul>
 <p>Strand é genérico e pode ser usado para sincronizar mais cenários.</p>
@@ -710,7 +794,7 @@ int main()
 <p><code>co_yield</code>: é uma palavra-chave do C++ que permite que uma corrotina seja &quot;pausada&quot; e permita que outras corrotinas sejam executadas. Quando uma corrotina é &quot;pausada&quot; com <code>co_yield</code>, ela é suspensa temporariamente e permite que outras corrotinas sejam executadas. Quando outra corrotina termina sua execução, a corrotina &quot;pausada&quot; é retomada a partir do ponto onde foi interrompida.</p>
 </li>
 <li>
-<p><code>co_await</code>: é uma palavra-chave do C++ que permite que uma corrotina aguarde a conclusão de uma operação assíncrona. Quando uma corrotina encontra um co_await, ela é &quot;pausada&quot; até que a operação assíncrona seja concluída, permitindo que outras corrotinas sejam executadas enquanto aguarda.</p>
+<p><code>co_await</code>: é uma palavra-chave do C++ que permite que uma corrotina aguarde a conclusão de uma operação assíncrona. Quando uma corrotina encontra um <code>co_await</code>, ela é &quot;pausada&quot; até que a operação assíncrona seja concluída, permitindo que outras corrotinas sejam executadas enquanto aguarda.</p>
 </li>
 <li>
 <p><code>co_return</code>: é uma palavra-chave do C++ que permite que uma corrotina retorne um valor quando ela é concluída. É usado para encerrar a execução de uma corrotina e retornar o valor especificado para quem a chamou.</p>
@@ -722,7 +806,7 @@ int main()
 <p>As corrotinas Asio são uma extensão da biblioteca Asio que fornece suporte nativo para a criação e execução de corrotinas no C++. Elas permitem que você escreva código síncrono que é &quot;convertido&quot; em código assíncrono pelo próprio Asio, o que torna mais fácil criar funções assíncronas de forma clara e legível.</p>
 <p>Para usar corrotinas Asio, você precisa incluir o cabeçalho <code>&lt;asio/co_spawn.hpp&gt;</code> e usar a palavra-chave co_await para &quot;pausar&quot; a execução da corrotina enquanto aguarda a conclusão de uma operação assíncrona. Você também pode usar a palavra-chave <code>co_yield</code> para &quot;pausar&quot; a execução da corrotina e permitir que outras corrotinas sejam executadas.</p>
 <p>Além disso, as corrotinas Asio podem ser &quot;lançadas&quot; em um contexto de I/O usando a função <code>co_spawn</code>, que permite que a corrotina execute tarefas assíncronas como fazer chamadas de rede ou ler e escrever em arquivos. Você também pode usar a função <code>async_write</code> e <code>async_read</code> da biblioteca Asio para escrever e ler dados de forma assíncrona, respectivamente.</p>
-<p>Uma vantagem das corrotinas Asio é que elas podem ser usadas com qualquer biblioteca ou sistema que suporte a biblioteca Asio, o que significa que elas são compatíveis com uma ampla variedade de plataformas de rede. Além disso, as corrotinas Asio fornecem uma maneira de escrever código assíncrono de forma mais clara e legível, pois permitem que você escreva código síncrono que é &quot;convertido&quot; em código assíncrono pelo próprio Asio.</p>
+<p>Uma vantagem das corrotinas do Asio é que elas podem ser usadas com qualquer biblioteca ou sistema que suporte a biblioteca Asio, o que significa que elas são compatíveis com uma ampla variedade de plataformas de rede. Além disso, as corrotinas Asio fornecem uma maneira de escrever código assíncrono de forma mais clara e legível, pois permitem que você escreva código síncrono que é &quot;convertido&quot; em código assíncrono pelo próprio Asio.</p>
 <p>No entanto, é importante lembrar que as corrotinas Asio dependem da biblioteca Asio para funcionar, o que pode afetar o desempenho em comparação com outras opções, como as corrotinas <code>std::coroutine</code>, que são implementadas diretamente na linguagem C++. Qual das duas opções é a melhor para você depende das suas necessidades e da plataforma em que está trabalhando.</p>
 <h4 id="completion-tokens"><a class="header" href="#completion-tokens">Completion Tokens</a></h4>
 <p>Em C++ ASIO, um <a href="https://think-async.com/Asio/asio-1.24.0/doc/asio/overview/model/completion_tokens.html">completion token</a> é um tipo de dado usado para especificar como uma operação assíncrona deve ser completada. Ele é passado como um parâmetro para uma função assíncrona e é usado para determinar como a função deve notificar o chamador quando a operação for concluída.</p>
@@ -731,7 +815,11 @@ int main()
 <p>O completion token <code>asio::use_awaitable</code>, por outro lado, é usado para completar a operação assíncrona retornando um objeto awaitable que pode ser usado para aguardar o término da operação de forma assíncrona. Isso permite que o chamador da função assíncrona aguarde o término da operação de forma assíncrona, usando a sintaxe de await do C++20.</p>
 <p>Em resumo, os completion tokens são usados ​​no C++ ASIO para especificar como uma operação assíncrona deve ser completada. Eles são passados como parâmetros para funções assíncronas e são usados ​​para determinar como a função deve notificar o chamador quando a operação for concluída. Existem vários tipos de completion token disponíveis, cada um com suas próprias características e usos específicos.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="endpoint-ponto-de-extremidade"><a class="header" href="#endpoint-ponto-de-extremidade">Endpoint (Ponto de Extremidade)</a></h1>
-<p>Um <code>endpoint</code> é o nome para uma entidade em um terminal de uma conexão da <a href="https://pt.wikipedia.org/wiki/Camada_de_transporte">camada de transporte</a>. Ele é composto por: &quot;Endereço <a href="https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP">IP</a> + porta de conexão&quot;:</p>
+<p>O C++ ASIO fornece outros tipos de objetos endpoint para representar pontos finais de conexões de rede de outros protocolos, além do TCP. Por exemplo, o objeto <code>asio::ip::udp::endpoint</code> é usado para representar um ponto final de uma conexão de rede UDP. Ele é composto por um endereço IP e uma porta, e funciona de maneira similar ao objeto <code>asio::ip::tcp::endpoint</code>, mas é usado para protocolos UDP em vez de TCP.</p>
+<p>O objeto <code>asio::ip::tcp::endpoint</code> é usado para representar um ponto final de uma conexão de rede TCP. Ele é composto por um endereço IP e uma porta, que são usados para identificar o host remoto ou o servidor que o programa deseja se conectar ou se comunicar.</p>
+<p>Para usar o objeto <code>asio::ip::tcp::endpoint</code>, é preciso incluir o cabeçalho <code>&lt;boost/asio/ip/tcp.hpp&gt;</code> no seu código e criar um objeto da classe passando um endereço IP e uma porta para o construtor. Em seguida, é possível usar o objeto <code>asio::ip::tcp::endpoint</code> para identificar o host remoto ou o servidor que o programa deseja se conectar ou se comunicar.</p>
+<p>O objeto <code>asio::ip::tcp::endpoint</code> também fornece uma série de outras funcionalidades úteis. Por exemplo, é possível usar as funções address e port para obter o endereço IP e a porta do objeto, respectivamente. Além disso, é possível usar a função <code>to_string</code> para obter uma string que representa o objeto <code>asio::ip::tcp::endpoint</code>.</p>
+<p>Além disso, o C++ ASIO fornece outros tipos de objetos endpoint para representar pontos finais de conexões de outros protocolos, como o objeto <code>asio::ip::icmp::endpoint</code> para o protocolo ICMP e o objeto <code>asio::local::stream_protocol::endpoint</code> para o protocolo Unix local. Cada um desses objetos endpoint é composto por um endereço e uma porta, e fornece uma série de funcionalidades úteis para trabalhar com os respectivos protocolos de rede.</p>
 <pre><code class="language-cpp">	basic_endpoint(const boost::asio::ip::address&amp; addr, unsigned short port_num)
 	    : impl_(addr, port_num)
 	{
@@ -760,6 +848,7 @@ int main()
             boost::asio::ip::udp::v4(),
             3306};
 </code></pre>
+<p>Em resumo, o C++ ASIO fornece uma série de objetos endpoint para representar pontos finais de conexões de rede de diferentes protocolos. Cada um desses objetos endpoint é composto por um endereço e uma porta, e fornece uma série de funcionalidades úteis para trabalhar com os respectivos protocolos de rede.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dns-query"><a class="header" href="#dns-query">DNS Query</a></h1>
 <p>A classe <code>resolver</code> é usada para fazer consultas <a href="https://pt.wikipedia.org/wiki/Sistema_de_Nomes_de_Dom%C3%ADnio">DNS</a>, ou seja, converter um serviço host + <a href="https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP">endereço IP</a> + porta.</p>
 <p>Veja <code>boost::asio::ip::tcp::resolver</code> no exemplo abaixo:</p>
