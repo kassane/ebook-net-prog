@@ -17,38 +17,47 @@ A biblioteca Executors praticada pelo autor em seu tempo livre acaba de concluir
 
 ### 1. Por quê Executores?
 
-C++ sempre careceu de infraestrutura de programação simultânea disponível, e a infraestrutura recém-introduzida desde C++11,
-bem como a melhoria de bibliotecas de terceiros, como boost e folly, têm mais ou menos problemas e certas limitações.
+C++ sempre careceu de infraestrutura de programação simultânea disponível, e a infraestrutura recém-introduzida desde C++11, bem como a melhoria de bibliotecas de terceiros, como boost e folly, têm mais ou menos problemas e certas limitações.
 
 ### 1.1 `std::async` não é assíncrono
 
-Vamos voltar no tempo para os tempos modernos do padrão C++11. O padrão C++11 introduziu oficialmente um recurso multithreading unificado, como,
-`<thread>` e outros blocos de construção de baixo nível. Ele também introduziu uma interface para iniciar chamadas de função assíncronas.
-  Mas não é assíncrono. Vamos usar um exemplo de cppreference ilustrar:
+`std::async` é uma função do C++ Standard Library que é usada para iniciar uma tarefa assíncrona em um ponto específico no tempo. Ela é usada para criar uma tarefa assíncrona que será executada em uma thread separada e retorna um objeto `std::future` que pode ser usado para obter o resultado da tarefa quando ela for concluída.
 
-- `<atomic>`
-- `<mutex>`
-- `<conditional_variable>`
-- `std::asyncstd::async`
+Apesar de seu nome, `std::async` não é uma função assíncrona no sentido tradicional da palavra. Ela não é capaz de retornar imediatamente para o chamador enquanto a tarefa assíncrona é executada, mas simplesmente inicia a tarefa em uma thread separada e retorna um objeto `std::future`. Isso significa que o código que chama std::async não pode ser escrito de forma assíncrona usando a sintaxe de await do C++20.
+
+Apesar disso, `std::async` pode ser útil em situações em que é necessário iniciar uma tarefa assíncrona de forma fácil e rápida. Ele é especialmente útil quando é necessário obter o resultado da tarefa assíncrona de forma síncrona, usando a sintaxe de await do C++20 ou esperando pelo objeto `std::future` retornado por `std::async`.
+
+A seguir, um exemplo de uso da função std::async para iniciar uma tarefa assíncrona e obter o resultado da tarefa de forma síncrona:
 
 ```c++
-// temporariamente std::future<void> é construido
-std::async([]{ f(); });
-// bloqueado pelo destrutor de std::future<void>
-std::async([]{ g(); });
+#include <iostream>
+#include <future>
+
+  // Função que será executada assincronamente
+  int long_running_task(int x, int y) {
+  // Simulando um processamento demorado
+  std::this_thread::sleep_for(std::chrono::seconds(2));
+  return x + y;
+}
+
+int main() {
+  // Iniciando a tarefa assíncrona com std::async
+  std::future<int> result = std::async(long_running_task, 10, 20);
+
+  // Obtendo o resultado da tarefa síncronamente com std::future::get
+  int sum = result.get();
+
+  std::cout << "Resultado da tarefa assíncrona: " << sum << std::endl;
+
+  return 0;
+}
 ```
 
-Geralmente falando, a tarefa de `g` tenta executar uma função que **pode** iniciar `f` o agendamento quando a função é executada.
-No entanto, da forma como os códigos listados acima usam , o escalonamento da tarefa que `std::async` inicia a função de execução deve ocorrer
-após o retorno da tarefa que executa a função. A razão é que:
-  `g` e `f`
+Neste exemplo, a função long_running_task é iniciada de forma assíncrona com `std::async` e o resultado da tarefa é obtido síncronamente com `std::future::get`. Isso significa que o código que chama `std::async` será bloqueado até que a tarefa seja concluída e o resultado esteja disponível.
 
-A primeira linha std::asynccria uma `std::future<void>` variável temporária do tipo Temp;A variável temporária Temp é destruída antes de
-iniciar a execução da segunda linha;
-`std::future<void>` O destruidor aguardará o retorno da operação de forma síncrona e bloqueará o thread atual.
+Observe que, apesar de usarmos `std::async` para iniciar a tarefa assíncrona, o código que chama std::async não pode ser escrito de forma assíncrona usando a sintaxe de await do C++20. Para escrever código assíncrono de forma mais simples e clara, é recomendável usar outras bibliotecas de tempo de execução, como C++ ASIO ou Libunifex.
 
-std::asyncInicialmente, uma nova thread de execução é criada para cada tarefa iniciada. Daí std::asynca notoriedade. Agora que é mencionado
-aqui std::future, também tem muitos problemas.
+Em resumo, `std::async` é uma função do C++ Standard Library que é usada para iniciar uma tarefa assíncrona em uma thread separada. Ela não é uma função assíncrona no sentido tradicional da palavra e não pode ser usada com a sintaxe de await do C++20, mas pode ser útil em situações em que é necessário iniciar uma tarefa assíncrona de forma fácil e rápida.
 
 
 ### 1.2 Modelo de Evolução do Futuro/Promessa
