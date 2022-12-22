@@ -850,7 +850,9 @@ int main()
 </code></pre>
 <p>Em resumo, o C++ ASIO fornece uma série de objetos endpoint para representar pontos finais de conexões de rede de diferentes protocolos. Cada um desses objetos endpoint é composto por um endereço e uma porta, e fornece uma série de funcionalidades úteis para trabalhar com os respectivos protocolos de rede.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dns-query"><a class="header" href="#dns-query">DNS Query</a></h1>
-<p>A classe <code>resolver</code> é usada para fazer consultas <a href="https://pt.wikipedia.org/wiki/Sistema_de_Nomes_de_Dom%C3%ADnio">DNS</a>, ou seja, converter um serviço host + <a href="https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP">endereço IP</a> + porta.</p>
+<p>O objeto <code>asio::ip::tcp::resolver</code> é usado para resolver nomes de domínio em endereços IP. Ele é útil em situações em que o programa precisa se conectar a um host remoto ou a um servidor usando um nome de domínio, mas precisa do endereço IP para estabelecer a conexão de rede.</p>
+<p>Para usar o objeto <code>asio::ip::tcp::resolver</code>, é preciso incluir o cabeçalho <code>&lt;asio/ip/tcp.hpp&gt;</code> no seu código e criar um objeto da classe passando um objeto <code>asio::io_context</code> para o construtor. Em seguida, é possível usar o método resolve para resolver o nome de domínio em um endereço IP. O método resolve retorna um iterador que pode ser usado para percorrer a lista de endereços IP retornados.</p>
+<p>O objeto <code>asio::ip::tcp::resolver</code> também fornece uma série de outras funcionalidades úteis. Por exemplo, é possível usar o método async_resolve para resolver o nome de domínio de forma assíncrona, permitindo que o programa continue rodando enquanto a resolução é realizada em segundo plano. Além disso, é possível usar o método cancel para cancelar a resolução de um nome de domínio em andamento.</p>
 <p>Veja <code>boost::asio::ip::tcp::resolver</code> no exemplo abaixo:</p>
 <pre><code class="language-cpp">
 	#include &lt;boost/asio.hpp&gt;
@@ -911,7 +913,17 @@ int main()
 <p>Como ele possui o operador <code>endpoint_type()</code>, ele pode ser convertido diretamente no endpoint:</p>
 <pre><code class="language-cpp">	boost::asio::ip::tcp::endpoint endpoint = *it;
 </code></pre>
+<p>Em resumo, o objeto <code>asio::ip::tcp::resolver</code> do C++ ASIO é usado para resolver nomes de domínio em endereços IP. Ele fornece uma série de funcionalidades úteis, como a possibilidade de resolver o nome de domínio de forma assíncrona e de cancelar a resolução de um nome de domínio em andamento.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="exceção"><a class="header" href="#exceção">Exceção</a></h1>
+<p>O C++ ASIO fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe <code>boost::system::system_error</code> e incluem:</p>
+<ul>
+<li><code>boost::asio::error::address_family_not_supported</code>: lançada quando o tipo de endereço especificado não é suportado pela plataforma.</li>
+<li><code>boost::asio::error::address_in_use</code>: lançada quando o endereço especificado já está em uso por outro processo.</li>
+<li><code>boost::asio::error::connection_aborted</code>: lançada quando a conexão é abortada pelo host remoto.</li>
+<li><code>boost::asio::error::connection_refused</code>: lançada quando a conexão é recusada pelo host remoto.</li>
+<li><code>boost::asio::error::connection_reset</code>: lançada quando a conexão é reiniciada pelo host remoto.</li>
+</ul>
+<p>Essas exceções são lançadas pelos métodos do C++ ASIO que realizam operações de rede, como <code>boost::asio::ip::tcp::acceptor::accept</code> ou <code>boost::asio::ip::tcp::socket::connect</code>. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.</p>
 <p>As funções do <code>Asio</code> podem gerar a exceção <code>boost::system::system_error</code>. Veja o <a href="cpp-asio/dns-query.html"><code>resolve</code></a> no exemplo abaixo:</p>
 <pre><code class="language-cpp">	results_type resolve(BOOST_ASIO_STRING_VIEW_PARAM host,
 		BOOST_ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags)
@@ -960,6 +972,7 @@ int main()
 	}
 </code></pre>
 <p>A função membro chamado <code>what()</code> retorna as informações detalhadas da exceção.</p>
+<p>Em resumo, o C++ ASIO fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe <code>boost::system::system_error</code> ou <code>asio::system_error</code> (<strong>standalone</strong>) e incluem erros comuns de rede, como conexão abortada, conexão recusada ou endereço em uso. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="conectar-servidor"><a class="header" href="#conectar-servidor">Conectar Servidor</a></h1>
 <p>O cliente pode usar os endpoints retornados por <a href="cpp-asio/dns-query.html">DNS</a> para conectar o aplicativo servidor. Veja o código abaixo:</p>
 <pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
@@ -1438,8 +1451,66 @@ Hello world!
 10.217.242.21:63838: Welcome to C++ Networking.
 10.217.242.21:61259: Welcome to C++ Networking.
 </code></pre>
+<p>Outro exemplo é um Client NTP:</p>
+<p>https://gist.github.com/kassane/9f3b8d8fcd5a1a0adfca6c159d61dc92</p>
+<pre><code class="language-c++">// Usado asio standalone (sem boost)
+#include &lt;array&gt;
+#include &lt;asio.hpp&gt;
+#include &lt;iostream&gt;
+
+using asio::ip::udp;
+
+int main(int argc, char *argv[]) {
+  try {
+    if (argc != 2) {
+      std::cerr &lt;&lt; &quot;Usage: ntp_client &lt;host&gt;&quot; &lt;&lt; std::endl;
+      return 1;
+    }
+
+    asio::io_context io_context;
+
+    udp::resolver resolver(io_context);
+    udp::endpoint receiver_endpoint =
+        *resolver.resolve(udp::v4(), argv[1], &quot;123&quot;).begin();
+
+    udp::socket socket(io_context);
+    socket.open(udp::v4());
+
+    std::array&lt;char, 48&gt; send_buf = {0x1b, 0, 0, 0, 0, 0, 0, 0, 0};
+    socket.send_to(asio::buffer(send_buf), receiver_endpoint);
+
+    std::array&lt;char, 48&gt; recv_buf;
+    udp::endpoint sender_endpoint;
+    size_t len = socket.receive_from(asio::buffer(recv_buf), sender_endpoint);
+
+    std::cout &lt;&lt; &quot;received &quot; &lt;&lt; len &lt;&lt; &quot; bytes from &quot; &lt;&lt; sender_endpoint
+              &lt;&lt; std::endl;
+
+    // Extract the NTP timestamp from the response
+    unsigned long long int ntp_timestamp =
+      (unsigned long long int)(recv_buf[40]) &lt;&lt; 24 |
+      (unsigned long long int)(recv_buf[41]) &lt;&lt; 16 |
+      (unsigned long long int)(recv_buf[42]) &lt;&lt; 8 |
+      (unsigned long long int)(recv_buf[43]);
+
+   // Convert the timestamp to a std::chrono::system_clock::time_point
+    std::chrono::system_clock::time_point time_point =
+        std::chrono::system_clock::time_point(
+            std::chrono::seconds(ntp_timestamp - 2208988800ull));
+
+    // Convert the time_point to a std::time_t and print it
+    std::time_t time = std::chrono::system_clock::to_time_t(time_point);
+    std::cout &lt;&lt; std::ctime(&amp;time) &lt;&lt; std::endl;
+
+  } catch (std::exception &amp;e) {
+    std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
+  }
+
+  return 0;
+}
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="conclusão-"><a class="header" href="#conclusão-">Conclusão 🎉</a></h1>
-<p>Espero que tenha esclarecido o uso da programação de rede com <a href="https://think-async.com/Asio/boost_asio_1_16_1/doc/html/boost_asio.html">Asio</a> para você. Definitivamente, este pequeno livro apenas introduz a idéia básica. Para melhorar sua habilidade de codificação, você precisa ler mais a <a href="https://think-async.com/Asio/boost_asio_1_16_1/doc/html/boost_asio.html">documentação</a> junto com o código-fonte e praticar mais. 👀</p>
+<p>Espero que tenha esclarecido o uso da programação de rede com <a href="https://think-async.com/Asio/boost_asio_1_24.0/doc/html/boost_asio.html">Asio</a> para você. Definitivamente, este pequeno livro apenas introduz a idéia básica. Para melhorar sua habilidade de codificação, você precisa ler mais a <a href="https://think-async.com/Asio/boost_asio_1_24.0/doc/html/boost_asio.html">documentação</a> junto com o código-fonte e praticar mais. 👀</p>
 <p>Bons estudos e divirta-se praticando! 😉</p>
 
                     </main>

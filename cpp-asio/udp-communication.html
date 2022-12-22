@@ -212,6 +212,64 @@
 10.217.242.21:63838: Welcome to C++ Networking.
 10.217.242.21:61259: Welcome to C++ Networking.
 </code></pre>
+<p>Outro exemplo é um Client NTP:</p>
+<p>https://gist.github.com/kassane/9f3b8d8fcd5a1a0adfca6c159d61dc92</p>
+<pre><code class="language-c++">// Usado asio standalone (sem boost)
+#include &lt;array&gt;
+#include &lt;asio.hpp&gt;
+#include &lt;iostream&gt;
+
+using asio::ip::udp;
+
+int main(int argc, char *argv[]) {
+  try {
+    if (argc != 2) {
+      std::cerr &lt;&lt; &quot;Usage: ntp_client &lt;host&gt;&quot; &lt;&lt; std::endl;
+      return 1;
+    }
+
+    asio::io_context io_context;
+
+    udp::resolver resolver(io_context);
+    udp::endpoint receiver_endpoint =
+        *resolver.resolve(udp::v4(), argv[1], &quot;123&quot;).begin();
+
+    udp::socket socket(io_context);
+    socket.open(udp::v4());
+
+    std::array&lt;char, 48&gt; send_buf = {0x1b, 0, 0, 0, 0, 0, 0, 0, 0};
+    socket.send_to(asio::buffer(send_buf), receiver_endpoint);
+
+    std::array&lt;char, 48&gt; recv_buf;
+    udp::endpoint sender_endpoint;
+    size_t len = socket.receive_from(asio::buffer(recv_buf), sender_endpoint);
+
+    std::cout &lt;&lt; &quot;received &quot; &lt;&lt; len &lt;&lt; &quot; bytes from &quot; &lt;&lt; sender_endpoint
+              &lt;&lt; std::endl;
+
+    // Extract the NTP timestamp from the response
+    unsigned long long int ntp_timestamp =
+      (unsigned long long int)(recv_buf[40]) &lt;&lt; 24 |
+      (unsigned long long int)(recv_buf[41]) &lt;&lt; 16 |
+      (unsigned long long int)(recv_buf[42]) &lt;&lt; 8 |
+      (unsigned long long int)(recv_buf[43]);
+
+   // Convert the timestamp to a std::chrono::system_clock::time_point
+    std::chrono::system_clock::time_point time_point =
+        std::chrono::system_clock::time_point(
+            std::chrono::seconds(ntp_timestamp - 2208988800ull));
+
+    // Convert the time_point to a std::time_t and print it
+    std::time_t time = std::chrono::system_clock::to_time_t(time_point);
+    std::cout &lt;&lt; std::ctime(&amp;time) &lt;&lt; std::endl;
+
+  } catch (std::exception &amp;e) {
+    std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
+  }
+
+  return 0;
+}
+</code></pre>
 
                     </main>
 

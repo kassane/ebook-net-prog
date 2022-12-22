@@ -142,7 +142,9 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="dns-query"><a class="header" href="#dns-query">DNS Query</a></h1>
-<p>A classe <code>resolver</code> é usada para fazer consultas <a href="https://pt.wikipedia.org/wiki/Sistema_de_Nomes_de_Dom%C3%ADnio">DNS</a>, ou seja, converter um serviço host + <a href="https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP">endereço IP</a> + porta.</p>
+<p>O objeto <code>asio::ip::tcp::resolver</code> é usado para resolver nomes de domínio em endereços IP. Ele é útil em situações em que o programa precisa se conectar a um host remoto ou a um servidor usando um nome de domínio, mas precisa do endereço IP para estabelecer a conexão de rede.</p>
+<p>Para usar o objeto <code>asio::ip::tcp::resolver</code>, é preciso incluir o cabeçalho <code>&lt;asio/ip/tcp.hpp&gt;</code> no seu código e criar um objeto da classe passando um objeto <code>asio::io_context</code> para o construtor. Em seguida, é possível usar o método resolve para resolver o nome de domínio em um endereço IP. O método resolve retorna um iterador que pode ser usado para percorrer a lista de endereços IP retornados.</p>
+<p>O objeto <code>asio::ip::tcp::resolver</code> também fornece uma série de outras funcionalidades úteis. Por exemplo, é possível usar o método async_resolve para resolver o nome de domínio de forma assíncrona, permitindo que o programa continue rodando enquanto a resolução é realizada em segundo plano. Além disso, é possível usar o método cancel para cancelar a resolução de um nome de domínio em andamento.</p>
 <p>Veja <code>boost::asio::ip::tcp::resolver</code> no exemplo abaixo:</p>
 <pre><code class="language-cpp">
 	#include &lt;boost/asio.hpp&gt;
@@ -203,6 +205,7 @@
 <p>Como ele possui o operador <code>endpoint_type()</code>, ele pode ser convertido diretamente no endpoint:</p>
 <pre><code class="language-cpp">	boost::asio::ip::tcp::endpoint endpoint = *it;
 </code></pre>
+<p>Em resumo, o objeto <code>asio::ip::tcp::resolver</code> do C++ ASIO é usado para resolver nomes de domínio em endereços IP. Ele fornece uma série de funcionalidades úteis, como a possibilidade de resolver o nome de domínio de forma assíncrona e de cancelar a resolução de um nome de domínio em andamento.</p>
 
                     </main>
 
