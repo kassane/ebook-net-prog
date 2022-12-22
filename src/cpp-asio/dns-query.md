@@ -1,6 +1,10 @@
 # DNS Query
 
-A classe `resolver` é usada para fazer consultas [DNS](https://pt.wikipedia.org/wiki/Sistema_de_Nomes_de_Dom%C3%ADnio), ou seja, converter um serviço host + [endereço IP](https://pt.wikipedia.org/wiki/Endere%C3%A7o_IP) + porta.
+O objeto `asio::ip::tcp::resolver` é usado para resolver nomes de domínio em endereços IP. Ele é útil em situações em que o programa precisa se conectar a um host remoto ou a um servidor usando um nome de domínio, mas precisa do endereço IP para estabelecer a conexão de rede.
+
+Para usar o objeto `asio::ip::tcp::resolver`, é preciso incluir o cabeçalho `<asio/ip/tcp.hpp>` no seu código e criar um objeto da classe passando um objeto `asio::io_context` para o construtor. Em seguida, é possível usar o método resolve para resolver o nome de domínio em um endereço IP. O método resolve retorna um iterador que pode ser usado para percorrer a lista de endereços IP retornados.
+
+O objeto `asio::ip::tcp::resolver` também fornece uma série de outras funcionalidades úteis. Por exemplo, é possível usar o método async_resolve para resolver o nome de domínio de forma assíncrona, permitindo que o programa continue rodando enquanto a resolução é realizada em segundo plano. Além disso, é possível usar o método cancel para cancelar a resolução de um nome de domínio em andamento.
 
 Veja `boost::asio::ip::tcp::resolver` no exemplo abaixo:
 
@@ -70,3 +74,5 @@ Como ele possui o operador `endpoint_type()`, ele pode ser convertido diretament
 ```cpp
 	boost::asio::ip::tcp::endpoint endpoint = *it;
 ```
+
+Em resumo, o objeto `asio::ip::tcp::resolver` do C++ ASIO é usado para resolver nomes de domínio em endereços IP. Ele fornece uma série de funcionalidades úteis, como a possibilidade de resolver o nome de domínio de forma assíncrona e de cancelar a resolução de um nome de domínio em andamento.
