@@ -17,26 +17,50 @@ Geralmente, existem duas maneiras de fazer isso:
 
 ## MultiTasking (MultiTarefa):
 
+É o processo de executar várias tarefas ao mesmo tempo em um único processador. Ele é usado para permitir que várias tarefas sejam executadas de forma simultânea e para aumentar a eficiência do processador. Existem várias técnicas de multitasking, como multitasking baseado em tempo, multitasking baseado em eventos e multitasking baseado em processos.
+
+### Tipos de tarefas:
+
 - **Preemptivo:** Ocorre quando uma tarefa é interrompida por algum agendador externo e executa outra antes de voltar. A tarefa não tem nada a haver sobre esse assunto, a decisão é tomada pelo agendador. O kernel usa isso em sistemas operacionais, ou seja, para permitir que você use a interface do usuário enquanto executa a CPU para fazer cálculos em sistemas de thread único.
 
 - **Não-Preemptivo:** Uma tarefa decide por si mesma quando é melhor a CPU fazer outra coisa do que esperar que algo aconteça na tarefa atual. Geralmente isso ocorre quando `yield` repassa o controle ao agendador. Um caso de uso normal para isso é gerar controle quando algo que irá bloquear a execução ocorre. Um exemplo disso são as operações de E/S. Quando o controle é gerado, um agendador central direciona a CPU para retomar o trabalho em outra tarefa que está pronta para realmente fazer outra coisa além de apenas bloquear.
 
 ## Síncrono (sync) e assíncrono (async):
 
-Síncrono e assíncrono refere-se à interação entre o aplicativo e o kernel.
-- **Síncrono**: refere-se ao processo do usuário acionando operações de E/S e aguarda ou verifica se as operações de E/S estão prontas.
+São dois termos que se referem ao modo como as operações são executadas em um programa de computador.
 
-- **Assíncrono**: refere-se ao processo do usuário que aciona operações de E/S. Após a operação de saída, ele começa a fazer suas próprias coisas e, quando a operação de E/S for concluída, ela será notificada da conclusão de E/S.
+`Sync`: são aquelas que são executadas de forma sequencial, ou seja, uma operação é executada após a conclusão da operação anterior. Isso significa que o programa é bloqueado enquanto a operação está sendo executada e não pode continuar até que a operação seja concluída.
+
+`Async`: são aquelas que são executadas de forma independente, ou seja, uma operação é iniciada e o programa continua a executar outras operações enquanto a operação assíncrona está sendo executada. Isso significa que o programa não é bloqueado enquanto a operação assíncrona está sendo executada e pode continuar a executar outras operações enquanto aguarda o término da operação assíncrona.
+
+Operações síncronas são geralmente mais fáceis de programar e entender, mas podem ser menos eficientes em situações em que é necessário aguardar o término de uma operação para continuar a execução. Operações assíncronas, por outro lado, são geralmente mais eficientes, mas podem ser mais complexas de programar e entender.
+
 
 ## Bloqueante e não-bloqueante:
 
-Bloqueante e não-bloqueante são maneiras diferentes que os processos seguem de acordo com a prontidão das operações de E/S ao acessar dados. Para colocar claramente, é uma implementação de funções de operação de leitura ou gravação. A função de gravação aguardará para sempre. No modo sem bloqueio, a função de leitura ou gravação retornará imediatamente um valor de status. 
+Blocking e non-blocking são termos que se referem ao modo como as operações são executadas em um programa de computador.
+
+Operações blocking são aquelas que bloqueiam o programa enquanto aguardam o término de uma operação. Isso significa que o programa não pode continuar a executar outras operações enquanto aguarda o término da operação blocking.
+
+Operações non-blocking, por outro lado, são aquelas que não bloqueiam o programa enquanto aguardam o término de uma operação. Isso significa que o programa pode continuar a executar outras operações enquanto aguarda o término da operação non-blocking.
+
+Operações blocking são geralmente mais fáceis de programar e entender, mas podem ser menos eficientes em situações em que é necessário aguardar o término de uma operação para continuar a execução. Operações non-blocking, por outro lado, são geralmente mais eficientes, mas podem ser mais complexas de programar e entender.
+
+## Exclusão Mútua (Mutex)
+
+`Mutex` (mutual exclusion, exclusão mútua em inglês): é um mecanismo de sincronização que é usado para garantir que apenas uma thread (rotina) de um programa de computador tenha acesso a uma região crítica de código por vez. Ele é usado para evitar conflitos de acesso entre threads que podem ocorrer quando várias threads tentam acessar e modificar o mesmo dado ao mesmo tempo. O mutex bloqueia a região crítica de código enquanto uma thread está acessando-a, garantindo que outras threads aguardem o término da operação antes de tentarem acessar a região crítica de código. 
 
 ## Epoll/Kqueue/IOCP/IO_uring:
 
-Esses métodos nos permitem conectar-se ao sistema operacional de uma maneira em que podemos esperar por muitos eventos, em vez de ficarmos limitados a esperar um evento por thread, podemos esperar por muitos eventos em uma única thread. Isso nos permite evitar uma das maiores desvantagens do uso de um thread por evento, que é toda a memória ocupada e a sobrecarga de gerar novos threads continuamente. Agora, temos apenas um segmento aguardando muitas tarefas.
+Epoll, Kqueue, IOCP e IO_uring são todos mecanismos de I/O event-driven (I/O com base em eventos) que são usados ​​para monitorar e gerenciar operações de entrada e saída assíncronas em sistemas operacionais diferentes. Eles são usados ​​para permitir que as aplicações sejam notificadas quando os dados estão disponíveis para leitura ou quando os dados podem ser escritos sem bloquear o processador.
 
-Esses métodos têm em comum que eles são uma espécie de bloqueio da E/S. Se registrarmos apenas um evento na fila de eventos `epoll/kqueue/iocp/io_uring` e aguardarmos, não será diferente do uso de bloqueio da E/S. A vantagem é que podemos ter uma fila que aguarda centenas de milhares de eventos com pouquíssimos recursos desperdiçados.
+`Epoll`: é um mecanismo de I/O com base em eventos disponível no Linux. Ele permite que as aplicações monitorem vários descritores de arquivo para verificar se eles estão prontos para leitura ou escrita.
+
+`Kqueue`: é um mecanismo de I/O com base em eventos disponível no FreeBSD, NetBSD e OpenBSD. Ele funciona de maneira semelhante ao Epoll, permitindo que as aplicações monitorem descritores de arquivo para verificar se eles estão prontos para leitura ou escrita.
+
+`IOCP`: é um mecanismo de I/O com base em eventos disponível no Windows. Ele permite que as aplicações monitorem vários handles de arquivo e sockets para verificar se eles estão prontos para leitura ou escrita.
+
+`IO_uring`: é um mecanismo de I/O com base em eventos disponível no Linux. Ele foi projetado para ser mais rápido e eficiente do que o Epoll e oferece uma interface mais simples para as aplicações.
 
 ## Coroutine (Corrotina):
 
@@ -56,6 +80,8 @@ As características de uma corrotina são:
 - Stackful (com pilha): pode ser suspensa de dentro de um stackframe (quadro de pilha) aninhado. A execução continua exatamente no mesmo ponto no código em que foi suspensa antes.
 
 - Stackless (sem pilha): apenas a rotina de nível superior pode ser suspensa. Qualquer rotina chamada por essa rotina de nível superior pode não ser suspensa. Isso proíbe o fornecimento de operações de suspensão ou retomada de rotinas dentro de uma biblioteca de uso geral.
+
+As coroutines stackless são implementadas sem usar uma pilha de chamadas de função, enquanto as coroutines stackful são implementadas com uma pilha de chamadas de função. As coroutines stackless são geralmente mais eficientes em termos de uso de memória, mas são mais difíceis de implementar e menos flexíveis do que as coroutines stackful.
 
 ## Fiber (Fibra):
 

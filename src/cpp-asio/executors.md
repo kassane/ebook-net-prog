@@ -6,14 +6,18 @@ Há o recurso global RTC e, em vez de criar várias e várias threads para a exe
 
 ### Surgimento do assunto em torno do C++ STL
 
-Em 6 de julho de 2021, a proposta dos Executores foi atualizada com mais um bilhão de pontos. O novo documento,
-[P2300R1](http://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2300r1.html),
+Em 6 de julho de 2021, a proposta dos Executores foi atualizada com mais um bilhão de pontos. O novo documento, [P2300R1](http://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2300r1.html),
 oficialmente denominado `std::execution`, em comparação com The Unified Executor for C++, [P0443R14](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0443r14),
-expõe mais sistematicamente as ideias de design dos Executors; dá mais instruções sobre implementação; exclui o Executor Concept,
-mantém e estabelece o modelo `Sender/Receiver/Scheduler` é introduzido;
-o conjunto inicial de algoritmos que deveria estar na biblioteca é fornecido e não há pequenas alterações no design do algoritmo anterior;
-há semântica mais clara, como tarefa multi-shot (multi-shot) e Single-shot, lazy e entrega ansiosa de tarefas, etc.
+expõe mais sistematicamente as ideias de design dos Executors; dá mais instruções sobre implementação.
 A biblioteca Executors praticada pelo autor em seu tempo livre acaba de concluir o conteúdo do P1879R3.
+
+`Unified Executors` propõe que o namespace `std::execution` do C++ Standard Library que visa fornecer uma forma mais flexível e genérica de trabalhar com Executors. A proposta foi apresentada no Grupo de Trabalho 21 (WG21) do Comitê de Padrões do C++ como a Proposta de Padrão P1907R0.
+
+Atualmente, o namespace std::execution fornece vários tipos de Executors, como `std::execution::sequenced_policy` e `std::execution::parallel_policy`, que podem ser usados ​​para controlar como as tarefas são agendadas e executadas. No entanto, esses Executors são bastante rígidos e não permitem muita flexibilidade na customização da forma como as tarefas são agendadas e executadas.
+
+A proposta de universal executors visa fornecer uma forma mais flexível de trabalhar com Executors, permitindo que os programadores criem seus próprios Executors personalizados de acordo com suas necessidades específicas. Isso seria feito através da introdução de novos tipos e funções no namespace `std::execution`, como `std::execution::uniform_invocable` e `std::execution::execute`, que permitiriam a criação de Executors personalizados de forma mais fácil e rápida.
+
+A proposta de universal executors ainda está em fase de discussão no Grupo de Trabalho 21 (WG21) e ainda não foi adotada como parte do C++ Standard. No entanto, se aprovada, ela pode ser uma adição importante ao C++ Standard
 
 ### 1. Por quê Executores?
 
@@ -73,7 +77,7 @@ A implementação de um Future/Promise típico em C++ é mostrada na figura abai
 ![img](https://user-images.githubusercontent.com/6756180/208737071-abe8d31c-fe0d-4023-8a1a-64083099c4f6.jpg)
 
   
-### 1.3 Executores em Asio
+### 1.3 Executores em ASIO
 
 
 Os executores são componentes do asio que definem o contexto de execução de uma função ou um bloco de código. Eles podem ser usados para controlar como e quando uma função ou um bloco de código é executado, e permitem que você aproveite os recursos de concorrência fornecidos pelo asio para executar tarefas de forma assíncrona e concorrente.

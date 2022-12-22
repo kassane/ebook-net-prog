@@ -1,5 +1,11 @@
 # Sockets (Soquetes)
 
+A classe `asio::basic_stream_socket` do C++ ASIO é uma classe genérica que é usada como base para a criação de classes de socket específicas para diferentes protocolos de rede. Ela fornece uma interface comum para realizar operações de entrada e saída em sockets e é a classe base para a criação de classes de socket para protocolos como TCP, UDP, ICMP e SCTP.
+
+A `asio::basic_stream_socket` fornece uma série de funções de leitura e escrita assíncronas que podem ser usadas para enviar e receber dados através de um socket de forma assíncrona. Ela também oferece funções para estabelecer conexões com outros hosts na rede e para fechar conexões existentes.
+
+Para usar a `asio::basic_stream_socket`, é preciso criar uma classe derivada que especifique o tipo de socket que deseja criar, como um socket TCP, UDP, ICMP ou SCTP. Em seguida, é possível criar um objeto da classe derivada e passar um objeto de resolução de endereço e um objeto de io_context para o construtor. Em seguida, é possível chamar as funções de leitura e escrita fornecidas pela `asio::basic_stream_socket` para enviar e receber dados através do socket.
+
 Existem `4` tipos de sockets:
 
 (1) `basic_stream_socket`:  
@@ -82,3 +88,7 @@ mas suporta move constructed/move assignment:
 	    ......
 	  }
 ```
+
+Além das funções de leitura e escrita assíncronas, a `asio::basic_stream_socket` também oferece uma série de outras funcionalidades úteis. Por exemplo, ela permite que o programa configure opções de socket, como o timeout de leitura e escrita, o tamanho do buffer de leitura e escrita e o uso de Keepalives. Ela também permite que o programa obtenha informações sobre o socket, como o endereço local e remoto, o estado da conexão e o número de bytes enviados e recebidos.
+
+Em resumo, a asio::`basic_stream_socket` é uma classe genérica do C++ ASIO que é usada como base para a criação de classes de socket específicas para diferentes protocolos de rede. Ela fornece uma interface comum para realizar operações de entrada e saída em sockets e oferece uma série de funcionalidades úteis, como configuração de opções de socket e obtenção de informações sobre o socket.

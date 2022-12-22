@@ -39,3 +39,19 @@ A classe `boost::asio::basic_streambuf` é derivada de `std::basic_streambuf` pa
 * Os dados são removidos da sequência frontal de entrada chamando a função de membro `consume()`.
 
 O construtor `streambuf` aceita um argumento `size_t` especificando a soma máximo dos tamanhos da sequência de entrada e de saída. Qualquer operação que, se for bem-sucedida, aumentará os dados internos além desse limite, lançará uma exceção `std::length_error`.
+
+## Tipos de Buffers
+
+O C++ ASIO fornece vários tipos de buffers que podem ser usados ​​para representar conjuntos de dados que podem ser lidos ou escritos de forma assíncrona. A seguir, uma lista de alguns dos tipos de buffers disponíveis no C++ ASIO:
+
+- `asio::const_buffer`: Representa um conjunto de dados que serão lidos, mas não alterados. Ele é útil quando você deseja ler os dados de uma fonte externa, como uma conexão de rede, sem alterá-los.
+
+- `asio::mutable_buffer`: Representa um conjunto de dados que serão lidos e alterados. Ele é útil quando você deseja ler os dados de uma fonte externa e alterá-los antes de enviá-los para outro lugar.
+
+- `asio::buffer`: É uma função que cria um buffer a partir de um objeto de tipo T. Ele pode ser usado para criar buffers a partir de qualquer tipo de dado, como strings, arrays ou estruturas de dados.
+
+- `asio::buffer_cast`: É uma função que retorna um ponteiro para os dados subjacentes de um buffer. Ele é útil para acessar os dados de um buffer de forma mais conveniente.
+
+- `asio::buffer_size`: É uma função que retorna o tamanho de um buffer em bytes. Ela é útil para determinar quantos dados podem ser lidos ou escritos em um buffer.
+
+Esses são apenas alguns dos tipos de buffers disponíveis no C++ ASIO. Existem outros tipos de buffers disponíveis para uso em situações específicas.
