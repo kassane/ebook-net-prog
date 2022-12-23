@@ -1425,20 +1425,20 @@ struct icmphdr
     unsigned char  type;
     unsigned char  code;
     unsigned short checksum;
-    union
+    union un
     {
-        struct
+        struct echo
         {
             unsigned short id;
             unsigned short sequence;
-        } echo;
+        };
         unsigned int   gateway;
-        struct
+        struct frag
         {
             unsigned short __unused;
             unsigned short mtu;
-        } frag;
-    } un;
+        };
+    };
 };
 
 int main()
