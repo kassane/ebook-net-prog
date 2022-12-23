@@ -519,7 +519,7 @@ Há o recurso global RTC e, em vez de criar várias e várias threads para a exe
 <p>Em 6 de julho de 2021, a proposta dos Executores foi atualizada com mais um bilhão de pontos. O novo documento, <a href="http://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2300r1.html">P2300R1</a>,
 oficialmente denominado <code>std::execution</code>, em comparação com The Unified Executor for C++, <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0443r14">P0443R14</a>,
 expõe mais sistematicamente as ideias de design dos Executors; dá mais instruções sobre implementação.
-A biblioteca Executors praticada pelo autor em seu tempo livre acaba de concluir o conteúdo do P1879R3.</p>
+A biblioteca Executors praticada pelo autor em seu tempo livre acaba de concluir o conteúdo do <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p1897r3.html">P1879R3</a>.</p>
 <p><code>Unified Executors</code> propõe que o namespace <code>std::execution</code> do C++ Standard Library que visa fornecer uma forma mais flexível e genérica de trabalhar com Executors. A proposta foi apresentada no Grupo de Trabalho 21 (WG21) do Comitê de Padrões do C++ como a Proposta de Padrão P1907R0.</p>
 <p>Atualmente, o namespace std::execution fornece vários tipos de Executors, como <code>std::execution::sequenced_policy</code> e <code>std::execution::parallel_policy</code>, que podem ser usados ​​para controlar como as tarefas são agendadas e executadas. No entanto, esses Executors são bastante rígidos e não permitem muita flexibilidade na customização da forma como as tarefas são agendadas e executadas.</p>
 <p>A proposta de universal executors visa fornecer uma forma mais flexível de trabalhar com Executors, permitindo que os programadores criem seus próprios Executors personalizados de acordo com suas necessidades específicas. Isso seria feito através da introdução de novos tipos e funções no namespace <code>std::execution</code>, como <code>std::execution::uniform_invocable</code> e <code>std::execution::execute</code>, que permitiriam a criação de Executors personalizados de forma mais fácil e rápida.</p>
@@ -556,14 +556,43 @@ int main() {
 <p>Neste exemplo, a função long_running_task é iniciada de forma assíncrona com <code>std::async</code> e o resultado da tarefa é obtido síncronamente com <code>std::future::get</code>. Isso significa que o código que chama <code>std::async</code> será bloqueado até que a tarefa seja concluída e o resultado esteja disponível.</p>
 <p>Observe que, apesar de usarmos <code>std::async</code> para iniciar a tarefa assíncrona, o código que chama std::async não pode ser escrito de forma assíncrona usando a sintaxe de await do C++20. Para escrever código assíncrono de forma mais simples e clara, é recomendável usar outras bibliotecas de tempo de execução, como C++ ASIO ou Libunifex.</p>
 <p>Em resumo, <code>std::async</code> é uma função do C++ Standard Library que é usada para iniciar uma tarefa assíncrona em uma thread separada. Ela não é uma função assíncrona no sentido tradicional da palavra e não pode ser usada com a sintaxe de await do C++20, mas pode ser útil em situações em que é necessário iniciar uma tarefa assíncrona de forma fácil e rápida.</p>
-<h3 id="12-modelo-de-evolução-do-futuropromessa"><a class="header" href="#12-modelo-de-evolução-do-futuropromessa">1.2 Modelo de Evolução do Futuro/Promessa</a></h3>
-<p>O modelo Futuro/Promessa é um modelo clássico de programação concorrente, que fornece aos programadores um mecanismo completo para controlar
-a sincronização e a assincronia do programa. O mecanismo Future/Promise também foi introduzido no C++11.
-Future é essencialmente uma operação simultânea que iniciamos e Promise é essencialmente um retorno de chamada para operações simultâneas.
-Podemos aguardar a operação e obter o resultado da operação através do objeto Future, e o objeto Promise é responsável por escrever o valor
-de retorno e nos notificar.</p>
+<h3 id="12-modelo-de-evolução-do-futurepromise"><a class="header" href="#12-modelo-de-evolução-do-futurepromise">1.2 Modelo de Evolução do Future/Promise</a></h3>
+<p>No C++11, o modelo future/promise é um meio de permitir que uma thread espere por um valor a ser produzido por outra thread de maneira assíncrona. Ele é composto pelos seguintes elementos:</p>
+<ul>
+<li>
+<p><code>Promise</code>: um objeto que permite que um valor seja definido em algum momento no futuro. A promessa possui um método setValue para definir o valor e um método <code>setException</code> para definir uma exceção a ser lançada quando o valor for solicitado.</p>
+</li>
+<li>
+<p><code>Future</code>: um objeto que permite que uma thread espere por um valor produzido por outra thread. O futuro possui um método wait que faz a thread que o chama esperar até que o valor esteja disponível. Além disso, o futuro possui métodos como <code>then</code> e <code>onError</code> que permitem que ações sejam executadas quando o valor estiver disponível ou uma exceção for lançada.</p>
+</li>
+</ul>
 <p>A implementação de um Future/Promise típico em C++ é mostrada na figura abaixo:
 <img src="https://user-images.githubusercontent.com/6756180/208737071-abe8d31c-fe0d-4023-8a1a-64083099c4f6.jpg" alt="img" /></p>
+<p>Para usar o modelo de futuros e promessas, é preciso criar um objeto promessa e obter um objeto futuro a partir dele. Em seguida, a thread que produzirá o valor deve definir o valor na promessa usando o método <code>setValue</code> ou <code>setException</code>. A thread que estiver esperando pelo valor pode usar o método wait do futuro para esperar até que o valor esteja disponível.</p>
+<p>Aqui está um exemplo de como usar o modelo de futuros e promessas em C++:</p>
+<pre><code class="language-c++">#include &lt;future&gt;
+#include &lt;iostream&gt;
+
+int main() {
+  // Cria uma promessa e um futuro
+  std::promise&lt;int&gt; promise;
+  std::future&lt;int&gt; future = promise.get_future();
+
+  // Define o valor da promessa em uma thread separada
+  std::thread([&amp;promise] {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    promise.set_value(42);
+  }).detach();
+
+  // Espera pelo valor a ser definido e imprime-o
+  std::cout &lt;&lt; future.get() &lt;&lt; std::endl;
+
+  return 0;
+}
+</code></pre>
+<p>Este código cria um objeto <code>std::promise</code> e um objeto <code>std::future</code>, e define o valor da <code>std::promise</code> em uma thread separada usando um <code>std::thread</code>. O objeto <code>std::future</code> é então usado para esperar pelo valor a ser definido, e o valor é impresso no console.</p>
+<p>Essas classes são mais básicas do que as oferecidas pelas bibliotecas <code>folly</code> e <code>asio</code>, mas são parte da Biblioteca Padrão de C++ e, portanto, estão disponíveis em qualquer compilador C++ padrão.
+As classes <code>std::future</code> e <code>std::promise</code> fornecem um conjunto similar de funcionalidades às classes <code>folly::Future</code> e <code>folly::Promise</code> da biblioteca <a href="https://github.com/facebook/folly">folly</a>, mas são parte da Biblioteca Padrão de C++ e não exigem dependências adicionais.</p>
 <h3 id="13-executores-em-asio"><a class="header" href="#13-executores-em-asio">1.3 Executores em ASIO</a></h3>
 <p>Os executores são componentes do asio que definem o contexto de execução de uma função ou um bloco de código. Eles podem ser usados para controlar como e quando uma função ou um bloco de código é executado, e permitem que você aproveite os recursos de concorrência fornecidos pelo asio para executar tarefas de forma assíncrona e concorrente.</p>
 <p>O asio fornece várias formas de se trabalhar com executores, incluindo a possibilidade de especificar o contexto de execução de uma função ou um bloco de código usando o template <code>asio::execution</code>, ou usando funções como <code>asio::post</code>, que permitem agendar a execução de uma função ou um bloco de código em um determinado contexto de execução.</p>
@@ -593,7 +622,7 @@ de retorno e nos notificar.</p>
 <p>O conceito de Executor é uma parte importante do namespace <code>std::execution</code>. Ele é um tipo de modelo de classe que define uma interface para a execução de tarefas assíncronas. Um Executor é responsável por agendar tarefas para serem executadas em um determinado ponto no tempo, permitindo que o código assíncrono seja escrito de forma mais simples e clara.</p>
 <p>O conceito de Executor é importante porque ele permite que você escreva código assíncrono de forma mais genérica, pois você pode usar a mesma interface para trabalhar com diferentes bibliotecas de tempo de execução sem precisar se preocupar com as diferenças entre elas. Isso torna o código mais portável e facilita a manutenção e a expansão do código no futuro.</p>
 <p>O namespace <code>std::execution</code> fornece vários tipos de Executor, como <code>std::execution::sequenced_policy</code> e <code>std::execution::parallel_policy</code>, que podem ser usados ​​para controlar como as tarefas são agendadas e executadas. Além disso, ele fornece funções como <code>std::execution::execute</code> e <code>std::execution::bulk_execute</code>, que podem ser usadas para executar tarefas de forma assíncrona de acordo com o Executor especificado.</p>
-<p>Em resumo, std::execution é um namespace do C++ Standard Library que fornece uma interface padronizada para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, enquanto que C++ ASIO é uma biblioteca de tempo de execução que oferece recursos para criar aplicações de rede de forma assíncrona. C++ ASIO pode ser usado com o namespace <code>std::execution</code>, mas também pode ser usado de forma independente. A escolha da biblioteca a ser usada depende das necessidades específicas de sua aplicação e de suas preferências de programação.</p>
+<p>Em resumo, <code>std::execution</code> é um namespace do C++ Standard Library que fornece uma interface padronizada para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, enquanto que C++ ASIO é uma biblioteca de tempo de execução que oferece recursos para criar aplicações de rede de forma assíncrona. C++ ASIO pode ser usado com o namespace <code>std::execution</code>, mas também pode ser usado de forma independente. A escolha da biblioteca a ser usada depende das necessidades específicas de sua aplicação e de suas preferências de programação.</p>
 <h4 id="1312-libunifex"><a class="header" href="#1312-libunifex">1.3.1.2 Libunifex</a></h4>
 <p>Libunifex e C++ ASIO são duas bibliotecas diferentes que são utilizadas para criar aplicações de redes de forma assíncrona em C++.</p>
 <p>C++ ASIO é uma biblioteca de tempo de execução que oferece suporte para a comunicação assíncrona entre sistemas de computador. Ela é amplamente utilizada para a criação de aplicações de redes, como servidores de rede e clientes de rede. C++ ASIO fornece uma série de recursos, como sockets de rede, temporizadores e sinais de interrupção, que podem ser usados ​​para criar aplicações de rede de forma assíncrona.</p>
@@ -813,6 +842,19 @@ int main()
 <p>Por exemplo, o completion token <code>asio::use_future</code> é usado para completar a operação assíncrona retornando um objeto <code>std::future</code> que pode ser usado para obter o resultado da operação. Isso permite que o chamador da função assíncrona aguarde o término da operação de forma síncrona, usando a sintaxe de await do C++20.</p>
 <p>O completion token <code>asio::use_awaitable</code>, por outro lado, é usado para completar a operação assíncrona retornando um objeto awaitable que pode ser usado para aguardar o término da operação de forma assíncrona. Isso permite que o chamador da função assíncrona aguarde o término da operação de forma assíncrona, usando a sintaxe de await do C++20.</p>
 <p>Em resumo, os completion tokens são usados ​​no C++ ASIO para especificar como uma operação assíncrona deve ser completada. Eles são passados como parâmetros para funções assíncronas e são usados ​​para determinar como a função deve notificar o chamador quando a operação for concluída. Existem vários tipos de completion token disponíveis, cada um com suas próprias características e usos específicos.</p>
+<h3 id="asio-corrotina-comparado-com-cppcoro"><a class="header" href="#asio-corrotina-comparado-com-cppcoro">Asio Corrotina comparado com Cppcoro</a></h3>
+<p>O cppcoro é uma biblioteca de corrotinas para C++ que fornece primitivas para escrever código assíncrono de maneira mais simples e legível. Ela foi projetada para funcionar em conjunto com o Asio, mas também pode ser usada com outras bibliotecas de I/O ou mesmo em aplicações sem I/O. A cppcoro utiliza o padrão de corrotinas do C++20 e é compatível com compiladores que já suportam esse padrão.</p>
+<p>Ambas as bibliotecas permitem escrever código assíncrono de maneira mais simples, mas existem algumas diferenças entre elas:</p>
+<ul>
+<li>
+<p>O Asio é uma biblioteca mais ampla que fornece suporte para várias plataformas, incluindo sistemas operacionais diferentes e dispositivos de I/O.
+O Cppcoro, por outro lado, é focada apenas em corrotinas e foi projetado para ser usado como extensão do <code>std::coroutine</code>, mas também pode ser utilizado em conjunto com o Asio ou outras bibliotecas de I/O assíncronas (não obrigatório) ou  independentemente delas em aplicações sem I/O. Ele fornece uma série de primitivas para escrever código assíncrono de maneira mais simples e legível, como a palavra-chave <code>co_yield</code> para produzir um valor e suspender a execução da corrotina. Portanto, a cppcoro pode ser considerada mais completa e consistente no uso de corrotinas.</p>
+</li>
+<li>
+<p>O Asio é mais amplamente usado em projetos em produção, enquanto que a Cppcoro é uma biblioteca mais nova e talvez menos conhecida. No entanto, ambas são opções válidas para escrever código assíncrono em C++.</p>
+</li>
+</ul>
+<p>Ambos seguem como referêcia a proposta técnica <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1056r0.html">P1056R0</a> que descreve o progresso da especificação do suporte a corrotinas no C++, incluindo a sintaxe e as funções-membro para declarar e usar corrotinas, as palavras-chave <code>co_await</code> e <code>co_yield</code> para suspender e produzir valores na corrotina, e as classes <code>coroutine_handle</code> e <code>coroutine_traits</code> para gerenciar a execução de corrotinas. Ele também descreve o suporte a corrotinas em funções assíncronas, que permitem que corrotinas sejam usadas como uma alternativa ao modelo de callback functions para realizar operações assíncronas.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="endpoint-ponto-de-extremidade"><a class="header" href="#endpoint-ponto-de-extremidade">Endpoint (Ponto de Extremidade)</a></h1>
 <p>O C++ ASIO fornece outros tipos de objetos endpoint para representar pontos finais de conexões de rede de outros protocolos, além do TCP. Por exemplo, o objeto <code>asio::ip::udp::endpoint</code> é usado para representar um ponto final de uma conexão de rede UDP. Ele é composto por um endereço IP e uma porta, e funciona de maneira similar ao objeto <code>asio::ip::tcp::endpoint</code>, mas é usado para protocolos UDP em vez de TCP.</p>
 <p>O objeto <code>asio::ip::tcp::endpoint</code> é usado para representar um ponto final de uma conexão de rede TCP. Ele é composto por um endereço IP e uma porta, que são usados para identificar o host remoto ou o servidor que o programa deseja se conectar ou se comunicar.</p>
