@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Operações síncronas - Programação de Redes</title>
+        <title>Protocolo RAW - Programação de Redes</title>
 
 
         <!-- Custom HTML head -->
@@ -80,7 +80,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li class="chapter-item expanded "><a href="../cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li class="chapter-item expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li class="chapter-item expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li class="chapter-item expanded "><a href="../cpp-asio/buffer.html"><strong aria-hidden="true">5.</strong> Buffers</a></li><li class="chapter-item expanded "><a href="../cpp-asio/executors.html"><strong aria-hidden="true">6.</strong> Executores</a></li><li class="chapter-item expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">7.</strong> Sockets</a></li><li class="chapter-item expanded "><a href="../cpp-asio/strand.html"><strong aria-hidden="true">8.</strong> Strands</a></li><li class="chapter-item expanded "><a href="../cpp-asio/coroutine.html"><strong aria-hidden="true">9.</strong> Corrotinas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">10.</strong> Endpoint</a></li><li class="chapter-item expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">11.</strong> DNS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">12.</strong> Erros e exceções</a></li><li class="chapter-item expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">13.</strong> Conectar ao Servidor</a></li><li class="chapter-item expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">14.</strong> Accept-Connections</a></li><li class="chapter-item expanded "><a href="../cpp-asio/synchronous-read-write-operations.html" class="active"><strong aria-hidden="true">15.</strong> Operações síncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">16.</strong> Operações assíncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/icmp-communication.html"><strong aria-hidden="true">17.</strong> Protocolo ICMP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/raw-communication.html"><strong aria-hidden="true">18.</strong> Protocolo RAW</a></li><li class="chapter-item expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">19.</strong> Protocolo UDP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/bluetooth.html"><strong aria-hidden="true">20.</strong> Bluetooth</a></li><li class="chapter-item expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">21.</strong> Conclusão</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li class="chapter-item expanded "><a href="../cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li class="chapter-item expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li class="chapter-item expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li class="chapter-item expanded "><a href="../cpp-asio/buffer.html"><strong aria-hidden="true">5.</strong> Buffers</a></li><li class="chapter-item expanded "><a href="../cpp-asio/executors.html"><strong aria-hidden="true">6.</strong> Executores</a></li><li class="chapter-item expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">7.</strong> Sockets</a></li><li class="chapter-item expanded "><a href="../cpp-asio/strand.html"><strong aria-hidden="true">8.</strong> Strands</a></li><li class="chapter-item expanded "><a href="../cpp-asio/coroutine.html"><strong aria-hidden="true">9.</strong> Corrotinas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">10.</strong> Endpoint</a></li><li class="chapter-item expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">11.</strong> DNS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">12.</strong> Erros e exceções</a></li><li class="chapter-item expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">13.</strong> Conectar ao Servidor</a></li><li class="chapter-item expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">14.</strong> Accept-Connections</a></li><li class="chapter-item expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">15.</strong> Operações síncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">16.</strong> Operações assíncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/icmp-communication.html"><strong aria-hidden="true">17.</strong> Protocolo ICMP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/raw-communication.html" class="active"><strong aria-hidden="true">18.</strong> Protocolo RAW</a></li><li class="chapter-item expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">19.</strong> Protocolo UDP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/bluetooth.html"><strong aria-hidden="true">20.</strong> Bluetooth</a></li><li class="chapter-item expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">21.</strong> Conclusão</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -141,106 +141,75 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="operações-síncronas-es"><a class="header" href="#operações-síncronas-es">Operações síncronas E/S</a></h1>
-<p>Depois que a conexão é estabelecida, o cliente e o servidor podem se comunicar. Como na API sockets do <code>UNIX</code>, o <code>boost::asio</code> também fornece as funções <code>send</code> e<code> receive</code> Use <code>basic_stream_socket</code> como exemplo e um par de implementações assim:</p>
-<pre><code class="language-cpp">	template &lt;typename ConstBufferSequence&gt;
-  	std::size_t send(const ConstBufferSequence&amp; buffers)
-	{
-		......
-	}
-	......
-	template &lt;typename MutableBufferSequence&gt;
-  	std::size_t receive(const MutableBufferSequence&amp; buffers)
-	{
-		......
-	}
+                        <h1 id="protocolo-raw"><a class="header" href="#protocolo-raw">Protocolo Raw</a></h1>
+<p>Uma das funcionalidades que a ASIO oferece é a possibilidade de enviar e receber pacotes de dados usando o protocolo de rede a baixo nível. Isso é conhecido como &quot;envio/recebimento de pacotes raw&quot;, ou simplesmente &quot;raw sockets&quot;.</p>
+<p>A classe <code>asio::ip::raw</code> é usada para implementar a comunicação de pacotes e também fornece uma interface para criar e gerenciar sockets de pacotes raw. Ela também fornece métodos para enviar e receber pacotes raw através de um socket, bem como para gerenciar a conexão e desconexão de clientes.
+Para usar raw sockets com a ASIO, é necessário incluir o cabeçalho <code>&lt;asio/ip/raw_socket.hpp&gt;</code> e criar uma instância de <code>asio::ip::raw_socket</code>, que é a classe responsável por gerenciar a conexão de rede.</p>
+<p>Os pacotes raw são pacotes de rede que são enviados e recebidos diretamente, sem qualquer tipo de encapsulamento ou formatação adicional. Eles são usados para implementar protocolos de nível inferior, como o protocolo ICMP, ou para fazer debug de aplicações de rede.</p>
+<p>Exemplo de código para enviar um pacote raw:</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;asio/io_context.hpp&gt;
+#include &lt;asio/ip/raw_socket.hpp&gt;
+
+int main() {
+  asio::io_context io_context;
+  asio::ip::raw_socket socket(io_context);
+
+  // Conecta o socket ao endereço IP e porta especificados
+  socket.connect({asio::ip::make_address(&quot;127.0.0.1&quot;), 1234});
+
+  // Cria um buffer com os dados a serem enviados
+  std::vector&lt;std::uint8_t&gt; data = {0x01, 0x02, 0x03, 0x04};
+  asio::const_buffer buffer(data.data(), data.size());
+
+  // Envia o pacote
+  socket.send(buffer);
+
+  return 0;
+}
 </code></pre>
-<p>Observe que os tipos de buffer de <code>send/receive</code> são <code>ConstBufferSequence/MutableBufferSequence</code>, e podemos usar a função <code>boost::asio::buffer</code> para construir tipos relacionados.</p>
-<p>Abaixo está um programa cliente que envia &quot;<code>Hello world!</code>&quot; Para o servidor após o estabelecimento da conexão:</p>
-<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
-	#include &lt;iostream&gt;
-	
-	int main()
-	{
-	    try
-	    {
-	        boost::asio::io_context io_context;
-	
-	        boost::asio::ip::tcp::endpoint endpoint{
-	                boost::asio::ip::make_address(&quot;10.217.242.61&quot;),
-	                3303};
-	        boost::asio::ip::tcp::tcp::socket socket{io_context};
-	        socket.connect(endpoint);
-	
-	        std::cout &lt;&lt; &quot;Connect to &quot; &lt;&lt; endpoint &lt;&lt; &quot; successfully!\n&quot;;
-	
-	        socket.send(boost::asio::buffer(&quot;Hello world!&quot;));
-	    }
-	    catch (std::exception&amp; e)
-	    {
-	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-	        return -1;
-	    }
-	
-	    return 0;
-	}
+<p>O exemplo acima mostra como enviar um pacote raw para o endereço IP &quot;127.0.0.1&quot; na porta 1234. O pacote é criado como um buffer de dados e enviado através da chamada ao método <code>send()</code> do socket.</p>
+<p>Para receber pacotes raw, basta chamar o método <code>receive()</code> do socket, passando um buffer para armazenar os dados recebidos.</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;asio/io_context.hpp&gt;
+#include &lt;asio/ip/raw_socket.hpp&gt;
+
+int main() {
+  asio::io_context io_context;
+  asio::ip::raw_socket socket(io_context);
+
+  // Conecta o socket ao endereço IP e porta especificados
+  socket.bind({asio::ip::make_address(&quot;127.0.0.1&quot;), 1234});
+
+  // Cria um buffer para armazenar os dados recebidos
+  std::vector&lt;std::uint8_t&gt; data(1024);
+  asio::mutable_buffer buffer(data.data(), data.size());
+
+  // Recebe o pacote
+  std::size_t bytes_received = socket.receive(buffer);
+
+  // Imprime os dados recebidos
+  std::cout &lt;&lt; &quot;Pacote recebido com &quot; &lt;&lt; bytes_received &lt;&lt; &quot; bytes: &quot;;
+  for (std::size_t i = 0; i &lt; bytes_received; ++i) {
+      std::cout &lt;&lt; std::hex &lt;&lt; std::setw(2) &lt;&lt; std::setfill('0') &lt;&lt; static_cast&lt;int&gt;(data[i]) &lt;&lt; &quot; &quot;;
+  }
+  std::cout &lt;&lt; std::endl;
+
+  return 0;
+}
 </code></pre>
-<p>O programa servidor que aguarda o recebimento da saudação do cliente:</p>
-<pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
-	#include &lt;iostream&gt;
-	
-	int main()
-	{
-	    try
-	    {
-	        boost::asio::io_context io_context;
-	        boost::asio::ip::tcp::acceptor acceptor{
-	                io_context,
-	                boost::asio::ip::tcp::endpoint{boost::asio::ip::tcp::v4(), 3303}};
-	
-	        while (1)
-	        {
-	            boost::asio::ip::tcp::socket socket{io_context};
-	            acceptor.accept(socket);
-	
-	            std::cout &lt;&lt; socket.remote_endpoint() &lt;&lt; &quot; connects to &quot; &lt;&lt; socket.local_endpoint() &lt;&lt; '\n';
-	
-	            char recv_str[1024] = {};
-	            socket.receive(boost::asio::buffer(recv_str));
-	
-	            std::cout &lt;&lt; &quot;Receive string: &quot; &lt;&lt; recv_str &lt;&lt; '\n';
-	        }
-	    }
-	    catch (std::exception&amp; e)
-	    {
-	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-	        return -1;
-	    }
-	
-	    return 0;
-	}
-</code></pre>
-<p>Compile e execute os programas. O cliente exibirá o seguinte:</p>
-<pre><code>$ ./client
-Connect to 10.217.242.61:3303 successfully!
-</code></pre>
-<p>Servidor exibirá  seguinte:</p>
-<pre><code>$ ./server
-10.217.242.21:64776 connects to 10.217.242.61:3303
-Receive string: Hello world!
-</code></pre>
-<p>Se nenhum erro ocorrer, o <code>send</code> pode garantir que pelo menos um byte seja enviado com sucesso, e você deve verificar o valor de retorno para ver se todos os bytes foram enviados com sucesso ou não. <code>receive</code> é semelhante a <code>send</code>. O <code>boost::asio::basic_stream_socket</code> também fornece<code> read_some</code> e <code>write_some</code>, que têm as mesmas funções que <code>receive</code> e <code>send</code>.</p>
-<p>Se não nos preocuparmos em verificar o estado do meio (bytes parciais são enviados com sucesso), e apenas nos importarmos se todos os bytes serão enviados com sucesso ou não, podemos usar o <code>boost::asio::write</code> que usa o <code>write_some</code> por baixo. Da mesma forma, não é difícil adivinhar o que <code>boost::asio::read</code> faz.</p>
+<p>No exemplo acima, o socket é conectado ao endereço IP &quot;127.0.0.1&quot; na porta 1234 e cria um buffer para armazenar os dados recebidos. Em seguida, é chamado o método receive() do socket, que bloqueia a execução do programa até que um pacote seja recebido. Quando o pacote é recebido, o número de bytes recebidos é armazenado em bytes_received e os dados são impressos na tela em formato hexadecimal.</p>
+<p>É importante notar que, ao trabalhar com pacotes raw, é necessário se preocupar com os detalhes da camada de rede (como cabeçalhos de protocolo, endereçamento, etc.), o que pode ser complexo e trabalhoso. Além disso, o envio/recebimento de pacotes raw geralmente só é necessário em casos especiais, como quando é preciso implementar um protocolo de rede customizado ou realizar testes de baixo nível. Em muitos casos, é mais conveniente usar um protocolo de rede mais alto nível, como o TCP ou o UDP, que já fornecem muitas das funcionalidades necessárias para a comunicação de rede.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../cpp-asio/accept-connections.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../cpp-asio/icmp-communication.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../cpp-asio/asynchronous-read-write-operations.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../cpp-asio/udp-communication.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -250,11 +219,11 @@ Receive string: Hello world!
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../cpp-asio/accept-connections.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../cpp-asio/icmp-communication.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../cpp-asio/asynchronous-read-write-operations.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../cpp-asio/udp-communication.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

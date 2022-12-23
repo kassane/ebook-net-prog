@@ -1,0 +1,275 @@
+<!DOCTYPE HTML>
+<html lang="pt" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Protocolo ICMP - Programação de Redes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li class="chapter-item expanded "><a href="../cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li class="chapter-item expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li class="chapter-item expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li class="chapter-item expanded "><a href="../cpp-asio/buffer.html"><strong aria-hidden="true">5.</strong> Buffers</a></li><li class="chapter-item expanded "><a href="../cpp-asio/executors.html"><strong aria-hidden="true">6.</strong> Executores</a></li><li class="chapter-item expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">7.</strong> Sockets</a></li><li class="chapter-item expanded "><a href="../cpp-asio/strand.html"><strong aria-hidden="true">8.</strong> Strands</a></li><li class="chapter-item expanded "><a href="../cpp-asio/coroutine.html"><strong aria-hidden="true">9.</strong> Corrotinas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">10.</strong> Endpoint</a></li><li class="chapter-item expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">11.</strong> DNS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">12.</strong> Erros e exceções</a></li><li class="chapter-item expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">13.</strong> Conectar ao Servidor</a></li><li class="chapter-item expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">14.</strong> Accept-Connections</a></li><li class="chapter-item expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">15.</strong> Operações síncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">16.</strong> Operações assíncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/icmp-communication.html" class="active"><strong aria-hidden="true">17.</strong> Protocolo ICMP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/raw-communication.html"><strong aria-hidden="true">18.</strong> Protocolo RAW</a></li><li class="chapter-item expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">19.</strong> Protocolo UDP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/bluetooth.html"><strong aria-hidden="true">20.</strong> Bluetooth</a></li><li class="chapter-item expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">21.</strong> Conclusão</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Programação de Redes</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="protocolo-icmp"><a class="header" href="#protocolo-icmp">Protocolo ICMP</a></h1>
+<p>A classe <code>asio::ip::icmp</code> é uma classe em C++ que faz parte da biblioteca ASIO (Asynchronous Input/Output) e é usada para implementar a comunicação usando o protocolo ICMP (Internet Control Message Protocol).</p>
+<p>O protocolo ICMP é um protocolo de nível de rede que é usado para enviar mensagens de erro e de controle entre dispositivos de rede. Ele é comumente usado para testar a conectividade entre dispositivos de rede, como o comando ping em sistemas operacionais.</p>
+<p>A classe <code>asio::ip::icmp</code> fornece uma interface para criar e gerenciar sockets ICMP. Ela é usada para criar sockets ICMP, que são usados para enviar e receber mensagens ICMP. Ela também fornece métodos para enviar e receber mensagens ICMP através de um socket, bem como para gerenciar a conexão e desconexão de clientes.</p>
+<p>A classe <code>asio::ip::icmp</code> é derivada da classe <code>asio::basic_socket&lt;Protocol&gt;</code>, que é uma classe genérica que representa um socket de rede. Ela fornece uma interface para criar e gerenciar sockets de rede usando qualquer protocolo de rede suportado pelo ASIO. A classe <code>asio::ip::icmp</code> é uma especialização da classe <code>asio::basic_socket&lt;Protocol&gt;</code> para o protocolo ICMP.</p>
+<p>A classe <code>asio::ip::icmp</code> fornece os seguintes métodos e funcionalidades:</p>
+<ul>
+<li><code>connect</code>: estabelece uma conexão com um host especificado através de um endpoint ICMP.</li>
+<li><code>close</code>: fecha o socket e interrompe qualquer conexão existente.</li>
+<li><code>read</code>: lê dados de um socket e armazena os dados em um buffer de saída.</li>
+<li><code>write</code>: escreve dados de um buffer em um socket.</li>
+</ul>
+<p>Além disso, a classe <code>asio::ip::icmp</code> fornece várias configurações de socket, como opções de buffer de entrada e saída, opções de tempo de espera e opções de recurso. Essas opções podem ser ajustadas usando os métodos set_option e get_option da classe <code>asio::ip::icmp</code>.</p>
+<p>Aqui está um exemplo de como a classe <code>asio::ip::icmp</code> pode ser usada para implementar um programa em C++ que envia uma mensagem ICMP para um host especificado e aguarda por uma resposta:</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;chrono&gt;
+#include &lt;asio.hpp&gt;
+
+int main()
+{
+    // Cria um objeto io_context do ASIO
+    asio::io_context io_context;
+
+    // Cria um socket ICMP
+    asio::ip::icmp::socket socket(io_context);
+
+    // Configura um endpoint ICMP para o host
+    asio::ip::icmp::endpoint host_endpoint(&quot;www.example.com&quot;, 0);
+
+    // Conecta o socket ao host
+    socket.connect(host_endpoint);
+
+    // Envia um ping para o host
+    std::vector&lt;unsigned char&gt; ping(sizeof(icmphdr) + sizeof(iphdr) + 8);
+    iphdr* ip_header = reinterpret_cast&lt;iphdr*&gt;(ping.data());
+    ip_header-&gt;ihl = 5;
+    ip_header-&gt;version = 4;
+    ip_header-&gt;tot_len = htons(ping.size());
+    ip_header-&gt;protocol = IPPROTO_ICMP;
+    ip_header-&gt;saddr = inet_addr(&quot;127.0.0.1&quot;);
+    ip_header-&gt;daddr = inet_addr(&quot;www.example.com&quot;);
+    icmphdr* icmp_header = reinterpret_cast&lt;icmphdr*&gt;(ping.data() + sizeof(iphdr));
+    icmp_header-&gt;type = ICMP_ECHO;
+    icmp_header-&gt;code = 0;
+    icmp_header-&gt;un.echo.id = htons(1234);
+    icmp_header-&gt;un.echo.sequence = htons(1);
+    *reinterpret_cast&lt;unsigned long*&gt;(ping.data() + sizeof(icmphdr) + sizeof(iphdr)) = htonl(time(nullptr));
+
+    // Calcula o checksum do ping
+    icmp_header-&gt;checksum = 0;
+    icmp_header-&gt;checksum = asio::ip::icmp::checksum(ping.data(), ping.size());
+
+    // Armazena o tempo de envio do ping
+    auto send_time = std::chrono::high_resolution_clock::now();
+
+    // Envia o ping para o host
+    asio::write(socket,asio::buffer(ping));
+
+    // Aguarda por uma resposta de ping do host
+    std::vector&lt;unsigned char&gt; reply(1024);
+    size_t bytes_received = asio::read(socket, asio::buffer(reply));
+
+    // Verifica se o tipo de mensagem recebida é um ICMP_ECHOREPLY
+    iphdr* reply_ip_header = reinterpret_cast&lt;iphdr*&gt;(reply.data());
+    icmphdr* reply_icmp_header = reinterpret_cast&lt;icmphdr*&gt;(reply.data() + (reply_ip_header-&gt;ihl * 4));
+    if (reply_icmp_header-&gt;type == ICMP_ECHOREPLY)
+    {
+        // Calcula o tempo de viagem do ping
+        auto trip_time = std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(std::chrono::high_resolution_clock::now() - send_time).count();
+
+        // Imprime o resultado do ping
+        std::cout &lt;&lt; &quot;Recebida resposta de ping do host em &quot; &lt;&lt; trip_time &lt;&lt; &quot; ms&quot; &lt;&lt; std::endl;
+    }
+    else
+    {
+        std::cout &lt;&lt; &quot;Tipo de mensagem não reconhecido&quot; &lt;&lt; std::endl;
+    }
+
+    return 0;
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../cpp-asio/asynchronous-read-write-operations.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../cpp-asio/raw-communication.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../cpp-asio/asynchronous-read-write-operations.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../cpp-asio/raw-communication.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
