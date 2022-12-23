@@ -110,3 +110,16 @@ Por exemplo, o completion token `asio::use_future` é usado para completar a ope
 O completion token `asio::use_awaitable`, por outro lado, é usado para completar a operação assíncrona retornando um objeto awaitable que pode ser usado para aguardar o término da operação de forma assíncrona. Isso permite que o chamador da função assíncrona aguarde o término da operação de forma assíncrona, usando a sintaxe de await do C++20.
 
 Em resumo, os completion tokens são usados ​​no C++ ASIO para especificar como uma operação assíncrona deve ser completada. Eles são passados como parâmetros para funções assíncronas e são usados ​​para determinar como a função deve notificar o chamador quando a operação for concluída. Existem vários tipos de completion token disponíveis, cada um com suas próprias características e usos específicos.
+
+### Asio Corrotina comparado com Cppcoro
+
+O cppcoro é uma biblioteca de corrotinas para C++ que fornece primitivas para escrever código assíncrono de maneira mais simples e legível. Ela foi projetada para funcionar em conjunto com o Asio, mas também pode ser usada com outras bibliotecas de I/O ou mesmo em aplicações sem I/O. A cppcoro utiliza o padrão de corrotinas do C++20 e é compatível com compiladores que já suportam esse padrão.
+
+Ambas as bibliotecas permitem escrever código assíncrono de maneira mais simples, mas existem algumas diferenças entre elas:
+
+- O Asio é uma biblioteca mais ampla que fornece suporte para várias plataformas, incluindo sistemas operacionais diferentes e dispositivos de I/O.
+O Cppcoro, por outro lado, é focada apenas em corrotinas e foi projetado para ser usado como extensão do `std::coroutine`, mas também pode ser utilizado em conjunto com o Asio ou outras bibliotecas de I/O assíncronas (não obrigatório) ou  independentemente delas em aplicações sem I/O. Ele fornece uma série de primitivas para escrever código assíncrono de maneira mais simples e legível, como a palavra-chave `co_yield` para produzir um valor e suspender a execução da corrotina. Portanto, a cppcoro pode ser considerada mais completa e consistente no uso de corrotinas.
+
+- O Asio é mais amplamente usado em projetos em produção, enquanto que a Cppcoro é uma biblioteca mais nova e talvez menos conhecida. No entanto, ambas são opções válidas para escrever código assíncrono em C++.
+
+Ambos seguem como referêcia a proposta técnica [P1056R0](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1056r0.html) que descreve o progresso da especificação do suporte a corrotinas no C++, incluindo a sintaxe e as funções-membro para declarar e usar corrotinas, as palavras-chave `co_await` e `co_yield` para suspender e produzir valores na corrotina, e as classes `coroutine_handle` e `coroutine_traits` para gerenciar a execução de corrotinas. Ele também descreve o suporte a corrotinas em funções assíncronas, que permitem que corrotinas sejam usadas como uma alternativa ao modelo de callback functions para realizar operações assíncronas.

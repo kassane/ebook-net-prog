@@ -9,7 +9,7 @@ Há o recurso global RTC e, em vez de criar várias e várias threads para a exe
 Em 6 de julho de 2021, a proposta dos Executores foi atualizada com mais um bilhão de pontos. O novo documento, [P2300R1](http://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2300r1.html),
 oficialmente denominado `std::execution`, em comparação com The Unified Executor for C++, [P0443R14](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0443r14),
 expõe mais sistematicamente as ideias de design dos Executors; dá mais instruções sobre implementação.
-A biblioteca Executors praticada pelo autor em seu tempo livre acaba de concluir o conteúdo do P1879R3.
+A biblioteca Executors praticada pelo autor em seu tempo livre acaba de concluir o conteúdo do [P1879R3](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p1897r3.html).
 
 `Unified Executors` propõe que o namespace `std::execution` do C++ Standard Library que visa fornecer uma forma mais flexível e genérica de trabalhar com Executors. A proposta foi apresentada no Grupo de Trabalho 21 (WG21) do Comitê de Padrões do C++ como a Proposta de Padrão P1907R0.
 
@@ -64,17 +64,47 @@ Observe que, apesar de usarmos `std::async` para iniciar a tarefa assíncrona, o
 Em resumo, `std::async` é uma função do C++ Standard Library que é usada para iniciar uma tarefa assíncrona em uma thread separada. Ela não é uma função assíncrona no sentido tradicional da palavra e não pode ser usada com a sintaxe de await do C++20, mas pode ser útil em situações em que é necessário iniciar uma tarefa assíncrona de forma fácil e rápida.
 
 
-### 1.2 Modelo de Evolução do Futuro/Promessa
+### 1.2 Modelo de Evolução do Future/Promise
 
+No C++11, o modelo future/promise é um meio de permitir que uma thread espere por um valor a ser produzido por outra thread de maneira assíncrona. Ele é composto pelos seguintes elementos:
 
-O modelo Futuro/Promessa é um modelo clássico de programação concorrente, que fornece aos programadores um mecanismo completo para controlar
-a sincronização e a assincronia do programa. O mecanismo Future/Promise também foi introduzido no C++11.
-Future é essencialmente uma operação simultânea que iniciamos e Promise é essencialmente um retorno de chamada para operações simultâneas.
-Podemos aguardar a operação e obter o resultado da operação através do objeto Future, e o objeto Promise é responsável por escrever o valor
-de retorno e nos notificar.
-  
+- `Promise`: um objeto que permite que um valor seja definido em algum momento no futuro. A promessa possui um método setValue para definir o valor e um método `setException` para definir uma exceção a ser lançada quando o valor for solicitado.
+
+- `Future`: um objeto que permite que uma thread espere por um valor produzido por outra thread. O futuro possui um método wait que faz a thread que o chama esperar até que o valor esteja disponível. Além disso, o futuro possui métodos como `then` e `onError` que permitem que ações sejam executadas quando o valor estiver disponível ou uma exceção for lançada.
+
 A implementação de um Future/Promise típico em C++ é mostrada na figura abaixo:
 ![img](https://user-images.githubusercontent.com/6756180/208737071-abe8d31c-fe0d-4023-8a1a-64083099c4f6.jpg)
+
+Para usar o modelo de futuros e promessas, é preciso criar um objeto promessa e obter um objeto futuro a partir dele. Em seguida, a thread que produzirá o valor deve definir o valor na promessa usando o método `setValue` ou `setException`. A thread que estiver esperando pelo valor pode usar o método wait do futuro para esperar até que o valor esteja disponível.
+
+Aqui está um exemplo de como usar o modelo de futuros e promessas em C++:
+
+```c++
+#include <future>
+#include <iostream>
+
+int main() {
+  // Cria uma promessa e um futuro
+  std::promise<int> promise;
+  std::future<int> future = promise.get_future();
+
+  // Define o valor da promessa em uma thread separada
+  std::thread([&promise] {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    promise.set_value(42);
+  }).detach();
+
+  // Espera pelo valor a ser definido e imprime-o
+  std::cout << future.get() << std::endl;
+
+  return 0;
+}
+```
+
+Este código cria um objeto `std::promise` e um objeto `std::future`, e define o valor da `std::promise` em uma thread separada usando um `std::thread`. O objeto `std::future` é então usado para esperar pelo valor a ser definido, e o valor é impresso no console.
+
+Essas classes são mais básicas do que as oferecidas pelas bibliotecas `folly` e `asio`, mas são parte da Biblioteca Padrão de C++ e, portanto, estão disponíveis em qualquer compilador C++ padrão.
+As classes `std::future` e `std::promise` fornecem um conjunto similar de funcionalidades às classes `folly::Future` e `folly::Promise` da biblioteca [folly](https://github.com/facebook/folly), mas são parte da Biblioteca Padrão de C++ e não exigem dependências adicionais.
 
   
 ### 1.3 Executores em ASIO
@@ -115,7 +145,7 @@ O conceito de Executor é importante porque ele permite que você escreva códig
 
 O namespace `std::execution` fornece vários tipos de Executor, como `std::execution::sequenced_policy` e `std::execution::parallel_policy`, que podem ser usados ​​para controlar como as tarefas são agendadas e executadas. Além disso, ele fornece funções como `std::execution::execute` e `std::execution::bulk_execute`, que podem ser usadas para executar tarefas de forma assíncrona de acordo com o Executor especificado.
 
-Em resumo, std::execution é um namespace do C++ Standard Library que fornece uma interface padronizada para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, enquanto que C++ ASIO é uma biblioteca de tempo de execução que oferece recursos para criar aplicações de rede de forma assíncrona. C++ ASIO pode ser usado com o namespace `std::execution`, mas também pode ser usado de forma independente. A escolha da biblioteca a ser usada depende das necessidades específicas de sua aplicação e de suas preferências de programação.
+Em resumo, `std::execution` é um namespace do C++ Standard Library que fornece uma interface padronizada para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, enquanto que C++ ASIO é uma biblioteca de tempo de execução que oferece recursos para criar aplicações de rede de forma assíncrona. C++ ASIO pode ser usado com o namespace `std::execution`, mas também pode ser usado de forma independente. A escolha da biblioteca a ser usada depende das necessidades específicas de sua aplicação e de suas preferências de programação.
 
 #### 1.3.1.2 Libunifex
 
