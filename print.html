@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li class="chapter-item expanded "><a href="cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li class="chapter-item expanded "><a href="cpp-asio/install-asio.html"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li class="chapter-item expanded "><a href="cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li class="chapter-item expanded "><a href="cpp-asio/buffer.html"><strong aria-hidden="true">5.</strong> Buffers</a></li><li class="chapter-item expanded "><a href="cpp-asio/executors.html"><strong aria-hidden="true">6.</strong> Executores</a></li><li class="chapter-item expanded "><a href="cpp-asio/socket.html"><strong aria-hidden="true">7.</strong> Sockets</a></li><li class="chapter-item expanded "><a href="cpp-asio/strand.html"><strong aria-hidden="true">8.</strong> Strands</a></li><li class="chapter-item expanded "><a href="cpp-asio/coroutine.html"><strong aria-hidden="true">9.</strong> Corrotinas</a></li><li class="chapter-item expanded "><a href="cpp-asio/endpoint.html"><strong aria-hidden="true">10.</strong> Endpoint</a></li><li class="chapter-item expanded "><a href="cpp-asio/dns-query.html"><strong aria-hidden="true">11.</strong> DNS</a></li><li class="chapter-item expanded "><a href="cpp-asio/throw-exception.html"><strong aria-hidden="true">12.</strong> Erros e exceções</a></li><li class="chapter-item expanded "><a href="cpp-asio/connect-server.html"><strong aria-hidden="true">13.</strong> Conectar ao Servidor</a></li><li class="chapter-item expanded "><a href="cpp-asio/accept-connections.html"><strong aria-hidden="true">14.</strong> Accept-Connections</a></li><li class="chapter-item expanded "><a href="cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">15.</strong> Operações síncronas</a></li><li class="chapter-item expanded "><a href="cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">16.</strong> Operações assíncronas</a></li><li class="chapter-item expanded "><a href="cpp-asio/udp-communication.html"><strong aria-hidden="true">17.</strong> Protocolo UDP</a></li><li class="chapter-item expanded "><a href="cpp-asio/the-end.html"><strong aria-hidden="true">18.</strong> Conclusão</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li class="chapter-item expanded "><a href="cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li class="chapter-item expanded "><a href="cpp-asio/install-asio.html"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li class="chapter-item expanded "><a href="cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li class="chapter-item expanded "><a href="cpp-asio/buffer.html"><strong aria-hidden="true">5.</strong> Buffers</a></li><li class="chapter-item expanded "><a href="cpp-asio/executors.html"><strong aria-hidden="true">6.</strong> Executores</a></li><li class="chapter-item expanded "><a href="cpp-asio/socket.html"><strong aria-hidden="true">7.</strong> Sockets</a></li><li class="chapter-item expanded "><a href="cpp-asio/strand.html"><strong aria-hidden="true">8.</strong> Strands</a></li><li class="chapter-item expanded "><a href="cpp-asio/coroutine.html"><strong aria-hidden="true">9.</strong> Corrotinas</a></li><li class="chapter-item expanded "><a href="cpp-asio/endpoint.html"><strong aria-hidden="true">10.</strong> Endpoint</a></li><li class="chapter-item expanded "><a href="cpp-asio/dns-query.html"><strong aria-hidden="true">11.</strong> DNS</a></li><li class="chapter-item expanded "><a href="cpp-asio/throw-exception.html"><strong aria-hidden="true">12.</strong> Erros e exceções</a></li><li class="chapter-item expanded "><a href="cpp-asio/connect-server.html"><strong aria-hidden="true">13.</strong> Conectar ao Servidor</a></li><li class="chapter-item expanded "><a href="cpp-asio/accept-connections.html"><strong aria-hidden="true">14.</strong> Accept-Connections</a></li><li class="chapter-item expanded "><a href="cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">15.</strong> Operações síncronas</a></li><li class="chapter-item expanded "><a href="cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">16.</strong> Operações assíncronas</a></li><li class="chapter-item expanded "><a href="cpp-asio/udp-communication.html"><strong aria-hidden="true">17.</strong> Protocolo UDP</a></li><li class="chapter-item expanded "><a href="cpp-asio/bluetooth.html"><strong aria-hidden="true">18.</strong> Bluetooth</a></li><li class="chapter-item expanded "><a href="cpp-asio/the-end.html"><strong aria-hidden="true">19.</strong> Conclusão</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -806,7 +806,6 @@ int main()
 <p>As corrotinas Asio são uma extensão da biblioteca Asio que fornece suporte nativo para a criação e execução de corrotinas no C++. Elas permitem que você escreva código síncrono que é &quot;convertido&quot; em código assíncrono pelo próprio Asio, o que torna mais fácil criar funções assíncronas de forma clara e legível.</p>
 <p>Para usar corrotinas Asio, você precisa incluir o cabeçalho <code>&lt;asio/co_spawn.hpp&gt;</code> e usar a palavra-chave co_await para &quot;pausar&quot; a execução da corrotina enquanto aguarda a conclusão de uma operação assíncrona. Você também pode usar a palavra-chave <code>co_yield</code> para &quot;pausar&quot; a execução da corrotina e permitir que outras corrotinas sejam executadas.</p>
 <p>Além disso, as corrotinas Asio podem ser &quot;lançadas&quot; em um contexto de I/O usando a função <code>co_spawn</code>, que permite que a corrotina execute tarefas assíncronas como fazer chamadas de rede ou ler e escrever em arquivos. Você também pode usar a função <code>async_write</code> e <code>async_read</code> da biblioteca Asio para escrever e ler dados de forma assíncrona, respectivamente.</p>
-<p>Uma vantagem das corrotinas do Asio é que elas podem ser usadas com qualquer biblioteca ou sistema que suporte a biblioteca Asio, o que significa que elas são compatíveis com uma ampla variedade de plataformas de rede. Além disso, as corrotinas Asio fornecem uma maneira de escrever código assíncrono de forma mais clara e legível, pois permitem que você escreva código síncrono que é &quot;convertido&quot; em código assíncrono pelo próprio Asio.</p>
 <p>No entanto, é importante lembrar que as corrotinas Asio dependem da biblioteca Asio para funcionar, o que pode afetar o desempenho em comparação com outras opções, como as corrotinas <code>std::coroutine</code>, que são implementadas diretamente na linguagem C++. Qual das duas opções é a melhor para você depende das suas necessidades e da plataforma em que está trabalhando.</p>
 <h4 id="completion-tokens"><a class="header" href="#completion-tokens">Completion Tokens</a></h4>
 <p>Em C++ ASIO, um <a href="https://think-async.com/Asio/asio-1.24.0/doc/asio/overview/model/completion_tokens.html">completion token</a> é um tipo de dado usado para especificar como uma operação assíncrona deve ser completada. Ele é passado como um parâmetro para uma função assíncrona e é usado para determinar como a função deve notificar o chamador quando a operação for concluída.</p>
@@ -1509,6 +1508,107 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="protocolo-bluetooth"><a class="header" href="#protocolo-bluetooth">Protocolo Bluetooth</a></h1>
+<p>O protocolo Bluetooth é um padrão de comunicação sem fio que permite que dispositivos se comuniquem em curtas distâncias. Ele é amplamente utilizado em dispositivos móveis, como smartphones e tablets, bem como em outros dispositivos como fones de ouvido e alto-falantes.</p>
+<p>O RFCOMM é um protocolo que fornece um meio para a comunicação de série sobre o protocolo Bluetooth. Ele é usado para simular a comunicação serial através de um link Bluetooth, permitindo que dispositivos Bluetooth se comuniquem como se estivessem conectados por uma porta serial.</p>
+<p>A classe <code>asio::bluetooth::rfcomm</code> fornece uma interface para criar e gerenciar sockets Bluetooth RFCOMM. Ela é usada para criar sockets Bluetooth RFCOMM, que são usados para a comunicação de série sobre o protocolo Bluetooth. Ela também fornece métodos para enviar e receber dados através de um socket, bem como para gerenciar a conexão e desconexão de clientes.</p>
+<p>O ASIO fornece suporte ao protocolo Bluetooth através da classe <code>asio::bluetooth::rfcomm::socket</code>, que é uma subclasse de <code>asio::basic_socket&lt;Protocol&gt;</code>. Essa classe é usada para criar sockets Bluetooth RFCOMM, que são usados para a comunicação de série sobre o protocolo Bluetooth.</p>
+<p>Para se conectar a um servidor Bluetooth usando o ASIO, é preciso criar um objeto <code>asio::bluetooth::rfcomm::endpoint</code> que represente o endpoint do servidor. Esse endpoint é criado especificando o endereço Bluetooth do servidor e o número de canal que será usado para a comunicação. Em seguida, o método connect do socket é chamado com o endpoint do servidor como argumento para estabelecer a conexão.</p>
+<p>Uma vez que a conexão é estabelecida, é possível enviar e receber dados através do socket usando as funções write e read do ASIO. Essas funções permitem enviar e receber buffers de dados de forma assíncrona, o que significa que o programa não precisa esperar por essas operações terminarem para continuar a execução. Isso é útil quando se trabalha com dispositivos de rede, pois permite que o programa execute outras tarefas enquanto aguarda a resposta do servidor.</p>
+<h3 id="classe-asiobluetoothrfcomm"><a class="header" href="#classe-asiobluetoothrfcomm">Classe <code>asio::bluetooth::rfcomm</code></a></h3>
+<p>A classe <code>asio::bluetooth::rfcomm</code> é derivada da classe <code>asio::basic_socket&lt;Protocol&gt;</code>, que é uma classe genérica que representa um socket de rede. Ela fornece uma interface para criar e gerenciar sockets de rede usando qualquer protocolo de rede suportado pelo ASIO. A classe <code>asio::bluetooth::rfcomm</code> é uma especialização da classe <code>asio::basic_socket&lt;Protocol&gt;</code> para o protocolo Bluetooth RFCOMM.</p>
+<p>A classe <code>asio::bluetooth::rfcomm</code> fornece os seguintes métodos e funcionalidades:</p>
+<ul>
+<li><code>bind</code>: vincula o socket a um endpoint Bluetooth RFCOMM especificado.</li>
+<li><code>connect</code>: estabelece uma conexão com um servidor Bluetooth especificado através de um endpoint Bluetooth RFCOMM.</li>
+<li><code>accept</code>: aceita uma conexão entrante de um cliente Bluetooth e retorna um novo socket para a comunicação com o cliente.</li>
+<li><code>listen</code>: inicia a escuta por conexões entrantes.</li>
+<li><code>close</code>: fecha o socket e interrompe qualquer conexão existente.</li>
+<li><code>read</code>: lê dados de um socket e armazena os dados em um buffer de saída.</li>
+<li><code>write</code>: escreve dados de um buffer em um socket.</li>
+</ul>
+<p>Além disso, fornece várias configurações de socket, como opções de buffer de entrada e saída, opções de tempo de espera e opções de recurso. Essas opções podem ser ajustadas usando os métodos <code>set_option</code> e <code>get_option</code> da classe <code>asio::bluetooth::rfcomm</code>.</p>
+<h3 id="exemplo"><a class="header" href="#exemplo">Exemplo</a></h3>
+<p><strong>Cliente:</strong></p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;asio.hpp&gt;
+
+int main()
+{
+    // Instância o objeto io_context
+    asio::io_context io_context;
+
+    // Cria um socket do tipo Bluetooth RFCOMM
+    asio::bluetooth::rfcomm::socket socket(io_context);
+
+    // Configura um endpoint para o servidor do tipo Bluetooth RFCOMM
+    asio::bluetooth::rfcomm::endpoint server_endpoint(&quot;00:11:22:33:44:55&quot;, 1);
+
+    // Conecta o socket ao servidor
+    socket.connect(server_endpoint);
+
+    // Envia a mensagem para o servidor
+    std::string message = &quot;Hello, Server!&quot;;
+    asio::write(socket, asio::buffer(message));
+
+    // Espera pela resposta do servidor
+    std::vector&lt;char&gt; response(1024);
+    size_t bytes_received = asio::read(socket, asio::buffer(response));
+
+    // Imprime a mensagem retornada do servidor.
+    std::cout &lt;&lt; &quot;Response from server: &quot;;
+    std::cout.write(response.data(), bytes_received);
+    std::cout &lt;&lt; std::endl;
+
+    return 0;
+}
+</code></pre>
+<p>Servidor:</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;asio.hpp&gt;
+
+int main()
+{
+    // Cria um objeto io_context do ASIO
+    asio::io_context io_context;
+
+    // Cria um socket Bluetooth RFCOMM
+    asio::bluetooth::rfcomm::socket socket(io_context);
+
+    // Configura um endpoint Bluetooth RFCOMM para o servidor
+    asio::bluetooth::rfcomm::endpoint server_endpoint(asio::bluetooth::rfcomm::v1, 1);
+
+    // Vincula o socket ao endpoint
+    socket.bind(server_endpoint);
+
+    // Inicia a escuta por conexões entrantes
+    socket.listen();
+
+    // Aceita uma conexão entrante
+    asio::bluetooth::rfcomm::socket client_socket = socket.accept();
+
+    // Loop até que o cliente se desconecte
+    while (true)
+    {
+        // Aguarda por uma mensagem do cliente
+        std::vector&lt;char&gt; message(1024);
+        size_t bytes_received = asio::read(client_socket, asio::buffer(message));
+
+        // Imprime a mensagem
+        std::cout &lt;&lt; &quot;Response from client: &quot;;
+        std::cout.write(message.data(), bytes_received);
+        std::cout &lt;&lt; std::endl;
+
+        // Envia uma resposta para o cliente
+        std::string response = &quot;Hello, Client!&quot;;
+        asio::write(client_socket, asio::buffer(response));
+    }
+
+    return 0;
+}
+</code></pre>
+<p>Este programa cria um socket Bluetooth RFCOMM usando um objeto <code>asio::bluetooth::rfcomm::socket</code> e configura um endpoint Bluetooth RFCOMM para o servidor usando um objeto <code>asio::bluetooth::rfcomm::endpoint</code>. Em seguida, o socket é vinculado ao endpoint usando o método bind e o servidor começa a escutar por conexões entrantes usando o método listen.</p>
+<p>Quando uma conexão entrante é aceita usando o método accept, o programa entra em um loop que aguarda por uma mensagem do cliente usando a função read e envia uma resposta para o cliente usando a função write. O loop continua até que o cliente se desconecte.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="conclusão-"><a class="header" href="#conclusão-">Conclusão 🎉</a></h1>
 <p>Espero que tenha esclarecido o uso da programação de rede com <a href="https://think-async.com/Asio/boost_asio_1_24.0/doc/html/boost_asio.html">Asio</a> para você. Definitivamente, este pequeno livro apenas introduz a idéia básica. Para melhorar sua habilidade de codificação, você precisa ler mais a <a href="https://think-async.com/Asio/boost_asio_1_24.0/doc/html/boost_asio.html">documentação</a> junto com o código-fonte e praticar mais. 👀</p>
 <p>Bons estudos e divirta-se praticando! 😉</p>
