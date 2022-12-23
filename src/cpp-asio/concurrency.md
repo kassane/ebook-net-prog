@@ -52,15 +52,15 @@ Operações blocking são geralmente mais fáceis de programar e entender, mas p
 
 ## Epoll/Kqueue/IOCP/IO_uring:
 
-Epoll, Kqueue, IOCP e IO_uring são todos mecanismos de I/O event-driven (I/O com base em eventos) que são usados ​​para monitorar e gerenciar operações de entrada e saída assíncronas em sistemas operacionais diferentes. Eles são usados ​​para permitir que as aplicações sejam notificadas quando os dados estão disponíveis para leitura ou quando os dados podem ser escritos sem bloquear o processador.
+Epoll, Kqueue, IOCP e IO_uring são todos mecanismos de E/S event-driven (E/S com base em eventos) que são usados ​​para monitorar e gerenciar operações de entrada e saída assíncronas em sistemas operacionais diferentes. Eles são usados ​​para permitir que as aplicações sejam notificadas quando os dados estão disponíveis para leitura ou quando os dados podem ser escritos sem bloquear o processador.
 
-`Epoll`: é um mecanismo de I/O com base em eventos disponível no Linux. Ele permite que as aplicações monitorem vários descritores de arquivo para verificar se eles estão prontos para leitura ou escrita.
+`Epoll`: é um mecanismo de E/S com base em eventos disponível no Linux. Ele permite que as aplicações monitorem vários descritores de arquivo para verificar se eles estão prontos para leitura ou escrita.
 
-`Kqueue`: é um mecanismo de I/O com base em eventos disponível no FreeBSD, NetBSD e OpenBSD. Ele funciona de maneira semelhante ao Epoll, permitindo que as aplicações monitorem descritores de arquivo para verificar se eles estão prontos para leitura ou escrita.
+`Kqueue`: é um mecanismo de E/S com base em eventos disponível no FreeBSD, NetBSD e OpenBSD. Ele funciona de maneira semelhante ao Epoll, permitindo que as aplicações monitorem descritores de arquivo para verificar se eles estão prontos para leitura ou escrita.
 
-`IOCP`: é um mecanismo de I/O com base em eventos disponível no Windows. Ele permite que as aplicações monitorem vários handles de arquivo e sockets para verificar se eles estão prontos para leitura ou escrita.
+`IOCP`: é um mecanismo de E/S com base em eventos disponível no Windows. Ele permite que as aplicações monitorem vários handles de arquivo e sockets para verificar se eles estão prontos para leitura ou escrita.
 
-`IO_uring`: é um mecanismo de I/O com base em eventos disponível no Linux. Ele foi projetado para ser mais rápido e eficiente do que o Epoll e oferece uma interface mais simples para as aplicações.
+`IO_uring`: é um mecanismo de E/S com base em eventos disponível no Linux. Ele foi projetado para ser mais rápido e eficiente do que o Epoll e oferece uma interface mais simples para as aplicações.
 
 ## Coroutine (Corrotina):
 

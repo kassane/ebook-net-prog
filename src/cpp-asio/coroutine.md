@@ -81,7 +81,7 @@ int main()
 
 Ao ter o primeiro contato com corrotinas em C++ (com asio) suponho que conhecerá novas palavras-chave que necessitará compreender, que são:
 
-- `co_spawn`: é uma função da biblioteca Asio que permite criar e iniciar uma corrotina de forma assíncrona. Ela é usada para "lançar" uma corrotina em uma determinada contexto de I/O, permitindo que a corrotina execute tarefas assíncronas como fazer chamadas de rede ou ler e escrever em arquivos.
+- `co_spawn`: é uma função da biblioteca Asio que permite criar e iniciar uma corrotina de forma assíncrona. Ela é usada para "lançar" uma corrotina em uma determinada contexto de E/S, permitindo que a corrotina execute tarefas assíncronas como fazer chamadas de rede ou ler e escrever em arquivos.
 
 - `co_yield`: é uma palavra-chave do C++ que permite que uma corrotina seja "pausada" e permita que outras corrotinas sejam executadas. Quando uma corrotina é "pausada" com `co_yield`, ela é suspensa temporariamente e permite que outras corrotinas sejam executadas. Quando outra corrotina termina sua execução, a corrotina "pausada" é retomada a partir do ponto onde foi interrompida.
 
@@ -95,7 +95,7 @@ As corrotinas Asio são uma extensão da biblioteca Asio que fornece suporte nat
 
 Para usar corrotinas Asio, você precisa incluir o cabeçalho `<asio/co_spawn.hpp>` e usar a palavra-chave co_await para "pausar" a execução da corrotina enquanto aguarda a conclusão de uma operação assíncrona. Você também pode usar a palavra-chave `co_yield` para "pausar" a execução da corrotina e permitir que outras corrotinas sejam executadas.
 
-Além disso, as corrotinas Asio podem ser "lançadas" em um contexto de I/O usando a função `co_spawn`, que permite que a corrotina execute tarefas assíncronas como fazer chamadas de rede ou ler e escrever em arquivos. Você também pode usar a função `async_write` e `async_read` da biblioteca Asio para escrever e ler dados de forma assíncrona, respectivamente.
+Além disso, as corrotinas Asio podem ser "lançadas" em um contexto de E/S usando a função `co_spawn`, que permite que a corrotina execute tarefas assíncronas como fazer chamadas de rede ou ler e escrever em arquivos. Você também pode usar a função `async_write` e `async_read` da biblioteca Asio para escrever e ler dados de forma assíncrona, respectivamente.
 
 No entanto, é importante lembrar que as corrotinas Asio dependem da biblioteca Asio para funcionar, o que pode afetar o desempenho em comparação com outras opções, como as corrotinas `std::coroutine`, que são implementadas diretamente na linguagem C++. Qual das duas opções é a melhor para você depende das suas necessidades e da plataforma em que está trabalhando.
 
@@ -113,12 +113,12 @@ Em resumo, os completion tokens são usados ​​no C++ ASIO para especificar c
 
 ### Asio Corrotina comparado com Cppcoro
 
-O cppcoro é uma biblioteca de corrotinas para C++ que fornece primitivas para escrever código assíncrono de maneira mais simples e legível. Ela foi projetada para funcionar em conjunto com o Asio, mas também pode ser usada com outras bibliotecas de I/O ou mesmo em aplicações sem I/O. A cppcoro utiliza o padrão de corrotinas do C++20 e é compatível com compiladores que já suportam esse padrão.
+O cppcoro é uma biblioteca de corrotinas para C++ que fornece primitivas para escrever código assíncrono de maneira mais simples e legível. Ela foi projetada para funcionar em conjunto com o Asio, mas também pode ser usada com outras bibliotecas de E/S ou mesmo em aplicações sem E/S. A cppcoro utiliza o padrão de corrotinas do C++20 e é compatível com compiladores que já suportam esse padrão.
 
 Ambas as bibliotecas permitem escrever código assíncrono de maneira mais simples, mas existem algumas diferenças entre elas:
 
-- O Asio é uma biblioteca mais ampla que fornece suporte para várias plataformas, incluindo sistemas operacionais diferentes e dispositivos de I/O.
-O Cppcoro, por outro lado, é focada apenas em corrotinas e foi projetado para ser usado como extensão do `std::coroutine`, mas também pode ser utilizado em conjunto com o Asio ou outras bibliotecas de I/O assíncronas (não obrigatório) ou  independentemente delas em aplicações sem I/O. Ele fornece uma série de primitivas para escrever código assíncrono de maneira mais simples e legível, como a palavra-chave `co_yield` para produzir um valor e suspender a execução da corrotina. Portanto, a cppcoro pode ser considerada mais completa e consistente no uso de corrotinas.
+- O Asio é uma biblioteca mais ampla que fornece suporte para várias plataformas, incluindo sistemas operacionais diferentes e dispositivos de E/S.
+O Cppcoro, por outro lado, é focada apenas em corrotinas e foi projetado para ser usado como extensão do `std::coroutine`, mas também pode ser utilizado em conjunto com o Asio ou outras bibliotecas de E/S assíncronas (não obrigatório) ou  independentemente delas em aplicações sem E/S. Ele fornece uma série de primitivas para escrever código assíncrono de maneira mais simples e legível, como a palavra-chave `co_yield` para produzir um valor e suspender a execução da corrotina. Portanto, a cppcoro pode ser considerada mais completa e consistente no uso de corrotinas.
 
 - O Asio é mais amplamente usado em projetos em produção, enquanto que a Cppcoro é uma biblioteca mais nova e talvez menos conhecida. No entanto, ambas são opções válidas para escrever código assíncrono em C++.
 
