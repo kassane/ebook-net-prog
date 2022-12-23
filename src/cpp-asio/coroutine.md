@@ -97,8 +97,6 @@ Para usar corrotinas Asio, você precisa incluir o cabeçalho `<asio/co_spawn.hp
 
 Além disso, as corrotinas Asio podem ser "lançadas" em um contexto de I/O usando a função `co_spawn`, que permite que a corrotina execute tarefas assíncronas como fazer chamadas de rede ou ler e escrever em arquivos. Você também pode usar a função `async_write` e `async_read` da biblioteca Asio para escrever e ler dados de forma assíncrona, respectivamente.
 
-Uma vantagem das corrotinas do Asio é que elas podem ser usadas com qualquer biblioteca ou sistema que suporte a biblioteca Asio, o que significa que elas são compatíveis com uma ampla variedade de plataformas de rede. Além disso, as corrotinas Asio fornecem uma maneira de escrever código assíncrono de forma mais clara e legível, pois permitem que você escreva código síncrono que é "convertido" em código assíncrono pelo próprio Asio.
-
 No entanto, é importante lembrar que as corrotinas Asio dependem da biblioteca Asio para funcionar, o que pode afetar o desempenho em comparação com outras opções, como as corrotinas `std::coroutine`, que são implementadas diretamente na linguagem C++. Qual das duas opções é a melhor para você depende das suas necessidades e da plataforma em que está trabalhando.
 
 #### Completion Tokens
