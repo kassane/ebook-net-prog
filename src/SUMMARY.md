@@ -16,6 +16,8 @@
 * [Accept-Connections](cpp-asio/accept-connections.md)
 * [Operações síncronas](cpp-asio/synchronous-read-write-operations.md)
 * [Operações assíncronas](cpp-asio/asynchronous-read-write-operations.md)
+* [Protocolo ICMP](cpp-asio/icmp-communication.md)
+* [Protocolo RAW](cpp-asio/raw-communication.md)
 * [Protocolo UDP](cpp-asio/udp-communication.md)
 * [Bluetooth](cpp-asio/bluetooth.md)
 * [Conclusão](cpp-asio/the-end.md)

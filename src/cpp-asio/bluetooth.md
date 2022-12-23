@@ -68,7 +68,7 @@ int main()
 }
 ```
 
-Servidor:
+**Servidor:**
 
 ```c++
 #include <iostream>
