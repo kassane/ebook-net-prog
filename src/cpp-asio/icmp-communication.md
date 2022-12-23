@@ -24,6 +24,50 @@ Aqui está um exemplo de como a classe `asio::ip::icmp` pode ser usada para impl
 #include <chrono>
 #include <asio.hpp>
 
+
+// Constantes para os campos protocol e type
+const unsigned char IPPROTO_ICMP = 1;
+const unsigned char ICMP_ECHO = 8;
+const unsigned char ICMP_ECHOREPLY = 0;
+const unsigned char ICMP_DEST_UNREACH = 3;
+const unsigned char ICMP_TIME_EXCEEDED = 11;
+
+struct iphdr
+{
+    unsigned char  ihl:4;
+    unsigned char  version:4;
+    unsigned char  tos;
+    unsigned short tot_len;
+    unsigned short id;
+    unsigned short frag_off;
+    unsigned char  ttl;
+    unsigned char  protocol;
+    unsigned short check;
+    unsigned int   saddr;
+    unsigned int   daddr;
+};
+
+struct icmphdr
+{
+    unsigned char  type;
+    unsigned char  code;
+    unsigned short checksum;
+    union
+    {
+        struct
+        {
+            unsigned short id;
+            unsigned short sequence;
+        } echo;
+        unsigned int   gateway;
+        struct
+        {
+            unsigned short __unused;
+            unsigned short mtu;
+        } frag;
+    } un;
+};
+
 int main()
 {
     // Cria um objeto io_context do ASIO
