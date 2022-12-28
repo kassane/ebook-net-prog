@@ -1,6 +1,6 @@
 # Exceção
 
-O C++ ASIO fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe `boost::system::system_error` e incluem:
+O Asio fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe `boost::system::system_error` e incluem:
 
 - `boost::asio::error::address_family_not_supported`: lançada quando o tipo de endereço especificado não é suportado pela plataforma.
 - `boost::asio::error::address_in_use`: lançada quando o endereço especificado já está em uso por outro processo.
@@ -8,7 +8,7 @@ O C++ ASIO fornece uma série de exceções de erro que podem ser lançadas em s
 - `boost::asio::error::connection_refused`: lançada quando a conexão é recusada pelo host remoto.
 - `boost::asio::error::connection_reset`: lançada quando a conexão é reiniciada pelo host remoto.
 
-Essas exceções são lançadas pelos métodos do C++ ASIO que realizam operações de rede, como `boost::asio::ip::tcp::acceptor::accept` ou `boost::asio::ip::tcp::socket::connect`. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.
+Essas exceções são lançadas pelos métodos do Asio que realizam operações de rede, como `boost::asio::ip::tcp::acceptor::accept` ou `boost::asio::ip::tcp::socket::connect`. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.
 
 As funções do `Asio` podem gerar a exceção `boost::system::system_error`. Veja o [`resolve`](dns-query.md) no exemplo abaixo:  
 
@@ -69,4 +69,4 @@ As diferenças dessas duas funções é que estão apenas incluindo a string "lo
 
 A função membro chamado `what()` retorna as informações detalhadas da exceção.
 
-Em resumo, o C++ ASIO fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe `boost::system::system_error` ou `asio::system_error` (**standalone**) e incluem erros comuns de rede, como conexão abortada, conexão recusada ou endereço em uso. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.
+Em resumo, o Asio fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe `boost::system::system_error` ou `asio::system_error` (**standalone**) e incluem erros comuns de rede, como conexão abortada, conexão recusada ou endereço em uso. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.

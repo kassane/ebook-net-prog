@@ -101,15 +101,15 @@ No entanto, é importante lembrar que as corrotinas Asio dependem da biblioteca 
 
 #### Completion Tokens
 
-Em C++ ASIO, um [completion token](https://think-async.com/Asio/asio-1.24.0/doc/asio/overview/model/completion_tokens.html) é um tipo de dado usado para especificar como uma operação assíncrona deve ser completada. Ele é passado como um parâmetro para uma função assíncrona e é usado para determinar como a função deve notificar o chamador quando a operação for concluída.
+Em Asio, um [completion token](https://think-async.com/Asio/asio-1.24.0/doc/asio/overview/model/completion_tokens.html) é um tipo de dado usado para especificar como uma operação assíncrona deve ser completada. Ele é passado como um parâmetro para uma função assíncrona e é usado para determinar como a função deve notificar o chamador quando a operação for concluída.
 
-Existem vários tipos de completion token disponíveis no C++ ASIO, como `asio::use_future` e `asio::use_awaitable`. Cada um desses tipos de completion token especifica uma forma diferente de completar a operação assíncrona.
+Existem vários tipos de completion token disponíveis no Asio, como `asio::use_future` e `asio::use_awaitable`. Cada um desses tipos de completion token especifica uma forma diferente de completar a operação assíncrona.
 
 Por exemplo, o completion token `asio::use_future` é usado para completar a operação assíncrona retornando um objeto `std::future` que pode ser usado para obter o resultado da operação. Isso permite que o chamador da função assíncrona aguarde o término da operação de forma síncrona, usando a sintaxe de await do C++20.
 
 O completion token `asio::use_awaitable`, por outro lado, é usado para completar a operação assíncrona retornando um objeto awaitable que pode ser usado para aguardar o término da operação de forma assíncrona. Isso permite que o chamador da função assíncrona aguarde o término da operação de forma assíncrona, usando a sintaxe de await do C++20.
 
-Em resumo, os completion tokens são usados ​​no C++ ASIO para especificar como uma operação assíncrona deve ser completada. Eles são passados como parâmetros para funções assíncronas e são usados ​​para determinar como a função deve notificar o chamador quando a operação for concluída. Existem vários tipos de completion token disponíveis, cada um com suas próprias características e usos específicos.
+Em resumo, os completion tokens são usados ​​no Asio para especificar como uma operação assíncrona deve ser completada. Eles são passados como parâmetros para funções assíncronas e são usados ​​para determinar como a função deve notificar o chamador quando a operação for concluída. Existem vários tipos de completion token disponíveis, cada um com suas próprias características e usos específicos.
 
 ### Asio Corrotina comparado com Cppcoro
 

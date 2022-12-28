@@ -281,3 +281,242 @@ int main()
   return 0;
 }
 ```
+
+## Noise-C com Asio
+
+**Cliente:**
+
+```c++
+#include <iostream>
+#include <array>
+#include <boost/asio.hpp>
+#include <noise/protocol.h>
+#include <noise/handshake.h>
+
+using boost::asio::ip::tcp;
+
+int main(int argc, char *argv[]) {
+
+    // Declara as chaves públicas estáticas local e remota
+    std::array<uint8_t, NOISE_PUBLIC_KEY_LEN> local_static_public_key;
+    local_static_public_key.fill(0x55);
+    std::array<uint8_t, NOISE_PUBLIC_KEY_LEN> remote_static_public_key;
+    remote_static_public_key.fill(0xAA);
+
+    // Declara as chaves públicas efêmeras local e remota
+    std::array<uint8_t, NOISE_PUBLIC_KEY_LEN> local_ephemeral_public_key;
+    std::array<uint8_t, NOISE_PUBLIC_KEY_LEN> remote_ephemeral_public_key;
+
+    // Declara as chaves privadas efêmeras local e remota
+    std::array<uint8_t, NOISE_PUBLIC_KEY_LEN> local_ephemeral_private_key;
+    std::array<uint8_t, NOISE_PUBLIC_KEY_LEN> remote_ephemeral_private_key;
+
+    // Declara o estado da negociação de chave
+    NoiseHandshakeState *state = 0;
+
+    // Inicializa o estado da negociação de chave
+    int result = noise_handshakestate_new_by_name(
+        &state, "Noise_NN_25519_ChaChaPoly_BLAKE2s", 0);
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr << "Error initializing handshake state" << std::endl;
+        return 1;
+    }
+
+    // Define as chaves públicas estáticas local e remota
+    noise_handshakestate_set_local_static_public_key(state, local_static_public_key.data(), local_static_public_key.size());
+    noise_handshakestate_set_remote_static_public_key(state, remote_static_public_key.data(), remote_static_public_key.size());
+
+    // Gera o par de chaves efêmeras local
+    result = noise_handshakestate_generate_local_keypair(state, local_ephemeral_private_key.data(), local_ephemeral_private_key.size());
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr << "Error generating local ephemeral key pair" << std::endl;
+        return 1;
+    }
+    noise_handshakestate_get_local_public_key(state, local_ephemeral_public_key.data(), local_ephemeral_public_key.size());
+
+    // Cria um objeto boost::asio::io_context
+    boost::asio::io_context io_context;
+
+    // Cria um objeto boost::asio::ip::tcp::socket
+    tcp::socket socket(io_context);
+
+    // Conecta ao servidor
+    boost::asio::connect(socket, tcp::resolver(io_context).resolve({ "localhost", "1234" }));
+
+    // Envia a chave pública efêmera local ao servidor
+    boost::asio::write(socket, boost::asio::buffer(local_ephemeral_public_key));
+
+    // Recebe a chave pública efêmera remota do servidor
+    boost::asio::read(socket, boost::asio::buffer(remote_ephemeral_public_key));
+    noise_handshakestate_set_remote_ephemeral_public_key(state, remote_ephemeral_public_key.data(), remote_ephemeral_public_key.size());
+
+    // Gera a chave privada efêmera remota
+    result = noise_handshakestate_generate_remote_key(state, remote_ephemeral_private_key.data(), remote_ephemeral_private_key.size());
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr << "Error generating remote ephemeral private key" << std::endl;
+        return 1;
+    }
+
+    // Realiza a negociação de chave (handshake)
+    size_t message_len;
+    std::array<uint8_t, MAX_HANDSHAKE_MESSAGE_LEN> message;
+    result = noise_handshakestate_start(state, message.data(), &message_len);
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr << "Error starting handshake" << std::endl;
+        return 1;
+    }
+    // Envia a mensagem ao servidor
+    boost::asio::write(socket, boost::asio::buffer(message, message_len));
+    // Recebe a resposta do servidor
+    boost::asio::read(socket, boost::asio::buffer(remote_ephemeral_public_key));
+    result = noise_handshakestate_write_message(state, remote_ephemeral_public_key.data(), remote_ephemeral_public_key.size(), message.data(), &message_len);
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr << "Error writing handshake message" << std::endl;
+        return 1;
+    }
+    // Envia a mensagem ao servidor
+    boost::asio::write(socket, boost::asio::buffer(message, message_len));
+    // Recebe a resposta do servidor
+    boost::asio::read(socket, boost::asio::buffer(remote_ephemeral_public_key));
+    result = noise_handshakestate_read_message(state, message.data(), message_len, remote_ephemeral_public_key.data(), &remote_ephemeral_public_key.size());
+  if (result != NOISE_ERROR_NONE) {
+    std::cerr << "Error reading handshake message" << std::endl;
+    return 1;
+  }
+
+  // Libera o estado do handshake
+  noise_handshakestate_free(state);
+
+  // Encerra socket
+  socket.close();
+
+  return 0;
+}
+```
+**Servidor:**
+
+```c++
+#include <iostream>
+#include <array>
+#include <boost/asio.hpp>
+#include <noise/protocol.h>
+#include <noise/handshake.h>
+
+using boost::asio::ip::tcp;
+
+int main(int argc, char *argv[]) {
+
+    // Declara as chaves públicas estáticas local e remota
+    std::array<uint8_t, NOISE_PUBLIC_KEY_LEN> local_static_public_key;
+    local_static_public_key.fill(0x55);
+    std::array<uint8_t, NOISE_PUBLIC_KEY_LEN> remote_static_public_key;
+    remote_static_public_key.fill(0xAA);
+
+    // Declara as chaves públicas efêmeras local e remota
+    std::array<uint8_t, NOISE_PUBLIC_KEY_LEN> local_ephemeral_public_key;
+    std::array<uint8_t, NOISE_PUBLIC_KEY_LEN> remote_ephemeral_public_key;
+
+    // Declara as chaves privadas efêmeras local e remota
+    std::array<uint8_t, NOISE_PUBLIC_KEY_LEN> local_ephemeral_private_key;
+    std::array<uint8_t, NOISE_PUBLIC_KEY_LEN> remote_ephemeral_private_key;
+
+    // Declara o estado da negociação de chave
+    NoiseHandshakeState *state = 0;
+
+    // Inicializa o estado da negociação de chave
+    int result = noise_handshakestate_new_by_name(
+        &state, "Noise_NN_25519_ChaChaPoly_BLAKE2s", 0);
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr << "Error initializing handshake state" << std::endl;
+        return 1;
+    }
+
+    // Define as chaves públicas estáticas local e remota
+    noise_handshakestate_set_local_static_public_key(state, local_static_public_key.data(), local_static_public_key.size());
+    noise_handshakestate_set_remote_static_public_key(state, remote_static_public_key.data(), remote_static_public_key.size());
+
+    // Gera o par de chaves efêmeras local
+    result = noise_handshakestate_generate_local_keypair(state, local_ephemeral_private_key.data(), local_ephemeral_private_key.size());
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr << "Error generating local ephemeral key pair" << std::endl;
+        return 1;
+    }
+    noise_handshakestate_get_local_public_key(state, local_ephemeral_public_key.data(), local_ephemeral_public_key.size());
+
+    // Cria um objeto boost::asio::io_context
+    boost::asio::io_context io_context;
+
+    // Cria um objeto boost::asio::ip::tcp::acceptor
+    tcp::acceptor acceptor(io_service, tcp::endpoint(tcp::v4(), 1234));
+
+    // Aguarda uma conexão do cliente
+    tcp::socket socket(io_service);
+    acceptor.accept(socket);
+
+    // Recebe a chave pública efêmera local do cliente
+    boost::asio::read(socket, boost::asio::buffer(remote_ephemeral_public_key));
+    noise_handshakestate_set_remote_ephemeral_public_key(state, remote_ephemeral_public_key.data(), remote_ephemeral_public_key.size());
+
+    // Gera o par de chaves efêmeras local
+    result = noise_handshakestate_generate_local_keypair(state, local_ephemeral_private_key.data(), local_ephemeral_private_key.size());
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr << "Error generating local ephemeral private key" << std::endl;
+        return 1;
+    }
+    noise_handshakestate_get_local_public_key(state, local_ephemeral_public_key.data(), local_ephemeral_public_key.size());
+
+    // Envia a chave pública efêmera local ao cliente
+    boost::asio::write(socket, boost::asio::buffer(local_ephemeral_public_key));
+
+    // Realiza a negociação de chave (handshake)
+    size_t message_len;
+    std::array<uint8_t, MAX_HANDSHAKE_MESSAGE_LEN> message;
+
+    // Recebe a primeira mensagem do cliente
+    boost::asio::read(socket, boost::asio::buffer(message));
+    result = noise_handshakestate_read_message(state, message.data(), message.size(), remote_ephemeral_public_key.data(), &remote_ephemeral_public_key.size());
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr << "Error to read first handshake message" << std::endl;
+        return 1;
+    }
+
+    result = noise_handshakestate_write_message(state, remote_ephemeral_public_key.data(), remote_ephemeral_public_key.size(), message.data(), &message_len);
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr << "Error to write first handshake message" << std::endl;
+        return 1;
+    }
+    // Envia a primeira mensagem ao cliente
+    boost::asio::write(socket, boost::asio::buffer(message, message_len));
+    // Recebe a segunda mensagem do cliente
+    boost::asio::read(socket, boost::asio::buffer(message));
+    result = noise_handshakestate_read_message(state, message.data(), message.size(), remote_ephemeral_public_key.data(), &remote_ephemeral_public_key.size());
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr << "Error to read second handshake message" << std::endl;
+        return 1;
+    }
+    
+    result = noise_handshakestate_write_message(state, remote_ephemeral_public_key.data(), remote_ephemeral_public_key.size(), message.data(), &message_len);
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr << "Error to write first handshake message" << std::endl;
+        return 1;
+    }
+    // Envia a segunda mensagem ao cliente
+    boost::asio::write(socket, boost::asio::buffer(message, message_len));
+
+    // Gera a chave privada efêmera remota
+    result = noise_handshakestate_generate_remote_key(state, remote_ephemeral_private_key.data(), remote_ephemeral_private_key.size());
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr << "Error generating remote ephemeral private key" << std::endl;
+        return 1;
+    }
+
+
+  // Libera o estado do handshake
+  noise_handshakestate_free(state);
+
+  // Encerra socket
+  socket.close();
+
+  return 0;
+}
+```

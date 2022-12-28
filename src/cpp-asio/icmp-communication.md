@@ -1,12 +1,12 @@
 # Protocolo ICMP
 
-A classe `asio::ip::icmp` é uma classe em C++ que faz parte da biblioteca ASIO (Asynchronous Input/Output) e é usada para implementar a comunicação usando o protocolo ICMP (Internet Control Message Protocol).
+A classe `asio::ip::icmp` é uma classe em C++ que faz parte da biblioteca Asio (Asynchronous Input/Output) e é usada para implementar a comunicação usando o protocolo ICMP (Internet Control Message Protocol).
 
 O protocolo ICMP é um protocolo de nível de rede que é usado para enviar mensagens de erro e de controle entre dispositivos de rede. Ele é comumente usado para testar a conectividade entre dispositivos de rede, como o comando ping em sistemas operacionais.
 
 A classe `asio::ip::icmp` fornece uma interface para criar e gerenciar sockets ICMP. Ela é usada para criar sockets ICMP, que são usados para enviar e receber mensagens ICMP. Ela também fornece métodos para enviar e receber mensagens ICMP através de um socket, bem como para gerenciar a conexão e desconexão de clientes.
 
-A classe `asio::ip::icmp` é derivada da classe `asio::basic_socket<Protocol>`, que é uma classe genérica que representa um socket de rede. Ela fornece uma interface para criar e gerenciar sockets de rede usando qualquer protocolo de rede suportado pelo ASIO. A classe `asio::ip::icmp` é uma especialização da classe `asio::basic_socket<Protocol>` para o protocolo ICMP.
+A classe `asio::ip::icmp` é derivada da classe `asio::basic_socket<Protocol>`, que é uma classe genérica que representa um socket de rede. Ela fornece uma interface para criar e gerenciar sockets de rede usando qualquer protocolo de rede suportado pelo Asio. A classe `asio::ip::icmp` é uma especialização da classe `asio::basic_socket<Protocol>` para o protocolo ICMP.
 
 A classe `asio::ip::icmp` fornece os seguintes métodos e funcionalidades:
 
@@ -70,7 +70,7 @@ struct icmphdr
 
 int main()
 {
-    // Cria um objeto io_context do ASIO
+    // Cria um objeto io_context doAsio
     asio::io_context io_context;
 
     // Cria um socket ICMP

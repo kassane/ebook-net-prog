@@ -75,4 +75,4 @@ Como ele possui o operador `endpoint_type()`, ele pode ser convertido diretament
 	boost::asio::ip::tcp::endpoint endpoint = *it;
 ```
 
-Em resumo, o objeto `asio::ip::tcp::resolver` do C++ ASIO é usado para resolver nomes de domínio em endereços IP. Ele fornece uma série de funcionalidades úteis, como a possibilidade de resolver o nome de domínio de forma assíncrona e de cancelar a resolução de um nome de domínio em andamento.
+Em resumo, o objeto `asio::ip::tcp::resolver` do Asio é usado para resolver nomes de domínio em endereços IP. Ele fornece uma série de funcionalidades úteis, como a possibilidade de resolver o nome de domínio de forma assíncrona e de cancelar a resolução de um nome de domínio em andamento.

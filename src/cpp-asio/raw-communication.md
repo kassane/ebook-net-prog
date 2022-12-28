@@ -1,9 +1,9 @@
 # Protocolo Raw
 
-Uma das funcionalidades que a ASIO oferece é a possibilidade de enviar e receber pacotes de dados usando o protocolo de rede a baixo nível. Isso é conhecido como "envio/recebimento de pacotes raw", ou simplesmente "raw sockets".
+Uma das funcionalidades que aAsio oferece é a possibilidade de enviar e receber pacotes de dados usando o protocolo de rede a baixo nível. Isso é conhecido como "envio/recebimento de pacotes raw", ou simplesmente "raw sockets".
 
 A classe `asio::ip::raw` é usada para implementar a comunicação de pacotes e também fornece uma interface para criar e gerenciar sockets de pacotes raw. Ela também fornece métodos para enviar e receber pacotes raw através de um socket, bem como para gerenciar a conexão e desconexão de clientes.
-Para usar raw sockets com a ASIO, é necessário incluir o cabeçalho `<asio/ip/raw_socket.hpp>` e criar uma instância de `asio::ip::raw_socket`, que é a classe responsável por gerenciar a conexão de rede.
+Para usar raw sockets com aAsio, é necessário incluir o cabeçalho `<asio/ip/raw_socket.hpp>` e criar uma instância de `asio::ip::raw_socket`, que é a classe responsável por gerenciar a conexão de rede.
 
 Os pacotes raw são pacotes de rede que são enviados e recebidos diretamente, sem qualquer tipo de encapsulamento ou formatação adicional. Eles são usados para implementar protocolos de nível inferior, como o protocolo ICMP, ou para fazer debug de aplicações de rede.
 

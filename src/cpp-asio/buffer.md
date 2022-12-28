@@ -42,7 +42,7 @@ O construtor `streambuf` aceita um argumento `size_t` especificando a soma máxi
 
 ## Tipos de Buffers
 
-O C++ ASIO fornece vários tipos de buffers que podem ser usados ​​para representar conjuntos de dados que podem ser lidos ou escritos de forma assíncrona. A seguir, uma lista de alguns dos tipos de buffers disponíveis no C++ ASIO:
+O Asio fornece vários tipos de buffers que podem ser usados ​​para representar conjuntos de dados que podem ser lidos ou escritos de forma assíncrona. A seguir, uma lista de alguns dos tipos de buffers disponíveis no Asio:
 
 - `asio::const_buffer`: Representa um conjunto de dados que serão lidos, mas não alterados. Ele é útil quando você deseja ler os dados de uma fonte externa, como uma conexão de rede, sem alterá-los.
 
@@ -54,4 +54,4 @@ O C++ ASIO fornece vários tipos de buffers que podem ser usados ​​para repr
 
 - `asio::buffer_size`: É uma função que retorna o tamanho de um buffer em bytes. Ela é útil para determinar quantos dados podem ser lidos ou escritos em um buffer.
 
-Esses são apenas alguns dos tipos de buffers disponíveis no C++ ASIO. Existem outros tipos de buffers disponíveis para uso em situações específicas.
+Esses são apenas alguns dos tipos de buffers disponíveis no Asio. Existem outros tipos de buffers disponíveis para uso em situações específicas.

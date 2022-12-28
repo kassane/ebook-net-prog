@@ -2,7 +2,7 @@
 
 A conexão serial é um tipo de conexão de comunicação que permite que dois dispositivos se comuniquem por meio de uma porta serial. A porta serial é uma interface física que permite que um dispositivo envie e receba dados por meio de um par de fios. Ela é comumente usada para se comunicar com dispositivos externos, como Arduinos, dispositivos de comunicação industrial e dispositivos de automação.
 
-### ASIO
+### Asio
 
 A biblioteca Asio inclui suporte para trabalhar com portas seriais, o que permite aos programadores escrever aplicativos que se comunicam com dispositivos seriais, como Arduino e dispositivos de comunicação industrial. Isso é útil quando é preciso enviar ou receber dados de um dispositivo por meio de uma porta serial, como em aplicativos de automação industrial ou em projetos de robótica.
 
