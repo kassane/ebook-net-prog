@@ -1,0 +1,248 @@
+<!DOCTYPE HTML>
+<html lang="pt" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>SSL/TLS - Programação de Redes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li class="chapter-item expanded "><a href="../cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li class="chapter-item expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li class="chapter-item expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li class="chapter-item expanded "><a href="../cpp-asio/buffer.html"><strong aria-hidden="true">5.</strong> Buffers</a></li><li class="chapter-item expanded "><a href="../cpp-asio/executors.html"><strong aria-hidden="true">6.</strong> Executores</a></li><li class="chapter-item expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">7.</strong> Sockets</a></li><li class="chapter-item expanded "><a href="../cpp-asio/strand.html"><strong aria-hidden="true">8.</strong> Strands</a></li><li class="chapter-item expanded "><a href="../cpp-asio/coroutine.html"><strong aria-hidden="true">9.</strong> Corrotinas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">10.</strong> Endpoint</a></li><li class="chapter-item expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">11.</strong> DNS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">12.</strong> Erros e exceções</a></li><li class="chapter-item expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">13.</strong> Conectar ao Servidor</a></li><li class="chapter-item expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">14.</strong> Accept-Connections</a></li><li class="chapter-item expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">15.</strong> Operações síncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">16.</strong> Operações assíncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/icmp-communication.html"><strong aria-hidden="true">17.</strong> Protocolo ICMP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/raw-communication.html"><strong aria-hidden="true">18.</strong> Protocolo RAW</a></li><li class="chapter-item expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">19.</strong> Protocolo UDP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/SSL-TLS.html" class="active"><strong aria-hidden="true">20.</strong> SSL/TLS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/bluetooth.html"><strong aria-hidden="true">21.</strong> Bluetooth</a></li><li class="chapter-item expanded "><a href="../cpp-asio/serial.html"><strong aria-hidden="true">22.</strong> Serial</a></li><li class="chapter-item expanded "><a href="../cpp-asio/some-examples.html"><strong aria-hidden="true">23.</strong> Exemplos</a></li><li class="chapter-item expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">24.</strong> Conclusão</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Programação de Redes</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="ssltls"><a class="header" href="#ssltls">SSL/TLS</a></h2>
+<p>SSL (Secure Sockets Layer) e TLS (Transport Layer Security) são dois protocolos de segurança que são amplamente utilizados na internet para proteger as comunicações entre dispositivos. Ambos são baseados em certificados de segurança e chaves criptográficas, que são usados ​​para criptografar e decriptar os dados transmitidos.</p>
+<p>A principal diferença entre SSL e TLS é que TLS é uma versão atualizada e aprimorada do SSL. O SSL foi originalmente criado pela Netscape nos anos 1990 como uma maneira de proteger as comunicações na internet. No entanto, com o tempo, alguns problemas de segurança foram encontrados no SSL, o que levou ao desenvolvimento do TLS como uma substituição.</p>
+<p>O TLS foi projetado para corrigir os problemas de segurança encontrados no SSL e fornecer um nível ainda maior de segurança nas comunicações na internet. Ele é compatível com o SSL, o que significa que os dispositivos que suportam o TLS também podem se comunicar com dispositivos que usam o SSL.</p>
+<p>Apesar da similaridade entre SSL e TLS, a maioria dos sites da web e serviços de internet atualmente usa o TLS para proteger suas comunicações. Isso é porque o TLS é considerado mais seguro e atualizado do que o SSL. No entanto, o SSL ainda é amplamente utilizado em algumas aplicações, como em conexões seguras de email (SMTPS) e em alguns protocolos de VPN.</p>
+<h3 id="asio-ssl"><a class="header" href="#asio-ssl">Asio SSL</a></h3>
+<p>A biblioteca Asio SSL fornece uma API que permite aos desenvolvedores criar e gerenciar conexões seguras usando o protocolo SSL (Secure Sockets Layer) ou TLS (Transport Layer Security). Ela inclui funções para realizar handshakes SSL/TLS, criptografar e decriptar dados usando chaves criptográficas e verificar a validade de certificados de segurança.</p>
+<p>Aqui está um exemplo completo de código em C++ que demonstra como usar a biblioteca Asio SSL para estabelecer uma conexão segura com um servidor e enviar uma solicitação HTTP. Este exemplo supõe que você já tenha incluído os cabeçalhos relevantes e configurado o objeto asio::ssl::context de acordo com suas necessidades.</p>
+<pre><code class="language-c++">#include &lt;asio/ssl.hpp&gt;
+#include &lt;asio/ip/tcp.hpp&gt;
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+int main()
+{
+    asio::io_context io_context;
+
+    // Criar um objeto asio::ssl::context com as configurações SSL/TLS desejadas
+    asio::ssl::context ctx(asio::ssl::context::sslv23);
+    ctx.set_options(asio::ssl::context::default_workarounds
+                     | asio::ssl::context::no_sslv2
+                     | asio::ssl::context::single_dh_use);
+    ctx.use_certificate_chain_file(&quot;certificate.pem&quot;);
+    ctx.use_private_key_file(&quot;key.pem&quot;, asio::ssl::context::pem);
+
+    // Criar um objeto asio::ssl::stream usando o objeto asio::ssl::context
+    asio::ssl::stream&lt;asio::ip::tcp::socket&gt; socket(io_context, ctx);
+
+    // Conectar ao servidor
+    socket.lowest_layer().connect({{}, 443});
+
+    // Realizar o handshake SSL como um cliente
+    socket.handshake(asio::ssl::stream_base::client);
+
+    // Enviar a solicitação HTTP
+    std::string request = &quot;GET / HTTP/1.1\r\nHost: example.com\r\n\r\n&quot;;
+    asio::write(socket, asio::buffer(request));
+
+    // Receber a resposta do servidor
+    std::vector&lt;char&gt; response(1024);
+    asio::read(socket, asio::buffer(response));
+
+    std::cout &lt;&lt; &quot;Response from server: &quot; &lt;&lt; std::string(response.data(), response.size()) &lt;&lt; std::endl;
+
+    return 0;
+}
+</code></pre>
+<p>Neste exemplo, primeiro criamos um objeto <code>asio::ssl::context</code> com as configurações SSL/TLS desejadas. Em seguida, criamos um objeto <code>asio::ssl::stream</code> passando o objeto <code>asio::ssl::context</code> como um parâmetro para o construtor.</p>
+<p>Em seguida, usamos o método connect do objeto <code>asio::ip::tcp::socket</code> subjacente para estabelecer a conexão com o servidor. Depois disso, realizamos o handshake SSL como um cliente usando o método handshake.</p>
+<p>Depois disso, podemos usar os métodos de leitura e escrita padrão, como read e write, para enviar e receber dados através da conexão segura. No exemplo acima, enviamos uma solicitação HTTP simples usando o método write, e depois usamos o método read para ler a resposta do servidor.</p>
+<p>Depois de ler a resposta do servidor, podemos exibir o conteúdo da resposta usando o operador de inserção de stream (<code>&lt;&lt;</code>) e o método string da classe <code>std::vector</code>.</p>
+<p>Este é um exemplo básico de como usar a biblioteca Asio SSL em aplicativos C++. É importante lembrar que há muitos detalhes adicionais que podem ser considerados ao trabalhar com conexões seguras, como verificação de certificados de segurança, gerenciamento de erros e gerenciamento de sessões SSL/TLS.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../cpp-asio/udp-communication.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../cpp-asio/bluetooth.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../cpp-asio/udp-communication.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../cpp-asio/bluetooth.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
