@@ -1,13 +1,15 @@
-# Samples
+# Exemplos
 
 ## Cliente NTP
 
-**Nota:** Nos formatos de data e timestamp a data base da era 0, ou melhor, 0h 1 de janeiro de 1900 UTC, quando todos os bits são zero. [RFC 5902](https://www.rfc-editor.org/rfc/rfc5905#page-12)
+**Nota:** Nos formatos da data e o timestamp, a base da era 0, resultando inicialmente no seguinte horário: 0h 1 de janeiro de 1900 UTC, quando todos os bits são zero. [RFC 5902](https://www.rfc-editor.org/rfc/rfc5905#page-12)
+Para exibir o horário atual, precisará alterar o timestamp!
 
 ```c++
 #include <array>
 #include <boost/asio.hpp>
 #include <iostream>
+#include <chrono>
 
 namespace asio = boost::asio;
 using asio::ip::udp;
@@ -49,6 +51,7 @@ int main(int argc, char *argv[]) {
     std::chrono::system_clock::time_point time_point =
         std::chrono::system_clock::time_point(
             std::chrono::seconds(ntp_timestamp - 2208988800ull));
+                              // ntp_timestamp - unix_timestamp
 
     // Converter o time_point para std::time_t e exibir na tela
     std::time_t time = std::chrono::system_clock::to_time_t(time_point);
