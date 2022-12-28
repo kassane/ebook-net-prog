@@ -1841,12 +1841,14 @@ int main() {
 }
 </code></pre>
 <p>Essa é uma maneira de tratar eventos de interrupção da porta serial usando a biblioteca Asio. Note que você precisa executar o loop de eventos (chamando a função <code>io_context::run()</code>) para que os manipuladores de eventos sejam chamados quando os eventos ocorrerem.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="samples"><a class="header" href="#samples">Samples</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exemplos"><a class="header" href="#exemplos">Exemplos</a></h1>
 <h2 id="cliente-ntp"><a class="header" href="#cliente-ntp">Cliente NTP</a></h2>
-<p><strong>Nota:</strong> Nos formatos de data e timestamp a data base da era 0, ou melhor, 0h 1 de janeiro de 1900 UTC, quando todos os bits são zero. <a href="https://www.rfc-editor.org/rfc/rfc5905#page-12">RFC 5902</a></p>
+<p><strong>Nota:</strong> Nos formatos da data e o timestamp, a base da era 0, resultando inicialmente no seguinte horário: 0h 1 de janeiro de 1900 UTC, quando todos os bits são zero. <a href="https://www.rfc-editor.org/rfc/rfc5905#page-12">RFC 5902</a>
+Para exibir o horário atual, precisará alterar o timestamp!</p>
 <pre><code class="language-c++">#include &lt;array&gt;
 #include &lt;boost/asio.hpp&gt;
 #include &lt;iostream&gt;
+#include &lt;chrono&gt;
 
 namespace asio = boost::asio;
 using asio::ip::udp;
@@ -1888,6 +1890,7 @@ int main(int argc, char *argv[]) {
     std::chrono::system_clock::time_point time_point =
         std::chrono::system_clock::time_point(
             std::chrono::seconds(ntp_timestamp - 2208988800ull));
+                              // ntp_timestamp - unix_timestamp
 
     // Converter o time_point para std::time_t e exibir na tela
     std::time_t time = std::chrono::system_clock::to_time_t(time_point);
