@@ -2,7 +2,10 @@
 
 ## Cliente NTP
 
-**Nota:** Nos formatos da data e o timestamp, a base da era 0, resultando inicialmente no seguinte horário: 0h 1 de janeiro de 1900 UTC, quando todos os bits são zero. [RFC 5902](https://www.rfc-editor.org/rfc/rfc5905#page-12)
+**Nota:** Nos formatos da data e o timestamp, a base era 0, resultando inicialmente no seguinte horário: 0h de 1 de janeiro de 1900 UTC, quando todos os bits são zero.
+
+**Referência:** [RFC 5902](https://www.rfc-editor.org/rfc/rfc5905#page-12)
+
 Para exibir o horário atual, precisará alterar o timestamp!
 
 ```c++
@@ -167,5 +170,114 @@ int main() {
   if (!is_sorted(std::begin(arr), std::end(arr))) {
     throw std::runtime_error("array not sorted");
   }
+}
+```
+
+## Servidor TCP com WolfSSL (base)
+
+**Nota:** Apenas ilustrativo. Requer aprimoramento complementar!
+
+```c++
+#include <iostream>
+#include <string>
+#include <boost/asio.hpp>
+#include <wolfssl/ssl.h>
+
+namespace asio = boost::asio;
+using asio::ip::tcp;
+
+class wolfSSL_context
+{
+public:
+  wolfSSL_context(asio::io_context& io_context,
+                  asio::ssl::context::method method)
+    : context_(io_context, method)
+  {
+    context_.set_options(
+      asio::ssl::context::default_workarounds
+      | asio::ssl::context::no_sslv2
+      | asio::ssl::context::single_dh_use);
+
+    // Utilizar os certificados.
+    context_.use_certificate_chain_file("server.crt");
+    context_.use_private_key_file("server.key", asio::ssl::context::pem);
+    context_.use_tmp_dh_file("dh2048.pem");
+  }
+
+  asio::ssl::context& context()
+  {
+    return context_;
+  }
+
+private:
+  asio::ssl::context context_;
+};
+
+class wolfSSL_stream
+  : public asio::ssl::stream<tcp::socket>
+{
+public:
+  wolfSSL_stream(asio::io_context& io_context, wolfSSL_context& context)
+    : asio::ssl::stream<tcp::socket>(io_context, context.context())
+  {
+  }
+};
+
+class wolfSSL_server
+{
+public:
+  wolfSSL_server(asio::io_context& io_context,
+                 unsigned short port)
+    : acceptor_(io_context, tcp::endpoint(tcp::v4(), port)),
+      context_(io_context, asio::ssl::context::tlsv12)
+  {
+    start_accept();
+  }
+
+private:
+  void start_accept()
+  {
+    wolfSSL_stream new_stream(acceptor_.get_io_context(), context_);
+
+    acceptor_.async_accept(new_stream.next_layer(),
+                           std::bind(&wolfSSL_server::handle_accept, this,
+                                     std::placeholders::_1,
+                                     std::move(new_stream)));
+  }
+
+  void handle_accept(const asio::error_code& error,
+                     wolfSSL_stream stream)
+  {
+    if (!error)
+    {
+      stream.handshake(asio::ssl::stream_base::server);
+
+      // Executar o Handshake com SSL/TLS e ler os dados do cliente.
+      // ...
+
+      start_accept();
+    }
+  }
+
+  tcp::acceptor acceptor_;
+  wolfSSL_context context_;
+};
+
+int main()
+{
+  try
+  {
+    asio::io_context io_context;
+
+    wolfSSL_server server(io_context, 443);
+
+    io_context.run();
+  }
+  catch (std::exception& e)
+  {
+    std::cerr << e.what() << std::endl;
+  }
+
+  return 0;
 }
 ```
