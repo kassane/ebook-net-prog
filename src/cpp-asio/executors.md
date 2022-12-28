@@ -19,19 +19,19 @@ A proposta de universal executors visa fornecer uma forma mais flexível de trab
 
 A proposta de universal executors ainda está em fase de discussão no Grupo de Trabalho 21 (WG21) e ainda não foi adotada como parte do C++ Standard. No entanto, se aprovada, ela pode ser uma adição importante ao C++ Standard
 
-### 1. Por quê Executores?
+### Por quê Executores?
 
 C++ sempre careceu de infraestrutura de programação simultânea disponível, e a infraestrutura recém-introduzida desde C++11, bem como a melhoria de bibliotecas de terceiros, como boost e folly, têm mais ou menos problemas e certas limitações.
 
-### 1.1 `std::async` não é assíncrono
+### `std::async` não é assíncrono
 
 `std::async` é uma função do C++ Standard Library que é usada para iniciar uma tarefa assíncrona em um ponto específico no tempo. Ela é usada para criar uma tarefa assíncrona que será executada em uma thread separada e retorna um objeto `std::future` que pode ser usado para obter o resultado da tarefa quando ela for concluída.
 
-Apesar de seu nome, `std::async` não é uma função assíncrona no sentido tradicional da palavra. Ela não é capaz de retornar imediatamente para o chamador enquanto a tarefa assíncrona é executada, mas simplesmente inicia a tarefa em uma thread separada e retorna um objeto `std::future`. Isso significa que o código que chama std::async não pode ser escrito de forma assíncrona usando a sintaxe de await do C++20.
+Apesar de seu nome, `std::async` não é uma função assíncrona no sentido tradicional da palavra. Ela não é capaz de retornar imediatamente para o chamador enquanto a tarefa assíncrona é executada, mas simplesmente inicia a tarefa em uma thread separada e retorna um objeto `std::future`. Isso significa que o código que chama `std::async` não pode ser escrito de forma assíncrona usando a sintaxe de await do C++20.
 
 Apesar disso, `std::async` pode ser útil em situações em que é necessário iniciar uma tarefa assíncrona de forma fácil e rápida. Ele é especialmente útil quando é necessário obter o resultado da tarefa assíncrona de forma síncrona, usando a sintaxe de await do C++20 ou esperando pelo objeto `std::future` retornado por `std::async`.
 
-A seguir, um exemplo de uso da função std::async para iniciar uma tarefa assíncrona e obter o resultado da tarefa de forma síncrona:
+A seguir, um exemplo de uso da função `std::async` para iniciar uma tarefa assíncrona e obter o resultado da tarefa de forma síncrona:
 
 ```c++
 #include <iostream>
@@ -59,12 +59,12 @@ int main() {
 
 Neste exemplo, a função long_running_task é iniciada de forma assíncrona com `std::async` e o resultado da tarefa é obtido síncronamente com `std::future::get`. Isso significa que o código que chama `std::async` será bloqueado até que a tarefa seja concluída e o resultado esteja disponível.
 
-Observe que, apesar de usarmos `std::async` para iniciar a tarefa assíncrona, o código que chama std::async não pode ser escrito de forma assíncrona usando a sintaxe de await do C++20. Para escrever código assíncrono de forma mais simples e clara, é recomendável usar outras bibliotecas de tempo de execução, como C++ ASIO ou Libunifex.
+Observe que, apesar de usarmos `std::async` para iniciar a tarefa assíncrona, o código não pode ser escrito de forma assíncrona usando a sintaxe de await do C++20. Para escrever código assíncrono de forma mais simples e clara, é recomendável usar outras bibliotecas de tempo de execução, como C++ ASIO ou Libunifex.
 
 Em resumo, `std::async` é uma função do C++ Standard Library que é usada para iniciar uma tarefa assíncrona em uma thread separada. Ela não é uma função assíncrona no sentido tradicional da palavra e não pode ser usada com a sintaxe de await do C++20, mas pode ser útil em situações em que é necessário iniciar uma tarefa assíncrona de forma fácil e rápida.
 
 
-### 1.2 Modelo de Evolução do Future/Promise
+### Modelo de Evolução do Future/Promise
 
 No C++11, o modelo future/promise é um meio de permitir que uma thread espere por um valor a ser produzido por outra thread de maneira assíncrona. Ele é composto pelos seguintes elementos:
 
@@ -107,7 +107,7 @@ Essas classes são mais básicas do que as oferecidas pelas bibliotecas `folly` 
 As classes `std::future` e `std::promise` fornecem um conjunto similar de funcionalidades às classes `folly::Future` e `folly::Promise` da biblioteca [folly](https://github.com/facebook/folly), mas são parte da Biblioteca Padrão de C++ e não exigem dependências adicionais.
 
   
-### 1.3 Executores em ASIO
+### Executores em ASIO
 
 
 Os executores são componentes do asio que definem o contexto de execução de uma função ou um bloco de código. Eles podem ser usados para controlar como e quando uma função ou um bloco de código é executado, e permitem que você aproveite os recursos de concorrência fornecidos pelo asio para executar tarefas de forma assíncrona e concorrente.
@@ -131,10 +131,10 @@ Existem vários tipos de executores que podem ser usados com `asio::execution`. 
 Em geral, `asio::execution` é um conceito poderoso que permite especificar o contexto de execução no qual uma função ou um bloco de código deve ser executado e aproveitar os vários tipos de executores fornecidos por asio para controlar a execução do seu código.
 
 
-### 1.3.1 Asio executores em comparação com outras alternativas
+### Asio executores em comparação com outras alternativas
 
 
-#### 1.3.1.1 `std::execution`
+#### `std::execution`
 
 
 `std::execution` é um namespace do C++ Standard Library que fornece tipos e funções relacionados à execução de tarefas assíncronas. Ele foi introduzido no C++17 e ampliado no C++20 para fornecer uma interface padronizada para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução.
@@ -147,18 +147,18 @@ O namespace `std::execution` fornece vários tipos de Executor, como `std::execu
 
 Em resumo, `std::execution` é um namespace do C++ Standard Library que fornece uma interface padronizada para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, enquanto que C++ ASIO é uma biblioteca de tempo de execução que oferece recursos para criar aplicações de rede de forma assíncrona. C++ ASIO pode ser usado com o namespace `std::execution`, mas também pode ser usado de forma independente. A escolha da biblioteca a ser usada depende das necessidades específicas de sua aplicação e de suas preferências de programação.
 
-#### 1.3.1.2 Libunifex
+#### Libunifex
 
-Libunifex e C++ ASIO são duas bibliotecas diferentes que são utilizadas para criar aplicações de redes de forma assíncrona em C++.
+[Libunifex](https://github.com/facebookexperimental/libunifex) e ASIO são duas bibliotecas diferentes que são utilizadas para criar aplicações de redes de forma assíncrona em C++.
 
-C++ ASIO é uma biblioteca de tempo de execução que oferece suporte para a comunicação assíncrona entre sistemas de computador. Ela é amplamente utilizada para a criação de aplicações de redes, como servidores de rede e clientes de rede. C++ ASIO fornece uma série de recursos, como sockets de rede, temporizadores e sinais de interrupção, que podem ser usados ​​para criar aplicações de rede de forma assíncrona.
+ASIO é uma biblioteca de tempo de execução que oferece suporte para a comunicação assíncrona entre sistemas de computador. Ela é amplamente utilizada para a criação de aplicações de redes, como servidores de rede e clientes de rede. C++ ASIO fornece uma série de recursos, como sockets de rede, temporizadores e sinais de interrupção, que podem ser usados ​​para criar aplicações de rede de forma assíncrona.
 
-Por outro lado, Libunifex é uma biblioteca de executores para C++ que oferece uma interface uniforme para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, como C++ ASIO e Boost.ASIO. Ela permite que você escreva código assíncrono de forma mais portável, pois você pode usar a mesma interface para trabalhar com diferentes bibliotecas de tempo de execução sem precisar se preocupar com as diferenças entre elas.
+Por outro lado, Libunifex é uma biblioteca de executores para C++ que oferece uma interface uniforme para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, como ASIO Standalone e Boost.ASIO. Ela permite que você escreva código assíncrono de forma mais portável, pois você pode usar a mesma interface para trabalhar com diferentes bibliotecas de tempo de execução sem precisar se preocupar com as diferenças entre elas.
 
-#### 1.3.1.3 Cppcoro
+#### Cppcoro
 
-Cppcoro é uma alternativa a outras bibliotecas de tempo de execução para C++, como C++ ASIO e Libunifex, que também oferecem suporte para a programação assíncrona baseada em coroutinas e não executores. Ela permite que você escreva código assíncrono de forma mais simples e clara, usando a sintaxe de coroutinas do C++.
+[Cppcoro](https://github.com/lewissbaker/cppcoro) é uma alternativa a outras bibliotecas de tempo de execução para C++, como ASIO e Libunifex, que também oferecem suporte para a programação assíncrona, porém com o uso de corrotinas ao invés de executores. Ela permite que você escreva código assíncrono de forma mais simples e clara, usando a sintaxe de corrotinas do C++20 STL.
 
 Cppcoro usa a funcionalidade de coroutinas introduzida no C++20 para permitir que você escreva código assíncrono de forma mais fácil e natural. Ele fornece uma série de funções e tipos de dados que permitem que você crie, gerencie e execute coroutinas de forma mais eficiente. Além disso, ele fornece suporte para a execução de coroutinas em paralelo, o que pode ser útil em aplicações de alta performance.
 
-Em resumo, C++ ASIO é uma biblioteca de tempo de execução que fornece recursos para criar aplicações de rede de forma assíncrona, enquanto que Libunifex é uma biblioteca de executores que oferece uma interface uniforme para trabalhar com diferentes bibliotecas de tempo de execução de forma mais portável.
+Em resumo, ASIO é uma biblioteca de tempo de execução que fornece recursos para criar aplicações de rede de forma assíncrona, enquanto que Libunifex é uma biblioteca de executores que oferece uma interface uniforme para trabalhar com diferentes bibliotecas de tempo de execução de forma mais portável.
