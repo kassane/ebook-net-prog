@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html lang="pt" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Serial - Programação de Redes</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li class="chapter-item expanded "><a href="../cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li class="chapter-item expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li class="chapter-item expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li class="chapter-item expanded "><a href="../cpp-asio/buffer.html"><strong aria-hidden="true">5.</strong> Buffers</a></li><li class="chapter-item expanded "><a href="../cpp-asio/executors.html"><strong aria-hidden="true">6.</strong> Executores</a></li><li class="chapter-item expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">7.</strong> Sockets</a></li><li class="chapter-item expanded "><a href="../cpp-asio/strand.html"><strong aria-hidden="true">8.</strong> Strands</a></li><li class="chapter-item expanded "><a href="../cpp-asio/coroutine.html"><strong aria-hidden="true">9.</strong> Corrotinas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">10.</strong> Endpoint</a></li><li class="chapter-item expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">11.</strong> DNS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">12.</strong> Erros e exceções</a></li><li class="chapter-item expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">13.</strong> Conectar ao Servidor</a></li><li class="chapter-item expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">14.</strong> Accept-Connections</a></li><li class="chapter-item expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">15.</strong> Operações síncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">16.</strong> Operações assíncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/icmp-communication.html"><strong aria-hidden="true">17.</strong> Protocolo ICMP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/raw-communication.html"><strong aria-hidden="true">18.</strong> Protocolo RAW</a></li><li class="chapter-item expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">19.</strong> Protocolo UDP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/bluetooth.html"><strong aria-hidden="true">20.</strong> Bluetooth</a></li><li class="chapter-item expanded "><a href="../cpp-asio/serial.html" class="active"><strong aria-hidden="true">21.</strong> Serial</a></li><li class="chapter-item expanded "><a href="../cpp-asio/some-examples.html"><strong aria-hidden="true">22.</strong> Exemplos</a></li><li class="chapter-item expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">23.</strong> Conclusão</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Programação de Redes</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="conexão-serial"><a class="header" href="#conexão-serial">Conexão Serial</a></h2>
+<p>A conexão serial é um tipo de conexão de comunicação que permite que dois dispositivos se comuniquem por meio de uma porta serial. A porta serial é uma interface física que permite que um dispositivo envie e receba dados por meio de um par de fios. Ela é comumente usada para se comunicar com dispositivos externos, como Arduinos, dispositivos de comunicação industrial e dispositivos de automação.</p>
+<h3 id="asio"><a class="header" href="#asio">ASIO</a></h3>
+<p>A biblioteca Asio inclui suporte para trabalhar com portas seriais, o que permite aos programadores escrever aplicativos que se comunicam com dispositivos seriais, como Arduino e dispositivos de comunicação industrial. Isso é útil quando é preciso enviar ou receber dados de um dispositivo por meio de uma porta serial, como em aplicativos de automação industrial ou em projetos de robótica.</p>
+<p>Para usar a biblioteca Asio para trabalhar com portas seriais, é necessário incluir o cabeçalho <code>#include &lt;boost/asio.hpp&gt;</code> no início do seu código. Em seguida, é preciso criar uma instância de um objeto <code>serial_port</code>, que representa a porta serial a ser usada, e passar a ela as informações sobre a porta, como o nome da porta (por exemplo, <code>&quot;COM1&quot;</code> no <strong>Windows</strong> ou <code>&quot;/dev/ttyUSB0&quot;</code> no <strong>Linux</strong>) e a taxa de transmissão (baud rate).</p>
+<p>Aqui está um exemplo de código que abre uma porta serial e envia uma mensagem pelo Arduino:</p>
+<pre><code class="language-c++">#include &lt;boost/asio.hpp&gt;
+#include &lt;iostream&gt;
+
+namespace asio = boost::asio;
+
+int main() {
+  // Cria um objeto boost::asio::io_context para gerenciar as operações de entrada/saída.
+  asio::io_context io;
+
+  // Cria um objeto boost::asio::serial_port para representar a porta serial.
+  asio::serial_port serial(io, &quot;/dev/ttyUSB0&quot;);
+
+  // Configura a porta serial com a taxa de transmissão desejada.
+  serial.set_option(asio::serial_port_base::baud_rate(9600));
+
+  // Envia uma mensagem pelo Arduino.
+  asio::write(serial, asio::buffer(&quot;Hello, Arduino!\n&quot;));
+
+  return 0;
+}
+</code></pre>
+<p>Além de enviar e receber dados, você também pode configurar várias opções da porta serial usando a biblioteca Asio. Por exemplo, você pode definir o número de bits de dados, a paridade e o número de bits de parada usando as opções <code>serial_port_base::character_size</code>, <code>serial_port_base::parity</code> e <code>serial_port_base::stop_bits</code>, respectivamente. Aqui está um exemplo de como fazer isso:</p>
+<pre><code class="language-c++">serial.set_option(boost::asio::serial_port_base::character_size(8));
+serial.set_option(boost::asio::serial_port_base::parity(boost::asio::serial_port_base::parity::none));
+serial.set_option(boost::asio::serial_port_base::stop_bits(boost::asio::serial_port_base::stop_bits::one));
+</code></pre>
+<p>Você também pode definir o modo de fluxo de dados da porta serial usando as opções <code>serial_port_base::flow_control</code>. Por exemplo, para habilitar o controle de fluxo hardware (RTS/CTS), você pode usar o seguinte código:</p>
+<pre><code class="language-c++">serial.set_option(boost::asio::serial_port_base::flow_control(boost::asio::serial_port_base::flow_control::hardware));
+</code></pre>
+<p>Além disso, a biblioteca permite que você trate eventos de interrupção da porta serial usando a classe <code>serial_port_service</code>. Isso é útil quando você precisa ser notificado quando a porta serial for interrompida, por exemplo, quando um dispositivo conectado à porta envia um sinal de interrupção. Para usar essa funcionalidade, você precisa criar um objeto <code>serial_port_service</code> e registrar um manipulador de eventos de interrupção usando a função <code>async_wait_for_interrupt()</code>. Aqui está um exemplo de como fazer isso:</p>
+<pre><code class="language-c++">#include &lt;boost/asio/serial_port_service.hpp&gt;
+
+// Define uma função de callback para ser chamada quando a interrupção ocorrer.
+void interrupt_callback(const boost::system::error_code&amp; error) {
+  if (!error) {
+    // A interrupção ocorreu. Faça alguma coisa aqui.
+    std::cout &lt;&lt; &quot;Interrupt received!&quot; &lt;&lt; std::endl;
+  }
+}
+
+int main() {
+    // Cria um objeto boost::asio::io_context para gerenciar as operações de entrada/saída.
+    boost::asio::io_context io;
+
+    // Cria um objeto boost::asio::serial_port para representar a porta serial.
+    boost::asio::serial_port serial(io, &quot;/dev/ttyUSB0&quot;);
+
+    // Cria um objeto boost::asio::serial_port_service para tratar eventos de interrupção da porta serial
+    boost::asio::serial_port_service serial_service(io);
+
+    // Registra o manipulador de eventos de interrupção.
+    serial_service.async_wait_for_interrupt(serial, interrupt_callback);
+
+    // Executa o loop de eventos da biblioteca Asio. Isso fará com que o manipulador de interrupção seja chamado quando a interrupção ocorrer.
+    io.run();
+}
+</code></pre>
+<p>Essa é uma maneira de tratar eventos de interrupção da porta serial usando a biblioteca Asio. Note que você precisa executar o loop de eventos (chamando a função <code>io_context::run()</code>) para que os manipuladores de eventos sejam chamados quando os eventos ocorrerem.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../cpp-asio/bluetooth.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../cpp-asio/some-examples.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../cpp-asio/bluetooth.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../cpp-asio/some-examples.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>
