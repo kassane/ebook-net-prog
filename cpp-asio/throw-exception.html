@@ -142,7 +142,7 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="exceção"><a class="header" href="#exceção">Exceção</a></h1>
-<p>O C++ ASIO fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe <code>boost::system::system_error</code> e incluem:</p>
+<p>O Asio fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe <code>boost::system::system_error</code> e incluem:</p>
 <ul>
 <li><code>boost::asio::error::address_family_not_supported</code>: lançada quando o tipo de endereço especificado não é suportado pela plataforma.</li>
 <li><code>boost::asio::error::address_in_use</code>: lançada quando o endereço especificado já está em uso por outro processo.</li>
@@ -150,7 +150,7 @@
 <li><code>boost::asio::error::connection_refused</code>: lançada quando a conexão é recusada pelo host remoto.</li>
 <li><code>boost::asio::error::connection_reset</code>: lançada quando a conexão é reiniciada pelo host remoto.</li>
 </ul>
-<p>Essas exceções são lançadas pelos métodos do C++ ASIO que realizam operações de rede, como <code>boost::asio::ip::tcp::acceptor::accept</code> ou <code>boost::asio::ip::tcp::socket::connect</code>. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.</p>
+<p>Essas exceções são lançadas pelos métodos do Asio que realizam operações de rede, como <code>boost::asio::ip::tcp::acceptor::accept</code> ou <code>boost::asio::ip::tcp::socket::connect</code>. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.</p>
 <p>As funções do <code>Asio</code> podem gerar a exceção <code>boost::system::system_error</code>. Veja o <a href="dns-query.html"><code>resolve</code></a> no exemplo abaixo:</p>
 <pre><code class="language-cpp">	results_type resolve(BOOST_ASIO_STRING_VIEW_PARAM host,
 		BOOST_ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags)
@@ -199,7 +199,7 @@
 	}
 </code></pre>
 <p>A função membro chamado <code>what()</code> retorna as informações detalhadas da exceção.</p>
-<p>Em resumo, o C++ ASIO fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe <code>boost::system::system_error</code> ou <code>asio::system_error</code> (<strong>standalone</strong>) e incluem erros comuns de rede, como conexão abortada, conexão recusada ou endereço em uso. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.</p>
+<p>Em resumo, o Asio fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe <code>boost::system::system_error</code> ou <code>asio::system_error</code> (<strong>standalone</strong>) e incluem erros comuns de rede, como conexão abortada, conexão recusada ou endereço em uso. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.</p>
 
                     </main>
 

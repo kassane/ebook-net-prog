@@ -357,7 +357,7 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 </li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="asioio_context"><a class="header" href="#asioio_context"><code>asio::io_context</code></a></h1>
-<p>O C++ ASIO possui uma classe chamada <code>asio::io_context</code> que é usada para gerenciar operações de entrada e saída assíncronas em um programa de computador. Ela é usada para monitorar e gerenciar operações de entrada e saída em vários descritores de arquivo e sockets, permitindo que o programa seja notificado quando os dados estão disponíveis para leitura ou quando os dados podem ser escritos sem bloquear o processador.</p>
+<p>O Asio possui uma classe chamada <code>asio::io_context</code> que é usada para gerenciar operações de entrada e saída assíncronas em um programa de computador. Ela é usada para monitorar e gerenciar operações de entrada e saída em vários descritores de arquivo e sockets, permitindo que o programa seja notificado quando os dados estão disponíveis para leitura ou quando os dados podem ser escritos sem bloquear o processador.</p>
 <p>A <code>asio::io_context</code> é geralmente usada em conjunto com um objeto de work, que é responsável por manter o loop de eventos da <code>asio::io_context</code> rodando. O loop de eventos monitora os descritores de arquivo e sockets gerenciados pela <code>asio::io_context</code> e notifica o programa quando os dados estão disponíveis para leitura ou quando os dados podem ser escritos.</p>
 <p>O conceito é baseado na API de rede do <code>Unix</code>, o <code>Asio</code> também possui o conceito &quot;socket&quot;, mas isso não é suficiente, um objeto <code>io_context</code> (a classe <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0112r0.html"><code>io_service</code></a> está obsoleta agora) é necessário para se comunicar com os serviços da E/S do sistema operacional. A  imagem abaixo mostrará a estrutura da Arquitetura <code>Asio</code>:</p>
 <p><img src="https://raw.githubusercontent.com/kassane/Livro-Programacao-de-Redes/gh-pages/images/architecture.jpg" alt="image" /> </p>
@@ -404,7 +404,7 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 </code></pre>
 <p>Além de gerenciar operações de entrada e saída assíncronas, a <code>asio::io_context</code> também fornece uma série de outras funcionalidades úteis. Por exemplo, ela permite que o programa agende operações para serem executadas em um momento futuro, permitindo que o programa execute tarefas de forma assíncrona de acordo com um cronograma. Ela também permite que o programa cancele operações que estão em andamento, permitindo que o programa interrompa tarefas que não são mais necessárias.</p>
 <p>Outra funcionalidade útil da <code>asio::io_context</code> é a capacidade de escalonar operações em vários threads. Isso é útil em situações em que é necessário realizar várias operações de entrada e saída ao mesmo tempo e é importante aproveitar ao máximo o poder de processamento do computador. A <code>asio::io_context</code> pode ser configurada para escalonar operações em vários threads, permitindo que elas sejam executadas em paralelo e aproveitando ao máximo o poder de processamento do computador.</p>
-<p>Em resumo, a <code>asio::io_context</code> é uma classe fundamental do C++ ASIO que é usada para gerenciar operações de entrada e saída assíncronas em um programa de computador. Ela monitora e gerencia descritores de arquivo e sockets, permitindo que o programa seja notificado quando os dados estão disponíveis para leitura ou quando os dados podem ser escritos sem bloquear o processador. Além disso, a <code>asio::io_context</code> fornece uma série de outras funcionalidades úteis, como agendamento de operações para serem executadas em um momento futuro, cancelamento de operações em andamento e escalonamento de operações em vários threads.</p>
+<p>Em resumo, a <code>asio::io_context</code> é uma classe fundamental do Asio que é usada para gerenciar operações de entrada e saída assíncronas em um programa de computador. Ela monitora e gerencia descritores de arquivo e sockets, permitindo que o programa seja notificado quando os dados estão disponíveis para leitura ou quando os dados podem ser escritos sem bloquear o processador. Além disso, a <code>asio::io_context</code> fornece uma série de outras funcionalidades úteis, como agendamento de operações para serem executadas em um momento futuro, cancelamento de operações em andamento e escalonamento de operações em vários threads.</p>
 <p>A seguir, estão descritas todas as funções comuns do <code>asio::io_context</code>:</p>
 <ul>
 <li>
@@ -448,7 +448,7 @@ Embora o padrão do Reactor seja relativamente simples de programar e usar, ele 
 Além de gerenciar o objeto <code>asio::work</code>, <code>asio::work_guard</code> também fornece uma série de outras funcionalidades úteis. Por exemplo, é possível usar a função reset para adicionar um novo objeto <code>asio::work</code> ao <code>asio::io_context</code>, mesmo se o objeto asio::work_guard já estiver gerenciando um objeto <code>asio::work</code>. Além disso, é possível usar a função get_executor para obter um objeto executor que pode ser usado para agendar operações para serem executadas no <code>asio::io_context</code>.</p>
 </li>
 </ul>
-<p>Em resumo, <code>asio::work_guard</code> é uma classe do C++ ASIO que é usada para gerenciar um objeto <code>asio::work</code> adicionado ao <code>asio::io_context</code>. Ela garante que o objeto <code>asio::work</code> não seja removido do <code>asio::io_context</code> enquanto o objeto <code>asio::work_guard</code> estiver em uso, garantindo assim que o loop de eventos continue rodando, mesmo quando não há operações pendentes para processar. Além disso, a <code>asio::work_guard</code> fornece uma série de outras funcionalidades úteis, como a possibilidade de adicionar um novo objeto <code>asio::work</code> ao <code>asio::io_context</code> e de obter um objeto executor para agendar operações para serem executadas no <code>asio::io_context</code>. <code>asio::work_guard</code> é especialmente útil em situações em que o programa precisa garantir que o asio::io_context continue rodando por um período prolongado de tempo, mesmo quando não há operações pendentes para processar. Isso é comum em programas que usam o C++ ASIO para implementar serviços de rede, como servidores web ou servidores de banco de dados.</p>
+<p>Em resumo, <code>asio::work_guard</code> é uma classe do Asio que é usada para gerenciar um objeto <code>asio::work</code> adicionado ao <code>asio::io_context</code>. Ela garante que o objeto <code>asio::work</code> não seja removido do <code>asio::io_context</code> enquanto o objeto <code>asio::work_guard</code> estiver em uso, garantindo assim que o loop de eventos continue rodando, mesmo quando não há operações pendentes para processar. Além disso, a <code>asio::work_guard</code> fornece uma série de outras funcionalidades úteis, como a possibilidade de adicionar um novo objeto <code>asio::work</code> ao <code>asio::io_context</code> e de obter um objeto executor para agendar operações para serem executadas no <code>asio::io_context</code>. <code>asio::work_guard</code> é especialmente útil em situações em que o programa precisa garantir que o asio::io_context continue rodando por um período prolongado de tempo, mesmo quando não há operações pendentes para processar. Isso é comum em programas que usam o Asio para implementar serviços de rede, como servidores web ou servidores de banco de dados.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="buffers"><a class="header" href="#buffers">Buffers</a></h1>
 <p>Fundamentalmente, E/S envolve a transferência de dados para e de regiões contíguas da memória, chamadas buffers. Esses buffers podem ser simplesmente expressos como uma tupla que consiste em um ponteiro e um tamanho em bytes. No entanto, para permitir o desenvolvimento de aplicativos de rede eficientes, o <code>Asio</code> inclui suporte para operações de coleta de dispersão. Essas operações envolvem um ou mais buffers:</p>
 <ul>
@@ -492,7 +492,7 @@ Além de gerenciar o objeto <code>asio::work</code>, <code>asio::work_guard</cod
 </ul>
 <p>O construtor <code>streambuf</code> aceita um argumento <code>size_t</code> especificando a soma máximo dos tamanhos da sequência de entrada e de saída. Qualquer operação que, se for bem-sucedida, aumentará os dados internos além desse limite, lançará uma exceção <code>std::length_error</code>.</p>
 <h2 id="tipos-de-buffers"><a class="header" href="#tipos-de-buffers">Tipos de Buffers</a></h2>
-<p>O C++ ASIO fornece vários tipos de buffers que podem ser usados ​​para representar conjuntos de dados que podem ser lidos ou escritos de forma assíncrona. A seguir, uma lista de alguns dos tipos de buffers disponíveis no C++ ASIO:</p>
+<p>O Asio fornece vários tipos de buffers que podem ser usados ​​para representar conjuntos de dados que podem ser lidos ou escritos de forma assíncrona. A seguir, uma lista de alguns dos tipos de buffers disponíveis no Asio:</p>
 <ul>
 <li>
 <p><code>asio::const_buffer</code>: Representa um conjunto de dados que serão lidos, mas não alterados. Ele é útil quando você deseja ler os dados de uma fonte externa, como uma conexão de rede, sem alterá-los.</p>
@@ -510,7 +510,7 @@ Além de gerenciar o objeto <code>asio::work</code>, <code>asio::work_guard</cod
 <p><code>asio::buffer_size</code>: É uma função que retorna o tamanho de um buffer em bytes. Ela é útil para determinar quantos dados podem ser lidos ou escritos em um buffer.</p>
 </li>
 </ul>
-<p>Esses são apenas alguns dos tipos de buffers disponíveis no C++ ASIO. Existem outros tipos de buffers disponíveis para uso em situações específicas.</p>
+<p>Esses são apenas alguns dos tipos de buffers disponíveis no Asio. Existem outros tipos de buffers disponíveis para uso em situações específicas.</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="o-que-é-um-executor"><a class="header" href="#o-que-é-um-executor">O que é um <code>Executor</code></a></h2>
 <p>O executor é um objeto que pode executar unidades de trabalho encapsuladas. A partir do C++11,
 podemos implementar um executor que gerencie o agendamento de operações relacionadas a espera de alguma duração de tempo.
@@ -554,7 +554,7 @@ int main() {
 }
 </code></pre>
 <p>Neste exemplo, a função long_running_task é iniciada de forma assíncrona com <code>std::async</code> e o resultado da tarefa é obtido síncronamente com <code>std::future::get</code>. Isso significa que o código que chama <code>std::async</code> será bloqueado até que a tarefa seja concluída e o resultado esteja disponível.</p>
-<p>Observe que, apesar de usarmos <code>std::async</code> para iniciar a tarefa assíncrona, o código não pode ser escrito de forma assíncrona usando a sintaxe de await do C++20. Para escrever código assíncrono de forma mais simples e clara, é recomendável usar outras bibliotecas de tempo de execução, como C++ ASIO ou Libunifex.</p>
+<p>Observe que, apesar de usarmos <code>std::async</code> para iniciar a tarefa assíncrona, o código não pode ser escrito de forma assíncrona usando a sintaxe de await do C++20. Para escrever código assíncrono de forma mais simples e clara, é recomendável usar outras bibliotecas de tempo de execução, como Asio ou Libunifex.</p>
 <p>Em resumo, <code>std::async</code> é uma função do C++ Standard Library que é usada para iniciar uma tarefa assíncrona em uma thread separada. Ela não é uma função assíncrona no sentido tradicional da palavra e não pode ser usada com a sintaxe de await do C++20, mas pode ser útil em situações em que é necessário iniciar uma tarefa assíncrona de forma fácil e rápida.</p>
 <h3 id="modelo-de-evolução-do-futurepromise"><a class="header" href="#modelo-de-evolução-do-futurepromise">Modelo de Evolução do Future/Promise</a></h3>
 <p>No C++11, o modelo future/promise é um meio de permitir que uma thread espere por um valor a ser produzido por outra thread de maneira assíncrona. Ele é composto pelos seguintes elementos:</p>
@@ -593,7 +593,7 @@ int main() {
 <p>Este código cria um objeto <code>std::promise</code> e um objeto <code>std::future</code>, e define o valor da <code>std::promise</code> em uma thread separada usando um <code>std::thread</code>. O objeto <code>std::future</code> é então usado para esperar pelo valor a ser definido, e o valor é impresso no console.</p>
 <p>Essas classes são mais básicas do que as oferecidas pelas bibliotecas <code>folly</code> e <code>asio</code>, mas são parte da Biblioteca Padrão de C++ e, portanto, estão disponíveis em qualquer compilador C++ padrão.
 As classes <code>std::future</code> e <code>std::promise</code> fornecem um conjunto similar de funcionalidades às classes <code>folly::Future</code> e <code>folly::Promise</code> da biblioteca <a href="https://github.com/facebook/folly">folly</a>, mas são parte da Biblioteca Padrão de C++ e não exigem dependências adicionais.</p>
-<h3 id="executores-em-asio"><a class="header" href="#executores-em-asio">Executores em ASIO</a></h3>
+<h3 id="executores-do-asio"><a class="header" href="#executores-do-asio">Executores do Asio</a></h3>
 <p>Os executores são componentes do asio que definem o contexto de execução de uma função ou um bloco de código. Eles podem ser usados para controlar como e quando uma função ou um bloco de código é executado, e permitem que você aproveite os recursos de concorrência fornecidos pelo asio para executar tarefas de forma assíncrona e concorrente.</p>
 <p>O asio fornece várias formas de se trabalhar com executores, incluindo a possibilidade de especificar o contexto de execução de uma função ou um bloco de código usando o template <code>asio::execution</code>, ou usando funções como <code>asio::post</code>, que permitem agendar a execução de uma função ou um bloco de código em um determinado contexto de execução.</p>
 <p><code>asio::execution</code> é um modelo C++ que representa um contexto de execução, ou um objeto que define como uma função ou um bloco de código deve ser executado. É usado como um parâmetro de tipo em vários componentes asio, como <code>asio::strand</code> e <code>asio::spawn</code>, para especificar o contexto de execução no qual uma função ou um bloco de código deve ser executado.</p>
@@ -622,17 +622,17 @@ As classes <code>std::future</code> e <code>std::promise</code> fornecem um conj
 <p>O conceito de Executor é uma parte importante do namespace <code>std::execution</code>. Ele é um tipo de modelo de classe que define uma interface para a execução de tarefas assíncronas. Um Executor é responsável por agendar tarefas para serem executadas em um determinado ponto no tempo, permitindo que o código assíncrono seja escrito de forma mais simples e clara.</p>
 <p>O conceito de Executor é importante porque ele permite que você escreva código assíncrono de forma mais genérica, pois você pode usar a mesma interface para trabalhar com diferentes bibliotecas de tempo de execução sem precisar se preocupar com as diferenças entre elas. Isso torna o código mais portável e facilita a manutenção e a expansão do código no futuro.</p>
 <p>O namespace <code>std::execution</code> fornece vários tipos de Executor, como <code>std::execution::sequenced_policy</code> e <code>std::execution::parallel_policy</code>, que podem ser usados ​​para controlar como as tarefas são agendadas e executadas. Além disso, ele fornece funções como <code>std::execution::execute</code> e <code>std::execution::bulk_execute</code>, que podem ser usadas para executar tarefas de forma assíncrona de acordo com o Executor especificado.</p>
-<p>Em resumo, <code>std::execution</code> é um namespace do C++ Standard Library que fornece uma interface padronizada para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, enquanto que C++ ASIO é uma biblioteca de tempo de execução que oferece recursos para criar aplicações de rede de forma assíncrona. C++ ASIO pode ser usado com o namespace <code>std::execution</code>, mas também pode ser usado de forma independente. A escolha da biblioteca a ser usada depende das necessidades específicas de sua aplicação e de suas preferências de programação.</p>
+<p>Em resumo, <code>std::execution</code> é um namespace do C++ Standard Library que fornece uma interface padronizada para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, enquanto que Asio é uma biblioteca de tempo de execução que oferece recursos para criar aplicações de rede de forma assíncrona. Asio pode ser usado com o namespace <code>std::execution</code>, mas também pode ser usado de forma independente. A escolha da biblioteca a ser usada depende das necessidades específicas de sua aplicação e de suas preferências de programação.</p>
 <h4 id="libunifex"><a class="header" href="#libunifex">Libunifex</a></h4>
-<p><a href="https://github.com/facebookexperimental/libunifex">Libunifex</a> e ASIO são duas bibliotecas diferentes que são utilizadas para criar aplicações de redes de forma assíncrona em C++.</p>
-<p>ASIO é uma biblioteca de tempo de execução que oferece suporte para a comunicação assíncrona entre sistemas de computador. Ela é amplamente utilizada para a criação de aplicações de redes, como servidores de rede e clientes de rede. C++ ASIO fornece uma série de recursos, como sockets de rede, temporizadores e sinais de interrupção, que podem ser usados ​​para criar aplicações de rede de forma assíncrona.</p>
-<p>Por outro lado, Libunifex é uma biblioteca de executores para C++ que oferece uma interface uniforme para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, como ASIO Standalone e Boost.ASIO. Ela permite que você escreva código assíncrono de forma mais portável, pois você pode usar a mesma interface para trabalhar com diferentes bibliotecas de tempo de execução sem precisar se preocupar com as diferenças entre elas.</p>
+<p><a href="https://github.com/facebookexperimental/libunifex">Libunifex</a> e Asio são duas bibliotecas diferentes que são utilizadas para criar aplicações de redes de forma assíncrona em C++.</p>
+<p>ASIO é uma biblioteca de tempo de execução que oferece suporte para a comunicação assíncrona entre sistemas de computador. Ela é amplamente utilizada para a criação de aplicações de redes, como servidores de rede e clientes de rede. Asio fornece uma série de recursos, como sockets de rede, temporizadores e sinais de interrupção, que podem ser usados ​​para criar aplicações de rede de forma assíncrona.</p>
+<p>Por outro lado, Libunifex é uma biblioteca de executores para C++ que oferece uma interface uniforme para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, como Asio Standalone e Boost.ASIO. Ela permite que você escreva código assíncrono de forma mais portável, pois você pode usar a mesma interface para trabalhar com diferentes bibliotecas de tempo de execução sem precisar se preocupar com as diferenças entre elas.</p>
 <h4 id="cppcoro"><a class="header" href="#cppcoro">Cppcoro</a></h4>
-<p><a href="https://github.com/lewissbaker/cppcoro">Cppcoro</a> é uma alternativa a outras bibliotecas de tempo de execução para C++, como ASIO e Libunifex, que também oferecem suporte para a programação assíncrona, porém com o uso de corrotinas ao invés de executores. Ela permite que você escreva código assíncrono de forma mais simples e clara, usando a sintaxe de corrotinas do C++20 STL.</p>
+<p><a href="https://github.com/lewissbaker/cppcoro">Cppcoro</a> é uma alternativa a outras bibliotecas de tempo de execução para C++, como Asio e Libunifex, que também oferecem suporte para a programação assíncrona, porém com o uso de corrotinas ao invés de executores. Ela permite que você escreva código assíncrono de forma mais simples e clara, usando a sintaxe de corrotinas do C++20 STL.</p>
 <p>Cppcoro usa a funcionalidade de coroutinas introduzida no C++20 para permitir que você escreva código assíncrono de forma mais fácil e natural. Ele fornece uma série de funções e tipos de dados que permitem que você crie, gerencie e execute coroutinas de forma mais eficiente. Além disso, ele fornece suporte para a execução de coroutinas em paralelo, o que pode ser útil em aplicações de alta performance.</p>
-<p>Em resumo, ASIO é uma biblioteca de tempo de execução que fornece recursos para criar aplicações de rede de forma assíncrona, enquanto que Libunifex é uma biblioteca de executores que oferece uma interface uniforme para trabalhar com diferentes bibliotecas de tempo de execução de forma mais portável.</p>
+<p>Em resumo, Asio é uma biblioteca de tempo de execução que fornece recursos para criar aplicações de rede de forma assíncrona, enquanto que Libunifex é uma biblioteca de executores que oferece uma interface uniforme para trabalhar com diferentes bibliotecas de tempo de execução de forma mais portável.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="sockets-soquetes"><a class="header" href="#sockets-soquetes">Sockets (Soquetes)</a></h1>
-<p>A classe <code>asio::basic_stream_socket</code> do C++ ASIO é uma classe genérica que é usada como base para a criação de classes de socket específicas para diferentes protocolos de rede. Ela fornece uma interface comum para realizar operações de entrada e saída em sockets e é a classe base para a criação de classes de socket para protocolos como TCP, UDP, ICMP e SCTP.</p>
+<p>A classe <code>asio::basic_stream_socket</code> do Asio é uma classe genérica que é usada como base para a criação de classes de socket específicas para diferentes protocolos de rede. Ela fornece uma interface comum para realizar operações de entrada e saída em sockets e é a classe base para a criação de classes de socket para protocolos como TCP, UDP, ICMP e SCTP.</p>
 <p>A <code>asio::basic_stream_socket</code> fornece uma série de funções de leitura e escrita assíncronas que podem ser usadas para enviar e receber dados através de um socket de forma assíncrona. Ela também oferece funções para estabelecer conexões com outros hosts na rede e para fechar conexões existentes.</p>
 <p>Para usar a <code>asio::basic_stream_socket</code>, é preciso criar uma classe derivada que especifique o tipo de socket que deseja criar, como um socket TCP, UDP, ICMP ou SCTP. Em seguida, é possível criar um objeto da classe derivada e passar um objeto de resolução de endereço e um objeto de io_context para o construtor. Em seguida, é possível chamar as funções de leitura e escrita fornecidas pela <code>asio::basic_stream_socket</code> para enviar e receber dados através do socket.</p>
 <p>Existem <code>4</code> tipos de sockets:</p>
@@ -698,7 +698,7 @@ Este socket combina fluxo(stream) e datagrama: fornece um serviço de datagramas
 	  }
 </code></pre>
 <p>Além das funções de leitura e escrita assíncronas, a <code>asio::basic_stream_socket</code> também oferece uma série de outras funcionalidades úteis. Por exemplo, ela permite que o programa configure opções de socket, como o timeout de leitura e escrita, o tamanho do buffer de leitura e escrita e o uso de Keepalives. Ela também permite que o programa obtenha informações sobre o socket, como o endereço local e remoto, o estado da conexão e o número de bytes enviados e recebidos.</p>
-<p>Em resumo, a asio::<code>basic_stream_socket</code> é uma classe genérica do C++ ASIO que é usada como base para a criação de classes de socket específicas para diferentes protocolos de rede. Ela fornece uma interface comum para realizar operações de entrada e saída em sockets e oferece uma série de funcionalidades úteis, como configuração de opções de socket e obtenção de informações sobre o socket.</p>
+<p>Em resumo, a asio::<code>basic_stream_socket</code> é uma classe genérica do Asio que é usada como base para a criação de classes de socket específicas para diferentes protocolos de rede. Ela fornece uma interface comum para realizar operações de entrada e saída em sockets e oferece uma série de funcionalidades úteis, como configuração de opções de socket e obtenção de informações sobre o socket.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="strands-usar-threads-sem-bloqueio-explícito"><a class="header" href="#strands-usar-threads-sem-bloqueio-explícito"><code>Strands</code>: Usar threads sem bloqueio explícito</a></h1>
 <p>A classe <code>asio::strand</code> é usada para garantir que operações de entrada e saída sejam executadas de forma serial em um objeto de io_context. Isso é útil em situações em que é importante que as operações de entrada e saída sejam realizadas em uma determinada ordem ou em que é importante evitar conflitos entre operações simultâneas.</p>
 <p>Para usar a <code>asio::strand</code>, é preciso criar um objeto da classe e passar um objeto de io_context para o construtor. Em seguida, é possível chamar as funções de leitura e escrita assíncronas fornecidas pela <code>asio::strand</code> e passar um objeto de completion token para elas. Quando uma operação de entrada e saída é agendada através de uma <code>asio::strand</code>, ela é adicionada a uma fila de operações e é garantido que as operações na fila sejam executadas de forma serial.</p>
@@ -837,11 +837,11 @@ int main()
 <p>Além disso, as corrotinas Asio podem ser &quot;lançadas&quot; em um contexto de E/S usando a função <code>co_spawn</code>, que permite que a corrotina execute tarefas assíncronas como fazer chamadas de rede ou ler e escrever em arquivos. Você também pode usar a função <code>async_write</code> e <code>async_read</code> da biblioteca Asio para escrever e ler dados de forma assíncrona, respectivamente.</p>
 <p>No entanto, é importante lembrar que as corrotinas Asio dependem da biblioteca Asio para funcionar, o que pode afetar o desempenho em comparação com outras opções, como as corrotinas <code>std::coroutine</code>, que são implementadas diretamente na linguagem C++. Qual das duas opções é a melhor para você depende das suas necessidades e da plataforma em que está trabalhando.</p>
 <h4 id="completion-tokens"><a class="header" href="#completion-tokens">Completion Tokens</a></h4>
-<p>Em C++ ASIO, um <a href="https://think-async.com/Asio/asio-1.24.0/doc/asio/overview/model/completion_tokens.html">completion token</a> é um tipo de dado usado para especificar como uma operação assíncrona deve ser completada. Ele é passado como um parâmetro para uma função assíncrona e é usado para determinar como a função deve notificar o chamador quando a operação for concluída.</p>
-<p>Existem vários tipos de completion token disponíveis no C++ ASIO, como <code>asio::use_future</code> e <code>asio::use_awaitable</code>. Cada um desses tipos de completion token especifica uma forma diferente de completar a operação assíncrona.</p>
+<p>Em Asio, um <a href="https://think-async.com/Asio/asio-1.24.0/doc/asio/overview/model/completion_tokens.html">completion token</a> é um tipo de dado usado para especificar como uma operação assíncrona deve ser completada. Ele é passado como um parâmetro para uma função assíncrona e é usado para determinar como a função deve notificar o chamador quando a operação for concluída.</p>
+<p>Existem vários tipos de completion token disponíveis no Asio, como <code>asio::use_future</code> e <code>asio::use_awaitable</code>. Cada um desses tipos de completion token especifica uma forma diferente de completar a operação assíncrona.</p>
 <p>Por exemplo, o completion token <code>asio::use_future</code> é usado para completar a operação assíncrona retornando um objeto <code>std::future</code> que pode ser usado para obter o resultado da operação. Isso permite que o chamador da função assíncrona aguarde o término da operação de forma síncrona, usando a sintaxe de await do C++20.</p>
 <p>O completion token <code>asio::use_awaitable</code>, por outro lado, é usado para completar a operação assíncrona retornando um objeto awaitable que pode ser usado para aguardar o término da operação de forma assíncrona. Isso permite que o chamador da função assíncrona aguarde o término da operação de forma assíncrona, usando a sintaxe de await do C++20.</p>
-<p>Em resumo, os completion tokens são usados ​​no C++ ASIO para especificar como uma operação assíncrona deve ser completada. Eles são passados como parâmetros para funções assíncronas e são usados ​​para determinar como a função deve notificar o chamador quando a operação for concluída. Existem vários tipos de completion token disponíveis, cada um com suas próprias características e usos específicos.</p>
+<p>Em resumo, os completion tokens são usados ​​no Asio para especificar como uma operação assíncrona deve ser completada. Eles são passados como parâmetros para funções assíncronas e são usados ​​para determinar como a função deve notificar o chamador quando a operação for concluída. Existem vários tipos de completion token disponíveis, cada um com suas próprias características e usos específicos.</p>
 <h3 id="asio-corrotina-comparado-com-cppcoro"><a class="header" href="#asio-corrotina-comparado-com-cppcoro">Asio Corrotina comparado com Cppcoro</a></h3>
 <p>O cppcoro é uma biblioteca de corrotinas para C++ que fornece primitivas para escrever código assíncrono de maneira mais simples e legível. Ela foi projetada para funcionar em conjunto com o Asio, mas também pode ser usada com outras bibliotecas de E/S ou mesmo em aplicações sem E/S. A cppcoro utiliza o padrão de corrotinas do C++20 e é compatível com compiladores que já suportam esse padrão.</p>
 <p>Ambas as bibliotecas permitem escrever código assíncrono de maneira mais simples, mas existem algumas diferenças entre elas:</p>
@@ -856,11 +856,11 @@ O Cppcoro, por outro lado, é focada apenas em corrotinas e foi projetado para s
 </ul>
 <p>Ambos seguem como referêcia a proposta técnica <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p1056r0.html">P1056R0</a> que descreve o progresso da especificação do suporte a corrotinas no C++, incluindo a sintaxe e as funções-membro para declarar e usar corrotinas, as palavras-chave <code>co_await</code> e <code>co_yield</code> para suspender e produzir valores na corrotina, e as classes <code>coroutine_handle</code> e <code>coroutine_traits</code> para gerenciar a execução de corrotinas. Ele também descreve o suporte a corrotinas em funções assíncronas, que permitem que corrotinas sejam usadas como uma alternativa ao modelo de callback functions para realizar operações assíncronas.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="endpoint-ponto-de-extremidade"><a class="header" href="#endpoint-ponto-de-extremidade">Endpoint (Ponto de Extremidade)</a></h1>
-<p>O C++ ASIO fornece outros tipos de objetos endpoint para representar pontos finais de conexões de rede de outros protocolos, além do TCP. Por exemplo, o objeto <code>asio::ip::udp::endpoint</code> é usado para representar um ponto final de uma conexão de rede UDP. Ele é composto por um endereço IP e uma porta, e funciona de maneira similar ao objeto <code>asio::ip::tcp::endpoint</code>, mas é usado para protocolos UDP em vez de TCP.</p>
+<p>O Asio fornece outros tipos de objetos endpoint para representar pontos finais de conexões de rede de outros protocolos, além do TCP. Por exemplo, o objeto <code>asio::ip::udp::endpoint</code> é usado para representar um ponto final de uma conexão de rede UDP. Ele é composto por um endereço IP e uma porta, e funciona de maneira similar ao objeto <code>asio::ip::tcp::endpoint</code>, mas é usado para protocolos UDP em vez de TCP.</p>
 <p>O objeto <code>asio::ip::tcp::endpoint</code> é usado para representar um ponto final de uma conexão de rede TCP. Ele é composto por um endereço IP e uma porta, que são usados para identificar o host remoto ou o servidor que o programa deseja se conectar ou se comunicar.</p>
 <p>Para usar o objeto <code>asio::ip::tcp::endpoint</code>, é preciso incluir o cabeçalho <code>&lt;boost/asio/ip/tcp.hpp&gt;</code> no seu código e criar um objeto da classe passando um endereço IP e uma porta para o construtor. Em seguida, é possível usar o objeto <code>asio::ip::tcp::endpoint</code> para identificar o host remoto ou o servidor que o programa deseja se conectar ou se comunicar.</p>
 <p>O objeto <code>asio::ip::tcp::endpoint</code> também fornece uma série de outras funcionalidades úteis. Por exemplo, é possível usar as funções address e port para obter o endereço IP e a porta do objeto, respectivamente. Além disso, é possível usar a função <code>to_string</code> para obter uma string que representa o objeto <code>asio::ip::tcp::endpoint</code>.</p>
-<p>Além disso, o C++ ASIO fornece outros tipos de objetos endpoint para representar pontos finais de conexões de outros protocolos, como o objeto <code>asio::ip::icmp::endpoint</code> para o protocolo ICMP e o objeto <code>asio::local::stream_protocol::endpoint</code> para o protocolo Unix local. Cada um desses objetos endpoint é composto por um endereço e uma porta, e fornece uma série de funcionalidades úteis para trabalhar com os respectivos protocolos de rede.</p>
+<p>Além disso, o Asio fornece outros tipos de objetos endpoint para representar pontos finais de conexões de outros protocolos, como o objeto <code>asio::ip::icmp::endpoint</code> para o protocolo ICMP e o objeto <code>asio::local::stream_protocol::endpoint</code> para o protocolo Unix local. Cada um desses objetos endpoint é composto por um endereço e uma porta, e fornece uma série de funcionalidades úteis para trabalhar com os respectivos protocolos de rede.</p>
 <pre><code class="language-cpp">	basic_endpoint(const boost::asio::ip::address&amp; addr, unsigned short port_num)
 	    : impl_(addr, port_num)
 	{
@@ -889,7 +889,7 @@ O Cppcoro, por outro lado, é focada apenas em corrotinas e foi projetado para s
             boost::asio::ip::udp::v4(),
             3306};
 </code></pre>
-<p>Em resumo, o C++ ASIO fornece uma série de objetos endpoint para representar pontos finais de conexões de rede de diferentes protocolos. Cada um desses objetos endpoint é composto por um endereço e uma porta, e fornece uma série de funcionalidades úteis para trabalhar com os respectivos protocolos de rede.</p>
+<p>Em resumo, o Asio fornece uma série de objetos endpoint para representar pontos finais de conexões de rede de diferentes protocolos. Cada um desses objetos endpoint é composto por um endereço e uma porta, e fornece uma série de funcionalidades úteis para trabalhar com os respectivos protocolos de rede.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="dns-query"><a class="header" href="#dns-query">DNS Query</a></h1>
 <p>O objeto <code>asio::ip::tcp::resolver</code> é usado para resolver nomes de domínio em endereços IP. Ele é útil em situações em que o programa precisa se conectar a um host remoto ou a um servidor usando um nome de domínio, mas precisa do endereço IP para estabelecer a conexão de rede.</p>
 <p>Para usar o objeto <code>asio::ip::tcp::resolver</code>, é preciso incluir o cabeçalho <code>&lt;asio/ip/tcp.hpp&gt;</code> no seu código e criar um objeto da classe passando um objeto <code>asio::io_context</code> para o construtor. Em seguida, é possível usar o método resolve para resolver o nome de domínio em um endereço IP. O método resolve retorna um iterador que pode ser usado para percorrer a lista de endereços IP retornados.</p>
@@ -954,9 +954,9 @@ O Cppcoro, por outro lado, é focada apenas em corrotinas e foi projetado para s
 <p>Como ele possui o operador <code>endpoint_type()</code>, ele pode ser convertido diretamente no endpoint:</p>
 <pre><code class="language-cpp">	boost::asio::ip::tcp::endpoint endpoint = *it;
 </code></pre>
-<p>Em resumo, o objeto <code>asio::ip::tcp::resolver</code> do C++ ASIO é usado para resolver nomes de domínio em endereços IP. Ele fornece uma série de funcionalidades úteis, como a possibilidade de resolver o nome de domínio de forma assíncrona e de cancelar a resolução de um nome de domínio em andamento.</p>
+<p>Em resumo, o objeto <code>asio::ip::tcp::resolver</code> do Asio é usado para resolver nomes de domínio em endereços IP. Ele fornece uma série de funcionalidades úteis, como a possibilidade de resolver o nome de domínio de forma assíncrona e de cancelar a resolução de um nome de domínio em andamento.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="exceção"><a class="header" href="#exceção">Exceção</a></h1>
-<p>O C++ ASIO fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe <code>boost::system::system_error</code> e incluem:</p>
+<p>O Asio fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe <code>boost::system::system_error</code> e incluem:</p>
 <ul>
 <li><code>boost::asio::error::address_family_not_supported</code>: lançada quando o tipo de endereço especificado não é suportado pela plataforma.</li>
 <li><code>boost::asio::error::address_in_use</code>: lançada quando o endereço especificado já está em uso por outro processo.</li>
@@ -964,7 +964,7 @@ O Cppcoro, por outro lado, é focada apenas em corrotinas e foi projetado para s
 <li><code>boost::asio::error::connection_refused</code>: lançada quando a conexão é recusada pelo host remoto.</li>
 <li><code>boost::asio::error::connection_reset</code>: lançada quando a conexão é reiniciada pelo host remoto.</li>
 </ul>
-<p>Essas exceções são lançadas pelos métodos do C++ ASIO que realizam operações de rede, como <code>boost::asio::ip::tcp::acceptor::accept</code> ou <code>boost::asio::ip::tcp::socket::connect</code>. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.</p>
+<p>Essas exceções são lançadas pelos métodos do Asio que realizam operações de rede, como <code>boost::asio::ip::tcp::acceptor::accept</code> ou <code>boost::asio::ip::tcp::socket::connect</code>. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.</p>
 <p>As funções do <code>Asio</code> podem gerar a exceção <code>boost::system::system_error</code>. Veja o <a href="cpp-asio/dns-query.html"><code>resolve</code></a> no exemplo abaixo:</p>
 <pre><code class="language-cpp">	results_type resolve(BOOST_ASIO_STRING_VIEW_PARAM host,
 		BOOST_ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags)
@@ -1013,7 +1013,7 @@ O Cppcoro, por outro lado, é focada apenas em corrotinas e foi projetado para s
 	}
 </code></pre>
 <p>A função membro chamado <code>what()</code> retorna as informações detalhadas da exceção.</p>
-<p>Em resumo, o C++ ASIO fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe <code>boost::system::system_error</code> ou <code>asio::system_error</code> (<strong>standalone</strong>) e incluem erros comuns de rede, como conexão abortada, conexão recusada ou endereço em uso. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.</p>
+<p>Em resumo, o Asio fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe <code>boost::system::system_error</code> ou <code>asio::system_error</code> (<strong>standalone</strong>) e incluem erros comuns de rede, como conexão abortada, conexão recusada ou endereço em uso. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="conectar-servidor"><a class="header" href="#conectar-servidor">Conectar Servidor</a></h1>
 <p>O cliente pode usar os endpoints retornados por <a href="cpp-asio/dns-query.html">DNS</a> para conectar o aplicativo servidor. Veja o código abaixo:</p>
 <pre><code class="language-cpp">	#include &lt;boost/asio.hpp&gt;
@@ -1422,10 +1422,10 @@ Message is sent successfully!
 Hello world!
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="protocolo-icmp"><a class="header" href="#protocolo-icmp">Protocolo ICMP</a></h1>
-<p>A classe <code>asio::ip::icmp</code> é uma classe em C++ que faz parte da biblioteca ASIO (Asynchronous Input/Output) e é usada para implementar a comunicação usando o protocolo ICMP (Internet Control Message Protocol).</p>
+<p>A classe <code>asio::ip::icmp</code> é uma classe em C++ que faz parte da biblioteca Asio (Asynchronous Input/Output) e é usada para implementar a comunicação usando o protocolo ICMP (Internet Control Message Protocol).</p>
 <p>O protocolo ICMP é um protocolo de nível de rede que é usado para enviar mensagens de erro e de controle entre dispositivos de rede. Ele é comumente usado para testar a conectividade entre dispositivos de rede, como o comando ping em sistemas operacionais.</p>
 <p>A classe <code>asio::ip::icmp</code> fornece uma interface para criar e gerenciar sockets ICMP. Ela é usada para criar sockets ICMP, que são usados para enviar e receber mensagens ICMP. Ela também fornece métodos para enviar e receber mensagens ICMP através de um socket, bem como para gerenciar a conexão e desconexão de clientes.</p>
-<p>A classe <code>asio::ip::icmp</code> é derivada da classe <code>asio::basic_socket&lt;Protocol&gt;</code>, que é uma classe genérica que representa um socket de rede. Ela fornece uma interface para criar e gerenciar sockets de rede usando qualquer protocolo de rede suportado pelo ASIO. A classe <code>asio::ip::icmp</code> é uma especialização da classe <code>asio::basic_socket&lt;Protocol&gt;</code> para o protocolo ICMP.</p>
+<p>A classe <code>asio::ip::icmp</code> é derivada da classe <code>asio::basic_socket&lt;Protocol&gt;</code>, que é uma classe genérica que representa um socket de rede. Ela fornece uma interface para criar e gerenciar sockets de rede usando qualquer protocolo de rede suportado pelo Asio. A classe <code>asio::ip::icmp</code> é uma especialização da classe <code>asio::basic_socket&lt;Protocol&gt;</code> para o protocolo ICMP.</p>
 <p>A classe <code>asio::ip::icmp</code> fornece os seguintes métodos e funcionalidades:</p>
 <ul>
 <li><code>connect</code>: estabelece uma conexão com um host especificado através de um endpoint ICMP.</li>
@@ -1485,7 +1485,7 @@ struct icmphdr
 
 int main()
 {
-    // Cria um objeto io_context do ASIO
+    // Cria um objeto io_context doAsio
     asio::io_context io_context;
 
     // Cria um socket ICMP
@@ -1547,9 +1547,9 @@ int main()
 }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="protocolo-raw"><a class="header" href="#protocolo-raw">Protocolo Raw</a></h1>
-<p>Uma das funcionalidades que a ASIO oferece é a possibilidade de enviar e receber pacotes de dados usando o protocolo de rede a baixo nível. Isso é conhecido como &quot;envio/recebimento de pacotes raw&quot;, ou simplesmente &quot;raw sockets&quot;.</p>
+<p>Uma das funcionalidades que aAsio oferece é a possibilidade de enviar e receber pacotes de dados usando o protocolo de rede a baixo nível. Isso é conhecido como &quot;envio/recebimento de pacotes raw&quot;, ou simplesmente &quot;raw sockets&quot;.</p>
 <p>A classe <code>asio::ip::raw</code> é usada para implementar a comunicação de pacotes e também fornece uma interface para criar e gerenciar sockets de pacotes raw. Ela também fornece métodos para enviar e receber pacotes raw através de um socket, bem como para gerenciar a conexão e desconexão de clientes.
-Para usar raw sockets com a ASIO, é necessário incluir o cabeçalho <code>&lt;asio/ip/raw_socket.hpp&gt;</code> e criar uma instância de <code>asio::ip::raw_socket</code>, que é a classe responsável por gerenciar a conexão de rede.</p>
+Para usar raw sockets com aAsio, é necessário incluir o cabeçalho <code>&lt;asio/ip/raw_socket.hpp&gt;</code> e criar uma instância de <code>asio::ip::raw_socket</code>, que é a classe responsável por gerenciar a conexão de rede.</p>
 <p>Os pacotes raw são pacotes de rede que são enviados e recebidos diretamente, sem qualquer tipo de encapsulamento ou formatação adicional. Eles são usados para implementar protocolos de nível inferior, como o protocolo ICMP, ou para fazer debug de aplicações de rede.</p>
 <p>Exemplo de código para enviar um pacote raw:</p>
 <pre><code class="language-c++">#include &lt;iostream&gt;
@@ -1734,11 +1734,11 @@ int main()
 <p>O protocolo Bluetooth é um padrão de comunicação sem fio que permite que dispositivos se comuniquem em curtas distâncias. Ele é amplamente utilizado em dispositivos móveis, como smartphones e tablets, bem como em outros dispositivos como fones de ouvido e alto-falantes.</p>
 <p>O RFCOMM é um protocolo que fornece um meio para a comunicação de série sobre o protocolo Bluetooth. Ele é usado para simular a comunicação serial através de um link Bluetooth, permitindo que dispositivos Bluetooth se comuniquem como se estivessem conectados por uma porta serial.</p>
 <p>A classe <code>asio::bluetooth::rfcomm</code> fornece uma interface para criar e gerenciar sockets Bluetooth RFCOMM. Ela é usada para criar sockets Bluetooth RFCOMM, que são usados para a comunicação de série sobre o protocolo Bluetooth. Ela também fornece métodos para enviar e receber dados através de um socket, bem como para gerenciar a conexão e desconexão de clientes.</p>
-<p>O ASIO fornece suporte ao protocolo Bluetooth através da classe <code>asio::bluetooth::rfcomm::socket</code>, que é uma subclasse de <code>asio::basic_socket&lt;Protocol&gt;</code>. Essa classe é usada para criar sockets Bluetooth RFCOMM, que são usados para a comunicação de série sobre o protocolo Bluetooth.</p>
-<p>Para se conectar a um servidor Bluetooth usando o ASIO, é preciso criar um objeto <code>asio::bluetooth::rfcomm::endpoint</code> que represente o endpoint do servidor. Esse endpoint é criado especificando o endereço Bluetooth do servidor e o número de canal que será usado para a comunicação. Em seguida, o método connect do socket é chamado com o endpoint do servidor como argumento para estabelecer a conexão.</p>
-<p>Uma vez que a conexão é estabelecida, é possível enviar e receber dados através do socket usando as funções write e read do ASIO. Essas funções permitem enviar e receber buffers de dados de forma assíncrona, o que significa que o programa não precisa esperar por essas operações terminarem para continuar a execução. Isso é útil quando se trabalha com dispositivos de rede, pois permite que o programa execute outras tarefas enquanto aguarda a resposta do servidor.</p>
+<p>OAsio fornece suporte ao protocolo Bluetooth através da classe <code>asio::bluetooth::rfcomm::socket</code>, que é uma subclasse de <code>asio::basic_socket&lt;Protocol&gt;</code>. Essa classe é usada para criar sockets Bluetooth RFCOMM, que são usados para a comunicação de série sobre o protocolo Bluetooth.</p>
+<p>Para se conectar a um servidor Bluetooth usando oAsio, é preciso criar um objeto <code>asio::bluetooth::rfcomm::endpoint</code> que represente o endpoint do servidor. Esse endpoint é criado especificando o endereço Bluetooth do servidor e o número de canal que será usado para a comunicação. Em seguida, o método connect do socket é chamado com o endpoint do servidor como argumento para estabelecer a conexão.</p>
+<p>Uma vez que a conexão é estabelecida, é possível enviar e receber dados através do socket usando as funções write e read doAsio. Essas funções permitem enviar e receber buffers de dados de forma assíncrona, o que significa que o programa não precisa esperar por essas operações terminarem para continuar a execução. Isso é útil quando se trabalha com dispositivos de rede, pois permite que o programa execute outras tarefas enquanto aguarda a resposta do servidor.</p>
 <h3 id="classe-asiobluetoothrfcomm"><a class="header" href="#classe-asiobluetoothrfcomm">Classe <code>asio::bluetooth::rfcomm</code></a></h3>
-<p>A classe <code>asio::bluetooth::rfcomm</code> é derivada da classe <code>asio::basic_socket&lt;Protocol&gt;</code>, que é uma classe genérica que representa um socket de rede. Ela fornece uma interface para criar e gerenciar sockets de rede usando qualquer protocolo de rede suportado pelo ASIO. A classe <code>asio::bluetooth::rfcomm</code> é uma especialização da classe <code>asio::basic_socket&lt;Protocol&gt;</code> para o protocolo Bluetooth RFCOMM.</p>
+<p>A classe <code>asio::bluetooth::rfcomm</code> é derivada da classe <code>asio::basic_socket&lt;Protocol&gt;</code>, que é uma classe genérica que representa um socket de rede. Ela fornece uma interface para criar e gerenciar sockets de rede usando qualquer protocolo de rede suportado peloAsio. A classe <code>asio::bluetooth::rfcomm</code> é uma especialização da classe <code>asio::basic_socket&lt;Protocol&gt;</code> para o protocolo Bluetooth RFCOMM.</p>
 <p>A classe <code>asio::bluetooth::rfcomm</code> fornece os seguintes métodos e funcionalidades:</p>
 <ul>
 <li><code>bind</code>: vincula o socket a um endpoint Bluetooth RFCOMM especificado.</li>
@@ -1791,7 +1791,7 @@ int main()
 
 int main()
 {
-    // Cria um objeto io_context do ASIO
+    // Cria um objeto io_context doAsio
     asio::io_context io_context;
 
     // Cria um socket Bluetooth RFCOMM
@@ -1833,7 +1833,7 @@ int main()
 <p>Quando uma conexão entrante é aceita usando o método accept, o programa entra em um loop que aguarda por uma mensagem do cliente usando a função read e envia uma resposta para o cliente usando a função write. O loop continua até que o cliente se desconecte.</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="conexão-serial"><a class="header" href="#conexão-serial">Conexão Serial</a></h2>
 <p>A conexão serial é um tipo de conexão de comunicação que permite que dois dispositivos se comuniquem por meio de uma porta serial. A porta serial é uma interface física que permite que um dispositivo envie e receba dados por meio de um par de fios. Ela é comumente usada para se comunicar com dispositivos externos, como Arduinos, dispositivos de comunicação industrial e dispositivos de automação.</p>
-<h3 id="asio"><a class="header" href="#asio">ASIO</a></h3>
+<h3 id="asio"><a class="header" href="#asio">Asio</a></h3>
 <p>A biblioteca Asio inclui suporte para trabalhar com portas seriais, o que permite aos programadores escrever aplicativos que se comunicam com dispositivos seriais, como Arduino e dispositivos de comunicação industrial. Isso é útil quando é preciso enviar ou receber dados de um dispositivo por meio de uma porta serial, como em aplicativos de automação industrial ou em projetos de robótica.</p>
 <p>Para usar a biblioteca Asio para trabalhar com portas seriais, é necessário incluir o cabeçalho <code>#include &lt;boost/asio.hpp&gt;</code> no início do seu código. Em seguida, é preciso criar uma instância de um objeto <code>serial_port</code>, que representa a porta serial a ser usada, e passar a ela as informações sobre a porta, como o nome da porta (por exemplo, <code>&quot;COM1&quot;</code> no <strong>Windows</strong> ou <code>&quot;/dev/ttyUSB0&quot;</code> no <strong>Linux</strong>) e a taxa de transmissão (baud rate).</p>
 <p>Aqui está um exemplo de código que abre uma porta serial e envia uma mensagem pelo Arduino:</p>
@@ -2157,6 +2157,239 @@ int main()
   {
     std::cerr &lt;&lt; e.what() &lt;&lt; std::endl;
   }
+
+  return 0;
+}
+</code></pre>
+<h2 id="noise-c-com-asio"><a class="header" href="#noise-c-com-asio">Noise-C com Asio</a></h2>
+<p><strong>Cliente:</strong></p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;array&gt;
+#include &lt;boost/asio.hpp&gt;
+#include &lt;noise/protocol.h&gt;
+#include &lt;noise/handshake.h&gt;
+
+using boost::asio::ip::tcp;
+
+int main(int argc, char *argv[]) {
+
+    // Declara as chaves públicas estáticas local e remota
+    std::array&lt;uint8_t, NOISE_PUBLIC_KEY_LEN&gt; local_static_public_key;
+    local_static_public_key.fill(0x55);
+    std::array&lt;uint8_t, NOISE_PUBLIC_KEY_LEN&gt; remote_static_public_key;
+    remote_static_public_key.fill(0xAA);
+
+    // Declara as chaves públicas efêmeras local e remota
+    std::array&lt;uint8_t, NOISE_PUBLIC_KEY_LEN&gt; local_ephemeral_public_key;
+    std::array&lt;uint8_t, NOISE_PUBLIC_KEY_LEN&gt; remote_ephemeral_public_key;
+
+    // Declara as chaves privadas efêmeras local e remota
+    std::array&lt;uint8_t, NOISE_PUBLIC_KEY_LEN&gt; local_ephemeral_private_key;
+    std::array&lt;uint8_t, NOISE_PUBLIC_KEY_LEN&gt; remote_ephemeral_private_key;
+
+    // Declara o estado da negociação de chave
+    NoiseHandshakeState *state = 0;
+
+    // Inicializa o estado da negociação de chave
+    int result = noise_handshakestate_new_by_name(
+        &amp;state, &quot;Noise_NN_25519_ChaChaPoly_BLAKE2s&quot;, 0);
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr &lt;&lt; &quot;Error initializing handshake state&quot; &lt;&lt; std::endl;
+        return 1;
+    }
+
+    // Define as chaves públicas estáticas local e remota
+    noise_handshakestate_set_local_static_public_key(state, local_static_public_key.data(), local_static_public_key.size());
+    noise_handshakestate_set_remote_static_public_key(state, remote_static_public_key.data(), remote_static_public_key.size());
+
+    // Gera o par de chaves efêmeras local
+    result = noise_handshakestate_generate_local_keypair(state, local_ephemeral_private_key.data(), local_ephemeral_private_key.size());
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr &lt;&lt; &quot;Error generating local ephemeral key pair&quot; &lt;&lt; std::endl;
+        return 1;
+    }
+    noise_handshakestate_get_local_public_key(state, local_ephemeral_public_key.data(), local_ephemeral_public_key.size());
+
+    // Cria um objeto boost::asio::io_context
+    boost::asio::io_context io_context;
+
+    // Cria um objeto boost::asio::ip::tcp::socket
+    tcp::socket socket(io_context);
+
+    // Conecta ao servidor
+    boost::asio::connect(socket, tcp::resolver(io_context).resolve({ &quot;localhost&quot;, &quot;1234&quot; }));
+
+    // Envia a chave pública efêmera local ao servidor
+    boost::asio::write(socket, boost::asio::buffer(local_ephemeral_public_key));
+
+    // Recebe a chave pública efêmera remota do servidor
+    boost::asio::read(socket, boost::asio::buffer(remote_ephemeral_public_key));
+    noise_handshakestate_set_remote_ephemeral_public_key(state, remote_ephemeral_public_key.data(), remote_ephemeral_public_key.size());
+
+    // Gera a chave privada efêmera remota
+    result = noise_handshakestate_generate_remote_key(state, remote_ephemeral_private_key.data(), remote_ephemeral_private_key.size());
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr &lt;&lt; &quot;Error generating remote ephemeral private key&quot; &lt;&lt; std::endl;
+        return 1;
+    }
+
+    // Realiza a negociação de chave (handshake)
+    size_t message_len;
+    std::array&lt;uint8_t, MAX_HANDSHAKE_MESSAGE_LEN&gt; message;
+    result = noise_handshakestate_start(state, message.data(), &amp;message_len);
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr &lt;&lt; &quot;Error starting handshake&quot; &lt;&lt; std::endl;
+        return 1;
+    }
+    // Envia a mensagem ao servidor
+    boost::asio::write(socket, boost::asio::buffer(message, message_len));
+    // Recebe a resposta do servidor
+    boost::asio::read(socket, boost::asio::buffer(remote_ephemeral_public_key));
+    result = noise_handshakestate_write_message(state, remote_ephemeral_public_key.data(), remote_ephemeral_public_key.size(), message.data(), &amp;message_len);
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr &lt;&lt; &quot;Error writing handshake message&quot; &lt;&lt; std::endl;
+        return 1;
+    }
+    // Envia a mensagem ao servidor
+    boost::asio::write(socket, boost::asio::buffer(message, message_len));
+    // Recebe a resposta do servidor
+    boost::asio::read(socket, boost::asio::buffer(remote_ephemeral_public_key));
+    result = noise_handshakestate_read_message(state, message.data(), message_len, remote_ephemeral_public_key.data(), &amp;remote_ephemeral_public_key.size());
+  if (result != NOISE_ERROR_NONE) {
+    std::cerr &lt;&lt; &quot;Error reading handshake message&quot; &lt;&lt; std::endl;
+    return 1;
+  }
+
+  // Libera o estado do handshake
+  noise_handshakestate_free(state);
+
+  // Encerra socket
+  socket.close();
+
+  return 0;
+}
+</code></pre>
+<p><strong>Servidor:</strong></p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;array&gt;
+#include &lt;boost/asio.hpp&gt;
+#include &lt;noise/protocol.h&gt;
+#include &lt;noise/handshake.h&gt;
+
+using boost::asio::ip::tcp;
+
+int main(int argc, char *argv[]) {
+
+    // Declara as chaves públicas estáticas local e remota
+    std::array&lt;uint8_t, NOISE_PUBLIC_KEY_LEN&gt; local_static_public_key;
+    local_static_public_key.fill(0x55);
+    std::array&lt;uint8_t, NOISE_PUBLIC_KEY_LEN&gt; remote_static_public_key;
+    remote_static_public_key.fill(0xAA);
+
+    // Declara as chaves públicas efêmeras local e remota
+    std::array&lt;uint8_t, NOISE_PUBLIC_KEY_LEN&gt; local_ephemeral_public_key;
+    std::array&lt;uint8_t, NOISE_PUBLIC_KEY_LEN&gt; remote_ephemeral_public_key;
+
+    // Declara as chaves privadas efêmeras local e remota
+    std::array&lt;uint8_t, NOISE_PUBLIC_KEY_LEN&gt; local_ephemeral_private_key;
+    std::array&lt;uint8_t, NOISE_PUBLIC_KEY_LEN&gt; remote_ephemeral_private_key;
+
+    // Declara o estado da negociação de chave
+    NoiseHandshakeState *state = 0;
+
+    // Inicializa o estado da negociação de chave
+    int result = noise_handshakestate_new_by_name(
+        &amp;state, &quot;Noise_NN_25519_ChaChaPoly_BLAKE2s&quot;, 0);
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr &lt;&lt; &quot;Error initializing handshake state&quot; &lt;&lt; std::endl;
+        return 1;
+    }
+
+    // Define as chaves públicas estáticas local e remota
+    noise_handshakestate_set_local_static_public_key(state, local_static_public_key.data(), local_static_public_key.size());
+    noise_handshakestate_set_remote_static_public_key(state, remote_static_public_key.data(), remote_static_public_key.size());
+
+    // Gera o par de chaves efêmeras local
+    result = noise_handshakestate_generate_local_keypair(state, local_ephemeral_private_key.data(), local_ephemeral_private_key.size());
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr &lt;&lt; &quot;Error generating local ephemeral key pair&quot; &lt;&lt; std::endl;
+        return 1;
+    }
+    noise_handshakestate_get_local_public_key(state, local_ephemeral_public_key.data(), local_ephemeral_public_key.size());
+
+    // Cria um objeto boost::asio::io_context
+    boost::asio::io_context io_context;
+
+    // Cria um objeto boost::asio::ip::tcp::acceptor
+    tcp::acceptor acceptor(io_service, tcp::endpoint(tcp::v4(), 1234));
+
+    // Aguarda uma conexão do cliente
+    tcp::socket socket(io_service);
+    acceptor.accept(socket);
+
+    // Recebe a chave pública efêmera local do cliente
+    boost::asio::read(socket, boost::asio::buffer(remote_ephemeral_public_key));
+    noise_handshakestate_set_remote_ephemeral_public_key(state, remote_ephemeral_public_key.data(), remote_ephemeral_public_key.size());
+
+    // Gera o par de chaves efêmeras local
+    result = noise_handshakestate_generate_local_keypair(state, local_ephemeral_private_key.data(), local_ephemeral_private_key.size());
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr &lt;&lt; &quot;Error generating local ephemeral private key&quot; &lt;&lt; std::endl;
+        return 1;
+    }
+    noise_handshakestate_get_local_public_key(state, local_ephemeral_public_key.data(), local_ephemeral_public_key.size());
+
+    // Envia a chave pública efêmera local ao cliente
+    boost::asio::write(socket, boost::asio::buffer(local_ephemeral_public_key));
+
+    // Realiza a negociação de chave (handshake)
+    size_t message_len;
+    std::array&lt;uint8_t, MAX_HANDSHAKE_MESSAGE_LEN&gt; message;
+
+    // Recebe a primeira mensagem do cliente
+    boost::asio::read(socket, boost::asio::buffer(message));
+    result = noise_handshakestate_read_message(state, message.data(), message.size(), remote_ephemeral_public_key.data(), &amp;remote_ephemeral_public_key.size());
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr &lt;&lt; &quot;Error to read first handshake message&quot; &lt;&lt; std::endl;
+        return 1;
+    }
+
+    result = noise_handshakestate_write_message(state, remote_ephemeral_public_key.data(), remote_ephemeral_public_key.size(), message.data(), &amp;message_len);
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr &lt;&lt; &quot;Error to write first handshake message&quot; &lt;&lt; std::endl;
+        return 1;
+    }
+    // Envia a primeira mensagem ao cliente
+    boost::asio::write(socket, boost::asio::buffer(message, message_len));
+    // Recebe a segunda mensagem do cliente
+    boost::asio::read(socket, boost::asio::buffer(message));
+    result = noise_handshakestate_read_message(state, message.data(), message.size(), remote_ephemeral_public_key.data(), &amp;remote_ephemeral_public_key.size());
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr &lt;&lt; &quot;Error to read second handshake message&quot; &lt;&lt; std::endl;
+        return 1;
+    }
+    
+    result = noise_handshakestate_write_message(state, remote_ephemeral_public_key.data(), remote_ephemeral_public_key.size(), message.data(), &amp;message_len);
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr &lt;&lt; &quot;Error to write first handshake message&quot; &lt;&lt; std::endl;
+        return 1;
+    }
+    // Envia a segunda mensagem ao cliente
+    boost::asio::write(socket, boost::asio::buffer(message, message_len));
+
+    // Gera a chave privada efêmera remota
+    result = noise_handshakestate_generate_remote_key(state, remote_ephemeral_private_key.data(), remote_ephemeral_private_key.size());
+    if (result != NOISE_ERROR_NONE) {
+        std::cerr &lt;&lt; &quot;Error generating remote ephemeral private key&quot; &lt;&lt; std::endl;
+        return 1;
+    }
+
+
+  // Libera o estado do handshake
+  noise_handshakestate_free(state);
+
+  // Encerra socket
+  socket.close();
 
   return 0;
 }

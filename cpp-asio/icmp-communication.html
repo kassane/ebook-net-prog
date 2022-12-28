@@ -142,10 +142,10 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="protocolo-icmp"><a class="header" href="#protocolo-icmp">Protocolo ICMP</a></h1>
-<p>A classe <code>asio::ip::icmp</code> é uma classe em C++ que faz parte da biblioteca ASIO (Asynchronous Input/Output) e é usada para implementar a comunicação usando o protocolo ICMP (Internet Control Message Protocol).</p>
+<p>A classe <code>asio::ip::icmp</code> é uma classe em C++ que faz parte da biblioteca Asio (Asynchronous Input/Output) e é usada para implementar a comunicação usando o protocolo ICMP (Internet Control Message Protocol).</p>
 <p>O protocolo ICMP é um protocolo de nível de rede que é usado para enviar mensagens de erro e de controle entre dispositivos de rede. Ele é comumente usado para testar a conectividade entre dispositivos de rede, como o comando ping em sistemas operacionais.</p>
 <p>A classe <code>asio::ip::icmp</code> fornece uma interface para criar e gerenciar sockets ICMP. Ela é usada para criar sockets ICMP, que são usados para enviar e receber mensagens ICMP. Ela também fornece métodos para enviar e receber mensagens ICMP através de um socket, bem como para gerenciar a conexão e desconexão de clientes.</p>
-<p>A classe <code>asio::ip::icmp</code> é derivada da classe <code>asio::basic_socket&lt;Protocol&gt;</code>, que é uma classe genérica que representa um socket de rede. Ela fornece uma interface para criar e gerenciar sockets de rede usando qualquer protocolo de rede suportado pelo ASIO. A classe <code>asio::ip::icmp</code> é uma especialização da classe <code>asio::basic_socket&lt;Protocol&gt;</code> para o protocolo ICMP.</p>
+<p>A classe <code>asio::ip::icmp</code> é derivada da classe <code>asio::basic_socket&lt;Protocol&gt;</code>, que é uma classe genérica que representa um socket de rede. Ela fornece uma interface para criar e gerenciar sockets de rede usando qualquer protocolo de rede suportado pelo Asio. A classe <code>asio::ip::icmp</code> é uma especialização da classe <code>asio::basic_socket&lt;Protocol&gt;</code> para o protocolo ICMP.</p>
 <p>A classe <code>asio::ip::icmp</code> fornece os seguintes métodos e funcionalidades:</p>
 <ul>
 <li><code>connect</code>: estabelece uma conexão com um host especificado através de um endpoint ICMP.</li>
@@ -205,7 +205,7 @@ struct icmphdr
 
 int main()
 {
-    // Cria um objeto io_context do ASIO
+    // Cria um objeto io_context doAsio
     asio::io_context io_context;
 
     // Cria um socket ICMP

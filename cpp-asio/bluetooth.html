@@ -145,11 +145,11 @@
 <p>O protocolo Bluetooth é um padrão de comunicação sem fio que permite que dispositivos se comuniquem em curtas distâncias. Ele é amplamente utilizado em dispositivos móveis, como smartphones e tablets, bem como em outros dispositivos como fones de ouvido e alto-falantes.</p>
 <p>O RFCOMM é um protocolo que fornece um meio para a comunicação de série sobre o protocolo Bluetooth. Ele é usado para simular a comunicação serial através de um link Bluetooth, permitindo que dispositivos Bluetooth se comuniquem como se estivessem conectados por uma porta serial.</p>
 <p>A classe <code>asio::bluetooth::rfcomm</code> fornece uma interface para criar e gerenciar sockets Bluetooth RFCOMM. Ela é usada para criar sockets Bluetooth RFCOMM, que são usados para a comunicação de série sobre o protocolo Bluetooth. Ela também fornece métodos para enviar e receber dados através de um socket, bem como para gerenciar a conexão e desconexão de clientes.</p>
-<p>O ASIO fornece suporte ao protocolo Bluetooth através da classe <code>asio::bluetooth::rfcomm::socket</code>, que é uma subclasse de <code>asio::basic_socket&lt;Protocol&gt;</code>. Essa classe é usada para criar sockets Bluetooth RFCOMM, que são usados para a comunicação de série sobre o protocolo Bluetooth.</p>
-<p>Para se conectar a um servidor Bluetooth usando o ASIO, é preciso criar um objeto <code>asio::bluetooth::rfcomm::endpoint</code> que represente o endpoint do servidor. Esse endpoint é criado especificando o endereço Bluetooth do servidor e o número de canal que será usado para a comunicação. Em seguida, o método connect do socket é chamado com o endpoint do servidor como argumento para estabelecer a conexão.</p>
-<p>Uma vez que a conexão é estabelecida, é possível enviar e receber dados através do socket usando as funções write e read do ASIO. Essas funções permitem enviar e receber buffers de dados de forma assíncrona, o que significa que o programa não precisa esperar por essas operações terminarem para continuar a execução. Isso é útil quando se trabalha com dispositivos de rede, pois permite que o programa execute outras tarefas enquanto aguarda a resposta do servidor.</p>
+<p>OAsio fornece suporte ao protocolo Bluetooth através da classe <code>asio::bluetooth::rfcomm::socket</code>, que é uma subclasse de <code>asio::basic_socket&lt;Protocol&gt;</code>. Essa classe é usada para criar sockets Bluetooth RFCOMM, que são usados para a comunicação de série sobre o protocolo Bluetooth.</p>
+<p>Para se conectar a um servidor Bluetooth usando oAsio, é preciso criar um objeto <code>asio::bluetooth::rfcomm::endpoint</code> que represente o endpoint do servidor. Esse endpoint é criado especificando o endereço Bluetooth do servidor e o número de canal que será usado para a comunicação. Em seguida, o método connect do socket é chamado com o endpoint do servidor como argumento para estabelecer a conexão.</p>
+<p>Uma vez que a conexão é estabelecida, é possível enviar e receber dados através do socket usando as funções write e read doAsio. Essas funções permitem enviar e receber buffers de dados de forma assíncrona, o que significa que o programa não precisa esperar por essas operações terminarem para continuar a execução. Isso é útil quando se trabalha com dispositivos de rede, pois permite que o programa execute outras tarefas enquanto aguarda a resposta do servidor.</p>
 <h3 id="classe-asiobluetoothrfcomm"><a class="header" href="#classe-asiobluetoothrfcomm">Classe <code>asio::bluetooth::rfcomm</code></a></h3>
-<p>A classe <code>asio::bluetooth::rfcomm</code> é derivada da classe <code>asio::basic_socket&lt;Protocol&gt;</code>, que é uma classe genérica que representa um socket de rede. Ela fornece uma interface para criar e gerenciar sockets de rede usando qualquer protocolo de rede suportado pelo ASIO. A classe <code>asio::bluetooth::rfcomm</code> é uma especialização da classe <code>asio::basic_socket&lt;Protocol&gt;</code> para o protocolo Bluetooth RFCOMM.</p>
+<p>A classe <code>asio::bluetooth::rfcomm</code> é derivada da classe <code>asio::basic_socket&lt;Protocol&gt;</code>, que é uma classe genérica que representa um socket de rede. Ela fornece uma interface para criar e gerenciar sockets de rede usando qualquer protocolo de rede suportado peloAsio. A classe <code>asio::bluetooth::rfcomm</code> é uma especialização da classe <code>asio::basic_socket&lt;Protocol&gt;</code> para o protocolo Bluetooth RFCOMM.</p>
 <p>A classe <code>asio::bluetooth::rfcomm</code> fornece os seguintes métodos e funcionalidades:</p>
 <ul>
 <li><code>bind</code>: vincula o socket a um endpoint Bluetooth RFCOMM especificado.</li>
@@ -202,7 +202,7 @@ int main()
 
 int main()
 {
-    // Cria um objeto io_context do ASIO
+    // Cria um objeto io_context doAsio
     asio::io_context io_context;
 
     // Cria um socket Bluetooth RFCOMM
