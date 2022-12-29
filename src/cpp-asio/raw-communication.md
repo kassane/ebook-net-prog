@@ -13,6 +13,7 @@ Exemplo de código para enviar um pacote raw:
 #include <iostream>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/generic/raw_socket.hpp>
+#include <boost/asio/ip/udp.hpp>
 
 namespace asio = boost::asio;
 
@@ -38,6 +39,7 @@ Para receber pacotes raw, basta chamar o método `receive_from()` do socket, pas
 #include <iostream>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/generic/raw_socket.hpp>
+#include <boost/asio/ip/udp.hpp>
 
 namespace asio = boost::asio;
 

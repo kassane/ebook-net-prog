@@ -1,8 +1,23 @@
 ## O que é um `Executor`
 
-O executor é um objeto que pode executar unidades de trabalho encapsuladas. A partir do C++11,
-podemos implementar um executor que gerencie o agendamento de operações relacionadas a espera de alguma duração de tempo.
-Há o recurso global RTC e, em vez de criar várias e várias threads para a execução de operações bloqueantes como a operação `sleep_for`, vamos usar um executor, que irá agendar e tratar todos os eventos de tempo que se façam necessário.
+Um executor em C++ é um objeto ou mecanismo que é responsável por gerenciar o agendamento e a execução de tarefas ou operações em uma ou mais threads. Ele pode ser usado para gerenciar a concorrência e a sincronização entre as tarefas, garantindo que elas sejam executadas de forma eficiente e consistente.
+
+Um executor em C++ pode ser implementado de várias maneiras diferentes, dependendo das necessidades da aplicação. Algumas possibilidades incluem:
+
+- Usando **threads**: um executor pode ser implementado como um conjunto de threads que são responsáveis por executar as tarefas adicionadas a ele. Isso pode ser útil se a aplicação precisa de muitas tarefas sendo executadas concorrentemente e se houver recursos suficientes para suportar essas threads.
+
+- Usando um **pool de threads**: um executor pode ser implementado como um pool de threads que são compartilhados por todas as tarefas adicionadas a ele. Isso pode ajudar a gerenciar o uso de recursos, permitindo que mais tarefas sejam executadas concorrentemente, mas sem precisar criar novas threads para cada tarefa.
+
+- Usando um **event loop**: um executor pode ser implementado usando um event loop para gerenciar a execução de tarefas. Isso pode ser útil se a aplicação precisa lidar com múltiplos eventos simultâneos e se as tarefas só precisam ser executadas quando um evento ocorre.
+
+O event loop é uma estrutura de loop de execução que é usada para gerenciar a entrada e a saída de eventos em uma aplicação. Ele é comumente usado em aplicações que precisam lidar com múltiplos eventos simultâneos, como entrada do usuário, atualizações de redes ou operações de tempo de espera.
+Em C++, um event loop pode ser implementado de várias maneiras diferentes, dependendo das necessidades da aplicação. Algumas possibilidades incluem:
+
+- Usando um **loop infinito**: um event loop pode ser implementado como um loop infinito que verifica periodicamente por eventos. Isso pode ser útil se a aplicação precisa verificar por eventos com frequência, mas não precisa de uma resposta muito rápida.
+
+- Usando **notificações assíncronas**: um event loop pode ser implementado usando notificações assíncronas para ser avisado quando um evento ocorre. Isso pode ser útil se a aplicação precisa de uma resposta rápida aos eventos e se houver muitos eventos ocorrendo com pouco tempo de espera entre eles.
+
+Resumidamente, um executor pode ser usado em conjunto com um event loop para gerenciar a execução de tarefas que são disparadas por eventos. Por exemplo, se o event loop detecta um evento de entrada de usuário, ele pode adicionar uma tarefa ao executor para ser executada em uma thread separada, permitindo que a aplicação continue processando outros eventos enquanto a tarefa é executada. Isso pode ajudar a garantir que a aplicação responda de forma rápida e responsiva, mesmo quando há muitas tarefas a serem executadas.
 
 ### Surgimento do assunto em torno do C++ STL
 
@@ -13,9 +28,9 @@ A biblioteca Executors praticada pelo autor em seu tempo livre acaba de concluir
 
 `Unified Executors` propõe que o namespace `std::execution` do C++ Standard Library que visa fornecer uma forma mais flexível e genérica de trabalhar com Executors. A proposta foi apresentada no Grupo de Trabalho 21 (WG21) do Comitê de Padrões do C++ como a Proposta de Padrão P1907R0.
 
-Atualmente, o namespace std::execution fornece vários tipos de Executors, como `std::execution::sequenced_policy` e `std::execution::parallel_policy`, que podem ser usados ​​para controlar como as tarefas são agendadas e executadas. No entanto, esses Executors são bastante rígidos e não permitem muita flexibilidade na customização da forma como as tarefas são agendadas e executadas.
+Atualmente, o namespace `std::execution` fornece vários tipos de Executors, como `std::execution::sequenced_policy` e `std::execution::parallel_policy`, que podem ser usados ​​para controlar como as tarefas são agendadas e executadas. No entanto, esses Executors são bastante rígidos e não permitem muita flexibilidade na customização da forma como as tarefas são agendadas e executadas.
 
-A proposta de universal executors visa fornecer uma forma mais flexível de trabalhar com Executors, permitindo que os programadores criem seus próprios Executors personalizados de acordo com suas necessidades específicas. Isso seria feito através da introdução de novos tipos e funções no namespace `std::execution`, como `std::execution::uniform_invocable` e `std::execution::execute`, que permitiriam a criação de Executors personalizados de forma mais fácil e rápida.
+A proposta `Unified Executors` visa fornecer uma forma mais flexível de trabalhar com Executors, permitindo que os programadores criem seus próprios Executors personalizados de acordo com suas necessidades específicas. Isso seria feito através da introdução de novos tipos e funções no namespace `std::execution`, como `std::execution::uniform_invocable` e `std::execution::execute`, que permitiriam a criação de Executors personalizados de forma mais fácil e rápida.
 
 A proposta de universal executors ainda está em fase de discussão no Grupo de Trabalho 21 (WG21) e ainda não foi adotada como parte do C++ Standard. No entanto, se aprovada, ela pode ser uma adição importante ao C++ Standard
 
