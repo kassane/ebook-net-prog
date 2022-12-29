@@ -1548,62 +1548,60 @@ int main()
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="protocolo-raw"><a class="header" href="#protocolo-raw">Protocolo Raw</a></h1>
 <p>Uma das funcionalidades que aAsio oferece é a possibilidade de enviar e receber pacotes de dados usando o protocolo de rede a baixo nível. Isso é conhecido como &quot;envio/recebimento de pacotes raw&quot;, ou simplesmente &quot;raw sockets&quot;.</p>
-<p>A classe <code>asio::ip::raw</code> é usada para implementar a comunicação de pacotes e também fornece uma interface para criar e gerenciar sockets de pacotes raw. Ela também fornece métodos para enviar e receber pacotes raw através de um socket, bem como para gerenciar a conexão e desconexão de clientes.
-Para usar raw sockets com aAsio, é necessário incluir o cabeçalho <code>&lt;asio/ip/raw_socket.hpp&gt;</code> e criar uma instância de <code>asio::ip::raw_socket</code>, que é a classe responsável por gerenciar a conexão de rede.</p>
+<p>A classe <code>asio::generic::raw_protocol</code> é usada para implementar a comunicação de pacotes e também fornece uma interface para criar e gerenciar sockets de pacotes raw. Ela também fornece métodos para enviar e receber pacotes raw através de um socket, bem como para gerenciar a conexão e desconexão de clientes.
+Para usar raw sockets com aAsio, é necessário incluir o cabeçalho <code>&lt;asio/ip/raw_socket.hpp&gt;</code> e criar uma instância de <code>asio::generic::raw_protocol</code>, que é a classe responsável por gerenciar a conexão de rede.</p>
 <p>Os pacotes raw são pacotes de rede que são enviados e recebidos diretamente, sem qualquer tipo de encapsulamento ou formatação adicional. Eles são usados para implementar protocolos de nível inferior, como o protocolo ICMP, ou para fazer debug de aplicações de rede.</p>
 <p>Exemplo de código para enviar um pacote raw:</p>
 <pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;asio/io_context.hpp&gt;
-#include &lt;asio/ip/raw_socket.hpp&gt;
+#include &lt;boost/asio.hpp&gt;
+
+namespace asio = boost::asio;
 
 int main() {
   asio::io_context io_context;
-  asio::ip::raw_socket socket(io_context);
-
-  // Conecta o socket ao endereço IP e porta especificados
-  socket.connect({asio::ip::make_address(&quot;127.0.0.1&quot;), 1234});
+  asio::basic_raw_socket&lt;asio::generic::raw_protocol&gt; socket(io_context);
 
   // Cria um buffer com os dados a serem enviados
   std::vector&lt;std::uint8_t&gt; data = {0x01, 0x02, 0x03, 0x04};
   asio::const_buffer buffer(data.data(), data.size());
 
-  // Envia o pacote
-  socket.send(buffer);
+  // Envia o pacote para o endereço IP e porta especificados
+  socket.send_to(buffer, asio::ip::udp::endpoint(asio::ip::make_address(&quot;127.0.0.1&quot;), 1234));
 
   return 0;
 }
 </code></pre>
-<p>O exemplo acima mostra como enviar um pacote raw para o endereço IP &quot;127.0.0.1&quot; na porta 1234. O pacote é criado como um buffer de dados e enviado através da chamada ao método <code>send()</code> do socket.</p>
-<p>Para receber pacotes raw, basta chamar o método <code>receive()</code> do socket, passando um buffer para armazenar os dados recebidos.</p>
+<p>O exemplo acima mostra como enviar um pacote raw para o endereço IP &quot;127.0.0.1&quot; na porta 1234. O pacote é criado como um buffer de dados e enviado através da chamada ao método <code>send_to()</code> do socket para enviar o buffer de dados para o endereço IP e porta especificados usando o tipo <code>asio::ip::udp::endpoint</code>.</p>
+<p>Para receber pacotes raw, basta chamar o método <code>receive_from()</code> do socket, passando um buffer para armazenar os dados recebidos.</p>
 <pre><code class="language-c++">#include &lt;iostream&gt;
-#include &lt;asio/io_context.hpp&gt;
-#include &lt;asio/ip/raw_socket.hpp&gt;
+#include &lt;boost/asio/io_context.hpp&gt;
+#include &lt;boost/asio/ip/raw_socket.hpp&gt;
+
+namespace asio = boost::asio;
 
 int main() {
   asio::io_context io_context;
-  asio::ip::raw_socket socket(io_context);
+  asio::basic_raw_socket&lt;asio::generic::raw_protocol&gt; socket(io_context);
 
-  // Conecta o socket ao endereço IP e porta especificados
-  socket.bind({asio::ip::make_address(&quot;127.0.0.1&quot;), 1234});
+  // Liga o soquete a uma porta específica
+  socket.bind(asio::ip::udp::endpoint(asio::ip::make_address(&quot;127.0.0.1&quot;), 1234));
 
-  // Cria um buffer para armazenar os dados recebidos
-  std::vector&lt;std::uint8_t&gt; data(1024);
-  asio::mutable_buffer buffer(data.data(), data.size());
+  // Recebe os dados através do soquete raw
+  char recv_buf[1024];
+  asio::ip::udp::endpoint sender_endpoint;
+  size_t bytes_received = socket.receive_from(
+  asio::buffer(recv_buf, sizeof(recv_buf)), sender_endpoint);
 
-  // Recebe o pacote
-  std::size_t bytes_received = socket.receive(buffer);
-
-  // Imprime os dados recebidos
-  std::cout &lt;&lt; &quot;Pacote recebido com &quot; &lt;&lt; bytes_received &lt;&lt; &quot; bytes: &quot;;
-  for (std::size_t i = 0; i &lt; bytes_received; ++i) {
-      std::cout &lt;&lt; std::hex &lt;&lt; std::setw(2) &lt;&lt; std::setfill('0') &lt;&lt; static_cast&lt;int&gt;(data[i]) &lt;&lt; &quot; &quot;;
-  }
+  // Imprime os dados do endpoint
+  std::cout &lt;&lt; &quot;Received &quot; &lt;&lt; bytes_received &lt;&lt; &quot; bytes from &quot;;
+  std::cout.write(reinterpret_cast&lt;char*&gt;(sender_endpoint.data()), sender_endpoint.size());
   std::cout &lt;&lt; std::endl;
+  std::cout &lt;&lt; &quot;Data: &quot; &lt;&lt; recv_buf &lt;&lt; std::endl;
 
   return 0;
 }
 </code></pre>
-<p>No exemplo acima, o socket é conectado ao endereço IP &quot;127.0.0.1&quot; na porta 1234 e cria um buffer para armazenar os dados recebidos. Em seguida, é chamado o método receive() do socket, que bloqueia a execução do programa até que um pacote seja recebido. Quando o pacote é recebido, o número de bytes recebidos é armazenado em bytes_received e os dados são impressos na tela em formato hexadecimal.</p>
+<p>No exemplo acima, o socket é conectado ao endereço IP &quot;127.0.0.1&quot; na porta 1234 e cria um buffer para armazenar os dados recebidos. Em seguida, é chamado o método <code>receive_from()</code> do socket, que bloqueia a execução do programa até que um pacote seja recebido. Quando o pacote é recebido, usamos a função data para obter um ponteiro para os dados do endpoint e a função size para obter o tamanho dos dados. Em seguida, usamos a função write da classe ostream para escrever os dados na tela. Porém, o tipo <code>basic_endpoint&lt;raw_protocol&gt;::data_type</code> é um ponteiro para um <code>sockaddr</code>, enquanto o tipo esperado pela função write é um ponteiro para o tipo caractere (<code>char*</code>). Para corrigir isso, basta usar o operador <code>reinterpret_cast</code> para converter o ponteiro para <code>sockaddr</code> em um ponteiro para caractere. Isso permite que a função write seja chamada com os dados do endpoint.</p>
 <p>É importante notar que, ao trabalhar com pacotes raw, é necessário se preocupar com os detalhes da camada de rede (como cabeçalhos de protocolo, endereçamento, etc.), o que pode ser complexo e trabalhoso. Além disso, o envio/recebimento de pacotes raw geralmente só é necessário em casos especiais, como quando é preciso implementar um protocolo de rede customizado ou realizar testes de baixo nível. Em muitos casos, é mais conveniente usar um protocolo de rede mais alto nível, como o TCP ou o UDP, que já fornecem muitas das funcionalidades necessárias para a comunicação de rede.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="protocolo-udp"><a class="header" href="#protocolo-udp">Protocolo UDP</a></h1>
 <p>Nós discutimos como se comunicar através do <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a> o suficiente, então é hora de mudar para o <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol">UDP</a> agora. O <a href="https://pt.wikipedia.org/wiki/User_Datagram_Protocol">UDP</a> é um protocolo sem conexão e não confiável, mas é mais fácil de usar que o <a href="https://pt.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a>.</p>
