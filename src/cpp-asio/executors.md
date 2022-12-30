@@ -21,7 +21,7 @@ Resumidamente, um executor pode ser usado em conjunto com um event loop para ger
 
 ### Surgimento do assunto em torno do C++ STL
 
-Em 6 de julho de 2021, a proposta dos Executores foi atualizada com mais um bilhão de pontos. O novo documento, [P2300R1](http://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2300r1.html),
+Em 6 de julho de 2021, a proposta dos Executores foi atualizada com mais um bilhão de pontos. O novo documento, [P2300](https://wg21.link/P2300),
 oficialmente denominado `std::execution`, em comparação com The Unified Executor for C++, [P0443R14](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0443r14),
 expõe mais sistematicamente as ideias de design dos Executors; dá mais instruções sobre implementação.
 A biblioteca Executors praticada pelo autor em seu tempo livre acaba de concluir o conteúdo do [P1879R3](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p1897r3.html).
