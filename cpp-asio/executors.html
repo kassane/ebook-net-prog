@@ -167,7 +167,7 @@ Em C++, um event loop pode ser implementado de várias maneiras diferentes, depe
 </ul>
 <p>Resumidamente, um executor pode ser usado em conjunto com um event loop para gerenciar a execução de tarefas que são disparadas por eventos. Por exemplo, se o event loop detecta um evento de entrada de usuário, ele pode adicionar uma tarefa ao executor para ser executada em uma thread separada, permitindo que a aplicação continue processando outros eventos enquanto a tarefa é executada. Isso pode ajudar a garantir que a aplicação responda de forma rápida e responsiva, mesmo quando há muitas tarefas a serem executadas.</p>
 <h3 id="surgimento-do-assunto-em-torno-do-c-stl"><a class="header" href="#surgimento-do-assunto-em-torno-do-c-stl">Surgimento do assunto em torno do C++ STL</a></h3>
-<p>Em 6 de julho de 2021, a proposta dos Executores foi atualizada com mais um bilhão de pontos. O novo documento, <a href="http://open-std.org/JTC1/SC22/WG21/docs/papers/2021/p2300r1.html">P2300R1</a>,
+<p>Em 6 de julho de 2021, a proposta dos Executores foi atualizada com mais um bilhão de pontos. O novo documento, <a href="https://wg21.link/P2300">P2300</a>,
 oficialmente denominado <code>std::execution</code>, em comparação com The Unified Executor for C++, <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0443r14">P0443R14</a>,
 expõe mais sistematicamente as ideias de design dos Executors; dá mais instruções sobre implementação.
 A biblioteca Executors praticada pelo autor em seu tempo livre acaba de concluir o conteúdo do <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p1897r3.html">P1879R3</a>.</p>
