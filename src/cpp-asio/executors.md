@@ -46,7 +46,7 @@ Quando chamamos `std::async`, ela pode ou não iniciar a execução imediatament
 
 O objeto `std::future` representa um valor que pode não estar disponível imediatamente. Ao chamar um método em um objeto `std::future`, como `std::future::get()`, ele pode bloquear a thread atual até que o valor esteja pronto. Isso significa que, se chamarmos `std::future::get()` imediatamente após `std::async`, a chamada pode bloquear até que a computação seja concluída.
 
-Isso significa que o`std::async` não pode ser escrito de forma assíncrona usando a sintaxe de await do C++20.
+Diferentemente do`std::async`, a expressão `co_await` [C++20] é usada para suspender a avaliação de uma função assíncrona (coroutine) enquanto aguarda a conclusão de uma computação representada pela expressão operando.
 
 A ideia por trás da função `std::async` e `std::future` é permitir que o programador inicie uma tarefa assíncrona e continue a trabalhar em outras partes do código enquanto aguarda o resultado. No entanto, o programador precisa estar ciente de que o comportamento de bloqueio pode ocorrer se ele chamar `std::future::get()` imediatamente após `std::async`.
 
