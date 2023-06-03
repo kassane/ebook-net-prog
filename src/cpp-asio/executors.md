@@ -42,7 +42,13 @@ C++ sempre careceu de infraestrutura de programação simultânea disponível, e
 
 `std::async` é uma função do C++ Standard Library que é usada para iniciar uma tarefa assíncrona em um ponto específico no tempo. Ela é usada para criar uma tarefa assíncrona que será executada em uma thread separada e retorna um objeto `std::future` que pode ser usado para obter o resultado da tarefa quando ela for concluída.
 
-Apesar de seu nome, `std::async` não é uma função assíncrona no sentido tradicional da palavra. Ela não é capaz de retornar imediatamente para o chamador enquanto a tarefa assíncrona é executada, mas simplesmente inicia a tarefa em uma thread separada e retorna um objeto `std::future`. Isso significa que o código que chama `std::async` não pode ser escrito de forma assíncrona usando a sintaxe de await do C++20.
+Quando chamamos `std::async`, ela pode ou não iniciar a execução imediatamente, dependendo da política de execução fornecida como argumento (`std::launch::async` ou `std::launch::defer`). No entanto, a função sempre retorna um objeto `std::future` imediatamente, independentemente de a computação ter sido concluída ou não.
+
+O objeto `std::future` representa um valor que pode não estar disponível imediatamente. Ao chamar um método em um objeto `std::future`, como `std::future::get()`, ele pode bloquear a thread atual até que o valor esteja pronto. Isso significa que, se chamarmos `std::future::get()` imediatamente após `std::async`, a chamada pode bloquear até que a computação seja concluída.
+
+Isso significa que o`std::async` não pode ser escrito de forma assíncrona usando a sintaxe de await do C++20.
+
+A ideia por trás da função `std::async` e `std::future` é permitir que o programador inicie uma tarefa assíncrona e continue a trabalhar em outras partes do código enquanto aguarda o resultado. No entanto, o programador precisa estar ciente de que o comportamento de bloqueio pode ocorrer se ele chamar `std::future::get()` imediatamente após `std::async`.
 
 Apesar disso, `std::async` pode ser útil em situações em que é necessário iniciar uma tarefa assíncrona de forma fácil e rápida. Ele é especialmente útil quando é necessário obter o resultado da tarefa assíncrona de forma síncrona, usando a sintaxe de await do C++20 ou esperando pelo objeto `std::future` retornado por `std::async`.
 
