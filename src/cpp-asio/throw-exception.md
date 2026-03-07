@@ -1,72 +1,125 @@
 # Exceção
 
-O Asio fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe `boost::system::system_error` e incluem:
+O Asio fornece duas formas de lidar com erros nas operações de rede: **por exceção** (comportamento padrão) e **por código de erro** (sem exceção, usando `error_code`). Conhecer as duas formas é fundamental para escrever código robusto.
 
-- `boost::asio::error::address_family_not_supported`: lançada quando o tipo de endereço especificado não é suportado pela plataforma.
-- `boost::asio::error::address_in_use`: lançada quando o endereço especificado já está em uso por outro processo.
-- `boost::asio::error::connection_aborted`: lançada quando a conexão é abortada pelo host remoto.
-- `boost::asio::error::connection_refused`: lançada quando a conexão é recusada pelo host remoto.
-- `boost::asio::error::connection_reset`: lançada quando a conexão é reiniciada pelo host remoto.
+## Tratamento por Exceção
 
-Essas exceções são lançadas pelos métodos do Asio que realizam operações de rede, como `boost::asio::ip::tcp::acceptor::accept` ou `boost::asio::ip::tcp::socket::connect`. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.
+Por padrão, as funções síncronas do Asio lançam `asio::system_error` (standalone) ou `boost::system::system_error` (Boost.Asio) quando ocorre um erro. Ambas derivam de `std::runtime_error`.
 
-As funções do `Asio` podem gerar a exceção `boost::system::system_error`. Veja o [`resolve`](dns-query.md) no exemplo abaixo:  
+O Asio fornece uma série de exceções de erro que incluem:
 
-```cpp
-	results_type resolve(BOOST_ASIO_STRING_VIEW_PARAM host,
-		BOOST_ASIO_STRING_VIEW_PARAM service, resolver_base::flags resolve_flags)
-	{
-	  boost::system::error_code ec;
-	  ......
-	  boost::asio::detail::throw_error(ec, "resolve");
-	  return r;
-	}
-```
+- `asio::error::address_family_not_supported`: o tipo de endereço especificado não é suportado pela plataforma.
+- `asio::error::address_in_use`: o endereço especificado já está em uso por outro processo.
+- `asio::error::connection_aborted`: a conexão foi abortada pelo host remoto.
+- `asio::error::connection_refused`: a conexão foi recusada pelo host remoto.
+- `asio::error::connection_reset`: a conexão foi reiniciada pelo host remoto.
+- `asio::error::eof`: o par encerrou a conexão (fim de arquivo/stream).
+- `asio::error::timed_out`: a operação excedeu o tempo limite.
+- `asio::error::host_not_found`: o nome do host não pôde ser resolvido.
 
-Há duas sobrecargas de funções `boost::asio::detail::throw_error`:  
+Essas exceções são lançadas pelos métodos do Asio que realizam operações de rede síncronas e podem ser capturadas e tratadas de acordo com o erro específico:
 
 ```cpp
-	inline void throw_error(const boost::system::error_code& err)
-	{
-	  if (err)
-	    do_throw_error(err);
-	}
-	
-	inline void throw_error(const boost::system::error_code& err,
-	    const char* location)
-	{
-	  if (err)
-	    do_throw_error(err, location);
-	}
+#include <asio.hpp>
+#include <iostream>
+
+int main()
+{
+    try {
+        asio::io_context io_context;
+        asio::ip::tcp::resolver resolver{io_context};
+
+        // Lança asio::system_error se a resolução falhar
+        auto endpoints = resolver.resolve("host.invalido.exemplo", "https");
+
+        for (const auto& ep : endpoints)
+            std::cout << ep.endpoint() << '\n';
+
+    } catch (const asio::system_error& e) {
+        // e.code() retorna o error_code específico
+        std::cerr << "Erro Asio [" << e.code() << "]: " << e.what() << '\n';
+    } catch (const std::exception& e) {
+        std::cerr << "Exceção: " << e.what() << '\n';
+    }
+
+    return 0;
+}
 ```
-As diferenças dessas duas funções é que estão apenas incluindo a string "location" ("`resolve`" no nosso exemplo) ou não. Assim, o `do_throw_error` também tem duas sobrecargas, veja uma como exemplo:
+
+A função membro `what()` retorna as informações detalhadas da exceção, enquanto `code()` retorna o `error_code` correspondente.
+
+## Tratamento por Código de Erro (sem exceção)
+
+A maioria das funções síncronas do Asio possui uma sobrecarga que recebe um `asio::error_code` por referência. Nesse caso, **nenhuma exceção é lançada** — o erro é armazenado no `error_code` e a função retorna normalmente:
 
 ```cpp
-	void do_throw_error(const boost::system::error_code& err, const char* location)
-	{
-	  boost::system::system_error e(err, location);
-	  boost::asio::detail::throw_exception(e);
-	}
+#include <asio.hpp>
+#include <iostream>
+
+int main()
+{
+    asio::io_context io_context;
+    asio::ip::tcp::socket socket{io_context};
+
+    asio::ip::tcp::endpoint endpoint{
+        asio::ip::make_address("192.168.1.1"), 8080};
+
+    // Sobrecarga sem exceção: erro armazenado em 'ec'
+    asio::error_code ec;
+    socket.connect(endpoint, ec);
+
+    if (ec) {
+        if (ec == asio::error::connection_refused)
+            std::cerr << "Conexão recusada!\n";
+        else
+            std::cerr << "Erro ao conectar: " << ec.message() << '\n';
+        return 1;
+    }
+
+    std::cout << "Conectado com sucesso!\n";
+    return 0;
+}
 ```
-`boost::system::system_error` deriva de `std::runtime_error`:  
+
+### Verificando erros em operações assíncronas
+
+Nos callbacks de operações assíncronas, o primeiro parâmetro é sempre um `error_code`:
 
 ```cpp
-	class BOOST_SYMBOL_VISIBLE system_error : public std::runtime_error
-	{
-	......
-	public:
-	      system_error( error_code ec )
-	          : std::runtime_error(""), m_error_code(ec) {}
-	
-	      system_error( error_code ec, const std::string & what_arg )
-	          : std::runtime_error(what_arg), m_error_code(ec) {}
-	......
-	      const error_code &  code() const BOOST_NOEXCEPT_OR_NOTHROW { return m_error_code; }
-	      const char *        what() const BOOST_NOEXCEPT_OR_NOTHROW;
-	......
-	}
+socket.async_receive(asio::buffer(buffer),
+    [](const asio::error_code& ec, std::size_t bytes) {
+        if (ec) {
+            if (ec == asio::error::eof) {
+                std::cout << "Conexão encerrada pelo par\n";
+            } else {
+                std::cerr << "Erro: " << ec.message() << '\n';
+            }
+            return;
+        }
+        // Processar bytes recebidos...
+        std::cout << "Recebidos " << bytes << " bytes\n";
+    });
 ```
 
-A função membro chamado `what()` retorna as informações detalhadas da exceção.
+## Tabela de Erros Comuns
 
-Em resumo, o Asio fornece uma série de exceções de erro que podem ser lançadas em situações em que ocorrem erros durante a execução de operações de rede. Essas exceções são derivadas da classe `boost::system::system_error` ou `asio::system_error` (**standalone**) e incluem erros comuns de rede, como conexão abortada, conexão recusada ou endereço em uso. Elas podem ser capturadas pelo programa e tratadas de acordo com o erro específico que ocorreu.
+| Código de Erro | Significado | Causa Comum |
+|---|---|---|
+| `asio::error::eof` | Fim da conexão | Par encerrou a conexão normalmente |
+| `asio::error::connection_refused` | Conexão recusada | Porta fechada no servidor |
+| `asio::error::connection_reset` | Conexão reiniciada | Desconexão abrupta |
+| `asio::error::connection_aborted` | Conexão abortada | Timeout ou erro de rede |
+| `asio::error::address_in_use` | Endereço em uso | Porta já ocupada |
+| `asio::error::host_not_found` | Host não encontrado | Falha de DNS |
+| `asio::error::timed_out` | Tempo esgotado | Servidor não respondeu |
+| `asio::error::operation_aborted` | Operação cancelada | `cancel()` ou `stop()` chamado |
+
+## Standalone vs Boost.Asio
+
+| Aspecto | Standalone Asio | Boost.Asio |
+|---|---|---|
+| Tipo de erro | `asio::error_code` | `boost::system::error_code` |
+| Exceção | `asio::system_error` | `boost::system::system_error` |
+| Categoria | `asio::error::get_system_category()` | `boost::system::system_category()` |
+
+> **Dica:** Em código de produção, prefira a sobrecarga com `error_code` para operações críticas, pois o tratamento explícito de erros é mais eficiente e previsível do que o mecanismo de exceções.
