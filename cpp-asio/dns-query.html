@@ -4,43 +4,44 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>DNS - Programação de Redes</title>
-
+                
 
         <!-- Custom HTML head -->
         
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
+                <link rel="icon" href="../favicon.svg">
+                        <link rel="shortcut icon" href="../favicon.png">
+                <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
-
+                <link rel="stylesheet" href="../css/print.css" media="print">
+        
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
-
+                <link rel="stylesheet" href="../fonts/fonts.css">
+        
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
         <link rel="stylesheet" href="../tomorrow-night.css">
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-
-    </head>
+        
+            </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script>
+        <script type="text/javascript">
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script>
+        <script type="text/javascript">
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +57,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script>
+        <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,14 +69,12 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script>
+        <script type="text/javascript">
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -83,15 +82,15 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li class="chapter-item expanded "><a href="../cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li class="chapter-item expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li class="chapter-item expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li class="chapter-item expanded "><a href="../cpp-asio/buffer.html"><strong aria-hidden="true">5.</strong> Buffers</a></li><li class="chapter-item expanded "><a href="../cpp-asio/executors.html"><strong aria-hidden="true">6.</strong> Executores</a></li><li class="chapter-item expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">7.</strong> Sockets</a></li><li class="chapter-item expanded "><a href="../cpp-asio/strand.html"><strong aria-hidden="true">8.</strong> Strands</a></li><li class="chapter-item expanded "><a href="../cpp-asio/coroutine.html"><strong aria-hidden="true">9.</strong> Corrotinas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">10.</strong> Endpoint</a></li><li class="chapter-item expanded "><a href="../cpp-asio/dns-query.html" class="active"><strong aria-hidden="true">11.</strong> DNS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">12.</strong> Erros e exceções</a></li><li class="chapter-item expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">13.</strong> Conectar ao Servidor</a></li><li class="chapter-item expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">14.</strong> Accept-Connections</a></li><li class="chapter-item expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">15.</strong> Operações síncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">16.</strong> Operações assíncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/icmp-communication.html"><strong aria-hidden="true">17.</strong> Protocolo ICMP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/raw-communication.html"><strong aria-hidden="true">18.</strong> Protocolo RAW</a></li><li class="chapter-item expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">19.</strong> Protocolo UDP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/SSL-TLS.html"><strong aria-hidden="true">20.</strong> SSL/TLS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/serial.html"><strong aria-hidden="true">21.</strong> Serial</a></li><li class="chapter-item expanded "><a href="../cpp-asio/some-examples.html"><strong aria-hidden="true">22.</strong> Exemplos</a></li><li class="chapter-item expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">23.</strong> Conclusão</a></li></ol>
-            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li class="chapter-item expanded "><a href="../cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li class="chapter-item expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li class="chapter-item expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li class="chapter-item expanded "><a href="../cpp-asio/buffer.html"><strong aria-hidden="true">5.</strong> Buffers</a></li><li class="chapter-item expanded "><a href="../cpp-asio/executors.html"><strong aria-hidden="true">6.</strong> Executores</a></li><li class="chapter-item expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">7.</strong> Sockets</a></li><li class="chapter-item expanded "><a href="../cpp-asio/strand.html"><strong aria-hidden="true">8.</strong> Strands</a></li><li class="chapter-item expanded "><a href="../cpp-asio/coroutine.html"><strong aria-hidden="true">9.</strong> Corrotinas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">10.</strong> Endpoint</a></li><li class="chapter-item expanded "><a href="../cpp-asio/dns-query.html" class="active"><strong aria-hidden="true">11.</strong> DNS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">12.</strong> Erros e exceções</a></li><li class="chapter-item expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">13.</strong> Conectar ao Servidor</a></li><li class="chapter-item expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">14.</strong> Accept-Connections</a></li><li class="chapter-item expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">15.</strong> Operações síncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">16.</strong> Operações assíncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/icmp-communication.html"><strong aria-hidden="true">17.</strong> Protocolo ICMP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/raw-communication.html"><strong aria-hidden="true">18.</strong> Protocolo RAW</a></li><li class="chapter-item expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">19.</strong> Protocolo UDP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/SSL-TLS.html"><strong aria-hidden="true">20.</strong> SSL/TLS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/serial.html"><strong aria-hidden="true">21.</strong> Serial</a></li><li class="chapter-item expanded "><a href="../cpp-asio/some-examples.html"><strong aria-hidden="true">22.</strong> Exemplos</a></li><li class="chapter-item expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">23.</strong> Conclusão</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -101,28 +100,28 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
-                    </div>
+                                            </div>
 
                     <h1 class="menu-title">Programação de Redes</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                                <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-
+                                                                        
                     </div>
                 </div>
 
-                <div id="search-wrapper" class="hidden">
+                                <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
                         <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
@@ -132,9 +131,9 @@
                         </ul>
                     </div>
                 </div>
-
+                
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script>
+                <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -145,119 +144,177 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="dns-query"><a class="header" href="#dns-query">DNS Query</a></h1>
-<p>O objeto <code>asio::ip::tcp::resolver</code> é usado para resolver nomes de domínio em endereços IP. Ele é útil em situações em que o programa precisa se conectar a um host remoto ou a um servidor usando um nome de domínio, mas precisa do endereço IP para estabelecer a conexão de rede.</p>
-<p>Para usar o objeto <code>asio::ip::tcp::resolver</code>, é preciso incluir o cabeçalho <code>&lt;asio/ip/tcp.hpp&gt;</code> no seu código e criar um objeto da classe passando um objeto <code>asio::io_context</code> para o construtor. Em seguida, é possível usar o método resolve para resolver o nome de domínio em um endereço IP. O método resolve retorna um iterador que pode ser usado para percorrer a lista de endereços IP retornados.</p>
-<p>O objeto <code>asio::ip::tcp::resolver</code> também fornece uma série de outras funcionalidades úteis. Por exemplo, é possível usar o método async_resolve para resolver o nome de domínio de forma assíncrona, permitindo que o programa continue rodando enquanto a resolução é realizada em segundo plano. Além disso, é possível usar o método cancel para cancelar a resolução de um nome de domínio em andamento.</p>
-<p>Veja <code>boost::asio::ip::tcp::resolver</code> no exemplo abaixo:</p>
-<pre><code class="language-cpp">
-	#include &lt;boost/asio.hpp&gt;
-	#include &lt;iostream&gt;
-	
-	int main()
-	{
-	    try
-	    {
-	        boost::asio::io_context io_context;
-	
-	        boost::asio::ip::tcp::resolver resolver{io_context};
-	        boost::asio::ip::tcp::resolver::results_type endpoints =
-	                resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
-	
-	        for (auto it = endpoints.cbegin(); it != endpoints.cend(); it++)
-	        {
-	            boost::asio::ip::tcp::endpoint endpoint = *it;
-	            std::cout &lt;&lt; endpoint &lt;&lt; '\n';
-	        }
-	    }
-	    catch (std::exception&amp; e)
-	    {
-	        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
-	    }
-	
-	    return 0;
-	}
+<p>O objeto <code>asio::ip::tcp::resolver</code> é usado para resolver nomes de domínio em endereços IP. Ele é útil em situações em que o programa precisa se conectar a um host remoto usando um nome de domínio, mas precisa do endereço IP para estabelecer a conexão de rede.</p>
+<p>Para usar o objeto <code>asio::ip::tcp::resolver</code>, inclua o cabeçalho <code>&lt;asio/ip/tcp.hpp&gt;</code> no seu código e crie um objeto da classe passando um <code>asio::io_context</code> para o construtor. Em seguida, use o método <code>resolve</code> para resolver o nome de domínio em um endereço IP.</p>
+<h2 id="resolução-síncrona"><a class="header" href="#resolução-síncrona">Resolução Síncrona</a></h2>
+<p>O método <code>resolve</code> retorna um range de resultados que pode ser percorrido com range-for moderno:</p>
+<pre><code class="language-cpp">#include &lt;asio.hpp&gt;
+#include &lt;iostream&gt;
+
+int main()
+{
+    try
+    {
+        asio::io_context io_context;
+
+        asio::ip::tcp::resolver resolver{io_context};
+
+        // resolve(host, serviço) — serviço pode ser nome (&quot;https&quot;) ou porta (&quot;443&quot;)
+        auto endpoints = resolver.resolve(&quot;google.com&quot;, &quot;https&quot;);
+
+        // Iteração moderna com range-for
+        for (const auto&amp; entry : endpoints)
+        {
+            std::cout &lt;&lt; entry.endpoint() &lt;&lt; '\n';
+        }
+    }
+    catch (std::exception&amp; e)
+    {
+        std::cerr &lt;&lt; e.what() &lt;&lt; '\n';
+    }
+
+    return 0;
+}
 </code></pre>
-<p>O resultado da execução será:</p>
-<pre><code>74.125.24.101:443
-74.125.24.139:443
-74.125.24.138:443
-74.125.24.102:443
-74.125.24.100:443
-74.125.24.113:443
+<p>O resultado da execução será algo como:</p>
+<pre><code>142.250.184.206:443
+[2800:3f0:4004:811::200e]:443
 </code></pre>
-<p>O elemento <code>boost::asio::ip::tcp::resolver::results_type</code> é o iterador de <code>basic_resolver_entry</code>: </p>
-<pre><code class="language-cpp">	template &lt;typename InternetProtocol&gt;
-	class basic_resolver_entry
-	{
-	......
-	public:
-	  /// The protocol type associated with the endpoint entry.
-	  typedef InternetProtocol protocol_type;
-	
-	  /// The endpoint type associated with the endpoint entry.
-	  typedef typename InternetProtocol::endpoint endpoint_type;
-	......
-	  /// Convert to the endpoint associated with the entry.
-	  operator endpoint_type() const
-	  {
-	    return endpoint_;
-	  }
-	......
-	}
+<p>O tipo <code>asio::ip::tcp::resolver::results_type</code> é um range de <code>basic_resolver_entry</code>:</p>
+<pre><code class="language-cpp">template &lt;typename InternetProtocol&gt;
+class basic_resolver_entry
+{
+public:
+    typedef InternetProtocol protocol_type;
+    typedef typename InternetProtocol::endpoint endpoint_type;
+
+    // Conversão implícita para endpoint — permite uso direto com connect()
+    operator endpoint_type() const { return endpoint_; }
+    ......
+}
 </code></pre>
-<p>Como ele possui o operador <code>endpoint_type()</code>, ele pode ser convertido diretamente no endpoint:</p>
-<pre><code class="language-cpp">	boost::asio::ip::tcp::endpoint endpoint = *it;
+<p>Como ele possui o operador de conversão <code>endpoint_type()</code>, pode ser passado diretamente para funções como <code>asio::connect()</code>:</p>
+<pre><code class="language-cpp">// O resolver results pode ser passado diretamente para connect
+asio::ip::tcp::socket socket{io_context};
+asio::connect(socket, endpoints); // itera automaticamente todos os endpoints
 </code></pre>
-<p>Em resumo, o objeto <code>asio::ip::tcp::resolver</code> do Asio é usado para resolver nomes de domínio em endereços IP. Ele fornece uma série de funcionalidades úteis, como a possibilidade de resolver o nome de domínio de forma assíncrona e de cancelar a resolução de um nome de domínio em andamento.</p>
+<h2 id="resolução-assíncrona"><a class="header" href="#resolução-assíncrona">Resolução Assíncrona</a></h2>
+<p>O método <code>async_resolve</code> resolve o nome de domínio de forma assíncrona, sem bloquear a thread. Isso é essencial em servidores que precisam resolver múltiplos nomes simultaneamente:</p>
+<pre><code class="language-cpp">#include &lt;asio.hpp&gt;
+#include &lt;iostream&gt;
+
+int main()
+{
+    asio::io_context io_context;
+    asio::ip::tcp::resolver resolver{io_context};
+
+    // async_resolve aceita um callback (ou use_awaitable em corrotinas)
+    resolver.async_resolve(&quot;google.com&quot;, &quot;https&quot;,
+        [](const asio::error_code&amp; ec,
+           asio::ip::tcp::resolver::results_type results)
+        {
+            if (ec) {
+                std::cerr &lt;&lt; &quot;Erro na resolução: &quot; &lt;&lt; ec.message() &lt;&lt; '\n';
+                return;
+            }
+            for (const auto&amp; entry : results)
+                std::cout &lt;&lt; entry.endpoint() &lt;&lt; '\n';
+        });
+
+    io_context.run(); // processa a operação assíncrona
+    return 0;
+}
+</code></pre>
+<h3 id="resolução-assíncrona-com-corrotinas"><a class="header" href="#resolução-assíncrona-com-corrotinas">Resolução Assíncrona com Corrotinas</a></h3>
+<p>Com corrotinas C++20, a resolução assíncrona fica ainda mais legível:</p>
+<pre><code class="language-cpp">#include &lt;asio.hpp&gt;
+#include &lt;asio/co_spawn.hpp&gt;
+#include &lt;asio/detached.hpp&gt;
+#include &lt;iostream&gt;
+
+using asio::awaitable;
+using asio::use_awaitable;
+using asio::ip::tcp;
+
+awaitable&lt;void&gt; resolver_dns(asio::io_context&amp; ctx,
+                              const std::string&amp; host)
+{
+    tcp::resolver resolver{ctx};
+
+    // co_await suspende a corrotina até a resolução completar
+    auto endpoints = co_await resolver.async_resolve(host, &quot;https&quot;,
+                                                     use_awaitable);
+
+    for (const auto&amp; entry : endpoints)
+        std::cout &lt;&lt; entry.endpoint() &lt;&lt; '\n';
+}
+
+int main()
+{
+    asio::io_context ctx;
+    asio::co_spawn(ctx,
+        resolver_dns(ctx, &quot;google.com&quot;),
+        asio::detached);
+    ctx.run();
+    return 0;
+}
+</code></pre>
+<h2 id="cancelamento"><a class="header" href="#cancelamento">Cancelamento</a></h2>
+<p>O objeto <code>resolver</code> também permite cancelar uma resolução em andamento com o método <code>cancel()</code>:</p>
+<pre><code class="language-cpp">resolver.cancel(); // cancela todas as operações pendentes no resolver
+</code></pre>
+<p>Isso é útil em aplicações com timeout, onde a resolução não deve bloquear indefinidamente.</p>
+<blockquote>
+<p><strong>Atenção:</strong> A classe <code>resolver::query</code> foi <strong>depreciada</strong> no Asio moderno. Use <code>resolver.resolve(host, serviço)</code> diretamente, sem criar um objeto <code>query</code> intermediário.</p>
+</blockquote>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../cpp-asio/endpoint.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                                    <a rel="prev" href="../cpp-asio/endpoint.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-
-                            <a rel="next" href="../cpp-asio/throw-exception.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        
+                                                    <a rel="next" href="../cpp-asio/throw-exception.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-
+                        
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../cpp-asio/endpoint.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                    <a rel="prev" href="../cpp-asio/endpoint.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-
-                    <a rel="next" href="../cpp-asio/throw-exception.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                
+                                    <a rel="next" href="../cpp-asio/throw-exception.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-            </nav>
+                            </nav>
 
         </div>
 
-
-
-
-        <script>
+        
+        
+        
+                <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-
-
-        <script src="../elasticlunr.min.js"></script>
-        <script src="../mark.min.js"></script>
-        <script src="../searcher.js"></script>
-
-        <script src="../clipboard.min.js"></script>
-        <script src="../highlight.js"></script>
-        <script src="../book.js"></script>
+        
+        
+                <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-
-
-    </div>
+        
+        
     </body>
 </html>

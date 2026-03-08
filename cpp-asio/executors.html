@@ -4,43 +4,44 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Executores - Programação de Redes</title>
-
+                
 
         <!-- Custom HTML head -->
         
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
+                <link rel="icon" href="../favicon.svg">
+                        <link rel="shortcut icon" href="../favicon.png">
+                <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
-
+                <link rel="stylesheet" href="../css/print.css" media="print">
+        
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
-
+                <link rel="stylesheet" href="../fonts/fonts.css">
+        
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
         <link rel="stylesheet" href="../tomorrow-night.css">
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-
-    </head>
+        
+            </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script>
+        <script type="text/javascript">
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script>
+        <script type="text/javascript">
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +57,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script>
+        <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,14 +69,12 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script>
+        <script type="text/javascript">
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -83,15 +82,15 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li class="chapter-item expanded "><a href="../cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li class="chapter-item expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li class="chapter-item expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li class="chapter-item expanded "><a href="../cpp-asio/buffer.html"><strong aria-hidden="true">5.</strong> Buffers</a></li><li class="chapter-item expanded "><a href="../cpp-asio/executors.html" class="active"><strong aria-hidden="true">6.</strong> Executores</a></li><li class="chapter-item expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">7.</strong> Sockets</a></li><li class="chapter-item expanded "><a href="../cpp-asio/strand.html"><strong aria-hidden="true">8.</strong> Strands</a></li><li class="chapter-item expanded "><a href="../cpp-asio/coroutine.html"><strong aria-hidden="true">9.</strong> Corrotinas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">10.</strong> Endpoint</a></li><li class="chapter-item expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">11.</strong> DNS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">12.</strong> Erros e exceções</a></li><li class="chapter-item expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">13.</strong> Conectar ao Servidor</a></li><li class="chapter-item expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">14.</strong> Accept-Connections</a></li><li class="chapter-item expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">15.</strong> Operações síncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">16.</strong> Operações assíncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/icmp-communication.html"><strong aria-hidden="true">17.</strong> Protocolo ICMP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/raw-communication.html"><strong aria-hidden="true">18.</strong> Protocolo RAW</a></li><li class="chapter-item expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">19.</strong> Protocolo UDP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/SSL-TLS.html"><strong aria-hidden="true">20.</strong> SSL/TLS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/serial.html"><strong aria-hidden="true">21.</strong> Serial</a></li><li class="chapter-item expanded "><a href="../cpp-asio/some-examples.html"><strong aria-hidden="true">22.</strong> Exemplos</a></li><li class="chapter-item expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">23.</strong> Conclusão</a></li></ol>
-            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li class="chapter-item expanded "><a href="../cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li class="chapter-item expanded "><a href="../cpp-asio/install-asio.html"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li class="chapter-item expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li class="chapter-item expanded "><a href="../cpp-asio/buffer.html"><strong aria-hidden="true">5.</strong> Buffers</a></li><li class="chapter-item expanded "><a href="../cpp-asio/executors.html" class="active"><strong aria-hidden="true">6.</strong> Executores</a></li><li class="chapter-item expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">7.</strong> Sockets</a></li><li class="chapter-item expanded "><a href="../cpp-asio/strand.html"><strong aria-hidden="true">8.</strong> Strands</a></li><li class="chapter-item expanded "><a href="../cpp-asio/coroutine.html"><strong aria-hidden="true">9.</strong> Corrotinas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">10.</strong> Endpoint</a></li><li class="chapter-item expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">11.</strong> DNS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">12.</strong> Erros e exceções</a></li><li class="chapter-item expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">13.</strong> Conectar ao Servidor</a></li><li class="chapter-item expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">14.</strong> Accept-Connections</a></li><li class="chapter-item expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">15.</strong> Operações síncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">16.</strong> Operações assíncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/icmp-communication.html"><strong aria-hidden="true">17.</strong> Protocolo ICMP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/raw-communication.html"><strong aria-hidden="true">18.</strong> Protocolo RAW</a></li><li class="chapter-item expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">19.</strong> Protocolo UDP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/SSL-TLS.html"><strong aria-hidden="true">20.</strong> SSL/TLS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/serial.html"><strong aria-hidden="true">21.</strong> Serial</a></li><li class="chapter-item expanded "><a href="../cpp-asio/some-examples.html"><strong aria-hidden="true">22.</strong> Exemplos</a></li><li class="chapter-item expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">23.</strong> Conclusão</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -101,28 +100,28 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
-                    </div>
+                                            </div>
 
                     <h1 class="menu-title">Programação de Redes</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                                <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-
+                                                                        
                     </div>
                 </div>
 
-                <div id="search-wrapper" class="hidden">
+                                <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
                         <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
@@ -132,9 +131,9 @@
                         </ul>
                     </div>
                 </div>
-
+                
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script>
+                <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -170,14 +169,16 @@ Em C++, um event loop pode ser implementado de várias maneiras diferentes, depe
 </ul>
 <p>Resumidamente, um executor pode ser usado em conjunto com um event loop para gerenciar a execução de tarefas que são disparadas por eventos. Por exemplo, se o event loop detecta um evento de entrada de usuário, ele pode adicionar uma tarefa ao executor para ser executada em uma thread separada, permitindo que a aplicação continue processando outros eventos enquanto a tarefa é executada. Isso pode ajudar a garantir que a aplicação responda de forma rápida e responsiva, mesmo quando há muitas tarefas a serem executadas.</p>
 <h3 id="surgimento-do-assunto-em-torno-do-c-stl"><a class="header" href="#surgimento-do-assunto-em-torno-do-c-stl">Surgimento do assunto em torno do C++ STL</a></h3>
-<p>Em 6 de julho de 2021, a proposta dos Executores foi atualizada com mais um bilhão de pontos. O novo documento, <a href="https://wg21.link/P2300">P2300</a>,
-oficialmente denominado <code>std::execution</code>, em comparação com The Unified Executor for C++, <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0443r14">P0443R14</a>,
-expõe mais sistematicamente as ideias de design dos Executors; dá mais instruções sobre implementação.
-A biblioteca Executors praticada pelo autor em seu tempo livre acaba de concluir o conteúdo do <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p1897r3.html">P1879R3</a>.</p>
-<p><code>Unified Executors</code> propõe que o namespace <code>std::execution</code> do C++ Standard Library que visa fornecer uma forma mais flexível e genérica de trabalhar com Executors. A proposta foi apresentada no Grupo de Trabalho 21 (WG21) do Comitê de Padrões do C++ como a Proposta de Padrão P1907R0.</p>
-<p>Atualmente, o namespace <code>std::execution</code> fornece vários tipos de Executors, como <code>std::execution::sequenced_policy</code> e <code>std::execution::parallel_policy</code>, que podem ser usados ​​para controlar como as tarefas são agendadas e executadas. No entanto, esses Executors são bastante rígidos e não permitem muita flexibilidade na customização da forma como as tarefas são agendadas e executadas.</p>
-<p>A proposta <code>Unified Executors</code> visa fornecer uma forma mais flexível de trabalhar com Executors, permitindo que os programadores criem seus próprios Executors personalizados de acordo com suas necessidades específicas. Isso seria feito através da introdução de novos tipos e funções no namespace <code>std::execution</code>, como <code>std::execution::uniform_invocable</code> e <code>std::execution::execute</code>, que permitiriam a criação de Executors personalizados de forma mais fácil e rápida.</p>
-<p>A proposta de universal executors ainda está em fase de discussão no Grupo de Trabalho 21 (WG21) e ainda não foi adotada como parte do C++ Standard. No entanto, se aprovada, ela pode ser uma adição importante ao C++ Standard</p>
+<p>A proposta <a href="https://wg21.link/P2300">P2300</a>, oficialmente denominada <code>std::execution</code>, introduz um modelo de programação assíncrona baseado em &quot;senders&quot; e &quot;receivers&quot; (remetentes e receptores). Ela foi projetada para ser uma alternativa genérica e componível aos callbacks e futures/promises.</p>
+<p><strong>Status atual:</strong> A proposta P2300 (<code>std::execution</code>) foi <strong>aceita para o C++26</strong> (aprovada em 2024). Ela representa um modelo diferente dos executores do Asio — baseado em sender/receiver em vez de callbacks diretos.</p>
+<p>O modelo sender/receiver de P2300 funciona assim:</p>
+<ul>
+<li>Um <strong>sender</strong> descreve um trabalho que ainda não foi iniciado</li>
+<li>Um <strong>receiver</strong> é o destino do resultado desse trabalho</li>
+<li>Um <strong>scheduler</strong> determina onde/quando o trabalho será executado</li>
+</ul>
+<p>Este modelo é diferente dos executores do Asio, mas as duas abordagens são complementares. O Asio continua sendo a escolha prática para programação de redes assíncronas em C++ hoje.</p>
+<p>A proposta anterior <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0443r14">P0443R14</a> (&quot;The Unified Executor for C++&quot;) foi o precursor do P2300 e influenciou muito o design atual.</p>
 <h3 id="por-quê-executores"><a class="header" href="#por-quê-executores">Por quê Executores?</a></h3>
 <p>C++ sempre careceu de infraestrutura de programação simultânea disponível, e a infraestrutura recém-introduzida desde C++11, bem como a melhoria de bibliotecas de terceiros, como boost e folly, têm mais ou menos problemas e certas limitações.</p>
 <h3 id="stdasync-não-é-assíncrono"><a class="header" href="#stdasync-não-é-assíncrono"><code>std::async</code> não é assíncrono</a></h3>
@@ -274,69 +275,85 @@ As classes <code>std::future</code> e <code>std::promise</code> fornecem um conj
 </ul>
 <p>Em geral, <code>asio::execution</code> é um conceito poderoso que permite especificar o contexto de execução no qual uma função ou um bloco de código deve ser executado e aproveitar os vários tipos de executores fornecidos por asio para controlar a execução do seu código.</p>
 <h3 id="asio-executores-em-comparação-com-outras-alternativas"><a class="header" href="#asio-executores-em-comparação-com-outras-alternativas">Asio executores em comparação com outras alternativas</a></h3>
-<h4 id="stdexecution"><a class="header" href="#stdexecution"><code>std::execution</code></a></h4>
-<p><code>std::execution</code> é um namespace do C++ Standard Library que fornece tipos e funções relacionados à execução de tarefas assíncronas. Ele foi introduzido no C++17 e ampliado no C++20 para fornecer uma interface padronizada para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução.</p>
-<p>O conceito de Executor é uma parte importante do namespace <code>std::execution</code>. Ele é um tipo de modelo de classe que define uma interface para a execução de tarefas assíncronas. Um Executor é responsável por agendar tarefas para serem executadas em um determinado ponto no tempo, permitindo que o código assíncrono seja escrito de forma mais simples e clara.</p>
-<p>O conceito de Executor é importante porque ele permite que você escreva código assíncrono de forma mais genérica, pois você pode usar a mesma interface para trabalhar com diferentes bibliotecas de tempo de execução sem precisar se preocupar com as diferenças entre elas. Isso torna o código mais portável e facilita a manutenção e a expansão do código no futuro.</p>
-<p>O namespace <code>std::execution</code> fornece vários tipos de Executor, como <code>std::execution::sequenced_policy</code> e <code>std::execution::parallel_policy</code>, que podem ser usados ​​para controlar como as tarefas são agendadas e executadas. Além disso, ele fornece funções como <code>std::execution::execute</code> e <code>std::execution::bulk_execute</code>, que podem ser usadas para executar tarefas de forma assíncrona de acordo com o Executor especificado.</p>
-<p>Em resumo, <code>std::execution</code> é um namespace do C++ Standard Library que fornece uma interface padronizada para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, enquanto que Asio é uma biblioteca de tempo de execução que oferece recursos para criar aplicações de rede de forma assíncrona. Asio pode ser usado com o namespace <code>std::execution</code>, mas também pode ser usado de forma independente. A escolha da biblioteca a ser usada depende das necessidades específicas de sua aplicação e de suas preferências de programação.</p>
+<h4 id="stdexecution-c26"><a class="header" href="#stdexecution-c26"><code>std::execution</code> (C++26)</a></h4>
+<p>O namespace <code>std::execution</code> (aprovado para C++26 via P2300) fornece um modelo de programação assíncrona baseado em sender/receiver. É diferente dos executores de política de execução do C++17 (<code>std::execution::sequenced_policy</code>, <code>std::execution::parallel_policy</code>) — esses últimos controlam apenas algoritmos paralelos como <code>std::sort</code>, não operações de rede.</p>
+<p>O modelo P2300 funciona com <code>schedulers</code>, <code>senders</code> e <code>receivers</code>:</p>
+<pre><code class="language-cpp">// Exemplo conceitual com std::execution (C++26 / implementações experimentais)
+// Nota: requer implementação como libunifex ou stdexec
+namespace ex = std::execution;
+
+auto result = ex::sync_wait(
+    ex::schedule(scheduler)
+    | ex::then([] { return 42; })
+);
+</code></pre>
+<blockquote>
+<p><strong>Importante:</strong> <code>std::execution::execute</code> <strong>não existe</strong> como função padrão neste modelo. O P2300 usa <code>ex::start()</code> e composição de senders. Não confundir com os executores do Asio, que têm API diferente.</p>
+</blockquote>
+<p>O Asio continua sendo a escolha prática para programação de redes assíncronas em C++, independente do P2300. As duas abordagens são complementares.</p>
 <h4 id="libunifex"><a class="header" href="#libunifex">Libunifex</a></h4>
 <p><a href="https://github.com/facebookexperimental/libunifex">Libunifex</a> e Asio são duas bibliotecas diferentes que são utilizadas para criar aplicações de redes de forma assíncrona em C++.</p>
 <p>ASIO é uma biblioteca de tempo de execução que oferece suporte para a comunicação assíncrona entre sistemas de computador. Ela é amplamente utilizada para a criação de aplicações de redes, como servidores de rede e clientes de rede. Asio fornece uma série de recursos, como sockets de rede, temporizadores e sinais de interrupção, que podem ser usados ​​para criar aplicações de rede de forma assíncrona.</p>
 <p>Por outro lado, Libunifex é uma biblioteca de executores para C++ que oferece uma interface uniforme para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, como Asio Standalone e Boost.ASIO. Ela permite que você escreva código assíncrono de forma mais portável, pois você pode usar a mesma interface para trabalhar com diferentes bibliotecas de tempo de execução sem precisar se preocupar com as diferenças entre elas.</p>
 <h4 id="cppcoro"><a class="header" href="#cppcoro">Cppcoro</a></h4>
-<p><a href="https://github.com/lewissbaker/cppcoro">Cppcoro</a> é uma alternativa a outras bibliotecas de tempo de execução para C++, como Asio e Libunifex, que também oferecem suporte para a programação assíncrona, porém com o uso de corrotinas ao invés de executores. Ela permite que você escreva código assíncrono de forma mais simples e clara, usando a sintaxe de corrotinas do C++20 STL.</p>
-<p>Cppcoro usa a funcionalidade de coroutinas introduzida no C++20 para permitir que você escreva código assíncrono de forma mais fácil e natural. Ele fornece uma série de funções e tipos de dados que permitem que você crie, gerencie e execute coroutinas de forma mais eficiente. Além disso, ele fornece suporte para a execução de coroutinas em paralelo, o que pode ser útil em aplicações de alta performance.</p>
-<p>Em resumo, Asio é uma biblioteca de tempo de execução que fornece recursos para criar aplicações de rede de forma assíncrona, enquanto que Libunifex é uma biblioteca de executores que oferece uma interface uniforme para trabalhar com diferentes bibliotecas de tempo de execução de forma mais portável.</p>
+<p><a href="https://github.com/lewissbaker/cppcoro">Cppcoro</a> foi uma biblioteca pioneira de corrotinas para C++ criada por Lewis Baker. Ela fornecia primitivas para escrever código assíncrono usando corrotinas do C++20.</p>
+<blockquote>
+<p><strong>Atenção:</strong> O cppcoro está <strong>largamente sem manutenção desde 2021</strong>. Não é recomendado para novos projetos. Alternativas ativas incluem:</p>
+<ul>
+<li><strong>Asio com <code>use_awaitable</code></strong> — a forma mais integrada para código de rede</li>
+<li><strong><a href="https://github.com/jbaldwin/libcoro">libcoro</a></strong> — biblioteca de corrotinas ativa</li>
+<li><strong><a href="https://github.com/facebookexperimental/libunifex">unifex</a></strong> — experimental, focada em P2300</li>
+</ul>
+</blockquote>
+<p>Em resumo, o Asio é a biblioteca mais completa e ativa para criar aplicações de rede assíncronas em C++, com suporte tanto a callbacks quanto a corrotinas C++20. O Libunifex é experimental e voltado à pesquisa do modelo sender/receiver do P2300.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../cpp-asio/buffer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                                    <a rel="prev" href="../cpp-asio/buffer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-
-                            <a rel="next" href="../cpp-asio/socket.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        
+                                                    <a rel="next" href="../cpp-asio/socket.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-
+                        
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../cpp-asio/buffer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                    <a rel="prev" href="../cpp-asio/buffer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-
-                    <a rel="next" href="../cpp-asio/socket.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                
+                                    <a rel="next" href="../cpp-asio/socket.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-            </nav>
+                            </nav>
 
         </div>
 
-
-
-
-        <script>
+        
+        
+        
+                <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-
-
-        <script src="../elasticlunr.min.js"></script>
-        <script src="../mark.min.js"></script>
-        <script src="../searcher.js"></script>
-
-        <script src="../clipboard.min.js"></script>
-        <script src="../highlight.js"></script>
-        <script src="../book.js"></script>
+        
+        
+                <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-
-
-    </div>
+        
+        
     </body>
 </html>

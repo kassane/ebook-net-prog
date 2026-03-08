@@ -4,43 +4,44 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Instalação do Asio - Programação de Redes</title>
-
+                
 
         <!-- Custom HTML head -->
         
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
+                <link rel="icon" href="../favicon.svg">
+                        <link rel="shortcut icon" href="../favicon.png">
+                <link rel="stylesheet" href="../css/variables.css">
         <link rel="stylesheet" href="../css/general.css">
         <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
-
+                <link rel="stylesheet" href="../css/print.css" media="print">
+        
         <!-- Fonts -->
         <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
-
+                <link rel="stylesheet" href="../fonts/fonts.css">
+        
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="../highlight.css">
         <link rel="stylesheet" href="../tomorrow-night.css">
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-
-    </head>
+        
+            </head>
     <body>
-    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script>
+        <script type="text/javascript">
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script>
+        <script type="text/javascript">
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,7 +57,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script>
+        <script type="text/javascript">
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -68,14 +69,12 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script>
+        <script type="text/javascript">
             var html = document.querySelector('html');
-            var sidebar = null;
+            var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
-            } else {
-                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -83,15 +82,15 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li class="chapter-item expanded "><a href="../cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li class="chapter-item expanded "><a href="../cpp-asio/install-asio.html" class="active"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li class="chapter-item expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li class="chapter-item expanded "><a href="../cpp-asio/buffer.html"><strong aria-hidden="true">5.</strong> Buffers</a></li><li class="chapter-item expanded "><a href="../cpp-asio/executors.html"><strong aria-hidden="true">6.</strong> Executores</a></li><li class="chapter-item expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">7.</strong> Sockets</a></li><li class="chapter-item expanded "><a href="../cpp-asio/strand.html"><strong aria-hidden="true">8.</strong> Strands</a></li><li class="chapter-item expanded "><a href="../cpp-asio/coroutine.html"><strong aria-hidden="true">9.</strong> Corrotinas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">10.</strong> Endpoint</a></li><li class="chapter-item expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">11.</strong> DNS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">12.</strong> Erros e exceções</a></li><li class="chapter-item expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">13.</strong> Conectar ao Servidor</a></li><li class="chapter-item expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">14.</strong> Accept-Connections</a></li><li class="chapter-item expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">15.</strong> Operações síncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">16.</strong> Operações assíncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/icmp-communication.html"><strong aria-hidden="true">17.</strong> Protocolo ICMP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/raw-communication.html"><strong aria-hidden="true">18.</strong> Protocolo RAW</a></li><li class="chapter-item expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">19.</strong> Protocolo UDP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/SSL-TLS.html"><strong aria-hidden="true">20.</strong> SSL/TLS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/serial.html"><strong aria-hidden="true">21.</strong> Serial</a></li><li class="chapter-item expanded "><a href="../cpp-asio/some-examples.html"><strong aria-hidden="true">22.</strong> Exemplos</a></li><li class="chapter-item expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">23.</strong> Conclusão</a></li></ol>
-            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../cpp-asio/intro.html"><strong aria-hidden="true">1.</strong> Introdução</a></li><li class="chapter-item expanded "><a href="../cpp-asio/concurrency.html"><strong aria-hidden="true">2.</strong> Concorrência  e Paralelismo</a></li><li class="chapter-item expanded "><a href="../cpp-asio/install-asio.html" class="active"><strong aria-hidden="true">3.</strong> Instalação do Asio</a></li><li class="chapter-item expanded "><a href="../cpp-asio/io_context.html"><strong aria-hidden="true">4.</strong> io_context</a></li><li class="chapter-item expanded "><a href="../cpp-asio/buffer.html"><strong aria-hidden="true">5.</strong> Buffers</a></li><li class="chapter-item expanded "><a href="../cpp-asio/executors.html"><strong aria-hidden="true">6.</strong> Executores</a></li><li class="chapter-item expanded "><a href="../cpp-asio/socket.html"><strong aria-hidden="true">7.</strong> Sockets</a></li><li class="chapter-item expanded "><a href="../cpp-asio/strand.html"><strong aria-hidden="true">8.</strong> Strands</a></li><li class="chapter-item expanded "><a href="../cpp-asio/coroutine.html"><strong aria-hidden="true">9.</strong> Corrotinas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/endpoint.html"><strong aria-hidden="true">10.</strong> Endpoint</a></li><li class="chapter-item expanded "><a href="../cpp-asio/dns-query.html"><strong aria-hidden="true">11.</strong> DNS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/throw-exception.html"><strong aria-hidden="true">12.</strong> Erros e exceções</a></li><li class="chapter-item expanded "><a href="../cpp-asio/connect-server.html"><strong aria-hidden="true">13.</strong> Conectar ao Servidor</a></li><li class="chapter-item expanded "><a href="../cpp-asio/accept-connections.html"><strong aria-hidden="true">14.</strong> Accept-Connections</a></li><li class="chapter-item expanded "><a href="../cpp-asio/synchronous-read-write-operations.html"><strong aria-hidden="true">15.</strong> Operações síncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/asynchronous-read-write-operations.html"><strong aria-hidden="true">16.</strong> Operações assíncronas</a></li><li class="chapter-item expanded "><a href="../cpp-asio/icmp-communication.html"><strong aria-hidden="true">17.</strong> Protocolo ICMP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/raw-communication.html"><strong aria-hidden="true">18.</strong> Protocolo RAW</a></li><li class="chapter-item expanded "><a href="../cpp-asio/udp-communication.html"><strong aria-hidden="true">19.</strong> Protocolo UDP</a></li><li class="chapter-item expanded "><a href="../cpp-asio/SSL-TLS.html"><strong aria-hidden="true">20.</strong> SSL/TLS</a></li><li class="chapter-item expanded "><a href="../cpp-asio/serial.html"><strong aria-hidden="true">21.</strong> Serial</a></li><li class="chapter-item expanded "><a href="../cpp-asio/some-examples.html"><strong aria-hidden="true">22.</strong> Exemplos</a></li><li class="chapter-item expanded "><a href="../cpp-asio/the-end.html"><strong aria-hidden="true">23.</strong> Conclusão</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -101,28 +100,28 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
-                    </div>
+                                            </div>
 
                     <h1 class="menu-title">Programação de Redes</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                                                <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-
+                                                                        
                     </div>
                 </div>
 
-                <div id="search-wrapper" class="hidden">
+                                <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
                         <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
@@ -132,9 +131,9 @@
                         </ul>
                     </div>
                 </div>
-
+                
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script>
+                <script type="text/javascript">
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -145,132 +144,169 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="instalando-asio"><a class="header" href="#instalando-asio">Instalando Asio</a></h1>
-<p>Inicialmente existe duas versões disponíveis para download:</p>
+<p>Existem duas versões principais disponíveis:</p>
 <ul>
 <li>
-<p><a href="https://think-async.com/Asio">Asio Standalone</a> (sem boost) - <strong>Recomendação:</strong> C++11[<code>std::system_error</code>] ou posterior;</p>
+<p><strong><a href="https://think-async.com/Asio">Asio Standalone</a></strong> (sem Boost) — Versão mais recente: <strong>1.38.0</strong> (dez/2025). Requer C++11 ou posterior. <strong>Recomendado</strong> para projetos novos que não dependem do Boost.</p>
 </li>
 <li>
-<p><a href="https://www.boost.org">Boost Asio</a> (normalmente mais utilizado).</p>
+<p><strong><a href="https://www.boost.org">Boost.Asio</a></strong> — Faz parte do ecossistema Boost. Versão atual do Boost: <strong>1.87.0</strong> (2025). Mais comum em projetos que já usam Boost.</p>
 </li>
 <li>
-<p><a href="https://timsong-cpp.github.io/cppwp/networking-ts/">Networking-TS</a> - Baseado no asio/boost::asio, proposto pela ISO para standard library <code>std::net</code>.</p>
+<p><strong><a href="https://timsong-cpp.github.io/cppwp/networking-ts/">Networking-TS</a></strong> — Baseado no Asio/Boost.Asio, proposto para a biblioteca padrão como <code>std::net</code> (ainda em discussão no ISO).</p>
 </li>
 </ul>
-<p>Instalar Asio não é difícil. Pois ele possui apenas arquivos headers.</p>
-<p>Os exemplos abaixo citarão a instalação do <code>boost::asio</code>.</p>
-<h2 id="linux"><a class="header" href="#linux">Linux</a></h2>
-<p><code>Ubuntu</code>:</p>
-<pre><code>$ sudo apt-get install boost
+<p>O Asio é uma biblioteca <strong>header-only</strong> — não requer compilação prévia. Basta adicionar o diretório de headers ao seu projeto.</p>
+<hr />
+<h2 id="asio-standalone"><a class="header" href="#asio-standalone">Asio Standalone</a></h2>
+<h3 id="linux"><a class="header" href="#linux">Linux</a></h3>
+<p><strong>Ubuntu/Debian:</strong></p>
+<pre><code class="language-sh">sudo apt install libasio-dev
 </code></pre>
-<p><code>Arch Linux</code>:</p>
-<pre><code>$ sudo pacman -S boost
+<p><strong>Arch Linux:</strong></p>
+<pre><code class="language-sh">sudo pacman -S asio
 </code></pre>
-<p>No linux para compilar um programa, o parâmetro <code>-pthread</code> se faz necessário:</p>
-<pre><code>$ g++ client.cpp -o client -pthread -lboost_system
+<p>Para compilar sem Boost:</p>
+<pre><code class="language-sh">g++ -std=c++20 client.cpp -o client -pthread -DASIO_STANDALONE
 </code></pre>
-<h2 id="bsd"><a class="header" href="#bsd">BSD</a></h2>
-<p><code>OpenBSD</code>:</p>
-<pre><code>$ pkg_add boost
+<h3 id="macos"><a class="header" href="#macos">macOS</a></h3>
+<pre><code class="language-sh">brew install asio
 </code></pre>
-<p>Quando estiver compilando um programa, favor vincular as bibliotecas <code>boost</code>.</p>
-<p>Ex.:</p>
-<pre><code>$ c++ -L/usr/local/lib client.cpp -o client -lboost_system
+<h3 id="windows-vcpkg"><a class="header" href="#windows-vcpkg">Windows (vcpkg)</a></h3>
+<pre><code class="language-sh">vcpkg install asio
 </code></pre>
-<h2 id="windows"><a class="header" href="#windows">Windows</a></h2>
-<p>Se você utiliza MSVC, então poderá optar por diversas opções:</p>
-<ul>
-<li>
-<p>Baixar pré-compiladas: <a href="https://sourceforge.net/projects/boost/files/boost-binaries">Sourceforge</a></p>
-</li>
-<li>
-<p>Usar <a href="https://github.com/microsoft/vcpkg"><code>vcpkg</code></a> com o seguinte parâmetro, ex.:</p>
-<p>x86:</p>
-<pre><code>  vcpkg install boost:x86-windows
+<h3 id="cmake-com-fetchcontent-sem-boost-qualquer-plataforma"><a class="header" href="#cmake-com-fetchcontent-sem-boost-qualquer-plataforma">CMake com FetchContent (sem Boost, qualquer plataforma)</a></h3>
+<p>Esta é a forma recomendada para projetos CMake — garante sempre a versão correta:</p>
+<pre><code class="language-cmake">cmake_minimum_required(VERSION 3.14)
+project(meu_projeto)
+
+include(FetchContent)
+
+FetchContent_Declare(
+    asio
+    GIT_REPOSITORY https://github.com/chriskohlhoff/asio.git
+    GIT_TAG        asio-1-38-0
+    SOURCE_SUBDIR  asio
+)
+FetchContent_MakeAvailable(asio)
+
+add_executable(meu_programa main.cpp)
+target_include_directories(meu_programa PRIVATE ${asio_SOURCE_DIR}/asio/include)
+target_compile_definitions(meu_programa PRIVATE ASIO_STANDALONE)
+target_link_libraries(meu_programa PRIVATE pthread)
 </code></pre>
-<p>ou</p>
-<p>x64:</p>
-<pre><code>  vcpkg install boost:x64-windows
+<p>No código, use:</p>
+<pre><code class="language-cpp">#include &lt;asio.hpp&gt;          // Standalone Asio
+// em vez de:
+// #include &lt;boost/asio.hpp&gt; // Boost.Asio
 </code></pre>
-</li>
-<li>
-<p>Usar <a href="https://conan.io"><code>conan</code></a> (<strong>Requer:</strong> python) com o seguinte parâmetro, ex.:</p>
-<p>Versão [1.72]:</p>
-<pre><code>  conan install Boost/1.72.0@bincrafters/stable
+<hr />
+<h2 id="boostasio"><a class="header" href="#boostasio">Boost.Asio</a></h2>
+<h3 id="linux-1"><a class="header" href="#linux-1">Linux</a></h3>
+<p><strong>Ubuntu/Debian:</strong></p>
+<pre><code class="language-sh">sudo apt install libboost-dev
 </code></pre>
-<p><strong>Nota:</strong> Para que a instalação com conan funcione neste repositório precisará utilizar este comando antes:</p>
-<pre><code>  conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+<p><strong>Arch Linux:</strong></p>
+<pre><code class="language-sh">sudo pacman -S boost
 </code></pre>
-<p>Para compilar no Windows usando MSVC no prompt de comando use:</p>
-<pre><code>  cl /EHsc /I C:\Program Files\boost\boost_1_72_0 example.cpp /link /LIBPATH:C:\Program Files\boost\boost_1_72_0\lib
+<p>Para compilar:</p>
+<pre><code class="language-sh">g++ -std=c++20 client.cpp -o client -pthread -lboost_system
 </code></pre>
-</li>
-</ul>
-<p>Caso queira utilizar MinGW(Minimal GNU for Windows) terá duas opções:</p>
-<ul>
-<li>
-<p><a href="http://www.msys2.org">MSYS2</a>:</p>
-<p>x86:</p>
-<pre><code>  $ pacman -S mingw-w64-i386-boost
+<h3 id="bsd"><a class="header" href="#bsd">BSD</a></h3>
+<p><strong>OpenBSD:</strong></p>
+<pre><code class="language-sh">pkg_add boost
 </code></pre>
-<p>x86_64:</p>
-<pre><code>  $ pacman -S mingw-w64-x86_64-boost
+<p>Para compilar:</p>
+<pre><code class="language-sh">c++ -std=c++20 -L/usr/local/lib client.cpp -o client -lboost_system
 </code></pre>
-<p><strong>Nota:</strong> Por mais que parece ser um ambiente linux (minimalista), não requer uso do <code>sudo</code> na instalação</p>
-</li>
-<li>
-<p>Compilar manualmente seguindo a documentação boost: <a href="https://www.boost.org/doc/libs/1_72_0/more/getting_started/windows.html">Windows - Getting Start</a></p>
-</li>
-</ul>
+<h3 id="windows"><a class="header" href="#windows">Windows</a></h3>
+<p><strong>vcpkg</strong> (recomendado):</p>
+<pre><code class="language-sh"># x64
+vcpkg install boost-asio:x64-windows
+
+# x86
+vcpkg install boost-asio:x86-windows
+</code></pre>
+<p><strong>MinGW (MSYS2):</strong></p>
+<pre><code class="language-sh"># x86_64
+pacman -S mingw-w64-x86_64-boost
+
+# i686
+pacman -S mingw-w64-i686-boost
+</code></pre>
+<blockquote>
+<p><strong>Nota:</strong> O ambiente MSYS2 não requer <code>sudo</code> para instalação de pacotes.</p>
+</blockquote>
+<p><strong>Conan 2.x:</strong></p>
+<pre><code class="language-sh">conan install --requires=&quot;boost/1.87.0&quot; --build=missing
+</code></pre>
+<blockquote>
+<p><strong>Atenção:</strong> A sintaxe antiga <code>Boost/1.72.0@bincrafters/stable</code> pertence ao Conan 1.x e ao Bintray, que <strong>encerrou em maio de 2021</strong>. Use sempre a sintaxe do Conan 2.x mostrada acima.</p>
+</blockquote>
+<p><strong>MSVC (linha de comando):</strong></p>
+<pre><code class="language-sh">cl /EHsc /std:c++20 /I &quot;C:\path\to\boost&quot; example.cpp
+</code></pre>
+<hr />
+<h2 id="diferença-entre-standalone-e-boostasio"><a class="header" href="#diferença-entre-standalone-e-boostasio">Diferença entre Standalone e Boost.Asio</a></h2>
+<table><thead><tr><th>Aspecto</th><th>Asio Standalone</th><th>Boost.Asio</th></tr></thead><tbody>
+<tr><td>Dependência</td><td>Nenhuma</td><td>Boost</td></tr>
+<tr><td>Header principal</td><td><code>&lt;asio.hpp&gt;</code></td><td><code>&lt;boost/asio.hpp&gt;</code></td></tr>
+<tr><td>Namespace</td><td><code>asio::</code></td><td><code>boost::asio::</code></td></tr>
+<tr><td>Error codes</td><td><code>asio::error_code</code></td><td><code>boost::system::error_code</code></td></tr>
+<tr><td>Macro necessária</td><td><code>ASIO_STANDALONE</code></td><td>—</td></tr>
+<tr><td>Versão atual</td><td>1.38.0 (dez/2025)</td><td>Parte do Boost 1.87.0</td></tr>
+</tbody></table>
+<blockquote>
+<p><strong>Dica:</strong> As duas versões compartilham praticamente a mesma API. Migrar entre elas é simples: basta trocar os includes, o namespace e a macro de compilação.</p>
+</blockquote>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../cpp-asio/concurrency.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                                    <a rel="prev" href="../cpp-asio/concurrency.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-
-                            <a rel="next" href="../cpp-asio/io_context.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        
+                                                    <a rel="next" href="../cpp-asio/io_context.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-
+                        
                         <div style="clear: both"></div>
                     </nav>
                 </div>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../cpp-asio/concurrency.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                    <a rel="prev" href="../cpp-asio/concurrency.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-
-                    <a rel="next" href="../cpp-asio/io_context.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                
+                                    <a rel="next" href="../cpp-asio/io_context.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-            </nav>
+                            </nav>
 
         </div>
 
-
-
-
-        <script>
+        
+        
+        
+                <script type="text/javascript">
             window.playground_copyable = true;
         </script>
-
-
-        <script src="../elasticlunr.min.js"></script>
-        <script src="../mark.min.js"></script>
-        <script src="../searcher.js"></script>
-
-        <script src="../clipboard.min.js"></script>
-        <script src="../highlight.js"></script>
-        <script src="../book.js"></script>
+        
+        
+                <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
-
-
-    </div>
+        
+        
     </body>
 </html>
