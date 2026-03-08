@@ -2,97 +2,124 @@
 
 O Asio possui uma classe chamada `asio::io_context` que é usada para gerenciar operações de entrada e saída assíncronas em um programa de computador. Ela é usada para monitorar e gerenciar operações de entrada e saída em vários descritores de arquivo e sockets, permitindo que o programa seja notificado quando os dados estão disponíveis para leitura ou quando os dados podem ser escritos sem bloquear o processador.
 
-A `asio::io_context` é geralmente usada em conjunto com um objeto de work, que é responsável por manter o loop de eventos da `asio::io_context` rodando. O loop de eventos monitora os descritores de arquivo e sockets gerenciados pela `asio::io_context` e notifica o programa quando os dados estão disponíveis para leitura ou quando os dados podem ser escritos.
+A `asio::io_context` é geralmente usada em conjunto com um objeto `executor_work_guard`, que é responsável por manter o loop de eventos da `asio::io_context` rodando mesmo quando não há operações pendentes.
 
-O conceito é baseado na API de rede do `Unix`, o `Asio` também possui o conceito "socket", mas isso não é suficiente, um objeto `io_context` (a classe [`io_service`](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0112r0.html) está obsoleta agora) é necessário para se comunicar com os serviços da E/S do sistema operacional. A  imagem abaixo mostrará a estrutura da Arquitetura `Asio`:
+O conceito é baseado na API de rede do `Unix`. O `Asio` também possui o conceito "socket", mas isso não é suficiente: um objeto `io_context` é necessário para se comunicar com os serviços de E/S do sistema operacional.
 
-![image](https://raw.githubusercontent.com/kassane/Livro-Programacao-de-Redes/gh-pages/images/architecture.jpg) 
+> **Nota histórica:** A classe `io_service` foi o nome antigo de `io_context`. Ela foi renomeada e está **obsoleta** — use sempre `io_context` em código novo.
 
-`io_context` deriva de `execution_context`:  
+A imagem abaixo mostrará a estrutura da Arquitetura `Asio`:
 
-```cpp
-	class io_context
-	  : public execution_context
-	{
-	......
-	}
-```
-Enquanto `execution_context` deriva de `noncopyable`:  
+![image](https://raw.githubusercontent.com/kassane/Livro-Programacao-de-Redes/gh-pages/images/architecture.jpg)
+
+`io_context` deriva de `execution_context`:
 
 ```cpp
-	class execution_context
-	  : private noncopyable
-	{
-	......
-	}
+class io_context
+  : public execution_context
+{
+  ......
+}
 ```
 
-Observe a classe `noncopyable`:
+Enquanto `execution_context` deriva de `noncopyable`:
 
 ```cpp
-	class noncopyable
-	{
-	protected:
-	  noncopyable() {}
-	  ~noncopyable() {}
-	private:
-	  noncopyable(const noncopyable&);
-	  const noncopyable& operator=(const noncopyable&);
-	};
+class execution_context
+  : private noncopyable
+{
+  ......
+}
 ```
 
-Isso significa que o objeto `io_context` não pode ser utilizado como _copy constructed/copy assignment/move constructed/move assignment_. Portanto, durante a inicialização do socket, ou seja, associar o socket ao` io_context`, o `io_context` deve ser passado como referência.
+Isso significa que o objeto `io_context` não pode ser copiado. Portanto, durante a inicialização do socket, ou seja, associar o socket ao `io_context`, o `io_context` deve ser passado como referência.
 
 Ex.:
 
 ```cpp
-	template <typename Protocol
-	    BOOST_ASIO_SVC_TPARAM_DEF1(= datagram_socket_service<Protocol>)>
-	class basic_datagram_socket
-	  : public basic_socket<Protocol BOOST_ASIO_SVC_TARG>
-	{
-	public:
-	......
-	  explicit basic_datagram_socket(boost::asio::io_context& io_context)
-	    : basic_socket<Protocol BOOST_ASIO_SVC_TARG>(io_context)
-	  {
-	  }
-	......
-	}
+asio::io_context io_context;
+asio::ip::tcp::socket socket{io_context}; // io_context passado por referência
 ```
-Além de gerenciar operações de entrada e saída assíncronas, a `asio::io_context` também fornece uma série de outras funcionalidades úteis. Por exemplo, ela permite que o programa agende operações para serem executadas em um momento futuro, permitindo que o programa execute tarefas de forma assíncrona de acordo com um cronograma. Ela também permite que o programa cancele operações que estão em andamento, permitindo que o programa interrompa tarefas que não são mais necessárias.
 
-Outra funcionalidade útil da `asio::io_context` é a capacidade de escalonar operações em vários threads. Isso é útil em situações em que é necessário realizar várias operações de entrada e saída ao mesmo tempo e é importante aproveitar ao máximo o poder de processamento do computador. A `asio::io_context` pode ser configurada para escalonar operações em vários threads, permitindo que elas sejam executadas em paralelo e aproveitando ao máximo o poder de processamento do computador.
+Além de gerenciar operações de entrada e saída assíncronas, a `asio::io_context` também fornece uma série de outras funcionalidades úteis. Por exemplo, ela permite que o programa agende operações para serem executadas em um momento futuro, permitindo que o programa execute tarefas de forma assíncrona de acordo com um cronograma. Ela também permite que o programa cancele operações que estão em andamento.
 
-Em resumo, a `asio::io_context` é uma classe fundamental do Asio que é usada para gerenciar operações de entrada e saída assíncronas em um programa de computador. Ela monitora e gerencia descritores de arquivo e sockets, permitindo que o programa seja notificado quando os dados estão disponíveis para leitura ou quando os dados podem ser escritos sem bloquear o processador. Além disso, a `asio::io_context` fornece uma série de outras funcionalidades úteis, como agendamento de operações para serem executadas em um momento futuro, cancelamento de operações em andamento e escalonamento de operações em vários threads.
+A `asio::io_context` pode ser configurada para escalonar operações em vários threads, permitindo que elas sejam executadas em paralelo e aproveitando ao máximo o poder de processamento do computador:
+
+```cpp
+// Sugestão de concorrência para o io_context — pode otimizar internamente
+asio::io_context ctx{std::thread::hardware_concurrency()};
+```
 
 A seguir, estão descritas todas as funções comuns do `asio::io_context`:
 
-- `run`: A função run é usada para iniciar o loop de eventos do `asio::io_context`. Ela bloqueia o thread atual até que todas as operações agendadas tenham sido concluídas ou o `asio::io_context` seja interrompido.
+- `run`: Inicia o loop de eventos do `asio::io_context`. Bloqueia o thread atual até que todas as operações agendadas tenham sido concluídas ou o `io_context` seja interrompido.
 
-- `poll`: A função poll é similar à função run, mas não bloqueia o thread atual. Em vez disso, ela processa todas as operações pendentes no `asio::io_context` e retorna imediatamente.
+- `poll`: Similar à função `run`, mas não bloqueia o thread atual. Em vez disso, processa todas as operações prontas no `asio::io_context` e retorna imediatamente.
 
-- `run_one`: A função run_one é similar à função run, mas processa apenas uma operação pendente no `asio::io_context` antes de retornar.
+- `run_one`: Similar à função `run`, mas processa apenas uma operação pendente antes de retornar.
 
-- `stop`: A função stop é usada para interromper o loop de eventos do `asio::io_context`. Isso é útil em situações em que o programa precisa sair do loop de eventos antes que todas as operações pendentes tenham sido concluídas.
+- `poll_one`: Similar à função `poll`, mas processa apenas uma operação pronta antes de retornar.
 
-- `reset`: A função reset é usada para reiniciar o `asio::io_context`. Isso é útil em situações em que o programa precisa começar a processar operações pendentes novamente após ter sido interrompido.
+- `stop`: Interrompe o loop de eventos do `asio::io_context`. Útil quando o programa precisa sair antes que todas as operações pendentes sejam concluídas.
 
-- `poll_one`: A função poll_one é similar à função poll, mas processa apenas uma operação pendente no asio::io_context antes de retornar.
+- `restart`: Reinicia o `asio::io_context` após ter sido interrompido com `stop()`, permitindo que ele aceite novas operações. Deve ser chamado antes de uma nova chamada a `run()`.
 
-- `poll_one_at`: A função poll_one_at é similar à função poll_one, mas retorna após o tempo especificado, mesmo se não houver operações pendentes para processar.
+> **Atenção:** Em versões antigas do Asio, esta função se chamava `reset()`. O nome `reset()` está **depreciado** — use `restart()` em código novo.
 
-- `stopped`: A função stopped retorna true se o `asio::io_context` foi interrompido e false caso contrário.
+- `stopped`: Retorna `true` se o `asio::io_context` foi interrompido com `stop()`.
 
-- `get_executor`: A função get_executor retorna um objeto executor que pode ser usado para agendar operações para serem executadas no `asio::io_context`.
+- `get_executor`: Retorna um objeto executor que pode ser usado para agendar operações para serem executadas no `asio::io_context`.
 
-- `dispatch`: A função dispatch é usada para agendar uma operação para ser executada de forma síncrona no `asio::io_context`. Isso garante que a operação seja executada imediatamente, sem esperar por outras operações pendentes.
+### `asio::post` e `asio::dispatch`
 
-- `post`: A função post é usada para agendar uma operação para ser executada de forma assíncrona no `asio::io_context`. Isso permite que o programa continue rodando enquanto a operação é executada em segundo plano.
+Em versões modernas do Asio, as operações de agendamento são realizadas através de funções livres que recebem um executor como primeiro parâmetro:
 
-- `work`: Isso informa ao `asio::io_context` que há operações pendentes e garante que o loop de eventos continue rodando, mesmo quando não há operações pendentes.
+- `asio::post(executor, fn)`: Agenda a função `fn` para ser executada de forma assíncrona no contexto do executor. A função nunca é executada diretamente na chamada — sempre é enfileirada.
 
-- `work_guard`: A classe `asio::work_guard` é usada para gerenciar um objeto `asio::work` adicionado ao `asio::io_context`. Ela garante que o objeto `asio::work` não seja removido do `asio::io_context` enquanto o objeto asio::work_guard estiver em uso. Quando o objeto `asio::work_guard` é destruído, o objeto `asio::work` é removido do `asio::io_context` e o loop de eventos pode parar, se não houver mais operações pendentes para processar.
-Além de gerenciar o objeto `asio::work`, `asio::work_guard` também fornece uma série de outras funcionalidades úteis. Por exemplo, é possível usar a função reset para adicionar um novo objeto `asio::work` ao `asio::io_context`, mesmo se o objeto asio::work_guard já estiver gerenciando um objeto `asio::work`. Além disso, é possível usar a função get_executor para obter um objeto executor que pode ser usado para agendar operações para serem executadas no `asio::io_context`.
+- `asio::dispatch(executor, fn)`: Agenda a função `fn` para ser executada no contexto do executor. Se o chamador já estiver dentro do contexto do executor, a função pode ser executada imediatamente (in-line).
 
-Em resumo, `asio::work_guard` é uma classe do Asio que é usada para gerenciar um objeto `asio::work` adicionado ao `asio::io_context`. Ela garante que o objeto `asio::work` não seja removido do `asio::io_context` enquanto o objeto `asio::work_guard` estiver em uso, garantindo assim que o loop de eventos continue rodando, mesmo quando não há operações pendentes para processar. Além disso, a `asio::work_guard` fornece uma série de outras funcionalidades úteis, como a possibilidade de adicionar um novo objeto `asio::work` ao `asio::io_context` e de obter um objeto executor para agendar operações para serem executadas no `asio::io_context`. `asio::work_guard` é especialmente útil em situações em que o programa precisa garantir que o asio::io_context continue rodando por um período prolongado de tempo, mesmo quando não há operações pendentes para processar. Isso é comum em programas que usam o Asio para implementar serviços de rede, como servidores web ou servidores de banco de dados.
+```cpp
+asio::io_context ctx;
+
+// Agenda uma tarefa para execução assíncrona
+asio::post(ctx, [] {
+    std::cout << "Executando de forma assíncrona\n";
+});
+
+ctx.run();
+```
+
+> **Atenção:** As formas antigas `io_context.post(fn)` e `io_context.dispatch(fn)` estão **depreciadas**. Use `asio::post(ctx, fn)` e `asio::dispatch(ctx, fn)`.
+
+### `executor_work_guard`
+
+A classe `asio::executor_work_guard` é usada para manter o loop de eventos da `asio::io_context` rodando mesmo quando não há operações pendentes. Isso é essencial quando você quer que a thread do `io_context` continue viva aguardando trabalho futuro (por exemplo, em um servidor que usa múltiplas threads).
+
+```cpp
+#include <asio.hpp>
+#include <thread>
+#include <iostream>
+
+int main()
+{
+    asio::io_context ctx;
+
+    // Mantém o io_context vivo mesmo sem operações pendentes
+    auto guard = asio::make_work_guard(ctx);
+
+    std::thread worker([&ctx] {
+        ctx.run(); // bloqueia aqui até o guard ser liberado
+    });
+
+    // Faz algum trabalho...
+    asio::post(ctx, [] { std::cout << "Tarefa executada!\n"; });
+
+    // Libera o guard para permitir que ctx.run() retorne
+    guard.reset();
+    worker.join();
+
+    return 0;
+}
+```
+
+> **Atenção:** A classe `asio::io_context::work` e a macro-based work guard estão **depreciadas**. Use `asio::make_work_guard(ctx)` que retorna um `executor_work_guard<io_context::executor_type>`.

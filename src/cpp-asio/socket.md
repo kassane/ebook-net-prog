@@ -55,39 +55,27 @@ Todos esses `4` sockets derivam da classe `basic_socket` e precisam ser associad
 		boost::asio::ip::tcp::socket socket{io_context};
 ```
 
-Observe que o `io_context` deve ser uma referência no construtor do` socket` (consulte [io_context](cpp-asio/io_context.md)). Ainda use `basic_socket` e uma instância, um de seus construtores é o seguinte:
+Observe que o `io_context` deve ser passado por referência no construtor do socket (consulte [io_context](cpp-asio/io_context.md)).
+
+Todos os sockets derivam de `basic_socket`, que requer um `io_context` na inicialização:
 
 ```cpp
-	  explicit basic_socket(boost::asio::io_context& io_context)
-	    : basic_io_object<BOOST_ASIO_SVC_T>(io_context)
-	  {
-	  }
+// Criação de socket TCP — io_context passado por referência
+asio::io_context io_context;
+asio::ip::tcp::socket socket{io_context};
 ```
 
-Para a classe `basic_io_object`, ele não suporta copy constructed/copy assignment:  
+Os sockets **não suportam cópia** (copy construction/copy assignment são deletados), mas **suportam move** (move construction/move assignment). Por isso, ao transferi-los entre funções, use `std::move`:
 
 ```cpp
-	......
-	private:
-	  basic_io_object(const basic_io_object&);
-	  void operator=(const basic_io_object&);
-	......
+// Correto: transferir ownership com move
+asio::ip::tcp::socket outro_socket = std::move(socket);
+
+// Incorreto: sockets não podem ser copiados
+// asio::ip::tcp::socket copia = socket; // erro de compilação
 ```
 
-mas suporta move constructed/move assignment:  
-
-```cpp	
-	......
-	protected:  
-	  basic_io_object(basic_io_object&& other)
-	  {
-	    ......
-	  }
-	  basic_io_object& operator=(basic_io_object&& other)
-	  {
-	    ......
-	  }
-```
+Isso garante que apenas um objeto possui o descritor de arquivo subjacente por vez, evitando problemas de gerenciamento de recursos.
 
 Além das funções de leitura e escrita assíncronas, a `asio::basic_stream_socket` também oferece uma série de outras funcionalidades úteis. Por exemplo, ela permite que o programa configure opções de socket, como o timeout de leitura e escrita, o tamanho do buffer de leitura e escrita e o uso de Keepalives. Ela também permite que o programa obtenha informações sobre o socket, como o endereço local e remoto, o estado da conexão e o número de bytes enviados e recebidos.
 

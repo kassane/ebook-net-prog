@@ -16,7 +16,7 @@ O cliente pode usar os endpoints retornados por [DNS](dns-query.md) para conecta
 	        boost::asio::ip::tcp::resolver::results_type endpoints =
 	                resolver.resolve("google.com", "https");
 	
-	        boost::asio::ip::tcp::tcp::socket socket{io_context};
+	        boost::asio::ip::tcp::socket socket{io_context};
 	        auto endpoint = boost::asio::connect(socket, endpoints);
 	
 	        std::cout << "Connect to " << endpoint << " successfully!\n";
@@ -50,7 +50,7 @@ Observe que o `boost::asio::connect` requer o iterador de endpoints. Se você qu
 	        boost::asio::ip::tcp::resolver::results_type endpoints =
 	                resolver.resolve("google.com", "https");
 	
-	        boost::asio::ip::tcp::tcp::socket socket{io_context};
+	        boost::asio::ip::tcp::socket socket{io_context};
 	        auto eit = endpoints.cbegin();
 	        for (; eit != endpoints.cend(); eit++)
 	        {

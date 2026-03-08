@@ -70,6 +70,8 @@ int main(int argc, char *argv[]) {
 
 ## DNS resolver (ShowMeIP)
 
+> **Nota:** A classe `asio::ip::tcp::resolver::query` foi depreciada no Asio moderno. Use `resolver.resolve(host, serviço)` diretamente.
+
 ```c++
 #include <iostream>
 #include <string>
@@ -86,12 +88,13 @@ int main(int argc, char* argv[])
     // Descobrir o endereço IP por baixo do link mencionado no argv[1]
     asio::io_context io_context;
     asio::ip::tcp::resolver resolver(io_context);
-    asio::ip::tcp::resolver::query query(argv[1], "");
-    auto results = resolver.resolve(query);
+
+    // Uso moderno: resolve(host, serviço) - resolver::query está depreciado
+    auto results = resolver.resolve(argv[1], "");
 
     // Iterar todos os IPs detectados e exibi-los na tela.
     std::cout << "IP addresses for " << argv[1] << ":" << std::endl << std::endl;
-    for (auto result : results) {
+    for (const auto& result : results) {
         std::cout << "  " << result.endpoint().address().to_string() << std::endl;
     }
 
@@ -447,10 +450,10 @@ int main(int argc, char *argv[]) {
     boost::asio::io_context io_context;
 
     // Cria um objeto boost::asio::ip::tcp::acceptor
-    tcp::acceptor acceptor(io_service, tcp::endpoint(tcp::v4(), 1234));
+    tcp::acceptor acceptor(io_context, tcp::endpoint(tcp::v4(), 1234));
 
     // Aguarda uma conexão do cliente
-    tcp::socket socket(io_service);
+    tcp::socket socket(io_context);
     acceptor.accept(socket);
 
     // Recebe a chave pública efêmera local do cliente

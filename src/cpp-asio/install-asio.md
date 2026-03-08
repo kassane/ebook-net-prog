@@ -1,87 +1,170 @@
 # Instalando Asio
 
-Inicialmente existe duas versões disponíveis para download:
+Existem duas versões principais disponíveis:
 
-- [Asio Standalone](https://think-async.com/Asio) (sem boost) - **Recomendação:** C++11[`std::system_error`] ou posterior;
+- **[Asio Standalone](https://think-async.com/Asio)** (sem Boost) — Versão mais recente: **1.38.0** (dez/2025). Requer C++11 ou posterior. **Recomendado** para projetos novos que não dependem do Boost.
 
-- [Boost Asio](https://www.boost.org) (normalmente mais utilizado).
+- **[Boost.Asio](https://www.boost.org)** — Faz parte do ecossistema Boost. Versão atual do Boost: **1.87.0** (2025). Mais comum em projetos que já usam Boost.
 
-- [Networking-TS](https://timsong-cpp.github.io/cppwp/networking-ts/) - Baseado no asio/boost::asio, proposto pela ISO para standard library `std::net`.
+- **[Networking-TS](https://timsong-cpp.github.io/cppwp/networking-ts/)** — Baseado no Asio/Boost.Asio, proposto para a biblioteca padrão como `std::net` (ainda em discussão no ISO).
 
-Instalar Asio não é difícil. Pois ele possui apenas arquivos headers.
+O Asio é uma biblioteca **header-only** — não requer compilação prévia. Basta adicionar o diretório de headers ao seu projeto.
 
-Os exemplos abaixo citarão a instalação do `boost::asio`.
+---
 
-## Linux
+## Asio Standalone
 
-`Ubuntu`:
+### Linux
 
-	$ sudo apt-get install boost
+**Ubuntu/Debian:**
 
-`Arch Linux`:
+```sh
+sudo apt install libasio-dev
+```
 
-	$ sudo pacman -S boost
+**Arch Linux:**
 
-No linux para compilar um programa, o parâmetro `-pthread` se faz necessário:
+```sh
+sudo pacman -S asio
+```
 
-	$ g++ client.cpp -o client -pthread -lboost_system
+Para compilar sem Boost:
 
-## BSD
+```sh
+g++ -std=c++20 client.cpp -o client -pthread -DASIO_STANDALONE
+```
 
-`OpenBSD`:
+### macOS
 
-	$ pkg_add boost
+```sh
+brew install asio
+```
 
-Quando estiver compilando um programa, favor vincular as bibliotecas `boost`.
+### Windows (vcpkg)
 
-Ex.:
+```sh
+vcpkg install asio
+```
 
-	$ c++ -L/usr/local/lib client.cpp -o client -lboost_system
+### CMake com FetchContent (sem Boost, qualquer plataforma)
 
-## Windows
+Esta é a forma recomendada para projetos CMake — garante sempre a versão correta:
 
-Se você utiliza MSVC, então poderá optar por diversas opções:
+```cmake
+cmake_minimum_required(VERSION 3.14)
+project(meu_projeto)
 
-* Baixar pré-compiladas: [Sourceforge](https://sourceforge.net/projects/boost/files/boost-binaries)
+include(FetchContent)
 
-* Usar [`vcpkg`](https://github.com/microsoft/vcpkg) com o seguinte parâmetro, ex.:
-	
-	x86:
+FetchContent_Declare(
+    asio
+    GIT_REPOSITORY https://github.com/chriskohlhoff/asio.git
+    GIT_TAG        asio-1-38-0
+    SOURCE_SUBDIR  asio
+)
+FetchContent_MakeAvailable(asio)
 
-		vcpkg install boost:x86-windows
+add_executable(meu_programa main.cpp)
+target_include_directories(meu_programa PRIVATE ${asio_SOURCE_DIR}/asio/include)
+target_compile_definitions(meu_programa PRIVATE ASIO_STANDALONE)
+target_link_libraries(meu_programa PRIVATE pthread)
+```
 
-	ou
-	
-	x64:
-	
-		vcpkg install boost:x64-windows
+No código, use:
 
-* Usar [`conan`](https://conan.io) (**Requer:** python) com o seguinte parâmetro, ex.:
+```cpp
+#include <asio.hpp>          // Standalone Asio
+// em vez de:
+// #include <boost/asio.hpp> // Boost.Asio
+```
 
-	Versão [1.72]:
+---
 
-		conan install Boost/1.72.0@bincrafters/stable
+## Boost.Asio
 
-	**Nota:** Para que a instalação com conan funcione neste repositório precisará utilizar este comando antes:
+### Linux
 
-		conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+**Ubuntu/Debian:**
 
-	Para compilar no Windows usando MSVC no prompt de comando use:
+```sh
+sudo apt install libboost-dev
+```
 
-		cl /EHsc /I C:\Program Files\boost\boost_1_72_0 example.cpp /link /LIBPATH:C:\Program Files\boost\boost_1_72_0\lib
+**Arch Linux:**
 
-Caso queira utilizar MinGW(Minimal GNU for Windows) terá duas opções:
+```sh
+sudo pacman -S boost
+```
 
-* [MSYS2](http://www.msys2.org):
+Para compilar:
 
-	x86:
+```sh
+g++ -std=c++20 client.cpp -o client -pthread -lboost_system
+```
 
-		$ pacman -S mingw-w64-i386-boost
+### BSD
 
-	x86_64:
+**OpenBSD:**
 
-		$ pacman -S mingw-w64-x86_64-boost
+```sh
+pkg_add boost
+```
 
-	**Nota:** Por mais que parece ser um ambiente linux (minimalista), não requer uso do `sudo` na instalação
+Para compilar:
 
-* Compilar manualmente seguindo a documentação boost: [Windows - Getting Start](https://www.boost.org/doc/libs/1_72_0/more/getting_started/windows.html)
+```sh
+c++ -std=c++20 -L/usr/local/lib client.cpp -o client -lboost_system
+```
+
+### Windows
+
+**vcpkg** (recomendado):
+
+```sh
+# x64
+vcpkg install boost-asio:x64-windows
+
+# x86
+vcpkg install boost-asio:x86-windows
+```
+
+**MinGW (MSYS2):**
+
+```sh
+# x86_64
+pacman -S mingw-w64-x86_64-boost
+
+# i686
+pacman -S mingw-w64-i686-boost
+```
+
+> **Nota:** O ambiente MSYS2 não requer `sudo` para instalação de pacotes.
+
+**Conan 2.x:**
+
+```sh
+conan install --requires="boost/1.87.0" --build=missing
+```
+
+> **Atenção:** A sintaxe antiga `Boost/1.72.0@bincrafters/stable` pertence ao Conan 1.x e ao Bintray, que **encerrou em maio de 2021**. Use sempre a sintaxe do Conan 2.x mostrada acima.
+
+**MSVC (linha de comando):**
+
+```sh
+cl /EHsc /std:c++20 /I "C:\path\to\boost" example.cpp
+```
+
+---
+
+## Diferença entre Standalone e Boost.Asio
+
+| Aspecto | Asio Standalone | Boost.Asio |
+|---|---|---|
+| Dependência | Nenhuma | Boost |
+| Header principal | `<asio.hpp>` | `<boost/asio.hpp>` |
+| Namespace | `asio::` | `boost::asio::` |
+| Error codes | `asio::error_code` | `boost::system::error_code` |
+| Macro necessária | `ASIO_STANDALONE` | — |
+| Versão atual | 1.38.0 (dez/2025) | Parte do Boost 1.87.0 |
+
+> **Dica:** As duas versões compartilham praticamente a mesma API. Migrar entre elas é simples: basta trocar os includes, o namespace e a macro de compilação.

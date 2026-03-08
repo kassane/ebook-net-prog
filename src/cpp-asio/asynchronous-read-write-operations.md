@@ -1,33 +1,27 @@
 # Operações Assíncronas E/S
 
-Diferentemente da API sockets do `UNIX`, o` Asio` possui habilidades de leitura & gravação(read/write) assíncronas inclusas. Ainda pode usar `basic_stream_socket` como exemplo, e um par de implementações assim:
+Diferentemente da API sockets do `UNIX`, o Asio possui habilidades de leitura & gravação (read/write) assíncronas inclusas. Usando `basic_stream_socket` como exemplo, as assinaturas públicas das funções assíncronas são:
 
 ```cpp
-	template <typename ConstBufferSequence, typename WriteHandler>
-	  BOOST_ASIO_INITFN_RESULT_TYPE(WriteHandler,
-	      void (boost::system::error_code, std::size_t))
-	  async_send(const ConstBufferSequence& buffers,
-	      BOOST_ASIO_MOVE_ARG(WriteHandler) handler)
-	{
-		.......
-	}
-	template <typename MutableBufferSequence, typename ReadHandler>
-	  BOOST_ASIO_INITFN_RESULT_TYPE(ReadHandler,
-	      void (boost::system::error_code, std::size_t))
-	  async_receive(const MutableBufferSequence& buffers,
-	      BOOST_ASIO_MOVE_ARG(ReadHandler) handler)
-	{
-		.......
-	}
+// Envio assíncrono — retorna imediatamente, handler chamado ao completar
+template <typename ConstBufferSequence, typename WriteHandler>
+void async_send(const ConstBufferSequence& buffers, WriteHandler&& handler);
+
+// Recebimento assíncrono — retorna imediatamente, handler chamado ao completar
+template <typename MutableBufferSequence, typename ReadHandler>
+void async_receive(const MutableBufferSequence& buffers, ReadHandler&& handler);
 ```
-Como as funções `async_send` e `async_receive` retornam imediatamente, e não bloqueiam a thread atual, você deve passar uma função de retorno de chamada como o parâmetro que recebe o resultado das operações de leitura & gravação:
+
+Como as funções `async_send` e `async_receive` retornam imediatamente e não bloqueiam a thread atual, você deve passar uma função de retorno de chamada (callback) ou completion token como parâmetro. O callback recebe o resultado das operações:
 
 ```cpp
-	void handler(
-		const boost::system::error_code& error, // Result of operation.
-		std::size_t bytes_transferred           // Number of bytes processed.
-	)
+void handler(
+    const asio::error_code& error,  // resultado da operação
+    std::size_t bytes_transferred   // bytes processados
+)
 ```
+
+> **Dica:** Em código moderno, prefira lambdas a `std::bind` para callbacks — o código fica mais legível e o compilador pode otimizar melhor.
 
 Há um exemplo simples de cliente/servidor. Abaixo está o código do cliente:  
 
@@ -78,7 +72,7 @@ Há um exemplo simples de cliente/servidor. Abaixo está o código do cliente:
 	        socket->async_send(
 	                boost::asio::buffer(str),
 	                std::bind(callback, std::placeholders::_1, std::placeholders::_2, socket, str));
-	        socket->get_executor().context().run();
+	        io_context.run();
 	    }
 	    catch (std::exception& e)
 	    {
@@ -174,8 +168,8 @@ Verifique o código do servidor que usa `async_receive`:
 	            socket.async_receive(
 	                    boost::asio::buffer(recv_str),
 	                    std::bind(callback, std::placeholders::_1, std::placeholders::_2, recv_str));
-	            socket.get_executor().context().run();
-	            socket.get_executor().context().restart();
+	            io_context.run();
+	            io_context.restart();
 	        }
 	    }
 	    catch (std::exception& e)

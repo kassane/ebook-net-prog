@@ -21,18 +21,18 @@ Resumidamente, um executor pode ser usado em conjunto com um event loop para ger
 
 ### Surgimento do assunto em torno do C++ STL
 
-Em 6 de julho de 2021, a proposta dos Executores foi atualizada com mais um bilhão de pontos. O novo documento, [P2300](https://wg21.link/P2300),
-oficialmente denominado `std::execution`, em comparação com The Unified Executor for C++, [P0443R14](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0443r14),
-expõe mais sistematicamente as ideias de design dos Executors; dá mais instruções sobre implementação.
-A biblioteca Executors praticada pelo autor em seu tempo livre acaba de concluir o conteúdo do [P1879R3](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p1897r3.html).
+A proposta [P2300](https://wg21.link/P2300), oficialmente denominada `std::execution`, introduz um modelo de programação assíncrona baseado em "senders" e "receivers" (remetentes e receptores). Ela foi projetada para ser uma alternativa genérica e componível aos callbacks e futures/promises.
 
-`Unified Executors` propõe que o namespace `std::execution` do C++ Standard Library que visa fornecer uma forma mais flexível e genérica de trabalhar com Executors. A proposta foi apresentada no Grupo de Trabalho 21 (WG21) do Comitê de Padrões do C++ como a Proposta de Padrão P1907R0.
+**Status atual:** A proposta P2300 (`std::execution`) foi **aceita para o C++26** (aprovada em 2024). Ela representa um modelo diferente dos executores do Asio — baseado em sender/receiver em vez de callbacks diretos.
 
-Atualmente, o namespace `std::execution` fornece vários tipos de Executors, como `std::execution::sequenced_policy` e `std::execution::parallel_policy`, que podem ser usados ​​para controlar como as tarefas são agendadas e executadas. No entanto, esses Executors são bastante rígidos e não permitem muita flexibilidade na customização da forma como as tarefas são agendadas e executadas.
+O modelo sender/receiver de P2300 funciona assim:
+- Um **sender** descreve um trabalho que ainda não foi iniciado
+- Um **receiver** é o destino do resultado desse trabalho
+- Um **scheduler** determina onde/quando o trabalho será executado
 
-A proposta `Unified Executors` visa fornecer uma forma mais flexível de trabalhar com Executors, permitindo que os programadores criem seus próprios Executors personalizados de acordo com suas necessidades específicas. Isso seria feito através da introdução de novos tipos e funções no namespace `std::execution`, como `std::execution::uniform_invocable` e `std::execution::execute`, que permitiriam a criação de Executors personalizados de forma mais fácil e rápida.
+Este modelo é diferente dos executores do Asio, mas as duas abordagens são complementares. O Asio continua sendo a escolha prática para programação de redes assíncronas em C++ hoje.
 
-A proposta de universal executors ainda está em fase de discussão no Grupo de Trabalho 21 (WG21) e ainda não foi adotada como parte do C++ Standard. No entanto, se aprovada, ela pode ser uma adição importante ao C++ Standard
+A proposta anterior [P0443R14](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/p0443r14) ("The Unified Executor for C++") foi o precursor do P2300 e influenciou muito o design atual.
 
 ### Por quê Executores?
 
@@ -155,18 +155,26 @@ Em geral, `asio::execution` é um conceito poderoso que permite especificar o co
 ### Asio executores em comparação com outras alternativas
 
 
-#### `std::execution`
+#### `std::execution` (C++26)
 
+O namespace `std::execution` (aprovado para C++26 via P2300) fornece um modelo de programação assíncrona baseado em sender/receiver. É diferente dos executores de política de execução do C++17 (`std::execution::sequenced_policy`, `std::execution::parallel_policy`) — esses últimos controlam apenas algoritmos paralelos como `std::sort`, não operações de rede.
 
-`std::execution` é um namespace do C++ Standard Library que fornece tipos e funções relacionados à execução de tarefas assíncronas. Ele foi introduzido no C++17 e ampliado no C++20 para fornecer uma interface padronizada para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução.
+O modelo P2300 funciona com `schedulers`, `senders` e `receivers`:
 
-O conceito de Executor é uma parte importante do namespace `std::execution`. Ele é um tipo de modelo de classe que define uma interface para a execução de tarefas assíncronas. Um Executor é responsável por agendar tarefas para serem executadas em um determinado ponto no tempo, permitindo que o código assíncrono seja escrito de forma mais simples e clara.
+```cpp
+// Exemplo conceitual com std::execution (C++26 / implementações experimentais)
+// Nota: requer implementação como libunifex ou stdexec
+namespace ex = std::execution;
 
-O conceito de Executor é importante porque ele permite que você escreva código assíncrono de forma mais genérica, pois você pode usar a mesma interface para trabalhar com diferentes bibliotecas de tempo de execução sem precisar se preocupar com as diferenças entre elas. Isso torna o código mais portável e facilita a manutenção e a expansão do código no futuro.
+auto result = ex::sync_wait(
+    ex::schedule(scheduler)
+    | ex::then([] { return 42; })
+);
+```
 
-O namespace `std::execution` fornece vários tipos de Executor, como `std::execution::sequenced_policy` e `std::execution::parallel_policy`, que podem ser usados ​​para controlar como as tarefas são agendadas e executadas. Além disso, ele fornece funções como `std::execution::execute` e `std::execution::bulk_execute`, que podem ser usadas para executar tarefas de forma assíncrona de acordo com o Executor especificado.
+> **Importante:** `std::execution::execute` **não existe** como função padrão neste modelo. O P2300 usa `ex::start()` e composição de senders. Não confundir com os executores do Asio, que têm API diferente.
 
-Em resumo, `std::execution` é um namespace do C++ Standard Library que fornece uma interface padronizada para a execução de tarefas assíncronas em diferentes plataformas e bibliotecas de tempo de execução, enquanto que Asio é uma biblioteca de tempo de execução que oferece recursos para criar aplicações de rede de forma assíncrona. Asio pode ser usado com o namespace `std::execution`, mas também pode ser usado de forma independente. A escolha da biblioteca a ser usada depende das necessidades específicas de sua aplicação e de suas preferências de programação.
+O Asio continua sendo a escolha prática para programação de redes assíncronas em C++, independente do P2300. As duas abordagens são complementares.
 
 #### Libunifex
 
@@ -178,8 +186,11 @@ Por outro lado, Libunifex é uma biblioteca de executores para C++ que oferece u
 
 #### Cppcoro
 
-[Cppcoro](https://github.com/lewissbaker/cppcoro) é uma alternativa a outras bibliotecas de tempo de execução para C++, como Asio e Libunifex, que também oferecem suporte para a programação assíncrona, porém com o uso de corrotinas ao invés de executores. Ela permite que você escreva código assíncrono de forma mais simples e clara, usando a sintaxe de corrotinas do C++20 STL.
+[Cppcoro](https://github.com/lewissbaker/cppcoro) foi uma biblioteca pioneira de corrotinas para C++ criada por Lewis Baker. Ela fornecia primitivas para escrever código assíncrono usando corrotinas do C++20.
 
-Cppcoro usa a funcionalidade de coroutinas introduzida no C++20 para permitir que você escreva código assíncrono de forma mais fácil e natural. Ele fornece uma série de funções e tipos de dados que permitem que você crie, gerencie e execute coroutinas de forma mais eficiente. Além disso, ele fornece suporte para a execução de coroutinas em paralelo, o que pode ser útil em aplicações de alta performance.
+> **Atenção:** O cppcoro está **largamente sem manutenção desde 2021**. Não é recomendado para novos projetos. Alternativas ativas incluem:
+> - **Asio com `use_awaitable`** — a forma mais integrada para código de rede
+> - **[libcoro](https://github.com/jbaldwin/libcoro)** — biblioteca de corrotinas ativa
+> - **[unifex](https://github.com/facebookexperimental/libunifex)** — experimental, focada em P2300
 
-Em resumo, Asio é uma biblioteca de tempo de execução que fornece recursos para criar aplicações de rede de forma assíncrona, enquanto que Libunifex é uma biblioteca de executores que oferece uma interface uniforme para trabalhar com diferentes bibliotecas de tempo de execução de forma mais portável.
+Em resumo, o Asio é a biblioteca mais completa e ativa para criar aplicações de rede assíncronas em C++, com suporte tanto a callbacks quanto a corrotinas C++20. O Libunifex é experimental e voltado à pesquisa do modelo sender/receiver do P2300.
